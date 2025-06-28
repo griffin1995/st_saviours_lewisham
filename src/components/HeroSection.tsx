@@ -91,7 +91,7 @@ export default function HeroSection({
           
           {/* Premium texture overlay with subtle cream highlights */}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent z-20" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(248,245,242,0.08)_1px,transparent_1px)] bg-[length:24px_24px] z-25" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(248,245,242,0.18)_1px,transparent_1px)] bg-[length:24px_24px] z-25" />
         </motion.div>
       ))}
 
