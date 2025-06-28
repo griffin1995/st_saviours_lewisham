@@ -82,7 +82,7 @@ export default function AboutUs() {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/50 to-navy-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-900/70" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(248,245,242,0.1)_1px,transparent_1px)] bg-[length:24px_24px]" />
         
         <div className="relative z-10 flex items-center justify-center h-full">
@@ -127,7 +127,7 @@ export default function AboutUs() {
                 <div className="w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <stat.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-3xl lg:text-4xl font-bold text-navy-900 mb-2">{stat.number}</div>
+                <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </motion.div>
             ))}
@@ -149,7 +149,7 @@ export default function AboutUs() {
               <Cross className="h-10 w-10 text-white" />
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900 mb-8">
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-slate-900 mb-8">
               Our Mission
             </h2>
             
@@ -172,7 +172,7 @@ export default function AboutUs() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-slate-900 mb-6">
               Our Values
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -194,7 +194,7 @@ export default function AboutUs() {
                   <div className={`w-20 h-20 bg-gradient-to-br ${value.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <value.icon className="h-10 w-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-navy-900 mb-4">{value.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </div>
               </motion.div>
@@ -214,7 +214,7 @@ export default function AboutUs() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900">
+              <h2 className="text-4xl lg:text-5xl font-serif font-light text-slate-900">
                 Our Rich History
               </h2>
               
@@ -244,7 +244,7 @@ export default function AboutUs() {
               className="space-y-6"
             >
               <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
-                <h3 className="text-2xl font-bold text-navy-900 mb-8 flex items-center">
+                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center">
                   <Calendar className="h-6 w-6 text-gold-500 mr-3" />
                   Key Milestones
                 </h3>
@@ -263,7 +263,7 @@ export default function AboutUs() {
                         <milestone.icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-bold text-navy-900 text-lg">{milestone.year}</div>
+                        <div className="font-bold text-slate-900 text-lg">{milestone.year}</div>
                         <div className="text-gray-600">{milestone.event}</div>
                       </div>
                     </motion.div>
@@ -285,7 +285,7 @@ export default function AboutUs() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-slate-900 mb-6">
               Our Leadership
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -320,7 +320,7 @@ export default function AboutUs() {
                   <div className="w-24 h-24 bg-gradient-to-br from-gold-500 to-gold-600 rounded-2xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <leader.icon className="h-12 w-12 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-navy-900 mb-2">{leader.name}</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">{leader.name}</h3>
                   <p className="text-gold-600 font-semibold mb-6 text-lg">{leader.role}</p>
                   <p className="text-gray-600 leading-relaxed">{leader.description}</p>
                 </div>
@@ -340,7 +340,7 @@ export default function AboutUs() {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-navy-900">
+            <h2 className="text-3xl lg:text-4xl font-serif font-light text-slate-900">
               Join Our Community
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -363,7 +363,7 @@ export default function AboutUs() {
                 href="/mass"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 border-2 border-navy-900 text-navy-900 font-semibold rounded-xl hover:bg-navy-900 hover:text-white transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 border-2 border-slate-900 text-slate-900 font-semibold rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-300"
               >
                 <Clock className="h-5 w-5 mr-2" />
                 Mass Times
