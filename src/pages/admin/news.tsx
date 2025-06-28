@@ -98,7 +98,7 @@ export default function NewsManagement() {
     }
   };
 
-  const categories = ['All', ...new Set(articles.map(article => article.category))];
+  const categories = ['All', ...Array.from(new Set(articles.map(article => article.category)))];
   
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
