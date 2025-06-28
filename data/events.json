@@ -1,0 +1,49 @@
+[
+  {
+    "id": "event-001",
+    "title": "First Holy Communion Preparation",
+    "description": "Weekly preparation sessions for children preparing for their First Holy Communion.",
+    "date": "2025-03-01",
+    "time": "10:00 AM",
+    "endTime": "11:30 AM",
+    "location": "Parish Hall",
+    "category": "Sacraments",
+    "registrationRequired": true,
+    "contact": "Parish Office",
+    "contactPhone": "020 8852 7411",
+    "published": true,
+    "recurring": "weekly",
+    "slug": "first-holy-communion-preparation"
+  },
+  {
+    "id": "event-002",
+    "title": "Stations of the Cross",
+    "description": "Traditional Stations of the Cross during the season of Lent.",
+    "date": "2025-02-14",
+    "time": "7:30 PM",
+    "endTime": "8:15 PM",
+    "location": "Church",
+    "category": "Liturgical",
+    "registrationRequired": false,
+    "contact": "Fr Krisz",
+    "published": true,
+    "recurring": "weekly",
+    "slug": "stations-of-the-cross"
+  },
+  {
+    "id": "event-003",
+    "title": "Parish Coffee Morning",
+    "description": "Join us for coffee, cake, and community fellowship after Sunday Mass.",
+    "date": "2025-02-02",
+    "time": "11:15 AM",
+    "endTime": "12:30 PM",
+    "location": "Parish Hall",
+    "category": "Social",
+    "registrationRequired": false,
+    "contact": "Parish Office",
+    "contactPhone": "020 8852 7411",
+    "published": true,
+    "recurring": "monthly",
+    "slug": "parish-coffee-morning"
+  }
+]

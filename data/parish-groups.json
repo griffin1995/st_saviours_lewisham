@@ -1,0 +1,65 @@
+[
+  {
+    "id": "group-001",
+    "name": "St Vincent de Paul Society",
+    "description": "Helping those in need in our local community through practical support and friendship.",
+    "category": "Charitable",
+    "meetingTime": "First Thursday of each month, 7:30 PM",
+    "location": "Parish Hall",
+    "contact": "Parish Office",
+    "contactPhone": "020 8852 7411",
+    "email": "svp@saintsaviours.org.uk",
+    "active": true,
+    "newMembersWelcome": true
+  },
+  {
+    "id": "group-002",
+    "name": "Legion of Mary",
+    "description": "Marian devotion and apostolic work in the spirit of Mary, Mother of God.",
+    "category": "Devotional",
+    "meetingTime": "Wednesdays, 7:00 PM",
+    "location": "Church Sacristy",
+    "contact": "Parish Office",
+    "contactPhone": "020 8852 7411",
+    "active": true,
+    "newMembersWelcome": true
+  },
+  {
+    "id": "group-003",
+    "name": "Children's Liturgy",
+    "description": "Age-appropriate liturgy for children during Sunday 10:00 AM Mass.",
+    "category": "Children",
+    "meetingTime": "Sundays during 10:00 AM Mass",
+    "location": "Parish Hall",
+    "contact": "Children's Liturgy Team",
+    "contactPhone": "020 8852 7411",
+    "active": true,
+    "newMembersWelcome": true,
+    "ageRange": "4-11 years"
+  },
+  {
+    "id": "group-004",
+    "name": "Flower Arranging Group",
+    "description": "Beautifying our church with fresh flowers for liturgical celebrations.",
+    "category": "Practical",
+    "meetingTime": "Fridays, 10:00 AM",
+    "location": "Church",
+    "contact": "Parish Office",
+    "contactPhone": "020 8852 7411",
+    "active": true,
+    "newMembersWelcome": true
+  },
+  {
+    "id": "group-005",
+    "name": "Parish Choir",
+    "description": "Leading the congregation in sung worship at Sunday and special Masses.",
+    "category": "Music",
+    "meetingTime": "Thursdays, 7:30 PM (rehearsal)",
+    "location": "Church",
+    "contact": "Music Director",
+    "contactPhone": "020 8852 7411",
+    "active": true,
+    "newMembersWelcome": true,
+    "note": "All voices welcome - no audition required"
+  }
+]

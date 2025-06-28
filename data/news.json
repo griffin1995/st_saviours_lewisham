@@ -1,0 +1,41 @@
+[
+  {
+    "id": "news-001",
+    "title": "Welcome to Our New Website",
+    "excerpt": "We're excited to launch our new parish website with enhanced features for our community.",
+    "content": "We're delighted to introduce our new parish website, designed to better serve our community and provide easy access to information about our services, events, and parish life.\n\nThe new site features:\n- Improved accessibility for all users\n- Mobile-responsive design\n- Easy-to-find Mass times and events\n- Online content management for parish staff\n- Enhanced photo galleries and news updates\n\nWe hope this new platform will help strengthen our parish community and make it easier for everyone to stay connected with what's happening at St Saviour's.\n\nIf you have any feedback or suggestions, please don't hesitate to contact the parish office.",
+    "image": "/images/news/new-website.jpg",
+    "category": "Announcement",
+    "date": "2025-01-15",
+    "readTime": 2,
+    "author": "Parish Office",
+    "published": true,
+    "slug": "welcome-to-our-new-website"
+  },
+  {
+    "id": "news-002",
+    "title": "Lenten Programme 2025",
+    "excerpt": "Join us for our special Lenten journey with additional services, talks, and spiritual opportunities.",
+    "content": "As we prepare for the holy season of Lent, St Saviour's is offering an enriching programme of spiritual activities to help you grow closer to Christ.\n\nOur Lenten Programme includes:\n- Daily Mass with special Lenten reflections\n- Stations of the Cross every Friday at 7:30 PM\n- Weekly Lenten talks by guest speakers\n- Confession available before all evening services\n- Special children's Lenten activities\n\nAdditional Services During Lent:\n- Ash Wednesday Masses: 7:30 AM, 12:15 PM, 7:00 PM\n- Palm Sunday: Procession begins at 9:45 AM\n- Holy Week services with full schedule to follow\n\nWe encourage all parishioners to embrace this holy season through prayer, fasting, and almsgiving. Join us as we journey together towards Easter.",
+    "image": "/images/news/lenten-programme.jpg",
+    "category": "Liturgical Season",
+    "date": "2025-02-01",
+    "readTime": 3,
+    "author": "Fr Krisz",
+    "published": true,
+    "slug": "lenten-programme-2025"
+  },
+  {
+    "id": "news-003",
+    "title": "First Holy Communion Registration",
+    "excerpt": "Registration is now open for children to begin their First Holy Communion preparation.",
+    "content": "We are delighted to announce that registration is now open for the First Holy Communion programme for children in Year 3 and above.\n\nProgramme Details:\n- Weekly sessions starting in March 2025\n- Saturday mornings 10:00 AM - 11:30 AM\n- Parent and child sessions\n- First Holy Communion celebration in June 2025\n\nWhat's Included:\n- 12 weeks of preparation sessions\n- Take-home materials and activities\n- Special retreat day\n- First Holy Communion ceremony\n- Certificate and commemorative gifts\n\nRequirements:\n- Child must be in Year 3 or above\n- Regular Mass attendance\n- Parent/guardian commitment to attend sessions\n- Completed registration form\n\nTo register, please contact the parish office or collect a form from the back of the church. Places are limited and allocated on a first-come, first-served basis.\n\nFor more information, speak to Fr Krisz or call the parish office.",
+    "image": "/images/news/first-communion.jpg",
+    "category": "Sacraments",
+    "date": "2025-01-28",
+    "readTime": 3,
+    "author": "Parish Office",
+    "published": true,
+    "slug": "first-holy-communion-registration"
+  }
+]

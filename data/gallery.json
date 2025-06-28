@@ -1,0 +1,77 @@
+[
+  {
+    "id": "gallery-001",
+    "title": "Christmas Celebrations 2024",
+    "description": "Photos from our Christmas Masses and celebrations.",
+    "category": "Liturgical",
+    "date": "2024-12-25",
+    "images": [
+      {
+        "id": "img-001",
+        "url": "/images/gallery/christmas-2024/nativity-scene.jpg",
+        "caption": "Beautiful nativity scene in the church sanctuary",
+        "alt": "Church nativity scene with Mary, Joseph and baby Jesus"
+      },
+      {
+        "id": "img-002", 
+        "url": "/images/gallery/christmas-2024/midnight-mass.jpg",
+        "caption": "Midnight Mass congregation",
+        "alt": "Packed church during Christmas Midnight Mass"
+      },
+      {
+        "id": "img-003",
+        "url": "/images/gallery/christmas-2024/children-choir.jpg", 
+        "caption": "Children's choir singing Christmas carols",
+        "alt": "Young children in white robes singing in church"
+      }
+    ],
+    "featured": true,
+    "published": true
+  },
+  {
+    "id": "gallery-002",
+    "title": "First Holy Communion 2024",
+    "description": "Celebrating the children who received their First Holy Communion.",
+    "category": "Sacraments",
+    "date": "2024-06-15",
+    "images": [
+      {
+        "id": "img-004",
+        "url": "/images/gallery/first-communion-2024/group-photo.jpg",
+        "caption": "First Communion class of 2024 with Fr Krisz",
+        "alt": "Group photo of children in white communion dresses and suits with priest"
+      },
+      {
+        "id": "img-005",
+        "url": "/images/gallery/first-communion-2024/ceremony.jpg",
+        "caption": "During the First Communion ceremony",
+        "alt": "Children receiving First Holy Communion at altar"
+      }
+    ],
+    "featured": false,
+    "published": true
+  },
+  {
+    "id": "gallery-003",
+    "title": "Parish Social Events",
+    "description": "Community gatherings and social activities throughout the year.",
+    "category": "Community",
+    "date": "2024-09-10",
+    "images": [
+      {
+        "id": "img-006",
+        "url": "/images/gallery/social-events/coffee-morning.jpg",
+        "caption": "Monthly coffee morning in the parish hall",
+        "alt": "Parishioners enjoying coffee and cake in parish hall"
+      },
+      {
+        "id": "img-007",
+        "url": "/images/gallery/social-events/harvest-festival.jpg",
+        "caption": "Harvest Festival display of donations",
+        "alt": "Colorful display of fruits, vegetables and tinned goods for harvest"
+      }
+    ],
+    "featured": false,
+    "published": true
+  }
+]

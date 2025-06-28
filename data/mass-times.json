@@ -1,0 +1,112 @@
+[
+  {
+    "day": "Sunday",
+    "services": [
+      {
+        "time": "8:00 AM",
+        "type": "Sunday Mass",
+        "description": "Quiet Mass"
+      },
+      {
+        "time": "10:00 AM",
+        "type": "Sunday Mass",
+        "description": "Family Mass"
+      },
+      {
+        "time": "12:00 PM",
+        "type": "Spanish Mass",
+        "description": "Misa en Español"
+      },
+      {
+        "time": "6:00 PM",
+        "type": "Sunday Mass",
+        "description": "Evening Mass"
+      }
+    ]
+  },
+  {
+    "day": "Monday",
+    "services": [
+      {
+        "time": "9:30 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "day": "Tuesday",
+    "services": [
+      {
+        "time": "9:30 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "day": "Wednesday",
+    "services": [
+      {
+        "time": "9:30 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      },
+      {
+        "time": "7:00 PM",
+        "type": "Mass",
+        "description": "Evening Mass"
+      }
+    ]
+  },
+  {
+    "day": "Thursday",
+    "services": [
+      {
+        "time": "9:30 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "day": "Friday",
+    "services": [
+      {
+        "time": "9:30 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      },
+      {
+        "time": "7:30 PM",
+        "type": "Stations of the Cross",
+        "description": "During Lent"
+      }
+    ]
+  },
+  {
+    "day": "Saturday",
+    "services": [
+      {
+        "time": "10:00 AM",
+        "type": "Weekday Mass",
+        "description": ""
+      },
+      {
+        "time": "6:00 PM",
+        "type": "Saturday Vigil",
+        "description": "Vigil Mass"
+      },
+      {
+        "time": "11:00 AM",
+        "type": "Confession",
+        "description": "Sacrament of Reconciliation"
+      },
+      {
+        "time": "5:30 PM",
+        "type": "Confession",
+        "description": "Before Vigil Mass"
+      }
+    ]
+  }
+]

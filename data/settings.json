@@ -1,0 +1,46 @@
+{
+  "contact": {
+    "address": "Brockley Rise, London SE23 1NG",
+    "phone": "020 8852 7411",
+    "email": "parish@saintsaviours.org.uk",
+    "emergencyPhone": "999",
+    "safeguardingPhone": "020 8858 2854"
+  },
+  "parish": {
+    "name": "St Saviour's Catholic Church",
+    "location": "Lewisham",
+    "priest": "Fr Krisz Katona",
+    "diocese": "Southwark",
+    "established": "1889"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/stsaviourslewisham",
+    "youtube": "https://www.youtube.com/@stsaviourslewisham",
+    "instagram": "",
+    "twitter": ""
+  },
+  "website": {
+    "announcements": [
+      {
+        "id": "ann-001",
+        "title": "Welcome to Our New Website",
+        "message": "Explore our enhanced features including live streaming and online Mass times.",
+        "type": "info",
+        "active": true,
+        "showUntil": "2025-03-01"
+      }
+    ],
+    "maintenanceMode": false,
+    "liveStreamEnabled": true,
+    "liveStreamUrl": "https://www.youtube.com/@stsaviourslewisham/live",
+    "donationsEnabled": true,
+    "donationsUrl": "https://donate.givealittle.co/campaigns/st-saviours-lewisham"
+  },
+  "features": {
+    "massBooking": false,
+    "eventRegistration": true,
+    "newsletter": true,
+    "prayerRequests": true,
+    "venueHire": true
+  }
+}
