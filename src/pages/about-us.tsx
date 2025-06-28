@@ -1,182 +1,381 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
-import { Church, Heart, Users, BookOpen } from "lucide-react";
+import { Church, Heart, Users, BookOpen, Calendar, MapPin, Phone, Mail, Cross, Star, Award, Clock } from "lucide-react";
 
 export default function AboutUs() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      setPrefersReducedMotion(mediaQuery.matches);
+      
+      const handleChange = (e: MediaQueryListEvent) => {
+        setPrefersReducedMotion(e.matches);
+      };
+      
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+  }, []);
+
+  const values = [
+    {
+      icon: Heart,
+      title: "Love & Compassion",
+      description: "We strive to show Christ's love through our actions and care for one another.",
+      color: "from-red-500 to-pink-500"
+    },
+    {
+      icon: Users,
+      title: "Community",
+      description: "We welcome all people and build meaningful relationships across generations.",
+      color: "from-blue-500 to-indigo-500"
+    },
+    {
+      icon: Church,
+      title: "Worship",
+      description: "We gather to celebrate the Eucharist and grow in our relationship with God.",
+      color: "from-purple-500 to-violet-500"
+    },
+    {
+      icon: BookOpen,
+      title: "Learning",
+      description: "We are committed to ongoing formation and deepening our understanding of faith.",
+      color: "from-green-500 to-emerald-500"
+    }
+  ];
+
+  const milestones = [
+    { year: "1889", event: "Parish established", icon: Church },
+    { year: "1902", event: "Current church building consecrated", icon: Cross },
+    { year: "1965", event: "Parish school opened", icon: BookOpen },
+    { year: "2010", event: "Major restoration completed", icon: Award },
+    { year: "2025", event: "Serving over 500 families", icon: Heart }
+  ];
+
+  const stats = [
+    { number: "135+", label: "Years of Service", icon: Calendar },
+    { number: "500+", label: "Families", icon: Users },
+    { number: "7", label: "Weekly Masses", icon: Clock },
+    { number: "15+", label: "Parish Groups", icon: Star }
+  ];
+
   return (
     <PageLayout
       title="About Us"
       description="Learn about St Saviour's Catholic Church in Lewisham - our history, mission, and vibrant community serving South East London."
       keywords="About St Saviours, Catholic Church Lewisham, Parish History, Community, Mission, Values"
     >
-      <PageHero
-        title="About St Saviour's"
-        subtitle="Our Community"
-        description="A vibrant Catholic community in the heart of Lewisham, welcoming all to experience God's love and grace."
-        backgroundImage="/images/hero/church-interior.jpg"
-        height="medium"
-        overlay="medium"
-      />
+      {/* Hero Section */}
+      <section className="relative h-[70vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/church-interior.jpg"
+            alt="St Saviour's Church Interior"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={85}
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/50 to-navy-900/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(248,245,242,0.1)_1px,transparent_1px)] bg-[length:24px_24px]" />
+        
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <motion.div
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div className="inline-flex items-center space-x-3 mb-6">
+                <div className="w-12 h-px bg-gold-500" />
+                <span className="text-gold-400 font-semibold text-sm uppercase tracking-wider">Our Community</span>
+                <div className="w-12 h-px bg-gold-500" />
+              </div>
+              
+              <h1 className="text-5xl lg:text-7xl font-serif font-light text-white leading-tight">
+                About <span className="text-gold-400">St Saviour's</span>
+              </h1>
+              
+              <p className="text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
+                A vibrant Catholic community in the heart of Lewisham, welcoming all to experience God's love and grace.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-white" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
+                whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl lg:text-4xl font-bold text-navy-900 mb-2">{stat.number}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Mission Statement */}
-      <ContentSection background="white">
-        <div className="text-center space-y-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-6">
+      <section className="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(234,179,8,0.1)_1px,transparent_1px)] bg-[length:32px_32px]" />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center mx-auto">
+              <Cross className="h-10 w-10 text-white" />
+            </div>
+            
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-white mb-8">
               Our Mission
             </h2>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
+            
+            <p className="text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto">
               St Saviour's Catholic Church exists to be a beacon of hope and faith in Lewisham, 
               where all people can encounter the transforming love of Jesus Christ and grow 
               together as a community of believers.
             </p>
-            <div className="w-24 h-px bg-gold-500 mx-auto"></div>
-          </div>
+          </motion.div>
         </div>
-      </ContentSection>
+      </section>
 
-      {/* Our Values */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      {/* Values Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900 mb-6">
               Our Values
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               These core values guide everything we do as a parish community.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Heart,
-                title: "Love & Compassion",
-                description: "We strive to show Christ's love through our actions and care for one another."
-              },
-              {
-                icon: Users,
-                title: "Community",
-                description: "We welcome all people and build meaningful relationships across generations."
-              },
-              {
-                icon: Church,
-                title: "Worship",
-                description: "We gather to celebrate the Eucharist and grow in our relationship with God."
-              },
-              {
-                icon: BookOpen,
-                title: "Learning",
-                description: "We are committed to ongoing formation and deepening our understanding of faith."
-              }
-            ].map((value, index) => (
-              <div key={index} className="text-center space-y-4">
-                <div className="w-16 h-16 bg-navy-900 rounded-full flex items-center justify-center mx-auto">
-                  <value.icon className="h-8 w-8 text-gold-400" />
+            {values.map((value, index) => (
+              <motion.div
+                key={index}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+                whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group-hover:border-gold-200 h-full">
+                  <div className={`w-20 h-20 bg-gradient-to-br ${value.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <value.icon className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-navy-900 mb-4">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </ContentSection>
+      </section>
 
-      {/* History */}
-      <ContentSection background="white">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900">
-              Our History
-            </h2>
-            <div className="space-y-4 text-gray-600">
-              <p className="leading-relaxed">
-                St Saviour's Catholic Church has been serving the Lewisham community since 1889, 
-                when it was first established to meet the spiritual needs of the growing Catholic 
-                population in South East London.
-              </p>
-              <p className="leading-relaxed">
-                Over the decades, our parish has grown and evolved, but our commitment to providing 
-                a welcoming spiritual home for all has remained constant. We have weathered challenges, 
-                celebrated joys, and continued to be a source of hope and faith for generations of families.
-              </p>
-              <p className="leading-relaxed">
-                Today, we are proud to be part of the Roman Catholic Archdiocese of Southwark, 
-                continuing our mission to serve God and our local community with dedication and love.
-              </p>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <div className="bg-navy-900 text-white p-8 rounded-lg">
-              <h3 className="text-2xl font-serif font-semibold mb-4 text-gold-400">Key Milestones</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span><strong>1889:</strong> Parish established</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span><strong>1902:</strong> Current church building consecrated</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span><strong>1965:</strong> Parish school opened</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span><strong>2010:</strong> Major restoration completed</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span><strong>2025:</strong> Serving over 500 families</span>
+      {/* History Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
+              whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <h2 className="text-4xl lg:text-5xl font-serif font-light text-navy-900">
+                Our Rich History
+              </h2>
+              
+              <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
+                <p>
+                  St Saviour's Catholic Church has been serving the Lewisham community since 1889, 
+                  when it was first established to meet the spiritual needs of the growing Catholic 
+                  population in South East London.
+                </p>
+                <p>
+                  Over the decades, our parish has grown and evolved, but our commitment to providing 
+                  a welcoming spiritual home for all has remained constant. We have weathered challenges, 
+                  celebrated joys, and continued to be a source of hope and faith for generations of families.
+                </p>
+                <p>
+                  Today, we are proud to be part of the Roman Catholic Archdiocese of Southwark, 
+                  continuing our mission to serve God and our local community with dedication and love.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
+              whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
+                <h3 className="text-2xl font-bold text-navy-900 mb-8 flex items-center">
+                  <Calendar className="h-6 w-6 text-gold-500 mr-3" />
+                  Key Milestones
+                </h3>
+                
+                <div className="space-y-6">
+                  {milestones.map((milestone, index) => (
+                    <motion.div
+                      key={index}
+                      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+                      whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                      transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-center space-x-4 group"
+                    >
+                      <div className="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <milestone.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-navy-900 text-lg">{milestone.year}</div>
+                        <div className="text-gray-600">{milestone.event}</div>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </ContentSection>
+      </section>
 
-      {/* Leadership */}
-      <ContentSection background="slate">
-        <div className="text-center space-y-12">
-          <div>
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
+      {/* Leadership Section */}
+      <section className="py-24 bg-gradient-to-br from-navy-900 via-slate-800 to-navy-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(234,179,8,0.1)_1px,transparent_1px)] bg-[length:40px_40px]" />
+        
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-serif font-light text-white mb-6">
               Our Leadership
             </h2>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Meet the dedicated team who guide our parish community.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 text-center">
-              <div className="w-24 h-24 bg-gold-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <Church className="h-12 w-12 text-navy-900" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Fr. Krzysztof Krzyskow</h3>
-              <p className="text-gold-400 mb-4">Parish Priest</p>
-              <p className="text-gray-300 leading-relaxed">
-                Leading our parish with wisdom and compassion, Fr. Krzysztof brings years of 
-                pastoral experience to guide our community in faith and service.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 text-center">
-              <div className="w-24 h-24 bg-gold-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <BookOpen className="h-12 w-12 text-navy-900" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Revd. Carlos Lozano</h3>
-              <p className="text-gold-400 mb-4">Associate Priest</p>
-              <p className="text-gray-300 leading-relaxed">
-                Supporting our parish ministries and outreach programs, Revd. Carlos brings 
-                energy and dedication to serving our diverse community.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                name: "Fr. Krzysztof Krzyskow",
+                role: "Parish Priest",
+                description: "Leading our parish with wisdom and compassion, Fr. Krzysztof brings years of pastoral experience to guide our community in faith and service.",
+                icon: Church
+              },
+              {
+                name: "Revd. Carlos Lozano",
+                role: "Associate Priest", 
+                description: "Supporting our parish ministries and outreach programs, Revd. Carlos brings energy and dedication to serving our diverse community.",
+                icon: BookOpen
+              }
+            ].map((leader, index) => (
+              <motion.div
+                key={index}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+                whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/20 hover:border-gold-400/50 transition-all duration-300 group-hover:bg-white/15">
+                  <div className="w-24 h-24 bg-gradient-to-br from-gold-500 to-gold-600 rounded-2xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <leader.icon className="h-12 w-12 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{leader.name}</h3>
+                  <p className="text-gold-400 font-semibold mb-6 text-lg">{leader.role}</p>
+                  <p className="text-gray-300 leading-relaxed">{leader.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </ContentSection>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h2 className="text-3xl lg:text-4xl font-serif font-light text-navy-900">
+              Join Our Community
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Whether you're new to the area or have been part of Lewisham for years, 
+              we'd love to welcome you to St Saviour's.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href="/contact-us"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <Mail className="h-5 w-5 mr-2" />
+                Get in Touch
+              </motion.a>
+              
+              <motion.a
+                href="/mass"
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+                className="inline-flex items-center px-8 py-4 border-2 border-navy-900 text-navy-900 font-semibold rounded-xl hover:bg-navy-900 hover:text-white transition-all duration-300"
+              >
+                <Clock className="h-5 w-5 mr-2" />
+                Mass Times
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </PageLayout>
   );
 }
