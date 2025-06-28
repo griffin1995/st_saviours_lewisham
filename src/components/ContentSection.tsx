@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 interface ContentSectionProps {
   children: React.ReactNode;
   className?: string;
-  background?: "white" | "gray" | "navy" | "slate";
+  background?: "white" | "gray" | "navy" | "slate" | "red";
   padding?: "small" | "medium" | "large";
   maxWidth?: "sm" | "md" | "lg" | "xl" | "full";
 }
@@ -36,7 +36,8 @@ export default function ContentSection({
     white: "bg-white",
     gray: "bg-gray-50",
     navy: "bg-navy-900 text-white",
-    slate: "bg-slate-800 text-white"
+    slate: "bg-slate-800 text-white",
+    red: "bg-red-600 text-white"
   };
 
   const paddingClasses = {

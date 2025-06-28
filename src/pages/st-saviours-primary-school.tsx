@@ -283,7 +283,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* Admissions Information */}
-      <ContentSection background="white" padding="large" id="admissions">
+      <ContentSection background="white" padding="large">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
             Admissions Information
@@ -353,7 +353,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* Contact & Visit */}
-      <ContentSection background="navy" padding="large" id="visit">
+      <ContentSection background="navy" padding="large">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
             Visit Our School

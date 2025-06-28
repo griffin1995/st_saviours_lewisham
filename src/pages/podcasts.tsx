@@ -457,7 +457,7 @@ export default function Podcasts() {
       </ContentSection>
 
       {/* Subscribe Section */}
-      <ContentSection background="navy" padding="large" id="subscribe">
+      <ContentSection background="navy" padding="large">
         <div className="text-center">
           <Rss className="h-12 w-12 text-gold-400 mx-auto mb-6" />
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
