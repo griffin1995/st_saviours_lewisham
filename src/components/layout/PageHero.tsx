@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Heading, Text } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
+import { getPageImage } from '@/lib/cms-images'
 
 interface PageHeroProps {
   /**
@@ -21,9 +22,14 @@ interface PageHeroProps {
   description?: string
   
   /**
-   * Background image URL
+   * Background image URL or CMS page name
    */
   backgroundImage?: string
+  
+  /**
+   * CMS page identifier for automatic image selection
+   */
+  pageName?: string
   
   /**
    * Hero section height
@@ -68,6 +74,7 @@ export default function PageHero({
   subtitle,
   description,
   backgroundImage = '/images/hero/church-exterior.jpg',
+  pageName,
   height = 'medium',
   overlay = 'medium',
   textAlign = 'center',
@@ -75,6 +82,11 @@ export default function PageHero({
   actions
 }: PageHeroProps) {
   const [reducedMotion, setReducedMotion] = useState(false)
+  
+  // Get CMS page image if pageName is provided
+  const cmsPageImage = pageName ? getPageImage(pageName) : null
+  const heroImage = cmsPageImage?.url || backgroundImage
+  const heroAlt = cmsPageImage?.alt || `${title} - St Saviour's Catholic Church`
 
   useEffect(() => {
     setReducedMotion(prefersReducedMotion())
@@ -111,8 +123,8 @@ export default function PageHero({
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={backgroundImage}
-          alt={`${title} - St Saviour's Catholic Church`}
+          src={heroImage}
+          alt={heroAlt}
           fill
           className="object-cover"
           sizes="100vw"

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Clock, MapPin } from "lucide-react";
-import { heroImages } from "@/lib/data";
+import { getHeroImages } from "@/lib/cms-images";
+import { getHeroContent } from "@/lib/cms-content";
 
 interface HeroSectionProps {
   scrollToSection: (section: string) => void;
@@ -21,6 +22,8 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const heroImages = getHeroImages();
+  const heroContent = getHeroContent();
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -45,34 +48,27 @@ export default function HeroSection({
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 6000); // Slower transition for better viewing
     return () => clearInterval(timer);
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, heroContent.length]);
 
   return (
     <section className="relative h-screen overflow-hidden bg-gradient-to-br from-charcoal-900 via-charcoal-800 to-primary-900">
       {heroImages.map((hero, index) => (
         <motion.div
           key={index}
-          className={`absolute inset-0 transition-all ${
-            prefersReducedMotion ? 'duration-300' : 'duration-1500'
-          } ${
-            index === currentHeroImage
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-105"
+          className={`absolute inset-0 ${
+            index === currentHeroImage ? "opacity-100" : "opacity-0"
           }`}
-          initial={prefersReducedMotion ? { opacity: 0 } : { scale: 1.05, opacity: 0 }}
-          animate={
-            index === currentHeroImage
-              ? prefersReducedMotion ? { opacity: 1 } : { scale: 1, opacity: 1 }
-              : prefersReducedMotion ? { opacity: 0 } : { scale: 1.05, opacity: 0 }
-          }
+          style={{ willChange: 'opacity' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
           transition={prefersReducedMotion 
             ? { duration: 0.3, ease: "easeInOut" }
-            : { duration: 1.5, ease: "easeInOut" }
+            : { duration: 0.8, ease: "easeInOut" }
           }
         >
           {/* Optimized background image with Next.js Image */}
           <Image
-            src={hero.image}
+            src={hero.url}
             alt={hero.alt}
             fill
             priority={hero.priority}
@@ -81,17 +77,8 @@ export default function HeroSection({
             quality={85}
           />
 
-          {/* Modern premium overlay system */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-b ${hero.overlay} z-10`}
-          />
-          
-          {/* Enhanced charcoal overlay for sophisticated contrast */}
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900/40 via-charcoal-800/30 to-primary-900/50 z-15" />
-          
-          {/* Premium texture overlay with subtle cream highlights */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent z-20" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(248,245,242,0.18)_1px,transparent_1px)] bg-[length:24px_24px] z-25" />
+          {/* Simplified overlay system for better performance */}
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/60 via-charcoal-800/40 to-charcoal-900/70 z-10" />
         </motion.div>
       ))}
 
@@ -132,13 +119,19 @@ export default function HeroSection({
                 }
               >
                 <span className="block">
-                  {heroImages[currentHeroImage].title
+                  {heroContent[currentHeroImage]?.title
+                    .split(" ")
+                    .slice(0, 2)
+                    .join(" ") || heroImages[currentHeroImage].title
                     .split(" ")
                     .slice(0, 2)
                     .join(" ")}
                 </span>
                 <span className="block font-medium text-gold-400 mt-2 filter drop-shadow-lg">
-                  {heroImages[currentHeroImage].title
+                  {heroContent[currentHeroImage]?.title
+                    .split(" ")
+                    .slice(2)
+                    .join(" ") || heroImages[currentHeroImage].title
                     .split(" ")
                     .slice(2)
                     .join(" ")}
@@ -158,7 +151,7 @@ export default function HeroSection({
                   : { duration: 0.8, delay: 0.7 }
                 }
               >
-                {heroImages[currentHeroImage].subtitle}
+                {heroContent[currentHeroImage]?.subtitle || heroImages[currentHeroImage].subtitle}
               </motion.p>
             </div>
 
@@ -180,10 +173,10 @@ export default function HeroSection({
                 <button
                   onClick={() => scrollToSection('welcome')}
                   className="group inline-flex items-center px-12 py-6 bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-cream-50 font-semibold rounded-2xl shadow-2xl hover:shadow-gold-500/30 hover:from-gold-500 hover:to-gold-400 focus:from-gold-500 focus:to-gold-400 transition-all duration-500 text-lg border border-gold-400/60 focus:outline-none focus:ring-4 focus:ring-gold-400/80 focus:ring-offset-4 focus:ring-offset-charcoal-900/50 backdrop-blur-sm"
-                  aria-label="View church service times"
+                  aria-label="Join us for Sunday service"
                 >
                   <Clock className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                  View Service Times
+                  Join Us This Sunday
                 </button>
               </motion.div>
 
@@ -195,10 +188,10 @@ export default function HeroSection({
                 <button
                   onClick={() => scrollToSection('events')}
                   className="group inline-flex items-center px-12 py-6 bg-cream-50/15 backdrop-blur-md border-2 border-cream-50/40 text-cream-50 font-semibold rounded-2xl hover:bg-cream-50 hover:text-charcoal-800 focus:bg-cream-50 focus:text-charcoal-800 transition-all duration-500 text-lg shadow-2xl focus:outline-none focus:ring-4 focus:ring-cream-50/60 focus:ring-offset-4 focus:ring-offset-charcoal-900/50"
-                  aria-label="View upcoming church events"
+                  aria-label="Explore our parish community"
                 >
                   <MapPin className="mr-3 h-6 w-6 group-hover:bounce transition-transform duration-300" />
-                  What's On
+                  Our Community
                 </button>
               </motion.div>
             </motion.div>
@@ -212,13 +205,14 @@ export default function HeroSection({
           animate={prefersReducedMotion ? {} : {
             y: [0, 12, 0],
             opacity: [0.7, 1, 0.7],
+            scale: [1, 1.05, 1],
           }}
           transition={prefersReducedMotion ? {} : {
-            duration: 2.5,
+            duration: 3,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: [0.4, 0, 0.6, 1],
           }}
-          className="flex flex-col items-center text-cream-50 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-cream-50/60 focus:ring-offset-4 focus:ring-offset-charcoal-900/50 rounded-xl p-3 hover:bg-cream-50/10 transition-all duration-300"
+          className="flex flex-col items-center text-cream-50 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-cream-50/60 focus:ring-offset-4 focus:ring-offset-charcoal-900/50 rounded-xl p-4 hover:bg-cream-50/10 hover:scale-110 transition-all duration-300"
           onClick={() => scrollToSection('welcome')}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -234,8 +228,13 @@ export default function HeroSection({
             transition: 'opacity 0.3s ease-in-out',
             textShadow: '1px 1px 2px rgba(0,0,0,0.7)'
           }}
+          whileHover={prefersReducedMotion ? {} : { 
+            scale: 1.1,
+            y: -2,
+            transition: { type: "spring", stiffness: 400, damping: 17 }
+          }}
         >
-          <span className="text-sm font-medium mb-3 group-hover:text-cream-50 transition-colors duration-300 drop-shadow-md">
+          <span className="text-base font-medium mb-3 group-hover:text-gold-300 transition-colors duration-300 drop-shadow-md">
             Scroll for more
           </span>
           <div className="relative w-1 h-16 overflow-hidden">
