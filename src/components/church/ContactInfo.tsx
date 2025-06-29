@@ -11,6 +11,13 @@ import {
 } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Flex, Grid } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
+import { 
+  getContactPhone, 
+  getContactEmail, 
+  getContactAddress,
+  getEmergencyPhone,
+  getSafeguardingPhone 
+} from '@/lib/cms-content'
 
 interface ContactMethod {
   icon: typeof Phone
@@ -73,21 +80,21 @@ const defaultPrimaryContacts: ContactMethod[] = [
   {
     icon: Phone,
     title: 'Call Us',
-    value: '020 8852 7411',
+    value: getContactPhone(),
     type: 'phone',
-    link: 'tel:02088527411'
+    link: `tel:${getContactPhone().replace(/\s/g, '')}`
   },
   {
     icon: Mail,
     title: 'Email Us', 
-    value: 'parish@saintsaviours.org.uk',
+    value: getContactEmail(),
     type: 'email',
-    link: 'mailto:parish@saintsaviours.org.uk'
+    link: `mailto:${getContactEmail()}`
   },
   {
     icon: MapPin,
     title: 'Visit Us',
-    value: ['Lewisham High Street', 'London SE13 6EE'],
+    value: [getContactAddress()],
     type: 'address'
   },
   {

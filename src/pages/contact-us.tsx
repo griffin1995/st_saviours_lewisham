@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
+import { getContactPhone, getContactEmail, getContactAddress } from '@/lib/cms-content'
 import { 
   Button, 
   Card, 
@@ -34,21 +35,21 @@ export default function ContactUs() {
     {
       icon: Phone,
       title: 'Call Us',
-      value: '020 8852 7411',
+      value: getContactPhone(),
       type: 'phone' as const,
-      link: 'tel:02088527411'
+      link: `tel:${getContactPhone().replace(/\s/g, '')}`
     },
     {
       icon: Mail,
       title: 'Email Us',
-      value: 'parish@saintsaviours.org.uk',
+      value: getContactEmail(),
       type: 'email' as const,
-      link: 'mailto:parish@saintsaviours.org.uk'
+      link: `mailto:${getContactEmail()}`
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      value: ['Lewisham High Street', 'London SE13 6EE'],
+      value: [getContactAddress()],
       type: 'address' as const
     }
   ]

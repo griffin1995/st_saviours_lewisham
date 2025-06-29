@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Mail, Calendar, Users, ChevronDown } from 'lucide-react'
 import { Card, CardContent, Button, Text, Heading } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
+import { getContactPhone } from '@/lib/cms-content'
 import type { Venue } from './VenueCard'
 
 interface VenueEnquiryFormProps {
@@ -347,8 +348,8 @@ export default function VenueEnquiryForm({
             <div className="text-center border-t border-gray-200 pt-4">
               <Text size="sm" color="muted">
                 Or call us directly on{' '}
-                <a href="tel:+442088527411" className="text-gold-600 hover:text-gold-700 font-medium">
-                  020 8852 7411
+                <a href={`tel:${getContactPhone().replace(/\s/g, '')}`} className="text-gold-600 hover:text-gold-700 font-medium">
+                  {getContactPhone()}
                 </a>
               </Text>
             </div>
