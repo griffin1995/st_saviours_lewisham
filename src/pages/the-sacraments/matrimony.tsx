@@ -1,409 +1,535 @@
-import React from "react";
-import Link from "next/link";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
-import { Heart, Calendar, Phone, BookOpen, Users, Gem, Church } from "lucide-react";
+import React from 'react'
+import Link from 'next/link'
+import { Gem, Calendar, Phone, BookOpen, Heart, Users, ArrowRight, Church } from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card,
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Container,
+  Grid,
+  Flex
+} from '@/components/ui'
+import { SacramentInfo } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Matrimony() {
+  const reducedMotion = prefersReducedMotion()
+
+  const matrimonyContent = [
+    "In the Catholic understanding, marriage is not just a legal contract but a sacred covenant between a man and woman, blessed by God and witnessed by the Church community. This sacrament reflects the unconditional love between Christ and the Church.",
+    "Through marriage, couples receive the grace they need to love each other faithfully, support each other through life's challenges, and welcome children as a gift from God. Marriage is a lifelong partnership that mirrors Christ's love for the Church."
+  ]
+
+  const matrimonyEffects = [
+    {
+      title: "Sacramental Grace",
+      description: "Special graces to love faithfully and support each other through life's challenges"
+    },
+    {
+      title: "Unity in Christ",
+      description: "Two become one flesh, united in love and purpose under God"
+    },
+    {
+      title: "Mutual Sanctification",
+      description: "Husband and wife help each other grow in holiness and virtue"
+    },
+    {
+      title: "Partnership in Mission",
+      description: "Called together to serve God, the Church, and the broader community"
+    },
+    {
+      title: "Openness to Life",
+      description: "Blessed to welcome and raise children in the Catholic faith"
+    }
+  ]
+
+  const matrimonyRequirements = [
+    {
+      title: "Catholic Couples",
+      items: [
+        "Both parties baptized Catholic",
+        "Free to marry (no previous valid marriage)",
+        "Complete marriage preparation program", 
+        "Six months advance notice preferred",
+        "Recent baptismal and confirmation certificates"
+      ]
+    },
+    {
+      title: "Mixed Marriages",
+      items: [
+        "One party must be Catholic",
+        "Dispensation required from the Bishop",
+        "Catholic party promises to raise children Catholic",
+        "Non-Catholic party informed of promises",
+        "Additional preparation may be required"
+      ]
+    },
+    {
+      title: "Documentation Needed",
+      items: [
+        "Recent baptismal certificates",
+        "Confirmation certificates",
+        "Civil marriage license",
+        "Proof of freedom to marry",
+        "Pre-nuptial investigation forms"
+      ]
+    }
+  ]
+
+  const contactInfo = {
+    title: "Ready to Plan Your Wedding?",
+    description: "We're honored to help you begin this sacred journey together. Contact us to start planning your beautiful Catholic wedding celebration.",
+    phone: "020 8852 7411",
+    email: "info@stsaviourslewisham.org.uk"
+  }
+
+  const quote = {
+    text: "What God has joined together, let no one separate",
+    source: "Mark 10:9"
+  }
+
+  const weddingFees = [
+    { item: "Church usage donation", cost: "£400" },
+    { item: "Organist (if required)", cost: "£150" },
+    { item: "Cantor (if required)", cost: "£100" },
+    { item: "Additional musicians", cost: "By arrangement" }
+  ]
+
+  const essentialElements = [
+    {
+      title: "Free Consent",
+      description: "Both parties freely choose to marry",
+      icon: Heart
+    },
+    {
+      title: "Fidelity", 
+      description: "Exclusive love and faithfulness",
+      icon: Gem
+    },
+    {
+      title: "Permanence",
+      description: "Until death do us part",
+      icon: Church
+    },
+    {
+      title: "Openness to Life",
+      description: "Welcoming children as God's gift",
+      icon: Users
+    },
+    {
+      title: "Unity",
+      description: "Two become one in Christ",
+      icon: Heart
+    }
+  ]
+
   return (
     <PageLayout
-      title="Marriage"
-      description="Plan your Catholic wedding at St Saviour's Catholic Church. Information on marriage preparation, requirements, and celebrating your special day."
-      keywords="Catholic Wedding, Church Wedding, Marriage Preparation, Wedding Ceremony, Catholic Marriage, Lewisham Wedding"
+      title="Matrimony"
+      description="Plan your Catholic wedding at St Saviour's Catholic Church. Information on marriage preparation, requirements, and celebrating your sacred covenant."
+      keywords="Catholic Wedding, Church Wedding, Marriage Preparation, Wedding Ceremony, Catholic Marriage, Matrimony, Sacrament"
     >
+      {/* Hero Section */}
       <PageHero
         title="Holy Matrimony"
-        subtitle="A Sacred Covenant"
+        subtitle="A Sacred Covenant of Love"
         description="Marriage is a lifelong partnership that mirrors Christ's love for the Church, blessed by God and witnessed by the community."
         backgroundImage="/images/sacraments/wedding-ceremony.jpg"
         height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Heart className="h-5 w-5" />}
+            >
+              Plan Your Wedding
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Calendar className="h-5 w-5" />}
+            >
+              Marriage Preparation
+            </Button>
+          </Flex>
+        }
       />
 
-      {/* Introduction */}
-      <ContentSection background="white">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-serif font-light text-gray-900">
-              A Covenant of Love
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              In the Catholic understanding, marriage is not just a legal contract 
-              but a sacred covenant between a man and woman, blessed by God and 
-              witnessed by the Church community.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              This sacrament reflects the unconditional love between Christ and 
-              the Church. Through marriage, couples receive the grace they need 
-              to love each other faithfully, support each other through life's 
-              challenges, and welcome children as a gift from God.
-            </p>
-            <div className="flex items-center space-x-3 text-pink-600">
-              <Heart className="h-5 w-5" />
-              <span className="italic">"What God has joined together, let no one separate." - Mark 10:9</span>
-            </div>
-          </div>
-          <div className="bg-pink-50 rounded-lg p-8">
-            <h3 className="text-xl font-semibold text-pink-900 mb-4">Essential Elements of Catholic Marriage</h3>
-            <ul className="space-y-3 text-pink-800">
-              <li className="flex items-start space-x-2">
-                <Gem className="h-4 w-4 text-pink-600 mt-1" />
-                <span><strong>Free Consent</strong> - Both parties freely choose to marry</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <Gem className="h-4 w-4 text-pink-600 mt-1" />
-                <span><strong>Fidelity</strong> - Exclusive love and faithfulness</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <Gem className="h-4 w-4 text-pink-600 mt-1" />
-                <span><strong>Permanence</strong> - Until death do us part</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <Gem className="h-4 w-4 text-pink-600 mt-1" />
-                <span><strong>Openness to Life</strong> - Welcoming children</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <Gem className="h-4 w-4 text-pink-600 mt-1" />
-                <span><strong>Unity</strong> - Two become one in Christ</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </ContentSection>
+      {/* Sacrament Information */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <SacramentInfo
+            icon={Gem}
+            title="A Covenant of Love"
+            subtitle="The sacred bond between husband and wife"
+            content={matrimonyContent}
+            quote={quote}
+            effects={matrimonyEffects}
+            requirements={matrimonyRequirements}
+            contactInfo={contactInfo}
+            effectsColor="pink"
+          />
+        </Container>
+      </Section>
 
-      {/* Requirements */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-serif font-light text-gray-900 mb-4">
-              Getting Married at St Saviour's
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We welcome couples who wish to celebrate their marriage in our 
-              beautiful church, surrounded by family, friends, and the parish community.
-            </p>
+      {/* Essential Elements */}
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Essential Elements of Catholic Marriage
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Catholic marriage is built on these fundamental principles that ensure a strong and lasting union.
+            </Text>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Requirements */}
-            <div className="bg-white rounded-lg p-8 shadow-sm">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">Requirements</h3>
-              </div>
-              <div className="space-y-4 text-gray-600">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">For Catholic Couples:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Both parties baptized Catholic</li>
-                    <li>• Free to marry (no previous valid marriage)</li>
-                    <li>• Complete marriage preparation program</li>
-                    <li>• Six months advance notice preferred</li>
-                    <li>• Recent baptismal certificates</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">For Mixed Marriages:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• One party must be Catholic</li>
-                    <li>• Dispensation required from the Bishop</li>
-                    <li>• Catholic party promises to raise children Catholic</li>
-                    <li>• Non-Catholic party informed of promises</li>
-                    <li>• Additional preparation may be required</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Documentation Needed:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Recent baptismal certificates</li>
-                    <li>• Confirmation certificates</li>
-                    <li>• Civil marriage license</li>
-                    <li>• Proof of freedom to marry</li>
-                    <li>• Pre-nuptial investigation forms</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          <Grid cols={5} gap="lg" className="grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+            {essentialElements.map((element, index) => (
+              <Card key={element.title} variant="default" padding="md" className="bg-white text-center">
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center mx-auto">
+                      <element.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <Heading level="h4" className="text-lg font-semibold">
+                      {element.title}
+                    </Heading>
+                    <Text size="sm" color="muted" className="leading-relaxed">
+                      {element.description}
+                    </Text>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
-            {/* Preparation */}
-            <div className="bg-white rounded-lg p-8 shadow-sm">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Heart className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">Marriage Preparation</h3>
-              </div>
-              <div className="space-y-4 text-gray-600">
-                <p>
-                  Our comprehensive marriage preparation helps couples build a 
-                  strong foundation for their life together, rooted in faith 
-                  and mutual understanding.
-                </p>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Pre-Cana Program:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Six-session preparation course</li>
-                    <li>• Communication and conflict resolution</li>
-                    <li>• Financial planning and responsibility</li>
-                    <li>• Catholic teaching on marriage</li>
-                    <li>• Natural family planning</li>
-                    <li>• Spirituality in marriage</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Additional Preparation:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Pre-marital inventory assessment</li>
-                    <li>• Individual meetings with priest</li>
-                    <li>• Liturgy planning sessions</li>
-                    <li>• Pre-nuptial investigation</li>
-                    <li>• Wedding rehearsal</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Timeline:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Contact parish 6+ months before wedding</li>
-                    <li>• Complete preparation 2 months before</li>
-                    <li>• Final paperwork 1 month before</li>
-                    <li>• Rehearsal 1-2 days before wedding</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      {/* Marriage Preparation */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Marriage Preparation at St Saviour's
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Our comprehensive marriage preparation helps couples build a strong foundation for their life together, rooted in faith and mutual understanding.
+            </Text>
           </div>
-        </div>
-      </ContentSection>
+
+          <Grid cols={2} gap="lg">
+            {/* Pre-Cana Program */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Flex align="center" gap="md">
+                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                      <Heart className="h-6 w-6 text-white" />
+                    </div>
+                    <Heading level="h3" className="text-xl font-semibold">
+                      Pre-Cana Program
+                    </Heading>
+                  </Flex>
+                  
+                  <Text color="muted" className="leading-relaxed">
+                    Our six-session preparation course covers all essential aspects of Catholic marriage,
+                    helping couples build a strong foundation for their life together.
+                  </Text>
+                  
+                  <div className="space-y-3">
+                    <Text weight="bold" className="text-gray-900">
+                      Course Topics:
+                    </Text>
+                    <div className="space-y-1">
+                      {[
+                        "Communication and conflict resolution",
+                        "Financial planning and responsibility", 
+                        "Catholic teaching on marriage",
+                        "Natural family planning",
+                        "Spirituality in marriage",
+                        "Building lasting intimacy"
+                      ].map((topic, index) => (
+                        <Flex key={index} align="start" gap="sm">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                          <Text size="sm" color="muted">{topic}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Additional Preparation */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Flex align="center" gap="md">
+                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                      <BookOpen className="h-6 w-6 text-white" />
+                    </div>
+                    <Heading level="h3" className="text-xl font-semibold">
+                      Additional Preparation
+                    </Heading>
+                  </Flex>
+                  
+                  <Text color="muted" className="leading-relaxed">
+                    Beyond the Pre-Cana program, we provide personalized support through individual
+                    meetings and practical preparation for your wedding day.
+                  </Text>
+                  
+                  <div className="space-y-3">
+                    <Text weight="bold" className="text-gray-900">
+                      Includes:
+                    </Text>
+                    <div className="space-y-1">
+                      {[
+                        "Pre-marital inventory assessment",
+                        "Individual meetings with priest",
+                        "Liturgy planning sessions",
+                        "Pre-nuptial investigation",
+                        "Wedding rehearsal",
+                        "Ongoing pastoral support"
+                      ].map((item, index) => (
+                        <Flex key={index} align="start" gap="sm">
+                          <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                          <Text size="sm" color="muted">{item}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Wedding Planning */}
-      <ContentSection background="white">
-        <div className="max-w-6xl mx-auto">
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-light text-gray-900 mb-4">
+            <Heading level="h2" align="center" className="mb-6">
               Planning Your Wedding Ceremony
-            </h2>
-            <p className="text-lg text-gray-600">
-              Work with our team to create a beautiful and meaningful liturgy 
-              that reflects your love and commitment.
-            </p>
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Work with our team to create a beautiful and meaningful liturgy that reflects your love and commitment.
+            </Text>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">
-                  Liturgy Options
-                </h3>
-                <div className="grid gap-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-900 mb-2">Nuptial Mass</h4>
-                    <p className="text-sm text-gray-600">
-                      Full Mass with Eucharist - recommended when both parties are Catholic 
-                      and the majority of guests can participate in Communion.
-                    </p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-900 mb-2">Ceremony Outside Mass</h4>
-                    <p className="text-sm text-gray-600">
-                      Wedding ceremony with Scripture readings, prayers, and vows - 
-                      often used for mixed marriages or when many guests are not Catholic.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">
-                  Music Ministry
-                </h3>
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-gray-600 mb-4">
-                    Our music ministry can provide beautiful sacred music for your ceremony, 
-                    including organ, piano, and vocal accompaniment.
-                  </p>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li>• Professional organist and cantor available</li>
-                    <li>• Wide selection of sacred music</li>
-                    <li>• Consultation on appropriate musical choices</li>
-                    <li>• Assistance with hymn selection</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">
-                  Our Beautiful Church
-                </h3>
-                <div className="bg-navy-900 rounded-lg p-6 text-white">
-                  <h4 className="font-semibold text-gold-400 mb-3">Church Features</h4>
-                  <ul className="text-sm text-gray-300 space-y-2">
-                    <li>• Seating capacity for 300 guests</li>
-                    <li>• Beautiful Victorian architecture</li>
-                    <li>• Sacred Heart side chapel for intimate ceremonies</li>
-                    <li>• Professional sound system</li>
-                    <li>• Wheelchair accessible</li>
-                    <li>• Stunning stained glass windows</li>
-                    <li>• Pipe organ and piano</li>
-                    <li>• Photography-friendly lighting</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-2xl font-serif font-semibold text-gray-900">
-                  Photography & Video
-                </h3>
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-gray-600 mb-4">
-                    We welcome professional photographers and videographers, 
-                    with guidelines to ensure the sacred nature of the ceremony is maintained.
-                  </p>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li>• No flash photography during ceremony</li>
-                    <li>• Photographer briefing before ceremony</li>
-                    <li>• Designated areas for equipment</li>
-                    <li>• Post-ceremony photos in church permitted</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Costs and Practical Info */}
-      <ContentSection background="gray">
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="space-y-6">
-            <h3 className="text-2xl font-serif font-semibold text-gray-900">
-              Wedding Fees & Donations
-            </h3>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <p className="text-gray-600 mb-4">
-                We ask for a donation to help cover the costs of using the church 
-                and supporting our ministry. Fees are kept modest to ensure all 
-                couples can afford a church wedding.
-              </p>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Church usage donation:</span>
-                  <span className="font-semibold">£400</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Organist (if required):</span>
-                  <span className="font-semibold">£150</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Cantor (if required):</span>
-                  <span className="font-semibold">£100</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Additional musicians:</span>
-                  <span className="font-semibold">By arrangement</span>
-                </div>
-                <div className="border-t border-gray-200 pt-2 mt-2">
-                  <div className="flex justify-between font-semibold">
-                    <span>Typical total:</span>
-                    <span>£650</span>
+          <Grid cols={2} gap="lg">
+            {/* Liturgy Options */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-gray-900">
+                    Liturgy Options
+                  </Heading>
+                  
+                  <div className="space-y-4">
+                    <Card variant="outlined" padding="md" className="bg-gray-50">
+                      <CardContent>
+                        <Text weight="bold" className="text-gray-900 mb-2">Nuptial Mass</Text>
+                        <Text size="sm" color="muted">
+                          Full Mass with Eucharist - recommended when both parties are Catholic 
+                          and the majority of guests can participate in Communion.
+                        </Text>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card variant="outlined" padding="md" className="bg-gray-50">
+                      <CardContent>
+                        <Text weight="bold" className="text-gray-900 mb-2">Ceremony Outside Mass</Text>
+                        <Text size="sm" color="muted">
+                          Wedding ceremony with Scripture readings, prayers, and vows - 
+                          often used for mixed marriages or when many guests are not Catholic.
+                        </Text>
+                      </CardContent>
+                    </Card>
                   </div>
                 </div>
-              </div>
-              <p className="text-xs text-gray-500 mt-3">
-                Additional donations for flowers, special arrangements, or parish support are always welcome but not required.
-              </p>
-            </div>
-          </div>
+              </CardContent>
+            </Card>
 
-          <div className="space-y-6">
-            <h3 className="text-2xl font-serif font-semibold text-gray-900">
-              Getting Started
-            </h3>
-            <div className="bg-white p-6 rounded-lg shadow-sm space-y-4">
-              <p className="text-gray-600">
-                Ready to begin planning your Catholic wedding? Contact our parish 
-                office to schedule your initial meeting and start the preparation process.
-              </p>
-              
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-gold-600" />
-                  <div>
-                    <p className="font-medium text-gray-900">Parish Office</p>
-                    <p className="text-sm text-gray-600">020 8852 7411</p>
+            {/* Church Features */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-gray-900">
+                    Our Beautiful Church
+                  </Heading>
+                  
+                  <Card variant="outlined" padding="md" className="bg-slate-900 text-white">
+                    <CardContent>
+                      <Text weight="bold" className="text-gold-400 mb-3">Church Features</Text>
+                      <div className="space-y-2">
+                        {[
+                          "Seating capacity for 300 guests",
+                          "Beautiful Victorian architecture", 
+                          "Sacred Heart side chapel for intimate ceremonies",
+                          "Professional sound system",
+                          "Wheelchair accessible",
+                          "Stunning stained glass windows",
+                          "Pipe organ and piano",
+                          "Photography-friendly lighting"
+                        ].map((feature, index) => (
+                          <Text key={index} size="sm" className="text-gray-300">• {feature}</Text>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* Fees and Contact */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <Grid cols={2} gap="lg">
+            {/* Wedding Fees */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-gray-900">
+                    Wedding Fees & Donations
+                  </Heading>
+                  
+                  <Text color="muted" className="leading-relaxed">
+                    We ask for a donation to help cover the costs of using the church 
+                    and supporting our ministry. Fees are kept modest to ensure all 
+                    couples can afford a church wedding.
+                  </Text>
+                  
+                  <div className="space-y-3">
+                    {weddingFees.map((fee, index) => (
+                      <Flex key={index} justify="between" align="center">
+                        <Text color="muted">{fee.item}:</Text>
+                        <Text weight="bold">{fee.cost}</Text>
+                      </Flex>
+                    ))}
+                    <div className="border-t border-gray-200 pt-3 mt-3">
+                      <Flex justify="between" align="center">
+                        <Text weight="bold">Typical total:</Text>
+                        <Text weight="bold">£650</Text>
+                      </Flex>
+                    </div>
+                  </div>
+                  
+                  <Text size="sm" color="muted">
+                    Additional donations for flowers, special arrangements, or parish support are always welcome but not required.
+                  </Text>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Getting Started */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-gray-900">
+                    Getting Started
+                  </Heading>
+                  
+                  <Text color="muted" className="leading-relaxed">
+                    Ready to begin planning your Catholic wedding? Contact our parish 
+                    office to schedule your initial meeting and start the preparation process.
+                  </Text>
+                  
+                  <div className="space-y-3">
+                    <Flex align="center" gap="md">
+                      <Phone className="h-5 w-5 text-gold-600" />
+                      <div>
+                        <Text weight="bold" className="text-gray-900">Parish Office</Text>
+                        <Text size="sm" color="muted">020 8852 7411</Text>
+                      </div>
+                    </Flex>
+                    <Flex align="center" gap="md">
+                      <Calendar className="h-5 w-5 text-gold-600" />
+                      <div>
+                        <Text weight="bold" className="text-gray-900">Office Hours</Text>
+                        <Text size="sm" color="muted">Monday - Friday: 9:00 AM - 5:00 PM</Text>
+                      </div>
+                    </Flex>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-200 space-y-3">
+                    <Button variant="primary" size="md" className="w-full">
+                      Contact Us
+                    </Button>
+                    <Button variant="outline" size="md" className="w-full">
+                      Venue Information
+                    </Button>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="h-5 w-5 text-gold-600" />
-                  <div>
-                    <p className="font-medium text-gray-900">Office Hours</p>
-                    <p className="text-sm text-gray-600">Monday - Friday: 9:00 AM - 5:00 PM</p>
-                  </div>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
+          </Grid>
 
-              <div className="border-t border-gray-200 pt-4">
-                <div className="flex flex-col gap-3">
-                  <Link
-                    href="/contact-us"
-                    className="inline-flex items-center justify-center px-4 py-2 bg-pink-600 text-white rounded-lg font-semibold hover:bg-pink-700 transition-colors text-sm"
-                  >
-                    Contact Us
-                  </Link>
-                  <Link
-                    href="/the-sacraments"
-                    className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm"
-                  >
-                    Other Sacraments
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-pink-50 border border-pink-200 rounded-lg p-4">
-              <h4 className="font-semibold text-pink-900 mb-2">Planning Timeline</h4>
-              <p className="text-pink-800 text-sm">
+          <Card variant="outlined" padding="lg" className="bg-pink-50 border-pink-200 max-w-2xl mx-auto mt-8">
+            <CardContent>
+              <Text weight="bold" className="text-pink-900 mb-2">Planning Timeline</Text>
+              <Text size="sm" className="text-pink-800">
                 We recommend contacting us at least 6 months before your desired 
                 wedding date to ensure adequate time for preparation and to secure 
                 your preferred date.
-              </p>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+              </Text>
+            </CardContent>
+          </Card>
+        </Container>
+      </Section>
 
       {/* Call to Action */}
-      <ContentSection background="navy">
-        <div className="text-center text-white">
-          <h2 className="text-3xl font-serif font-light mb-6">
-            Begin Your Journey Together
-          </h2>
-          <p className="text-gray-300 mb-8 max-w-3xl mx-auto text-lg">
-            Marriage is a beautiful sacrament that deserves careful preparation and 
-            joyful celebration. We're honored to help you begin this sacred journey together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center px-6 py-3 bg-gold-600 text-white rounded-lg font-semibold hover:bg-gold-500 transition-colors"
-            >
-              <Heart className="mr-2 h-5 w-5" />
-              Plan Your Wedding
-            </Link>
-            <Link
-              href="/venue-hire"
-              className="inline-flex items-center px-6 py-3 border border-white text-white rounded-lg font-semibold hover:bg-white hover:text-navy-900 transition-colors"
-            >
-              <Church className="mr-2 h-5 w-5" />
-              Venue Information
-            </Link>
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <div className="text-center text-white space-y-8">
+            <div className="space-y-6">
+              <Heading level="h2" className="text-3xl font-light text-white">
+                Begin Your Journey Together
+              </Heading>
+              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                Marriage is a beautiful sacrament that deserves careful preparation and 
+                joyful celebration. We're honored to help you begin this sacred journey together.
+              </Text>
+            </div>
+            
+            <Flex justify="center" gap="md" wrap>
+              <Link href="/contact-us">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  leftIcon={<Heart className="h-5 w-5" />}
+                >
+                  Plan Your Wedding
+                </Button>
+              </Link>
+              <Link href="/the-sacraments">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  leftIcon={<ArrowRight className="h-5 w-5" />}
+                >
+                  Explore Other Sacraments
+                </Button>
+              </Link>
+            </Flex>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

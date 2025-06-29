@@ -92,6 +92,25 @@ interface EventCardProps {
   className?: string
 }
 
+// Variant configurations (moved outside component for skeleton access)
+const variantConfig = {
+  default: {
+    cardClass: 'h-full',
+    imageHeight: 'h-48',
+    contentPadding: 'p-6'
+  },
+  compact: {
+    cardClass: 'h-full',
+    imageHeight: 'h-32',
+    contentPadding: 'p-4'
+  },
+  featured: {
+    cardClass: 'h-full',
+    imageHeight: 'h-64',
+    contentPadding: 'p-8'
+  }
+}
+
 /**
  * EventCard component for displaying parish events
  * 
@@ -156,25 +175,6 @@ export default function EventCard({
     'Charity': 'bg-pink-100 text-pink-800',
     'Youth': 'bg-yellow-100 text-yellow-800',
     'Music': 'bg-indigo-100 text-indigo-800'
-  }
-
-  // Variant configurations
-  const variantConfig = {
-    default: {
-      cardClass: 'h-full',
-      imageHeight: 'h-48',
-      contentPadding: 'p-6'
-    },
-    compact: {
-      cardClass: 'h-full',
-      imageHeight: 'h-32',
-      contentPadding: 'p-4'
-    },
-    featured: {
-      cardClass: 'h-full',
-      imageHeight: 'h-64',
-      contentPadding: 'p-8'
-    }
   }
 
   const config = variantConfig[variant]

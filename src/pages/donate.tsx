@@ -1,391 +1,355 @@
-import React, { useState } from "react";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
+import React from 'react'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { 
   Heart, 
-  CreditCard, 
   Building, 
   Users, 
   Clock, 
-  Shield,
   Banknote,
   QrCode,
   ArrowRight,
-  CheckCircle
-} from "lucide-react";
+  Phone,
+  Gift
+} from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card, 
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Grid,
+  Flex,
+  Container
+} from '@/components/ui'
+import { DonationForm, DonationStats, type DonationFormData } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Donate() {
-  const [selectedAmount, setSelectedAmount] = useState(20);
-  const [donationType, setDonationType] = useState("one-time");
+  const reducedMotion = prefersReducedMotion()
+
+  const handleDonationSubmit = async (data: DonationFormData) => {
+    // Handle donation submission
+    console.log('Donation submitted:', data)
+    // In a real implementation, this would integrate with Stripe or another payment processor
+  }
+
+  const handleReportDownload = () => {
+    // Handle annual report download
+    console.log('Downloading annual report...')
+    // In a real implementation, this would download the PDF
+  }
+
+  const benefits = [
+    {
+      icon: Building,
+      title: "Maintain Our Church",
+      description: "Keep our sacred space beautiful and welcoming for worship, prayer, and community gatherings."
+    },
+    {
+      icon: Users,
+      title: "Support Programs", 
+      description: "Fund youth activities, adult education, community outreach, and pastoral care programs."
+    },
+    {
+      icon: Heart,
+      title: "Serve Others",
+      description: "Enable our outreach to those in need through food banks, visiting programs, and emergency assistance."
+    }
+  ]
+
+  const givingMethods = [
+    {
+      icon: Banknote,
+      title: "Collection Basket",
+      description: "Place your donation in the collection basket during Mass on Sundays.",
+      color: "bg-green-600"
+    },
+    {
+      icon: Building,
+      title: "Bank Transfer",
+      description: "Set up a standing order directly to our parish account. Contact the office for details.",
+      color: "bg-blue-600"
+    },
+    {
+      icon: QrCode,
+      title: "QR Code",
+      description: "Scan the QR code in the church to make a quick donation using your mobile device.",
+      color: "bg-purple-600"
+    },
+    {
+      icon: Gift,
+      title: "Legacy Giving",
+      description: "Remember the parish in your will. Contact us to discuss legacy giving options.",
+      color: "bg-amber-600"
+    }
+  ]
 
   const donationCauses = [
-    {
-      title: "General Parish Fund",
-      description: "Support our daily operations, utilities, and general parish needs.",
-      icon: Building,
-      color: "blue"
-    },
-    {
-      title: "Building Maintenance",
-      description: "Help preserve our beautiful church building for future generations.",
-      icon: Building,
-      color: "green"
-    },
-    {
-      title: "Community Outreach",
-      description: "Support our work with those in need in the local community.",
-      icon: Users,
-      color: "purple"
-    },
-    {
-      title: "Youth Programs",
-      description: "Fund activities and resources for our children and young people.",
-      icon: Heart,
-      color: "pink"
-    }
-  ];
-
-  const colorClasses = {
-    blue: "bg-blue-600",
-    green: "bg-green-600",
-    purple: "bg-purple-600",
-    pink: "bg-pink-600"
-  };
+    { value: 'general', label: 'General Parish Fund', description: 'Support our daily operations, utilities, and general parish needs.' },
+    { value: 'building', label: 'Building Maintenance', description: 'Help preserve our beautiful church building for future generations.' },
+    { value: 'outreach', label: 'Community Outreach', description: 'Support our work with those in need in the local community.' },
+    { value: 'youth', label: 'Youth Programs', description: 'Fund activities and resources for our children and young people.' },
+    { value: 'music', label: 'Music Ministry', description: 'Support our choir and liturgical music programs.' }
+  ]
 
   return (
     <PageLayout
       title="Donate"
       description="Support St Saviour's Catholic Church through online donations. Help us continue our mission of faith, community, and service."
-      keywords="Church Donations, Online Giving, Support Parish, Catholic Church Funding, Tithe, Offering"
+      keywords="Church Donations, Online Giving, Support Parish, Catholic Church Funding, Tithe, Offering, Gift Aid"
     >
+      {/* Hero Section */}
       <PageHero
         title="Support Our Mission"
         subtitle="Your Generosity Makes a Difference"
         description="Help us continue our work of faith, community, and service through your generous donations."
         backgroundImage="/images/hero/church-community.jpg"
-        height="medium"
+        height="large"
         overlay="medium"
-      />
-
-      {/* Why Give */}
-      <ContentSection background="white">
-        <div className="text-center space-y-8 max-w-4xl mx-auto">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900">
-            Why Your Support Matters
-          </h2>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Your generous donations help us maintain our beautiful church, support 
-            our community programs, and reach out to those in need. Every gift, 
-            large or small, makes a meaningful difference.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            <div className="space-y-3">
-              <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                <Building className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Maintain Our Church</h3>
-              <p className="text-gray-600">
-                Keep our sacred space beautiful and welcoming for worship, 
-                prayer, and community gatherings.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Support Programs</h3>
-              <p className="text-gray-600">
-                Fund youth activities, adult education, community outreach, 
-                and pastoral care programs.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                <Heart className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Serve Others</h3>
-              <p className="text-gray-600">
-                Enable our outreach to those in need through food banks, 
-                visiting programs, and emergency assistance.
-              </p>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Online Donation Form */}
-      <ContentSection background="gray">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-light text-gray-900 mb-4">
-              Make a Donation Online
-            </h2>
-            <p className="text-lg text-gray-600">
-              Quick, secure, and convenient online giving
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Donation Form */}
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Donation Type
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      onClick={() => setDonationType("one-time")}
-                      className={`px-4 py-3 rounded-lg border font-semibold transition-colors ${
-                        donationType === "one-time"
-                          ? "bg-gold-600 text-white border-gold-600"
-                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                      }`}
-                    >
-                      One-time
-                    </button>
-                    <button
-                      onClick={() => setDonationType("monthly")}
-                      className={`px-4 py-3 rounded-lg border font-semibold transition-colors ${
-                        donationType === "monthly"
-                          ? "bg-gold-600 text-white border-gold-600"
-                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                      }`}
-                    >
-                      Monthly
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Donation Amount
-                  </label>
-                  <div className="grid grid-cols-3 gap-3 mb-3">
-                    {[10, 20, 50].map((amount) => (
-                      <button
-                        key={amount}
-                        onClick={() => setSelectedAmount(amount)}
-                        className={`px-4 py-3 rounded-lg border font-semibold transition-colors ${
-                          selectedAmount === amount
-                            ? "bg-gold-600 text-white border-gold-600"
-                            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                        }`}
-                      >
-                        £{amount}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-3 gap-3 mb-4">
-                    {[100, 250, 500].map((amount) => (
-                      <button
-                        key={amount}
-                        onClick={() => setSelectedAmount(amount)}
-                        className={`px-4 py-3 rounded-lg border font-semibold transition-colors ${
-                          selectedAmount === amount
-                            ? "bg-gold-600 text-white border-gold-600"
-                            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                        }`}
-                      >
-                        £{amount}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">£</span>
-                    <input
-                      type="number"
-                      value={selectedAmount}
-                      onChange={(e) => setSelectedAmount(Number(e.target.value))}
-                      className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                      placeholder="Other amount"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Designation (Optional)
-                  </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent">
-                    <option value="">General Parish Fund</option>
-                    <option value="building">Building Maintenance</option>
-                    <option value="outreach">Community Outreach</option>
-                    <option value="youth">Youth Programs</option>
-                    <option value="music">Music Ministry</option>
-                  </select>
-                </div>
-
-                <button className="w-full bg-gold-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-gold-700 transition-colors flex items-center justify-center">
-                  <CreditCard className="mr-2 h-5 w-5" />
-                  Donate £{selectedAmount} {donationType === "monthly" ? "Monthly" : ""}
-                </button>
-
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Shield className="h-4 w-4" />
-                  <span>Secure payment processing powered by Stripe</span>
-                </div>
-              </div>
-
-              {/* What Your Donation Supports */}
-              <div className="space-y-6">
-                <h3 className="text-xl font-serif font-semibold text-gray-900">
-                  What Your Donation Supports
-                </h3>
-                <div className="space-y-4">
-                  {donationCauses.map((cause, index) => (
-                    <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                      <div className={`w-10 h-10 ${colorClasses[cause.color as keyof typeof colorClasses]} rounded-lg flex items-center justify-center`}>
-                        <cause.icon className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">{cause.title}</h4>
-                        <p className="text-sm text-gray-600">{cause.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Gift Aid</h4>
-                  <p className="text-blue-800 text-sm">
-                    UK taxpayers can increase their donation by 25% at no extra cost 
-                    through Gift Aid. We'll provide the necessary forms after your donation.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Other Ways to Give */}
-      <ContentSection background="white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-light text-gray-900 mb-4">
-              Other Ways to Give
-            </h2>
-            <p className="text-lg text-gray-600">
-              Choose the giving method that works best for you
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center space-y-4 p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto">
-                <Banknote className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Collection Basket</h3>
-              <p className="text-sm text-gray-600">
-                Place your donation in the collection basket during Mass on Sundays.
-              </p>
-            </div>
-
-            <div className="text-center space-y-4 p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
-                <Building className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Bank Transfer</h3>
-              <p className="text-sm text-gray-600">
-                Set up a standing order directly to our parish account. Contact the office for details.
-              </p>
-            </div>
-
-            <div className="text-center space-y-4 p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto">
-                <QrCode className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">QR Code</h3>
-              <p className="text-sm text-gray-600">
-                Scan the QR code in the church to make a quick donation using your mobile device.
-              </p>
-            </div>
-
-            <div className="text-center space-y-4 p-6 bg-gray-50 rounded-lg">
-              <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto">
-                <Clock className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900">Legacy Giving</h3>
-              <p className="text-sm text-gray-600">
-                Remember the parish in your will. Contact us to discuss legacy giving options.
-              </p>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Transparency & Impact */}
-      <ContentSection background="navy">
-        <div className="text-center text-white">
-          <h2 className="text-3xl font-serif font-light mb-6">
-            Your Impact
-          </h2>
-          <p className="text-gray-300 mb-8 max-w-3xl mx-auto text-lg">
-            We are committed to being transparent about how your donations are used. 
-            Here's how your generosity made a difference last year:
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="space-y-3">
-              <div className="text-3xl font-bold text-gold-400">£45,000</div>
-              <h3 className="text-lg font-semibold">Building Maintenance</h3>
-              <p className="text-sm text-gray-300">Roof repairs, heating system upgrades, and general upkeep</p>
-            </div>
-            <div className="space-y-3">
-              <div className="text-3xl font-bold text-gold-400">£12,000</div>
-              <h3 className="text-lg font-semibold">Community Programs</h3>
-              <p className="text-sm text-gray-300">Youth activities, adult education, and outreach initiatives</p>
-            </div>
-            <div className="space-y-3">
-              <div className="text-3xl font-bold text-gold-400">£8,500</div>
-              <h3 className="text-lg font-semibold">Charitable Giving</h3>
-              <p className="text-sm text-gray-300">Food bank support, emergency assistance, and local charities</p>
-            </div>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold text-gold-400 mb-4">Annual Financial Report</h3>
-            <p className="text-gray-300 mb-4">
-              For full transparency, our annual financial report is available to all parishioners. 
-              See exactly how donations are used and our financial health.
-            </p>
-            <button className="inline-flex items-center text-gold-400 hover:text-gold-300 font-semibold transition-colors">
-              Download Report
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Contact for Questions */}
-      <ContentSection background="gray">
-        <div className="text-center">
-          <h2 className="text-3xl font-serif font-light text-gray-900 mb-6">
-            Questions About Giving?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            We're happy to discuss donation options, Gift Aid, legacy giving, 
-            or answer any questions about supporting our parish.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact-us"
-              className="inline-flex items-center px-6 py-3 bg-gold-600 text-white rounded-lg font-semibold hover:bg-gold-700 transition-colors"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Heart className="h-5 w-5" />}
+            >
+              Donate Now
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Phone className="h-5 w-5" />}
             >
               Contact Us
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
-            <a
-              href="tel:+442088527411"
-              className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+            </Button>
+          </Flex>
+        }
+      />
+
+      {/* Why Give Section */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Why Your Support Matters
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="leading-relaxed">
+              Your generous donations help us maintain our beautiful church, support 
+              our community programs, and reach out to those in need. Every gift, 
+              large or small, makes a meaningful difference.
+            </Text>
+          </motion.div>
+
+          <Grid cols={3} gap="lg">
+            {benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card variant="default" padding="lg" className="text-center h-full bg-white">
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center mx-auto">
+                        <benefit.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <Heading level="h3" align="center" className="font-semibold">
+                        {benefit.title}
+                      </Heading>
+                      <Text color="muted" align="center">
+                        {benefit.description}
+                      </Text>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* Online Donation Form */}
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <Grid cols={2} gap="xl" className="items-start">
+            {/* Donation Form */}
+            <DonationForm
+              title="Make a Donation Online"
+              causes={donationCauses}
+              onSubmit={handleDonationSubmit}
+            />
+
+            {/* What Your Donation Supports */}
+            <motion.div
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              Call: 020 8852 7411
-            </a>
-          </div>
-        </div>
-      </ContentSection>
+              <Heading level="h3" className="text-xl font-semibold">
+                What Your Donation Supports
+              </Heading>
+              
+              <div className="space-y-4">
+                {donationCauses.map((cause, index) => (
+                  <motion.div
+                    key={cause.value}
+                    initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    transition={reducedMotion ? { duration: 0.3 } : { duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Card variant="outlined" padding="md" className="bg-white">
+                      <CardContent>
+                        <Flex align="start" gap="md">
+                          <div className="w-10 h-10 bg-gold-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Heart className="h-5 w-5 text-white" />
+                          </div>
+                          <div className="space-y-1">
+                            <Heading level="h4" className="font-semibold">
+                              {cause.label}
+                            </Heading>
+                            <Text size="sm" color="muted">
+                              {cause.description}
+                            </Text>
+                          </div>
+                        </Flex>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Gift Aid Information */}
+              <Card variant="outlined" padding="md" className="bg-blue-50 border-blue-200">
+                <CardContent>
+                  <div className="space-y-2">
+                    <Heading level="h4" className="font-semibold text-blue-900">
+                      Gift Aid
+                    </Heading>
+                    <Text size="sm" className="text-blue-800">
+                      UK taxpayers can increase their donation by 25% at no extra cost 
+                      through Gift Aid. We'll provide the necessary forms after your donation.
+                    </Text>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* Other Ways to Give */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Other Ways to Give
+            </Heading>
+            <Text size="xl" align="center" color="muted">
+              Choose the giving method that works best for you
+            </Text>
+          </motion.div>
+
+          <Grid cols={4} gap="lg">
+            {givingMethods.map((method, index) => (
+              <motion.div
+                key={index}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card variant="default" padding="lg" className="text-center space-y-4 bg-gray-50 h-full">
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className={`w-16 h-16 ${method.color} rounded-full flex items-center justify-center mx-auto`}>
+                        <method.icon className="h-8 w-8 text-white" />
+                      </div>
+                      <Heading level="h3" align="center" className="font-semibold">
+                        {method.title}
+                      </Heading>
+                      <Text size="sm" color="muted" align="center">
+                        {method.description}
+                      </Text>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* Impact & Transparency */}
+      <DonationStats onDownloadReport={handleReportDownload} />
+
+      {/* Contact for Questions */}
+      <Section spacing="lg" background="gray">
+        <Container size="md">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8"
+          >
+            <div className="space-y-6">
+              <Heading level="h2" align="center">
+                Questions About Giving?
+              </Heading>
+              <Text size="xl" align="center" color="muted" className="max-w-2xl mx-auto">
+                We're happy to discuss donation options, Gift Aid, legacy giving, 
+                or answer any questions about supporting our parish.
+              </Text>
+            </div>
+            
+            <Flex justify="center" gap="md" wrap>
+              <Link href="/contact-us">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  rightIcon={<ArrowRight className="h-5 w-5" />}
+                >
+                  Contact Us
+                </Button>
+              </Link>
+              <a href="tel:+442088527411">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  leftIcon={<Phone className="h-5 w-5" />}
+                >
+                  Call: 020 8852 7411
+                </Button>
+              </a>
+            </Flex>
+          </motion.div>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

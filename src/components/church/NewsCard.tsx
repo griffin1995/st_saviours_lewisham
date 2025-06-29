@@ -78,6 +78,45 @@ interface NewsCardProps {
   onClick?: () => void
 }
 
+// Category colors
+const categoryColors = {
+  'Announcement': 'bg-blue-100 text-blue-800',
+  'Liturgical Season': 'bg-purple-100 text-purple-800',
+  'Sacraments': 'bg-green-100 text-green-800',
+  'Social': 'bg-orange-100 text-orange-800',
+  'Youth': 'bg-yellow-100 text-yellow-800',
+  'Community': 'bg-pink-100 text-pink-800',
+  'Education': 'bg-indigo-100 text-indigo-800'
+}
+
+// Variant configurations (moved outside component for skeleton access)
+const variantConfig = {
+  default: {
+    cardClass: 'h-full',
+    imageHeight: 'h-48',
+    contentPadding: 'p-6',
+    excerptLines: 'line-clamp-3'
+  },
+  compact: {
+    cardClass: 'h-full',
+    imageHeight: 'h-32',
+    contentPadding: 'p-4',
+    excerptLines: 'line-clamp-2'
+  },
+  horizontal: {
+    cardClass: 'h-full',
+    imageHeight: 'h-full',
+    contentPadding: 'p-6',
+    excerptLines: 'line-clamp-2'
+  },
+  minimal: {
+    cardClass: 'h-full',
+    imageHeight: 'h-0',
+    contentPadding: 'p-4',
+    excerptLines: 'line-clamp-2'
+  }
+}
+
 /**
  * NewsCard component for displaying parish news and articles
  * 
@@ -108,45 +147,6 @@ export default function NewsCard({
   onClick
 }: NewsCardProps) {
   const reducedMotion = prefersReducedMotion()
-
-  // Category colors
-  const categoryColors = {
-    'Announcement': 'bg-blue-100 text-blue-800',
-    'Liturgical Season': 'bg-purple-100 text-purple-800',
-    'Sacraments': 'bg-green-100 text-green-800',
-    'Social': 'bg-orange-100 text-orange-800',
-    'Youth': 'bg-yellow-100 text-yellow-800',
-    'Community': 'bg-pink-100 text-pink-800',
-    'Education': 'bg-indigo-100 text-indigo-800'
-  }
-
-  // Variant configurations
-  const variantConfig = {
-    default: {
-      cardClass: 'h-full',
-      imageHeight: 'h-48',
-      contentPadding: 'p-6',
-      excerptLines: 'line-clamp-3'
-    },
-    compact: {
-      cardClass: 'h-full',
-      imageHeight: 'h-32',
-      contentPadding: 'p-4',
-      excerptLines: 'line-clamp-2'
-    },
-    horizontal: {
-      cardClass: 'h-full',
-      imageHeight: 'h-full',
-      contentPadding: 'p-6',
-      excerptLines: 'line-clamp-2'
-    },
-    minimal: {
-      cardClass: 'h-full',
-      imageHeight: 'h-0',
-      contentPadding: 'p-4',
-      excerptLines: 'line-clamp-2'
-    }
-  }
 
   const config = variantConfig[variant]
 

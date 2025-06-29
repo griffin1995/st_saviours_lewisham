@@ -66,8 +66,8 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     as,
     ...props 
   }, ref) => {
-    // Use 'as' prop if provided, otherwise use 'level'
-    const Component = as || level
+    // Use 'as' prop if provided, otherwise use 'level', fallback to 'h2'
+    const Component = as || level || 'h2'
     
     return React.createElement(
       Component,

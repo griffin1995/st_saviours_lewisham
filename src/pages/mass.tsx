@@ -201,12 +201,12 @@ export default function MassTimes() {
                             <Flex align="center" gap="sm">
                               <Clock className="h-4 w-4 text-gold-600" />
                               <Text weight="medium">
-                                {time.time} - {time.type}
+                                {time.time} - {(time as any).note || (time as any).description}
                               </Text>
                             </Flex>
-                            {time.description && (
+                            {((time as any).description && (time as any).description !== ((time as any).note || (time as any).description)) && (
                               <Text size="sm" color="muted" className="mt-1 ml-6">
-                                {time.description}
+                                {(time as any).description}
                               </Text>
                             )}
                           </div>

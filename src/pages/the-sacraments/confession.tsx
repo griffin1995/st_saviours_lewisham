@@ -1,327 +1,383 @@
-import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
-import { Heart, Clock, Shield, ArrowRight, CheckCircle, Users } from "lucide-react";
-import { confessionTimes } from "@/lib/data";
+import React from 'react'
+import Link from 'next/link'
+import { Heart, Calendar, Phone, BookOpen, Clock, Shield, ArrowRight, CheckCircle } from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card,
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Container,
+  Grid,
+  Flex
+} from '@/components/ui'
+import { SacramentInfo } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Confession() {
+  const reducedMotion = prefersReducedMotion()
+
+  const confessionContent = [
+    "The Sacrament of Confession, also known as Reconciliation or Penance, is God's gift of forgiveness and healing. Through this sacrament, we receive absolution from our sins and are restored to full communion with God and the Church.",
+    "Christ gave the apostles the power to forgive sins, and this authority continues in the Church today through ordained priests. No sin is too great for God's infinite mercy and love."
+  ]
+
+  const confessionEffects = [
+    {
+      title: "Forgiveness of Sins",
+      description: "All sins confessed with true contrition are completely forgiven"
+    },
+    {
+      title: "Grace and Strength",
+      description: "Receive actual grace to resist temptation and live virtuously"
+    },
+    {
+      title: "Peace of Conscience",
+      description: "Experience the peace that comes from knowing you are forgiven"
+    },
+    {
+      title: "Spiritual Direction",
+      description: "Receive guidance and advice for your spiritual journey"
+    },
+    {
+      title: "Reconciliation",
+      description: "Restore your relationship with God and the Church community"
+    }
+  ]
+
+  const confessionRequirements = [
+    {
+      title: "Examination of Conscience",
+      items: [
+        "Reflect on your actions since last confession",
+        "Consider how you have fallen short of God's love",
+        "Review the Ten Commandments and Church teachings",
+        "Ask the Holy Spirit for guidance",
+        "Examine thoughts, words, and actions"
+      ]
+    },
+    {
+      title: "Contrition",
+      items: [
+        "Feel genuine sorrow for your sins",
+        "Resolve to avoid sin in the future",
+        "Trust in God's mercy and forgiveness",
+        "Desire to make amends where possible",
+        "Commit to change with God's grace"
+      ]
+    },
+    {
+      title: "Confession Process",
+      items: [
+        "Confess sins honestly and completely",
+        "Start with time since last confession",
+        "Listen to the priest's counsel",
+        "Receive absolution gratefully",
+        "Complete assigned penance"
+      ]
+    }
+  ]
+
+  const contactInfo = {
+    title: "Ready to Experience God's Mercy?",
+    description: "Don't let fear or shame keep you from God's infinite mercy. Take the first step toward reconciliation and peace.",
+    phone: "020 8852 7411",
+    email: "info@stsaviourslewisham.org.uk"
+  }
+
+  const quote = {
+    text: "Receive the Holy Spirit. Whose sins you forgive are forgiven them, and whose sins you retain are retained",
+    source: "John 20:22-23"
+  }
+
+  const confessionTimes = [
+    { day: "Saturday", time: "5:00 PM - 5:45 PM", note: "Before Vigil Mass" },
+    { day: "Sunday", time: "After 9:00 AM Mass", note: "Approximately 10:00 AM" },
+    { day: "Wednesday", time: "7:00 PM - 7:30 PM", note: "After weekday Mass" }
+  ]
+
+  const confessionSteps = [
+    {
+      step: 1,
+      title: "Examination of Conscience",
+      description: "Reflect on your actions, thoughts, and omissions since your last confession",
+      icon: Shield,
+      color: "bg-green-600"
+    },
+    {
+      step: 2,
+      title: "Contrition",
+      description: "Feel genuine sorrow for your sins and resolve to avoid sin in the future",
+      icon: Heart,
+      color: "bg-red-600"
+    },
+    {
+      step: 3,
+      title: "Confession",
+      description: "Confess your sins honestly and completely to the priest",
+      icon: BookOpen,
+      color: "bg-blue-600"
+    },
+    {
+      step: 4,
+      title: "Absolution",
+      description: "The priest grants absolution in the name of the Father, Son, and Holy Spirit",
+      icon: CheckCircle,
+      color: "bg-purple-600"
+    }
+  ]
+
   return (
     <PageLayout
       title="Confession"
-      description="Learn about the sacrament of confession and reconciliation at St Saviour's Catholic Church."
-      keywords="Confession, Reconciliation, Forgiveness, Catholic Sacrament, Penance, Absolution"
+      description="Learn about the Sacrament of Confession at St Saviour's Catholic Church. Information on confession times, how to confess, and God's mercy."
+      keywords="Catholic Confession, Reconciliation, Penance, Forgiveness, Absolution, Confession Times, Sacrament"
     >
+      {/* Hero Section */}
       <PageHero
         title="Sacrament of Confession"
-        subtitle="Reconciliation and Forgiveness"
-        description="Experience God's mercy and forgiveness through the sacrament of confession."
-        backgroundImage="/images/hero/church-sanctuary.jpg"
+        subtitle="God's Gift of Forgiveness"
+        description="Experience God's infinite mercy and forgiveness through the sacrament of confession and reconciliation."
+        backgroundImage="/images/sacraments/confession-reconciliation.jpg"
         height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Calendar className="h-5 w-5" />}
+            >
+              Schedule Confession
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Clock className="h-5 w-5" />}
+            >
+              View Confession Times
+            </Button>
+          </Flex>
+        }
       />
 
-      {/* Introduction */}
-      <ContentSection background="white">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900">
-              What is Confession?
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Confession, also known as the Sacrament of Reconciliation or Penance, is God's gift 
-              of forgiveness and healing. Through this sacrament, we receive absolution from our sins 
-              and are restored to full communion with God and the Church.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              Christ gave the apostles the power to forgive sins, and this authority continues 
-              in the Church today through ordained priests. No sin is too great for God's mercy.
-            </p>
-            <div className="bg-green-50 border-l-4 border-green-500 p-4">
-              <p className="text-green-800 italic">
-                "Receive the Holy Spirit. Whose sins you forgive are forgiven them, 
-                and whose sins you retain are retained."
-              </p>
-              <p className="text-green-600 text-sm mt-2">- John 20:22-23</p>
-            </div>
-          </div>
-          <div className="space-y-6">
-            <div className="bg-navy-900 text-white p-8 rounded-lg">
-              <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="h-8 w-8 text-navy-900" />
-              </div>
-              <h3 className="text-2xl font-serif font-semibold text-gold-400 mb-4 text-center">
-                God's Mercy
-              </h3>
-              <p className="text-gray-300 text-center leading-relaxed">
-                God's mercy is infinite and always available to those who seek forgiveness 
-                with a contrite heart.
-              </p>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+      {/* Sacrament Information */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <SacramentInfo
+            icon={Heart}
+            title="Reconciliation and Peace"
+            subtitle="The sacrament of forgiveness and healing"
+            content={confessionContent}
+            quote={quote}
+            effects={confessionEffects}
+            requirements={confessionRequirements}
+            contactInfo={contactInfo}
+            effectsColor="green"
+          />
+        </Container>
+      </Section>
 
       {/* How to Go to Confession */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               How to Go to Confession
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Follow these simple steps to receive the sacrament of confession.
-            </p>
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Follow these simple steps to receive the sacrament of confession with confidence and peace.
+            </Text>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                step: 1,
-                title: "Examination of Conscience",
-                description: "Reflect on your actions, thoughts, and omissions since your last confession. Consider how you have fallen short of God's love.",
-                icon: Shield
-              },
-              {
-                step: 2,
-                title: "Contrition",
-                description: "Feel genuine sorrow for your sins and resolve to avoid sin in the future with God's grace.",
-                icon: Heart
-              },
-              {
-                step: 3,
-                title: "Confession",
-                description: "Confess your sins honestly and completely to the priest, starting with how long since your last confession.",
-                icon: Users
-              },
-              {
-                step: 4,
-                title: "Absolution",
-                description: "The priest gives you a penance and grants absolution in the name of the Father, Son, and Holy Spirit.",
-                icon: CheckCircle
-              },
-              {
-                step: 5,
-                title: "Penance",
-                description: "Complete the penance given by the priest, usually prayers or acts of charity.",
-                icon: Clock
-              },
-              {
-                step: 6,
-                title: "Amendment",
-                description: "Make a firm purpose to avoid sin and live according to God's will with the help of His grace.",
-                icon: ArrowRight
-              }
-            ].map((step, index) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-sm"
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
-                    {step.step}
+          <Grid cols={4} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {confessionSteps.map((step, index) => (
+              <Card key={step.step} variant="default" padding="md" className="bg-white text-center">
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-center space-x-3">
+                      <div className={`w-10 h-10 ${step.color} rounded-full flex items-center justify-center text-white font-bold`}>
+                        {step.step}
+                      </div>
+                      <step.icon className="h-6 w-6 text-green-600" />
+                    </div>
+                    <Heading level="h4" className="text-lg font-semibold">
+                      {step.title}
+                    </Heading>
+                    <Text size="sm" color="muted" className="leading-relaxed">
+                      {step.description}
+                    </Text>
                   </div>
-                  <step.icon className="h-6 w-6 text-green-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
-              </motion.div>
+                </CardContent>
+              </Card>
             ))}
-          </div>
-        </div>
-      </ContentSection>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Confession Times */}
-      <ContentSection background="white">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               Confession Times at St Saviour's
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Regular times for the sacrament of confession are available throughout the week.
-            </p>
+            </Text>
           </div>
 
           <div className="max-w-2xl mx-auto space-y-4">
-            {confessionTimes.map((confession, index) => (
-              <div key={index} className="bg-gray-50 p-6 rounded-lg border">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{confession.day}</h3>
-                      <p className="text-gray-600">{confession.time}</p>
-                    </div>
-                  </div>
-                </div>
-                {confession.note && (
-                  <p className="text-sm text-gray-500 mt-4 ml-16">{confession.note}</p>
-                )}
-              </div>
+            {confessionTimes.map((time, index) => (
+              <Card key={index} variant="outlined" padding="lg" className="bg-white">
+                <CardContent>
+                  <Flex align="center" justify="between">
+                    <Flex align="center" gap="md">
+                      <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                        <Clock className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <Heading level="h3" className="text-lg font-semibold">
+                          {time.day}
+                        </Heading>
+                        <Text color="muted">{time.time}</Text>
+                      </div>
+                    </Flex>
+                  </Flex>
+                  {time.note && (
+                    <Text size="sm" color="muted" className="mt-4 ml-16">
+                      {time.note}
+                    </Text>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">By Appointment</h3>
-            <p className="text-blue-800">
-              Confession is also available by appointment. Please contact the parish office 
-              at <strong>020 8852 7411</strong> to arrange a time that works for you.
-            </p>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Benefits of Confession */}
-      <ContentSection background="navy">
-        <div className="text-white space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gold-400 mb-4">
-              Benefits of Regular Confession
-            </h2>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-              Regular confession brings many spiritual benefits and helps us grow closer to God.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Forgiveness of Sins",
-                description: "All sins confessed with true contrition are completely forgiven."
-              },
-              {
-                title: "Grace and Strength",
-                description: "Receive actual grace to resist temptation and live virtuously."
-              },
-              {
-                title: "Peace of Conscience",
-                description: "Experience the peace that comes from knowing you are forgiven."
-              },
-              {
-                title: "Spiritual Direction",
-                description: "Receive guidance and advice for your spiritual journey."
-              },
-              {
-                title: "Reconciliation",
-                description: "Restore your relationship with God and the Church community."
-              },
-              {
-                title: "Growth in Holiness",
-                description: "Regular confession helps you grow in virtue and holiness."
-              }
-            ].map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-sm rounded-lg p-6"
-              >
-                <h3 className="text-lg font-semibold text-gold-400 mb-3">{benefit.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </ContentSection>
+          <Card variant="outlined" padding="lg" className="bg-blue-50 border-blue-200 max-w-2xl mx-auto mt-8">
+            <CardContent>
+              <Heading level="h3" className="text-lg font-semibold text-blue-900 mb-2">
+                By Appointment
+              </Heading>
+              <Text className="text-blue-800">
+                Confession is also available by appointment. Please contact the parish office 
+                at <span className="font-semibold">020 8852 7411</span> to arrange a time that works for you.
+              </Text>
+            </CardContent>
+          </Card>
+        </Container>
+      </Section>
 
       {/* Examination of Conscience */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               Examination of Conscience
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Use these questions to help examine your conscience before confession.
-            </p>
+            </Text>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">Our Relationship with God</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Have I made time for prayer each day?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Have I attended Mass on Sundays and holy days?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Have I used God's name respectfully?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Have I kept the Sabbath holy?</span>
-                </li>
-              </ul>
-            </div>
+          <Grid cols={2} gap="lg">
+            {/* Our Relationship with God */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
+                    Our Relationship with God
+                  </Heading>
+                  <div className="space-y-3">
+                    {[
+                      "Have I made time for prayer each day?",
+                      "Have I attended Mass on Sundays and holy days?",
+                      "Have I used God's name respectfully?",
+                      "Have I kept the Sabbath holy?",
+                      "Have I trusted in God's providence?"
+                    ].map((question, index) => (
+                      <Flex key={index} align="start" gap="sm">
+                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <Text size="sm" color="muted">{question}</Text>
+                      </Flex>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">Our Relationships with Others</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <span>Have I honored my parents and those in authority?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <span>Have I been patient and kind to others?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <span>Have I forgiven those who have hurt me?</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <span>Have I been honest and truthful?</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+            {/* Our Relationships with Others */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
+                    Our Relationships with Others
+                  </Heading>
+                  <div className="space-y-3">
+                    {[
+                      "Have I honored my parents and those in authority?",
+                      "Have I been patient and kind to others?",
+                      "Have I forgiven those who have hurt me?",
+                      "Have I been honest and truthful?",
+                      "Have I cared for those in need?"
+                    ].map((question, index) => (
+                      <Flex key={index} align="start" gap="sm">
+                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <Text size="sm" color="muted">{question}</Text>
+                      </Flex>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Call to Action */}
-      <ContentSection background="white">
-        <div className="text-center space-y-8">
-          <h2 className="text-3xl font-serif font-light text-gray-900">
-            Experience God's Mercy
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Don't let fear or shame keep you from God's infinite mercy. 
-            Take the first step toward reconciliation and peace.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-500 transition-colors"
-            >
-              Schedule Confession
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="/the-sacraments"
-              className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-            >
-              All Sacraments
-            </Link>
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <div className="text-center text-white space-y-8">
+            <div className="space-y-6">
+              <Heading level="h2" className="text-3xl font-light text-white">
+                Experience God's Infinite Mercy
+              </Heading>
+              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                No sin is too great for God's mercy. Come and experience the peace 
+                and joy that comes from knowing you are completely forgiven and loved.
+              </Text>
+            </div>
+            
+            <Flex justify="center" gap="md" wrap>
+              <Link href="/contact-us">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  leftIcon={<Phone className="h-5 w-5" />}
+                >
+                  Schedule Confession
+                </Button>
+              </Link>
+              <Link href="/the-sacraments">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  leftIcon={<ArrowRight className="h-5 w-5" />}
+                >
+                  Explore Other Sacraments
+                </Button>
+              </Link>
+            </Flex>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'
