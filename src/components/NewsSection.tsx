@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { newsArticles } from "@/lib/data";
 import { buttonVariants, cardVariants } from "@/lib/animations";
 import LoadingSkeleton from "./LoadingSkeleton";
+import { getNewsImages } from "@/lib/cms-images";
 
 interface NewsSectionProps {
   isLoading: boolean;
@@ -21,6 +22,7 @@ export default function NewsSection({
   isMobile,
 }: NewsSectionProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const newsImages = getNewsImages();
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -197,8 +199,8 @@ export default function NewsSection({
                         transition={prefersReducedMotion ? {} : { duration: 0.6, ease: "easeOut" }}
                       >
                         <Image
-                          src={article.image}
-                          alt={`${article.title} - ${article.category} article about parish life`}
+                          src={newsImages[index]?.url || article.image}
+                          alt={newsImages[index]?.alt || `${article.title} - ${article.category} article about parish life`}
                           fill
                           className={`object-cover transition-opacity duration-500 ${
                             imagesLoaded.has(`news-${article.id}`) ? 'opacity-100' : 'opacity-0'
@@ -217,14 +219,14 @@ export default function NewsSection({
                         </span>
                       </div>
 
-                      {/* Enhanced date badge */}
+                      {/* Enhanced date badge with semi-transparent blur */}
                       <div className="absolute top-4 right-4 z-20">
-                        <div className="bg-white rounded-lg px-3 py-2 shadow-lg">
+                        <div className="bg-white/20 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg border border-white/30">
                           <div className="text-center">
-                            <div className="text-lg font-bold text-gray-900">
+                            <div className="text-lg font-bold text-white drop-shadow-sm">
                               {new Date(article.date).getDate()}
                             </div>
-                            <div className="text-xs font-semibold text-gray-600 uppercase">
+                            <div className="text-xs font-semibold text-white/90 uppercase drop-shadow-sm">
                               {new Date(article.date).toLocaleDateString('en-GB', { month: 'short' })}
                             </div>
                           </div>

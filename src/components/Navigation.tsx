@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Cross, Menu, ChevronDown, X, Search } from "lucide-react";
 import { navigationMenu } from "@/lib/data";
+import { getLogo } from "@/lib/cms-images";
+import { getParishName, getParishLocation } from "@/lib/cms-content";
 import ThemeToggle from "./ThemeToggle";
 
 interface NavigationProps {
@@ -69,21 +72,28 @@ export default function Navigation({
       <nav
         className={`fixed top-0 left-0 right-0 w-full z-[9999] ${
           navbarHovered || dropdownOpen || mobileMenuOpen
-            ? "bg-navy-900/95 backdrop-blur-xl shadow-xl"
+            ? "bg-slate-900/95 backdrop-blur-xl shadow-xl"
             : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
+          <div className="flex justify-between items-center h-20 py-2">
+            {/* Logo with SVG and Text */}
             <Link href="/" className="flex items-center space-x-3 group">
-              <Cross className="h-8 w-8 text-white transition-colors duration-200" />
+              <div className="relative w-20 h-20 flex-shrink-0">
+                <Image
+                  src={getLogo()}
+                  alt="St Saviour's Catholic Church Logo"
+                  fill
+                  className="object-contain transition-transform duration-200 group-hover:scale-110"
+                />
+              </div>
               <div className="flex flex-col">
-                <span className="text-lg font-semibold font-serif text-white transition-colors duration-200">
-                  St Saviour's
+                <span className="text-lg font-semibold font-serif text-white transition-colors duration-200 group-hover:text-gold-300">
+                  {getParishName().replace(' Catholic Church', '')}
                 </span>
-                <span className="text-xs text-white/90 -mt-1 transition-colors duration-200">
-                  Catholic Church, Lewisham
+                <span className="text-xs text-white/90 -mt-1 transition-colors duration-200 group-hover:text-gold-200">
+                  Catholic Church, {getParishLocation()}
                 </span>
               </div>
             </Link>
@@ -116,7 +126,7 @@ export default function Navigation({
                 </div>
               ))}
 
-              {/* Search & Theme */}
+              {/* Search Only - Theme Toggle Disabled */}
               <div className="flex items-center space-x-2 ml-4">
                 <button
                   onClick={() => setSearchOpen(true)}
@@ -124,7 +134,7 @@ export default function Navigation({
                 >
                   <Search className="h-5 w-5" />
                 </button>
-                <ThemeToggle />
+                {/* Theme toggle temporarily disabled for future implementation */}
               </div>
             </div>
 
@@ -144,7 +154,7 @@ export default function Navigation({
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-navy-900/95 backdrop-blur-xl border-t border-navy-700/50 shadow-lg">
+          <div className="lg:hidden bg-slate-900/95 backdrop-blur-xl border-t border-slate-700/50 shadow-lg">
             <div className="px-4 py-4 space-y-2">
               {navigationMenu.map((item) => (
                 <div key={item.name}>
@@ -183,9 +193,9 @@ export default function Navigation({
       {/* Professional Mega Menu Dropdown */}
       {dropdownOpen && (
         <div 
-          className="fixed left-0 right-0 bg-navy-900/95 backdrop-blur-xl shadow-xl border-b border-navy-700/50 z-[9998] overflow-hidden"
+          className="fixed left-0 right-0 bg-slate-900/95 backdrop-blur-xl shadow-xl border-b border-slate-700/50 z-[9998] overflow-hidden"
           style={{ 
-            top: '64px',
+            top: '80px',
             animation: 'slideDown 0.3s ease-out forwards',
             transformOrigin: 'top'
           }}
@@ -198,21 +208,19 @@ export default function Navigation({
                   <Link
                     key={subItem.name}
                     href={subItem.href}
-                    className="group relative rounded-xl p-4 transition-all duration-200 hover:bg-white/10 hover:shadow-md border border-transparent hover:border-white/20"
+                    className="group relative rounded-xl p-6 transition-all duration-300 hover:bg-white/10 hover:shadow-md border border-transparent hover:border-white/20 hover:scale-[1.02]"
                   >
-                    <div className="flex items-start space-x-3">
-                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 text-white shadow-sm group-hover:shadow-md transition-shadow">
-                        <Cross className="h-5 w-5" />
-                      </div>
+                    <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-white group-hover:text-gold-300 transition-colors">
+                        <h3 className="text-base font-semibold text-white group-hover:text-gold-300 transition-colors duration-300 relative">
                           {subItem.name}
+                          <span className="absolute bottom-0 left-0 h-0.5 bg-gold-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                         </h3>
-                        <p className="mt-1 text-xs text-white/70 group-hover:text-white/90">
+                        <p className="mt-2 text-sm text-white/70 group-hover:text-white/90 transition-colors duration-300">
                           Learn more about {subItem.name.toLowerCase()}
                         </p>
                       </div>
-                      <ChevronDown className="h-4 w-4 text-white/50 rotate-[-90deg] group-hover:text-gold-300 transition-colors opacity-0 group-hover:opacity-100" />
+                      <ChevronDown className="h-5 w-5 text-white/50 rotate-[-90deg] group-hover:text-gold-300 group-hover:translate-x-1 transition-all duration-300 opacity-0 group-hover:opacity-100" />
                     </div>
                   </Link>
                 ))}
@@ -244,7 +252,7 @@ export default function Navigation({
     {(navbarHovered || dropdownOpen) && (
       <div 
         className="fixed inset-0 bg-blue-500/30 backdrop-blur-sm z-[9997]"
-        style={{ top: dropdownOpen ? '240px' : '64px' }}
+        style={{ top: dropdownOpen ? '240px' : '80px' }}
       />
     )}
     </>
