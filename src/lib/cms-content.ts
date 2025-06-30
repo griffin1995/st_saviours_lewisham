@@ -271,6 +271,21 @@ export function getParishEstablished() {
   return parish.established;
 }
 
+export function getAssistantPriest() {
+  const parish = getParishInfo();
+  return parish.assistantPriest || '';
+}
+
+export function getParishCharityNumber() {
+  const parish = getParishInfo();
+  return parish.charityNumber || '';
+}
+
+export function getOfficeHours() {
+  const parish = getParishInfo();
+  return parish.officeHours || { days: 'Mon-Fri', time: '9:00 AM - 5:00 PM' };
+}
+
 // **CONTACT INFORMATION**
 export function getContactInfo() {
   const content = getCMSContent();

@@ -28,3 +28,4 @@ export { default as PodcastSearch, PodcastSearchSkeleton } from './PodcastSearch
 export { default as PodcastSubscribe, PodcastSubscribeSkeleton } from './PodcastSubscribe'
 export { default as SacramentCard, SacramentCardSkeleton, type Sacrament } from './SacramentCard'
 export { default as SacramentInfo, SacramentInfoSkeleton } from './SacramentInfo'
+export { SafeguardingContactCard } from './SafeguardingContactCard'

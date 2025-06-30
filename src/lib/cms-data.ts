@@ -120,8 +120,14 @@ export interface WebsiteSettings {
     name: string;
     location: string;
     priest: string;
+    assistantPriest?: string;
     diocese: string;
     established: string;
+    charityNumber?: string;
+    officeHours?: {
+      days: string;
+      time: string;
+    };
   };
   social: {
     facebook: string;
@@ -220,8 +226,14 @@ function getDefaultSettings(): WebsiteSettings {
       name: "St Saviour's Catholic Church",
       location: "Lewisham",
       priest: "Fr Krisz Katona",
+      assistantPriest: "Revd. Carlos Lozano",
       diocese: "Southwark",
-      established: "1889"
+      established: "1889",
+      charityNumber: "1234567",
+      officeHours: {
+        days: "Mon-Fri",
+        time: "9:00 AM - 5:00 PM"
+      }
     },
     social: {
       facebook: "https://www.facebook.com/stsaviourslewisham",

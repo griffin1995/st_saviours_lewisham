@@ -1,10 +1,7 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
+import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { 
   Shield, 
   Phone, 
@@ -16,8 +13,29 @@ import {
   Clock,
   Book,
   UserCheck,
-  MapPin
-} from "lucide-react";
+  MapPin,
+  Download,
+  ExternalLink
+} from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card,
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Container,
+  Grid,
+  Flex
+} from '@/components/ui'
+import { SafeguardingContactCard } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
+
+// CMS integration
+import { getSafeguardingPhone, getContactPhone, getContactEmail, getParishPriest } from '@/lib/cms-content'
 
 const emergencyContacts = [
   {
@@ -58,15 +76,15 @@ const parishContacts = [
   {
     role: "Parish Safeguarding Representative",
     name: "Sarah Mitchell",
-    phone: "020 8852 7411",
+    phone: getSafeguardingPhone(),
     email: "safeguarding@saintsaviours.org.uk",
     availability: "Monday-Friday, 9:00 AM - 5:00 PM"
   },
   {
     role: "Parish Priest",
-    name: "Fr Krisz",
-    phone: "020 8852 7411",
-    email: "priest@saintsaviours.org.uk",
+    name: getParishPriest(),
+    phone: getContactPhone(),
+    email: getContactEmail(),
     availability: "By appointment"
   }
 ];
@@ -110,6 +128,8 @@ const policies = [
 ];
 
 export default function Safeguarding() {
+  const reducedMotion = prefersReducedMotion()
+
   return (
     <PageLayout
       title="Safeguarding"
@@ -121,389 +141,379 @@ export default function Safeguarding() {
         subtitle="Protecting Our Community"
         description="St Saviour's is committed to providing a safe environment for all members of our parish family."
         backgroundImage="/images/church/safe-community.jpg"
-        height="medium"
+        height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Phone className="h-5 w-5" />}
+            >
+              Emergency: 999
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Shield className="h-5 w-5" />}
+            >
+              Parish Contact
+            </Button>
+          </Flex>
+        }
       />
 
       {/* Emergency Banner */}
-      <ContentSection background="red" padding="medium">
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
-            <AlertTriangle className="h-8 w-8 text-red-600" />
+      <section className="py-24 bg-red-600 relative overflow-hidden">
+        <Container size="lg">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+              <AlertTriangle className="h-8 w-8 text-red-600" />
+            </div>
+            <Heading level="h2" className="text-white mb-6">
+              Emergency Situations
+            </Heading>
+            <Text size="xl" className="text-red-100 mb-8 max-w-3xl mx-auto">
+              If a child or adult is in immediate danger of significant or serious harm
+            </Text>
+            <Link href="tel:999">
+              <Button 
+                variant="secondary" 
+                size="xl"
+                leftIcon={<Phone className="h-6 w-6" />}
+                className="bg-white text-red-600 hover:bg-red-50 font-bold text-xl px-8 py-4"
+              >
+                Call 999 Immediately
+              </Button>
+            </Link>
           </div>
-          <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-            Emergency Situations
-          </h2>
-          <p className="text-xl text-red-100 mb-6 max-w-3xl mx-auto">
-            If a child or adult is in immediate danger of significant or serious harm
-          </p>
-          <Link
-            href="tel:999"
-            className="inline-flex items-center px-8 py-4 text-xl font-bold text-red-600 bg-white rounded-lg hover:bg-red-50 transition-colors duration-200"
-          >
-            <Phone className="h-6 w-6 mr-3" />
-            Call 999 Immediately
-          </Link>
-        </div>
-      </ContentSection>
+        </Container>
+      </section>
 
       {/* Our Commitment */}
-      <ContentSection background="white" padding="large">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-6">
-              Our Commitment to Safeguarding
-            </h2>
-            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-              St Saviour's Catholic Church is committed to safeguarding the welfare of all children, 
-              young people, and vulnerable adults. We follow the safeguarding policies of the Catholic 
-              Church in England & Wales and the Archdiocese of Southwark.
-            </p>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <Grid cols={2} gap="xl" className="grid-cols-1 lg:grid-cols-2 items-center">
+            <div>
+              <Heading level="h2" className="mb-6">
+                Our Commitment to Safeguarding
+              </Heading>
+              <Text size="xl" color="muted" className="mb-6 leading-relaxed">
+                St Saviour's Catholic Church is committed to safeguarding the welfare of all children, 
+                young people, and vulnerable adults. We follow the safeguarding policies of the Catholic 
+                Church in England & Wales and the Archdiocese of Southwark.
+              </Text>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Safeguarding is embedded in everything we do. All clergy, religious, volunteers, 
               parishioners, and staff follow national and diocesan safeguarding policies and receive 
               appropriate training to ensure our parish remains a safe place for everyone.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-start">
-                <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Safe Environment</h4>
-                  <p className="text-gray-600 text-sm">Creating secure spaces for worship and community</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-start">
+                  <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Safe Environment</h4>
+                    <p className="text-gray-600 text-sm">Creating secure spaces for worship and community</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Safer Recruitment</h4>
-                  <p className="text-gray-600 text-sm">Thorough vetting of all staff and volunteers</p>
+                <div className="flex items-start">
+                  <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Safer Recruitment</h4>
+                    <p className="text-gray-600 text-sm">Thorough vetting of all staff and volunteers</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Regular Training</h4>
-                  <p className="text-gray-600 text-sm">Ongoing safeguarding education for all</p>
+                <div className="flex items-start">
+                  <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Regular Training</h4>
+                    <p className="text-gray-600 text-sm">Ongoing safeguarding education for all</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Support for Survivors</h4>
-                  <p className="text-gray-600 text-sm">Care and assistance for those harmed by abuse</p>
+                <div className="flex items-start">
+                  <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Support for Survivors</h4>
+                    <p className="text-gray-600 text-sm">Care and assistance for those harmed by abuse</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="relative">
-            <Image
-              src="/images/church/community-safe.jpg"
-              alt="Safe parish community"
-              width={600}
-              height={400}
-              className="rounded-2xl shadow-lg"
-            />
-          </div>
-        </div>
-      </ContentSection>
+            <div className="relative">
+              <Image
+                src="/images/church/community-safe.jpg"
+                alt="Safe parish community"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg"
+              />
+            </div>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Emergency Contacts */}
-      <ContentSection background="gray" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Emergency Contacts
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Important numbers for safeguarding emergencies and concerns
-          </p>
-        </div>
+      {/* Emergency Contacts */}
+      <Section spacing="lg" background="gray">
+        <Container size="xl">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Emergency Contacts
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Important numbers for safeguarding emergencies and concerns
+            </Text>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {emergencyContacts.map((contact, index) => (
-            <motion.div
-              key={contact.situation}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow duration-300 ${
-                contact.urgent ? 'bg-red-50 border-2 border-red-200' : 'bg-white'
-              }`}
-            >
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${
-                contact.urgent ? 'bg-red-100' : 'bg-gold-100'
-              }`}>
-                <contact.icon className={`h-6 w-6 ${contact.urgent ? 'text-red-600' : 'text-gold-600'}`} />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{contact.situation}</h3>
-              <Link
-                href={`tel:${contact.contact.replace(/\s/g, '')}`}
-                className={`text-2xl font-bold mb-2 block hover:underline ${
-                  contact.urgent ? 'text-red-600' : 'text-gold-600'
-                }`}
-              >
-                {contact.contact}
-              </Link>
-              <p className="text-gray-600 text-sm mb-2">{contact.description}</p>
-              <div className="flex items-center justify-center text-xs text-gray-500">
-                <Clock className="h-3 w-3 mr-1" />
-                {contact.available}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+          <Grid cols={4} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {emergencyContacts.map((contact, index) => (
+              <SafeguardingContactCard
+                key={contact.situation}
+                contact={contact}
+                variant={contact.urgent ? "urgent" : "parish"}
+                size="md"
+              />
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Parish Contacts */}
-      <ContentSection background="white" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Parish Safeguarding Team
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our trained safeguarding representatives are here to help and support you
-          </p>
-        </div>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Parish Safeguarding Team
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Our trained safeguarding representatives are here to help and support you
+            </Text>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {parishContacts.map((contact, index) => (
-            <motion.div
-              key={contact.role}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white rounded-xl shadow-lg p-8 border border-gray-100"
-            >
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
-                  <Users className="h-8 w-8 text-gold-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{contact.role}</h3>
-                <p className="text-lg text-gold-600 font-medium">{contact.name}</p>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-gray-400 mr-3" />
-                  <Link
-                    href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                    className="text-gray-700 hover:text-gold-600 transition-colors"
-                  >
-                    {contact.phone}
-                  </Link>
-                </div>
-                <div className="flex items-center justify-center">
-                  <Mail className="h-5 w-5 text-gray-400 mr-3" />
-                  <Link
-                    href={`mailto:${contact.email}`}
-                    className="text-gray-700 hover:text-gold-600 transition-colors"
-                  >
-                    {contact.email}
-                  </Link>
-                </div>
-                <div className="flex items-center justify-center">
-                  <Clock className="h-5 w-5 text-gray-400 mr-3" />
-                  <span className="text-gray-600 text-sm">{contact.availability}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+          <Grid cols={2} gap="lg" className="grid-cols-1 lg:grid-cols-2">
+            {parishContacts.map((contact, index) => (
+              <SafeguardingContactCard
+                key={contact.role}
+                contact={{
+                  role: contact.role,
+                  name: contact.name,
+                  contact: contact.phone,
+                  description: `Contact for safeguarding concerns and support`,
+                  available: contact.availability,
+                  email: contact.email,
+                  icon: Users
+                }}
+                variant="parish"
+                size="lg"
+              />
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Diocesan Contacts */}
-      <ContentSection background="navy" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
-            Diocesan Safeguarding Team
-          </h2>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            Archdiocese of Southwark safeguarding coordinators
-          </p>
-        </div>
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="text-white mb-6">
+              Diocesan Safeguarding Team
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-200 max-w-3xl mx-auto">
+              Archdiocese of Southwark safeguarding coordinators
+            </Text>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {diocesanContacts.map((contact, index) => (
-            <motion.div
-              key={contact.role}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white rounded-xl p-8"
-            >
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
-                  <Shield className="h-8 w-8 text-gold-600" />
+          <Grid cols={2} gap="lg" className="grid-cols-1 lg:grid-cols-2">
+            {diocesanContacts.map((contact, index) => (
+              <motion.div
+                key={contact.role}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="bg-white rounded-xl p-8"
+              >
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
+                    <Shield className="h-8 w-8 text-gold-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{contact.role}</h3>
+                  <p className="text-lg text-gold-600 font-medium">{contact.name}</p>
+                  <p className="text-sm text-gray-500">{contact.office}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{contact.role}</h3>
-                <p className="text-lg text-gold-600 font-medium">{contact.name}</p>
-                <p className="text-sm text-gray-500">{contact.office}</p>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-gray-400 mr-3" />
-                  <Link
-                    href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                    className="text-gray-700 hover:text-gold-600 transition-colors"
-                  >
-                    {contact.phone}
-                  </Link>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center">
+                    <Phone className="h-5 w-5 text-gray-400 mr-3" />
+                    <Link
+                      href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                      className="text-gray-700 hover:text-gold-600 transition-colors"
+                    >
+                      {contact.phone}
+                    </Link>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <Mail className="h-5 w-5 text-gray-400 mr-3" />
+                    <Link
+                      href={`mailto:${contact.email}`}
+                      className="text-gray-700 hover:text-gold-600 transition-colors"
+                    >
+                      {contact.email}
+                    </Link>
+                  </div>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Mail className="h-5 w-5 text-gray-400 mr-3" />
-                  <Link
-                    href={`mailto:${contact.email}`}
-                    className="text-gray-700 hover:text-gold-600 transition-colors"
-                  >
-                    {contact.email}
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Policies and Documents */}
-      <ContentSection background="gray" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Safeguarding Policies
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Download our safeguarding policies and procedures
-          </p>
-        </div>
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Safeguarding Policies
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Download our safeguarding policies and procedures
+            </Text>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {policies.map((policy, index) => (
-            <motion.div
-              key={policy.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
-              <div className="text-center mb-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-100 rounded-full mb-4">
-                  <FileText className="h-6 w-6 text-gold-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{policy.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">{policy.description}</p>
-                <p className="text-xs text-gray-500 mb-4">Last updated: {policy.lastUpdated}</p>
-              </div>
-              <Link
-                href={policy.downloadUrl}
-                className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
+          <Grid cols={3} gap="lg" className="grid-cols-1 md:grid-cols-3">
+            {policies.map((policy, index) => (
+              <motion.div
+                key={policy.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <FileText className="h-4 w-4 mr-2" />
-                Download PDF
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+                <div className="text-center mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-100 rounded-full mb-4">
+                    <FileText className="h-6 w-6 text-gold-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{policy.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{policy.description}</p>
+                  <p className="text-xs text-gray-500 mb-4">Last updated: {policy.lastUpdated}</p>
+                </div>
+                <Link
+                  href={policy.downloadUrl}
+                  className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Download PDF
+                </Link>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Training Information */}
-      <ContentSection background="white" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Safeguarding Training
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            All volunteers and staff receive appropriate safeguarding training
-          </p>
-        </div>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
+              Safeguarding Training
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              All volunteers and staff receive appropriate safeguarding training
+            </Text>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Training Requirements</h3>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">All Volunteers</h4>
-                  <p className="text-gray-600">Basic safeguarding awareness training required</p>
+          <Grid cols={2} gap="xl" className="grid-cols-1 lg:grid-cols-2 items-center">
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Training Requirements</h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">All Volunteers</h4>
+                    <p className="text-gray-600">Basic safeguarding awareness training required</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Regular Updates</h4>
-                  <p className="text-gray-600">Training updated every three years minimum</p>
+                <div className="flex items-start">
+                  <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Regular Updates</h4>
+                    <p className="text-gray-600">Training updated every three years minimum</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Enhanced Training</h4>
-                  <p className="text-gray-600">Additional training for those working closely with children</p>
+                <div className="flex items-start">
+                  <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Enhanced Training</h4>
+                    <p className="text-gray-600">Additional training for those working closely with children</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Support Available</h4>
-                  <p className="text-gray-600">Ongoing guidance and support from our safeguarding team</p>
+                <div className="flex items-start">
+                  <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Support Available</h4>
+                    <p className="text-gray-600">Ongoing guidance and support from our safeguarding team</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="bg-gold-50 rounded-xl p-8">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Want to Volunteer?</h3>
-            <p className="text-gray-600 mb-6">
-              If you're interested in volunteering with children, young people, or vulnerable adults, 
-              we'll provide you with all the necessary training and support.
-            </p>
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
-            >
-              <Mail className="h-5 w-5 mr-2" />
-              Get in Touch
-            </Link>
-          </div>
-        </div>
-      </ContentSection>
+            <div className="bg-gold-50 rounded-xl p-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Want to Volunteer?</h3>
+              <p className="text-gray-600 mb-6">
+                If you're interested in volunteering with children, young people, or vulnerable adults, 
+                we'll provide you with all the necessary training and support.
+              </p>
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
+              >
+                <Mail className="h-5 w-5 mr-2" />
+                Get in Touch
+              </Link>
+            </div>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Additional Resources */}
-      <ContentSection background="navy" padding="large">
-        <div className="text-center">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
-            Additional Resources
-          </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Useful links and resources for safeguarding information
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Link
-              href="https://www.rcsouthwark.co.uk/mission/safeguarding/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-navy-900 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-200"
-            >
-              <MapPin className="h-5 w-5 mr-2" />
-              Diocese Safeguarding
-            </Link>
-            <Link
-              href="https://www.nspcc.org.uk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-navy-900 transition-colors duration-200"
-            >
-              <Heart className="h-5 w-5 mr-2" />
-              NSPCC
-            </Link>
-            <Link
-              href="https://www.childline.org.uk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-navy-900 transition-colors duration-200"
-            >
-              <Users className="h-5 w-5 mr-2" />
-              Childline
-            </Link>
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <div className="text-center">
+            <Heading level="h2" align="center" className="text-white mb-6">
+              Additional Resources
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-200 mb-8 max-w-3xl mx-auto">
+              Useful links and resources for safeguarding information
+            </Text>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <Link
+                href="https://www.rcsouthwark.co.uk/mission/safeguarding/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-slate-900 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              >
+                <MapPin className="h-5 w-5 mr-2" />
+                Diocese Safeguarding
+              </Link>
+              <Link
+                href="https://www.nspcc.org.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-slate-900 transition-colors duration-200"
+              >
+                <Heart className="h-5 w-5 mr-2" />
+                NSPCC
+              </Link>
+              <Link
+                href="https://www.childline.org.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-slate-900 transition-colors duration-200"
+              >
+                <Users className="h-5 w-5 mr-2" />
+                Childline
+              </Link>
+            </div>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
     </PageLayout>
   );
 }
