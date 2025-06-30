@@ -1,6 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Twitter, Instagram } from "lucide-react";
+import { getLogo } from "@/lib/cms-images";
+import { 
+  getParishName, 
+  getParishDiocese, 
+  getContactPhone, 
+  getContactEmail,
+  getSocialLinks 
+} from "@/lib/cms-content";
 
 export default function Footer() {
   return (
@@ -10,15 +19,23 @@ export default function Footer() {
         {/* Row 1: Church Logos */}
         <div className="pt-8 pb-6">
           <div className="flex items-center justify-between max-w-4xl mx-auto">
-            <div className="text-center flex-1">
+            <div className="text-center flex-1 flex items-center justify-center">
+              <div className="relative w-16 h-16 mr-3">
+                <Image
+                  src={getLogo()}
+                  alt="St Saviour's Catholic Church Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
               <h3 className="text-lg font-serif font-semibold text-white">
-                St Saviour's Catholic Church
+                {getParishName()}
               </h3>
             </div>
             <div className="w-16 h-px bg-white/40 mx-8"></div>
             <div className="text-center flex-1">
               <h4 className="text-lg font-serif font-semibold text-white">
-                Roman Catholic Archdiocese of Southwark
+                Roman Catholic Archdiocese of {getParishDiocese()}
               </h4>
             </div>
           </div>
@@ -84,40 +101,33 @@ export default function Footer() {
             {/* Phone */}
             <div className="text-center">
               <h5 className="text-white font-semibold text-sm mb-2">Call Us</h5>
-              <p className="text-gray-300 text-sm">020 8852 7411</p>
+              <p className="text-gray-300 text-sm">{getContactPhone()}</p>
             </div>
             
             {/* Email */}
             <div className="text-center">
               <h5 className="text-white font-semibold text-sm mb-2">Email Us</h5>
-              <p className="text-gray-300 text-sm">parish@saintsaviours.org.uk</p>
+              <p className="text-gray-300 text-sm">{getContactEmail()}</p>
             </div>
             
             {/* Social Media */}
             <div className="text-center">
               <h5 className="text-white font-semibold text-sm mb-2">Follow Us</h5>
               <div className="flex justify-center space-x-4">
-                <Link 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="h-5 w-5" />
-                </Link>
-                <Link 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="h-5 w-5" />
-                </Link>
-                <Link 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                  aria-label="Instagram"
-                >
-                  <Instagram className="h-5 w-5" />
-                </Link>
+                {getSocialLinks().map((social) => (
+                  <Link 
+                    key={social.name}
+                    href={social.url} 
+                    className="text-gray-300 hover:text-white transition-colors duration-200"
+                    aria-label={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {social.name === 'Facebook' && <Facebook className="h-5 w-5" />}
+                    {social.name === 'Twitter' && <Twitter className="h-5 w-5" />}
+                    {social.name === 'Instagram' && <Instagram className="h-5 w-5" />}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -131,7 +141,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
             {/* Copyright */}
             <div className="text-center md:text-left">
-              <p>© 2025 St Saviour's Catholic Church</p>
+              <p>© 2025 {getParishName()}</p>
               <p>Reg. Charity No. 1234567</p>
             </div>
             

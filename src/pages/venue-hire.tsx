@@ -1,43 +1,35 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { 
   Building, 
-  Users, 
-  Calendar, 
-  Clock, 
+  Heart, 
+  Star, 
   Phone, 
   Mail, 
   MapPin,
-  Car,
-  Wifi,
-  Coffee,
-  Music,
-  Utensils,
+  PartyPopper,
   CheckCircle,
-  Star,
-  Heart,
-  PartyPopper
-} from "lucide-react";
+  Calendar
+} from 'lucide-react'
 
-interface Venue {
-  id: string;
-  name: string;
-  description: string;
-  capacity: string;
-  area: string;
-  image: string;
-  features: string[];
-  hourlyRate: string;
-  halfDayRate: string;
-  fullDayRate: string;
-  suitableFor: string[];
-}
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card, 
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Grid,
+  Flex,
+  Container
+} from '@/components/ui'
+import { VenueCard, VenueEnquiryForm, type Venue, type VenueEnquiryData } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
+// Venue data
 const venues: Venue[] = [
   {
     id: "parish-hall",
@@ -99,7 +91,7 @@ const venues: Venue[] = [
     fullDayRate: "£150",
     suitableFor: ["Garden parties", "Wedding photos", "Outdoor ceremonies", "Summer fairs", "Memorial services", "Children's events"]
   }
-];
+]
 
 const faqs = [
   {
@@ -126,11 +118,28 @@ const faqs = [
     question: "What about decorations?",
     answer: "You're welcome to decorate the venues appropriately. We ask that no fixtures are damaged and all decorations are removed after your event."
   }
-];
+]
 
 export default function VenueHire() {
-  const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const reducedMotion = prefersReducedMotion()
+  const [selectedVenue, setSelectedVenue] = useState<string | null>(null)
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+
+  const handleVenueBooking = (venueId: string) => {
+    setSelectedVenue(venueId)
+    // Scroll to enquiry form
+    document.getElementById('enquiry-form')?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    })
+  }
+
+  const handleEnquirySubmit = async (data: VenueEnquiryData) => {
+    // Handle enquiry submission
+    console.log('Venue enquiry submitted:', data)
+    // In a real implementation, this would send the enquiry via email or API
+    alert('Thank you for your enquiry! We will get back to you within 24 hours.')
+  }
 
   return (
     <PageLayout
@@ -138,353 +147,324 @@ export default function VenueHire() {
       description="Hire beautiful spaces at St Saviour's Catholic Church in Lewisham for your special events, meetings, and celebrations."
       keywords="Venue Hire Lewisham, Church Hall Hire, Event Space, Wedding Venue, Community Hall, Parish Hall Rental"
     >
+      {/* Hero Section */}
       <PageHero
         title="Venue Hire"
         subtitle="Beautiful Spaces for Your Special Events"
         description="Discover our welcoming venues perfect for celebrations, meetings, and community gatherings in the heart of Lewisham."
         backgroundImage="/images/venues/hall-setup.jpg"
-        height="medium"
+        height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Calendar className="h-5 w-5" />}
+            >
+              Book Now
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Phone className="h-5 w-5" />}
+            >
+              Call Us
+            </Button>
+          </Flex>
+        }
       />
 
       {/* Introduction */}
-      <ContentSection background="white" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-6">
-            Welcome to Our Community Spaces
-          </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            St Saviour's parish offers beautiful, well-maintained venues in the heart of Lewisham. 
-            Whether you're planning a wedding reception, birthday celebration, community meeting, or 
-            corporate event, our flexible spaces provide the perfect setting for your special occasion.
-          </p>
-        </div>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Welcome to Our Community Spaces
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="leading-relaxed">
+              St Saviour's parish offers beautiful, well-maintained venues in the heart of Lewisham. 
+              Whether you're planning a wedding reception, birthday celebration, community meeting, or 
+              corporate event, our flexible spaces provide the perfect setting for your special occasion.
+            </Text>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
-              <Building className="h-8 w-8 text-gold-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Historic Setting</h3>
-            <p className="text-gray-600">Beautiful Victorian buildings with character and charm</p>
-          </div>
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
-              <Heart className="h-8 w-8 text-gold-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Community Spirit</h3>
-            <p className="text-gray-600">Supporting local families and community organizations</p>
-          </div>
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
-              <Star className="h-8 w-8 text-gold-600" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Excellent Value</h3>
-            <p className="text-gray-600">Competitive rates with all proceeds supporting parish work</p>
-          </div>
-        </div>
-      </ContentSection>
+          <Grid cols={3} gap="lg">
+            {[
+              {
+                icon: Building,
+                title: "Historic Setting",
+                description: "Beautiful Victorian buildings with character and charm"
+              },
+              {
+                icon: Heart,
+                title: "Community Spirit", 
+                description: "Supporting local families and community organizations"
+              },
+              {
+                icon: Star,
+                title: "Excellent Value",
+                description: "Competitive rates with all proceeds supporting parish work"
+              }
+            ].map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card variant="default" padding="lg" className="text-center h-full bg-white">
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto">
+                        <benefit.icon className="h-8 w-8 text-gold-600" />
+                      </div>
+                      <Heading level="h3" align="center" className="font-semibold">
+                        {benefit.title}
+                      </Heading>
+                      <Text color="muted" align="center">
+                        {benefit.description}
+                      </Text>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Venues */}
-      <ContentSection background="gray" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Our Venues
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choose from our range of flexible spaces to suit events of all sizes
-          </p>
-        </div>
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Our Venues
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Choose from our range of flexible spaces to suit events of all sizes
+            </Text>
+          </motion.div>
 
-        <div className="space-y-12">
-          {venues.map((venue, index) => (
-            <motion.div
-              key={venue.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                <div className={`relative h-64 lg:h-auto ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <Image
-                    src={venue.image}
-                    alt={venue.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className={`p-8 lg:p-12 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <h3 className="text-2xl lg:text-3xl font-serif font-light text-gray-900 mb-4">
-                    {venue.name}
-                  </h3>
-                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                    {venue.description}
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center">
-                      <Users className="h-5 w-5 text-gold-600 mr-2" />
-                      <span className="text-gray-700">{venue.capacity}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Building className="h-5 w-5 text-gold-600 mr-2" />
-                      <span className="text-gray-700">{venue.area}</span>
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Features</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {venue.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center">
-                          <CheckCircle className="h-4 w-4 text-gold-600 mr-2 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg font-semibold text-gray-900">{venue.hourlyRate}</div>
-                      <div className="text-sm text-gray-600">per hour</div>
-                    </div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg font-semibold text-gray-900">{venue.halfDayRate}</div>
-                      <div className="text-sm text-gray-600">half day</div>
-                    </div>
-                    <div className="text-center p-3 bg-gold-50 rounded-lg border-2 border-gold-200">
-                      <div className="text-lg font-semibold text-gray-900">{venue.fullDayRate}</div>
-                      <div className="text-sm text-gold-600">full day</div>
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-2">Perfect for</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {venue.suitableFor.map((use, idx) => (
-                        <span
-                          key={idx}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gold-100 text-gold-600"
-                        >
-                          {use}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setSelectedVenue(selectedVenue === venue.id ? null : venue.id)}
-                    className="w-full sm:w-auto inline-flex items-center px-8 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
-                  >
-                    <Calendar className="h-5 w-5 mr-2" />
-                    Book This Venue
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+          <div className="space-y-12">
+            {venues.map((venue, index) => (
+              <VenueCard
+                key={venue.id}
+                venue={venue}
+                variant="default"
+                imagePosition={index % 2 === 1 ? 'right' : 'left'}
+                onBookClick={handleVenueBooking}
+              />
+            ))}
+          </div>
+        </Container>
+      </Section>
 
       {/* Booking Process */}
-      <ContentSection background="white" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            How to Book
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Simple steps to secure your venue
-          </p>
-        </div>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              How to Book
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Simple steps to secure your venue
+            </Text>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {[
-            {
-              step: "1",
-              title: "Contact Us",
-              description: "Call or email to check availability and discuss your requirements",
-              icon: Phone
-            },
-            {
-              step: "2", 
-              title: "Visit & View",
-              description: "Arrange a viewing to see the venue and discuss your specific needs",
-              icon: Building
-            },
-            {
-              step: "3",
-              title: "Confirm Booking",
-              description: "Complete our booking form and pay the deposit to secure your date",
-              icon: CheckCircle
-            },
-            {
-              step: "4",
-              title: "Your Event",
-              description: "Enjoy your special day with our support and beautiful venue",
-              icon: PartyPopper
-            }
-          ].map((step, index) => (
-            <motion.div
-              key={step.step}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="text-center"
-            >
-              <div className="relative mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full">
-                  <step.icon className="h-8 w-8 text-gold-600" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gold-600 text-white text-sm font-bold rounded-full flex items-center justify-center">
-                  {step.step}
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{step.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
-
-      {/* Contact Information */}
-      <ContentSection background="navy" padding="large">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-6">
-              Get in Touch
-            </h2>
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
-              Ready to book your venue or have questions? Our friendly team is here to help 
-              make your event a success.
-            </p>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <Phone className="h-6 w-6 text-gold-400 mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <div className="text-lg font-semibold text-white">Phone</div>
-                  <div className="text-gray-200">020 8852 7411</div>
-                  <div className="text-sm text-gray-300">Monday - Friday, 9:00 AM - 5:00 PM</div>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <Mail className="h-6 w-6 text-gold-400 mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <div className="text-lg font-semibold text-white">Email</div>
-                  <div className="text-gray-200">venues@saintsaviours.org.uk</div>
-                  <div className="text-sm text-gray-300">We typically respond within 24 hours</div>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <MapPin className="h-6 w-6 text-gold-400 mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <div className="text-lg font-semibold text-white">Address</div>
-                  <div className="text-gray-200">
-                    St Saviour's Catholic Church<br />
-                    123 Church Lane<br />
-                    Lewisham, London SE13 7XX
+          <Grid cols={4} gap="lg">
+            {[
+              {
+                step: "1",
+                title: "Contact Us",
+                description: "Call or email to check availability and discuss your requirements",
+                icon: Phone
+              },
+              {
+                step: "2", 
+                title: "Visit & View",
+                description: "Arrange a viewing to see the venue and discuss your specific needs",
+                icon: Building
+              },
+              {
+                step: "3",
+                title: "Confirm Booking",
+                description: "Complete our booking form and pay the deposit to secure your date",
+                icon: CheckCircle
+              },
+              {
+                step: "4",
+                title: "Your Event",
+                description: "Enjoy your special day with our support and beautiful venue",
+                icon: PartyPopper
+              }
+            ].map((step, index) => (
+              <motion.div
+                key={step.step}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto">
+                    <step.icon className="h-8 w-8 text-gold-600" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gold-600 text-white text-sm font-bold rounded-full flex items-center justify-center">
+                    {step.step}
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+                <Heading level="h3" className="font-semibold mb-3">
+                  {step.title}
+                </Heading>
+                <Text color="muted" align="center">
+                  {step.description}
+                </Text>
+              </motion.div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
 
-          <div className="bg-white rounded-2xl p-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Quick Enquiry</h3>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                />
+      {/* Contact & Enquiry Form */}
+      <Section spacing="lg" background="slate" id="enquiry-form">
+        <Container size="lg">
+          <Grid cols={2} gap="xl" className="items-start">
+            {/* Contact Information */}
+            <motion.div
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
+              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-white"
+            >
+              <Heading level="h2" className="text-3xl lg:text-4xl font-light mb-6 text-white">
+                Get in Touch
+              </Heading>
+              <Text size="xl" className="text-gray-200 mb-8 leading-relaxed">
+                Ready to book your venue or have questions? Our friendly team is here to help 
+                make your event a success.
+              </Text>
+              
+              <div className="space-y-6">
+                <Flex align="start" gap="md">
+                  <Phone className="h-6 w-6 text-gold-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <Text weight="bold" className="text-lg text-white">Phone</Text>
+                    <Text className="text-gray-200">020 8852 7411</Text>
+                    <Text size="sm" className="text-gray-300">Monday - Friday, 9:00 AM - 5:00 PM</Text>
+                  </div>
+                </Flex>
+                
+                <Flex align="start" gap="md">
+                  <Mail className="h-6 w-6 text-gold-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <Text weight="bold" className="text-lg text-white">Email</Text>
+                    <Text className="text-gray-200">venues@saintsaviours.org.uk</Text>
+                    <Text size="sm" className="text-gray-300">We typically respond within 24 hours</Text>
+                  </div>
+                </Flex>
+                
+                <Flex align="start" gap="md">
+                  <MapPin className="h-6 w-6 text-gold-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <Text weight="bold" className="text-lg text-white">Address</Text>
+                    <div className="text-gray-200">
+                      St Saviour's Catholic Church<br />
+                      123 Church Lane<br />
+                      Lewisham, London SE13 7XX
+                    </div>
+                  </div>
+                </Flex>
               </div>
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-              />
-              <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent">
-                <option value="">Select Venue</option>
-                {venues.map((venue) => (
-                  <option key={venue.id} value={venue.id}>{venue.name}</option>
-                ))}
-              </select>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="date"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                />
-                <input
-                  type="number"
-                  placeholder="Expected Guests"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-                />
-              </div>
-              <textarea
-                rows={4}
-                placeholder="Tell us about your event..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
-              >
-                <Mail className="h-5 w-5 mr-2" />
-                Send Enquiry
-              </button>
-            </form>
-          </div>
-        </div>
-      </ContentSection>
+            </motion.div>
+
+            {/* Enquiry Form */}
+            <VenueEnquiryForm
+              venues={venues}
+              selectedVenueId={selectedVenue || undefined}
+              onSubmit={handleEnquirySubmit}
+              title="Quick Enquiry"
+            />
+          </Grid>
+        </Container>
+      </Section>
 
       {/* FAQ Section */}
-      <ContentSection background="gray" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about hiring our venues
-          </p>
-        </div>
+      <Section spacing="lg" background="gray">
+        <Container size="md">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Frequently Asked Questions
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Everything you need to know about hiring our venues
+            </Text>
+          </motion.div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
-            >
-              <button
-                onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <span className="text-lg font-semibold text-gray-900">{faq.question}</span>
-                <div className={`transform transition-transform ${expandedFaq === index ? 'rotate-180' : ''}`}>
-                  <CheckCircle className="h-5 w-5 text-gold-600" />
-                </div>
-              </button>
-              {expandedFaq === index && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </ContentSection>
+                <Card variant="default" padding="none" className="bg-white overflow-hidden">
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  >
+                    <Text weight="bold" className="text-lg">
+                      {faq.question}
+                    </Text>
+                    <div className={`transform transition-transform ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                      <CheckCircle className="h-5 w-5 text-gold-600" />
+                    </div>
+                  </button>
+                  {expandedFaq === index && (
+                    <div className="px-6 pb-4">
+                      <Text color="muted" className="leading-relaxed">
+                        {faq.answer}
+                      </Text>
+                    </div>
+                  )}
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

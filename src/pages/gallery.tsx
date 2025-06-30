@@ -1,25 +1,28 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
-import { X, ChevronLeft, ChevronRight, Camera, Calendar, Heart } from "lucide-react";
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { Camera, Heart, Mail, Phone } from 'lucide-react'
 
-interface GalleryImage {
-  id: number;
-  src: string;
-  alt: string;
-  title: string;
-  category: string;
-  date: string;
-  description?: string;
-}
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card, 
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Flex,
+  Container
+} from '@/components/ui'
+import { GalleryGrid, ImageLightbox, type GalleryImage } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
+// Gallery data
 const galleryImages: GalleryImage[] = [
   {
     id: 1,
-    src: "/images/church/exterior-day.jpg",
+    src: "/images/pexels-pixabay-208216.jpg",
     alt: "St Saviour's Church exterior",
     title: "Our Beautiful Church",
     category: "Church Building",
@@ -37,7 +40,7 @@ const galleryImages: GalleryImage[] = [
   },
   {
     id: 3,
-    src: "/images/events/christmas-mass.jpg",
+    src: "/images/pexels-pixabay-208216.jpg",
     alt: "Christmas Mass celebration",
     title: "Christmas Celebration",
     category: "Liturgical Celebrations",
@@ -125,36 +128,38 @@ const galleryImages: GalleryImage[] = [
     date: "2024-11-10",
     description: "Our vibrant youth group in action"
   }
-];
+]
 
-const categories = ["All", "Church Building", "Liturgical Celebrations", "Sacraments", "Community Events"];
+const categories = ["All", "Church Building", "Liturgical Celebrations", "Sacraments", "Community Events"]
 
 export default function Gallery() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const reducedMotion = prefersReducedMotion()
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [currentCategory, setCurrentCategory] = useState('All')
 
+  // Calculate filtered images based on current category
   const filteredImages = galleryImages.filter(image => 
-    selectedCategory === "All" || image.category === selectedCategory
-  );
+    currentCategory === 'All' || image.category === currentCategory
+  )
 
-  const openLightbox = (image: GalleryImage) => {
-    setSelectedImage(image);
-    setLightboxIndex(filteredImages.findIndex(img => img.id === image.id));
-  };
+  const handleImageClick = (image: GalleryImage, index: number) => {
+    setSelectedImage(image)
+    setLightboxIndex(index)
+  }
 
   const closeLightbox = () => {
-    setSelectedImage(null);
-  };
+    setSelectedImage(null)
+  }
 
   const navigateLightbox = (direction: 'prev' | 'next') => {
     const newIndex = direction === 'prev' 
       ? (lightboxIndex - 1 + filteredImages.length) % filteredImages.length
-      : (lightboxIndex + 1) % filteredImages.length;
+      : (lightboxIndex + 1) % filteredImages.length
     
-    setLightboxIndex(newIndex);
-    setSelectedImage(filteredImages[newIndex]);
-  };
+    setLightboxIndex(newIndex)
+    setSelectedImage(filteredImages[newIndex])
+  }
 
   return (
     <PageLayout
@@ -162,200 +167,192 @@ export default function Gallery() {
       description="Explore photos of our beautiful church, celebrations, sacraments, and community life at St Saviour's Catholic Church in Lewisham."
       keywords="Photo Gallery, Church Photos, Community Events, Sacraments, Catholic Church Lewisham, Parish Life"
     >
+      {/* Hero Section */}
       <PageHero
         title="Photo Gallery"
         subtitle="Capturing Our Faith Journey"
         description="Explore the beauty of our church, celebrations, and vibrant community life through these cherished moments."
         backgroundImage="/images/hero/church-gathering.jpg"
-        height="medium"
+        height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Camera className="h-5 w-5" />}
+            >
+              View Gallery
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Mail className="h-5 w-5" />}
+            >
+              Submit Photos
+            </Button>
+          </Flex>
+        }
       />
 
-      {/* Category Filter */}
-      <ContentSection background="gray" padding="medium">
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                selectedCategory === category
-                  ? 'bg-gold-600 text-white shadow-md'
-                  : 'bg-white text-gray-700 hover:bg-gold-50 hover:text-gold-600 shadow-sm'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </ContentSection>
+      {/* Introduction */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Our Parish Life in Pictures
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="leading-relaxed">
+              From sacred liturgical celebrations to joyful community gatherings, 
+              these photos capture the essence of our faith community. Browse through 
+              memories of sacraments, events, and the beautiful spaces where we worship.
+            </Text>
+          </motion.div>
+        </Container>
+      </Section>
 
       {/* Gallery Grid */}
-      <ContentSection background="white" padding="large">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-            {selectedCategory === "All" ? "All Photos" : selectedCategory}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {selectedCategory === "All" 
-              ? "Browse our complete collection of parish life moments"
-              : `Photos from our ${selectedCategory.toLowerCase()}`
-            }
-          </p>
-        </div>
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <GalleryGrid
+            images={galleryImages}
+            categories={categories}
+            columns={4}
+            showFilter={true}
+            onImageClick={handleImageClick}
+            initialCategory={currentCategory}
+            className="mb-16"
+          />
+        </Container>
+      </Section>
 
-        {filteredImages.length === 0 ? (
-          <div className="text-center py-12">
-            <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-xl text-gray-600">
-              No photos found in this category.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredImages.map((image, index) => (
+      {/* Share Your Photos CTA */}
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center text-white"
+          >
+            <Heart className="h-12 w-12 text-gold-400 mx-auto mb-6" />
+            
+            <Heading level="h2" className="text-3xl lg:text-4xl font-light mb-6 text-white">
+              Share Your Moments
+            </Heading>
+            
+            <Text size="xl" className="text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Have photos from parish events you'd like to share? We'd love to include them 
+              in our gallery to celebrate our community together and preserve these precious memories.
+            </Text>
+            
+            <Flex justify="center" gap="md" wrap>
+              <a href="mailto:photos@saintsaviours.org.uk">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  leftIcon={<Camera className="h-5 w-5" />}
+                >
+                  Submit Photos
+                </Button>
+              </a>
+              <Link href="/contact-us">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  leftIcon={<Phone className="h-5 w-5" />}
+                >
+                  Contact Us
+                </Button>
+              </Link>
+            </Flex>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Photography Guidelines */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Photography Guidelines
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              When taking photos at parish events, please follow these simple guidelines
+            </Text>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Camera,
+                title: "Respectful Photography",
+                description: "Please be mindful during liturgical celebrations and ask permission before photographing individuals."
+              },
+              {
+                icon: Heart,
+                title: "Share the Joy",
+                description: "We love seeing community events, celebrations, and fellowship moments that show our parish spirit."
+              },
+              {
+                icon: Mail,
+                title: "High Quality Images",
+                description: "Please submit high-resolution photos with a brief description of the event and date taken."
+              }
+            ].map((guideline, index) => (
               <motion.div
-                key={image.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group cursor-pointer"
-                onClick={() => openLightbox(image)}
+                key={index}
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
               >
-                <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-md group-hover:shadow-xl transition-all duration-300">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <h3 className="text-lg font-semibold mb-1">{image.title}</h3>
-                    <p className="text-sm text-gray-200 flex items-center">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {new Date(image.date).toLocaleDateString('en-GB', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      })}
-                    </p>
-                  </div>
-                </div>
+                <Card variant="default" padding="lg" className="text-center h-full bg-white">
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center mx-auto">
+                        <guideline.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <Heading level="h3" align="center" className="font-semibold">
+                        {guideline.title}
+                      </Heading>
+                      <Text color="muted" align="center">
+                        {guideline.description}
+                      </Text>
+                    </div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
-        )}
-      </ContentSection>
+        </Container>
+      </Section>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            onClick={closeLightbox}
-          >
-            <div className="relative max-w-5xl max-h-full w-full h-full flex items-center justify-center">
-              {/* Close Button */}
-              <button
-                onClick={closeLightbox}
-                className="absolute top-4 right-4 z-10 w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-              >
-                <X className="h-6 w-6" />
-              </button>
-
-              {/* Navigation Buttons */}
-              {filteredImages.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigateLightbox('prev');
-                    }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigateLightbox('next');
-                    }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </button>
-                </>
-              )}
-
-              {/* Image Container */}
-              <div className="relative w-full h-full flex flex-col items-center justify-center">
-                <div className="relative max-w-4xl max-h-[70vh] w-full h-full">
-                  <Image
-                    src={selectedImage.src}
-                    alt={selectedImage.alt}
-                    fill
-                    className="object-contain"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </div>
-
-                {/* Image Details */}
-                <div className="mt-6 text-center text-white max-w-2xl">
-                  <h2 className="text-2xl font-semibold mb-2">{selectedImage.title}</h2>
-                  {selectedImage.description && (
-                    <p className="text-gray-300 mb-2">{selectedImage.description}</p>
-                  )}
-                  <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
-                    <span className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {new Date(selectedImage.date).toLocaleDateString('en-GB', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      })}
-                    </span>
-                    <span className="px-2 py-1 bg-gold-600 text-white rounded-full text-xs">
-                      {selectedImage.category}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Call to Action */}
-      <ContentSection background="navy" padding="large">
-        <div className="text-center">
-          <Heart className="h-12 w-12 text-gold-400 mx-auto mb-6" />
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
-            Share Your Moments
-          </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Have photos from parish events you'd like to share? We'd love to include them in our gallery to celebrate our community together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:photos@saintsaviours.org.uk"
-              className="inline-flex items-center px-8 py-3 text-lg font-medium text-navy-900 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-200"
-            >
-              <Camera className="h-5 w-5 mr-2" />
-              Submit Photos
-            </a>
-            <a
-              href="/contact-us"
-              className="inline-flex items-center px-8 py-3 text-lg font-medium text-white border-2 border-white rounded-lg hover:bg-white hover:text-navy-900 transition-colors duration-200"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </ContentSection>
+      {/* Image Lightbox */}
+      <ImageLightbox
+        image={selectedImage}
+        images={filteredImages}
+        currentIndex={lightboxIndex}
+        onClose={closeLightbox}
+        onNavigate={navigateLightbox}
+        showNavigation={true}
+      />
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

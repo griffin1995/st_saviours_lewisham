@@ -8,7 +8,8 @@
 - **State Management**: React hooks with Context API for global state
 - **Animation**: Framer Motion with accessibility-first approach
 - **Images**: Next.js Image component with WebP/AVIF optimization
-- **Content Management**: File-based CMS using JSON storage
+- **Content Management**: Advanced CMS system with cms-content.ts and cms-images.ts modules
+- **Configuration**: Centralised settings.json with comprehensive image and content management
 - **Authentication**: JWT with HTTP-only cookies
 
 ### Design System Standards
@@ -119,6 +120,34 @@ const animation = prefersReducedMotion ? {} : {
 ```
 
 ### Content Management System
+
+#### CMS Architecture (Latest Implementation)
+The website now features a comprehensive CMS system with modular content management:
+
+```typescript
+// cms-content.ts - Centralised content management
+export function getParishName(): string
+export function getParishDiocese(): string  
+export function getContactPhone(): string
+export function getContactEmail(): string
+export function getSocialLinks(): SocialLink[]
+export function getParishPriest(): string
+export function getHeroContent(): HeroContent[]
+
+// cms-images.ts - Structured image management
+export function getLogo(): string
+export function getHeroImages(): HeroImage[]
+export function getCTAImages(): CTAImages
+export function getSacramentImages(): SacramentImage[]
+```
+
+#### Configuration Management
+Settings are centralised in `settings.json` with comprehensive image and content configuration:
+- Hero carousel images with overlay settings
+- Sacrament-specific image mappings
+- Page-specific hero images 
+- CTA section image management
+- Complete image alt-text and metadata
 
 #### Data Structure
 ```typescript

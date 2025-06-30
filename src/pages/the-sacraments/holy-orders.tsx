@@ -1,449 +1,455 @@
-import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
-import { HandMetal, Book, Heart, Users, ArrowRight, Crown, Cross } from "lucide-react";
+import React from 'react'
+import Link from 'next/link'
+import { HandMetal, Calendar, Phone, BookOpen, Heart, Users, ArrowRight, Crown, Cross } from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card,
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Container,
+  Grid,
+  Flex
+} from '@/components/ui'
+import { SacramentInfo } from '@/components/church'
+import { prefersReducedMotion } from '@/lib/utils'
 
 export default function HolyOrders() {
+  const reducedMotion = prefersReducedMotion()
+
+  const holyOrdersContent = [
+    "Holy Orders is the sacrament through which the mission entrusted by Christ to his apostles continues to be exercised in the Church. It includes three degrees: episcopate (bishops), presbyterate (priests), and diaconate (deacons).",
+    "This sacrament confers a sacred power for the service of the faithful. Those who receive Holy Orders are consecrated in Christ's name to feed the Church with the Word and grace of God, becoming shepherds, teachers, and sanctifiers."
+  ]
+
+  const holyOrdersEffects = [
+    {
+      title: "Sacred Character",
+      description: "Imprints an indelible spiritual character that configures the man to Christ the priest"
+    },
+    {
+      title: "Sacred Power",
+      description: "Confers the power to celebrate sacraments and shepherd God's people"
+    },
+    {
+      title: "Grace of State",
+      description: "Provides special graces needed to fulfill the duties of ordained ministry"
+    },
+    {
+      title: "Configuration to Christ",
+      description: "The ordained person acts in the person of Christ the head of the Church"
+    },
+    {
+      title: "Servant Leadership",
+      description: "Called to serve the Church with humility following Christ's example"
+    }
+  ]
+
+  const holyOrdersRequirements = [
+    {
+      title: "Divine Call",
+      items: [
+        "Clear sense of calling from God to serve",
+        "Discernment through prayer and spiritual direction",
+        "Recognition by the Church community",
+        "Acceptance by the bishop after thorough evaluation",
+        "Internal conviction of being chosen by God"
+      ]
+    },
+    {
+      title: "Personal Qualifications",
+      items: [
+        "Baptized Catholic male in good standing",
+        "Sound physical and mental health",
+        "Good moral character and reputation",
+        "Ability to relate well to people",
+        "Commitment to lifelong service"
+      ]
+    },
+    {
+      title: "Formation Process",
+      items: [
+        "Seminary education (6-8 years for priests)",
+        "Academic studies in theology and philosophy",
+        "Spiritual formation and prayer life",
+        "Pastoral training and experience",
+        "Human development and psychological readiness"
+      ]
+    }
+  ]
+
+  const contactInfo = {
+    title: "Exploring a Vocation?",
+    description: "If you feel called to serve God and his people as a priest or deacon, we encourage you to explore this vocation. The Church needs holy men to serve.",
+    phone: "020 8852 7411",
+    email: "info@stsaviourslewisham.org.uk"
+  }
+
+  const quote = {
+    text: "It was not you who chose me, but I who chose you and appointed you to go and bear fruit that will remain",
+    source: "John 15:16"
+  }
+
+  const holyOrdersDegrees = [
+    {
+      title: "Bishops",
+      subtitle: "Episcopate",
+      description: "Bishops possess the fullness of the sacrament of Holy Orders. They are the successors of the apostles and have the authority to ordain priests and deacons, confirm the faithful, and govern dioceses.",
+      icon: Crown,
+      color: "bg-purple-600",
+      responsibilities: [
+        "Teaching and preaching",
+        "Sanctifying through sacraments", 
+        "Governing the diocese",
+        "Ordaining clergy"
+      ],
+      symbol: "Ring, mitre, and pastoral staff representing their office"
+    },
+    {
+      title: "Priests", 
+      subtitle: "Presbyterate",
+      description: "Priests are co-workers with bishops in the apostolic ministry. They celebrate Mass, hear confessions, perform baptisms and marriages, anoint the sick, and shepherd the faithful in parishes.",
+      icon: Cross,
+      color: "bg-blue-600",
+      responsibilities: [
+        "Celebrating Mass and sacraments",
+        "Preaching and teaching",
+        "Pastoral care of parishioners", 
+        "Leading parish communities"
+      ],
+      symbol: "Stole and chasuble, representing the yoke of Christ"
+    },
+    {
+      title: "Deacons",
+      subtitle: "Diaconate", 
+      description: "Deacons are ordained for service and assist bishops and priests. They can baptize, preach, distribute Communion, witness marriages, and have a special ministry to the poor and marginalized.",
+      icon: HandMetal,
+      color: "bg-green-600",
+      responsibilities: [
+        "Baptizing and preaching",
+        "Distributing Communion",
+        "Witnessing marriages",
+        "Works of charity and justice"
+      ],
+      symbol: "Dalmatic and stole worn over the left shoulder"
+    }
+  ]
+
   return (
     <PageLayout
       title="Holy Orders"
-      description="Learn about the sacrament of Holy Orders - the ordination of bishops, priests, and deacons at St Saviour's Catholic Church."
-      keywords="Holy Orders, Ordination, Priest, Bishop, Deacon, Catholic Sacrament, Vocation, Ministry"
+      description="Learn about the Sacrament of Holy Orders at St Saviour's Catholic Church. Information on priesthood, diaconate, and religious vocations."
+      keywords="Holy Orders, Ordination, Priest, Bishop, Deacon, Catholic Sacrament, Vocation, Ministry, Seminary"
     >
+      {/* Hero Section */}
       <PageHero
         title="Holy Orders"
         subtitle="Sacrament of Service"
         description="Through Holy Orders, men are consecrated to serve God and his people as bishops, priests, and deacons."
-        backgroundImage="/images/hero/church-sanctuary.jpg"
+        backgroundImage="/images/sacraments/holy-orders-ordination.jpg"
         height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Phone className="h-5 w-5" />}
+            >
+              Explore Your Vocation
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<BookOpen className="h-5 w-5" />}
+            >
+              Vocations Information
+            </Button>
+          </Flex>
+        }
       />
 
-      {/* Introduction */}
-      <ContentSection background="white">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900">
-              What is Holy Orders?
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Holy Orders is the sacrament through which the mission entrusted by Christ to his apostles 
-              continues to be exercised in the Church. It includes three degrees: episcopate (bishops), 
-              presbyterate (priests), and diaconate (deacons).
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              This sacrament confers a sacred power for the service of the faithful. Those who receive 
-              Holy Orders are consecrated in Christ's name to feed the Church with the Word and grace of God.
-            </p>
-            <div className="bg-indigo-50 border-l-4 border-indigo-500 p-4">
-              <p className="text-indigo-800 italic">
-                "It was not you who chose me, but I who chose you and appointed you 
-                to go and bear fruit that will remain."
-              </p>
-              <p className="text-indigo-600 text-sm mt-2">- John 15:16</p>
-            </div>
-          </div>
-          <div className="space-y-6">
-            <div className="bg-navy-900 text-white p-8 rounded-lg">
-              <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <HandMetal className="h-8 w-8 text-navy-900" />
-              </div>
-              <h3 className="text-2xl font-serif font-semibold text-gold-400 mb-4 text-center">
-                Called to Serve
-              </h3>
-              <p className="text-gray-300 text-center leading-relaxed">
-                Holy Orders consecrates men to serve the Church as shepherds, 
-                teachers, and sanctifiers in the name of Christ.
-              </p>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+      {/* Sacrament Information */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <SacramentInfo
+            icon={HandMetal}
+            title="Called to Serve"
+            subtitle="Sacrament that consecrates men to serve the Church"
+            content={holyOrdersContent}
+            quote={quote}
+            effects={holyOrdersEffects}
+            requirements={holyOrdersRequirements}
+            contactInfo={contactInfo}
+            effectsColor="indigo"
+          />
+        </Container>
+      </Section>
 
-      {/* The Three Orders */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      {/* The Three Degrees of Holy Orders */}
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               The Three Degrees of Holy Orders
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Each degree of Holy Orders has its own unique role and responsibilities in the Church.
-            </p>
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Each degree of Holy Orders has its own unique role and responsibilities in the Church's mission.
+            </Text>
           </div>
 
           <div className="space-y-8">
-            {/* Bishops */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-sm"
-            >
-              <div className="grid md:grid-cols-3 gap-8 items-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Crown className="h-10 w-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-serif font-semibold text-gray-900">Bishops</h3>
-                  <p className="text-purple-600 font-semibold">Episcopate</p>
-                </div>
-                <div className="md:col-span-2 space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
-                    Bishops possess the fullness of the sacrament of Holy Orders. They are the successors 
-                    of the apostles and have the authority to ordain priests and deacons, confirm the faithful, 
-                    and govern dioceses.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Responsibilities:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Teaching and preaching</li>
-                        <li>• Sanctifying through sacraments</li>
-                        <li>• Governing the diocese</li>
-                        <li>• Ordaining clergy</li>
-                      </ul>
+            {holyOrdersDegrees.map((order, index) => (
+              <Card key={order.title} variant="default" padding="lg" className="bg-white">
+                <CardContent>
+                  <Grid cols={3} gap="lg" className="items-center">
+                    <div className="text-center">
+                      <div className={`w-20 h-20 ${order.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                        <order.icon className="h-10 w-10 text-white" />
+                      </div>
+                      <Heading level="h3" className="text-2xl font-semibold">
+                        {order.title}
+                      </Heading>
+                      <Text className={`${order.color.replace('bg-', 'text-')} font-semibold`}>
+                        {order.subtitle}
+                      </Text>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Symbol:</h4>
-                      <p className="text-sm text-gray-600">Ring, mitre, and pastoral staff representing their office</p>
+                    <div className="md:col-span-2 space-y-4">
+                      <Text color="muted" className="leading-relaxed">
+                        {order.description}
+                      </Text>
+                      <Grid cols={2} gap="md">
+                        <div>
+                          <Heading level="h4" className="font-semibold text-gray-900 mb-2">
+                            Responsibilities:
+                          </Heading>
+                          <div className="space-y-1">
+                            {order.responsibilities.map((responsibility, idx) => (
+                              <Text key={idx} size="sm" color="muted">• {responsibility}</Text>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <Heading level="h4" className="font-semibold text-gray-900 mb-2">
+                            Symbol:
+                          </Heading>
+                          <Text size="sm" color="muted">{order.symbol}</Text>
+                        </div>
+                      </Grid>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Priests */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-sm"
-            >
-              <div className="grid md:grid-cols-3 gap-8 items-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Cross className="h-10 w-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-serif font-semibold text-gray-900">Priests</h3>
-                  <p className="text-blue-600 font-semibold">Presbyterate</p>
-                </div>
-                <div className="md:col-span-2 space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
-                    Priests are co-workers with bishops in the apostolic ministry. They celebrate Mass, 
-                    hear confessions, perform baptisms and marriages, anoint the sick, and shepherd 
-                    the faithful in parishes.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Responsibilities:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Celebrating Mass and sacraments</li>
-                        <li>• Preaching and teaching</li>
-                        <li>• Pastoral care of parishioners</li>
-                        <li>• Leading parish communities</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Symbol:</h4>
-                      <p className="text-sm text-gray-600">Stole and chasuble, representing the yoke of Christ</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Deacons */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-sm"
-            >
-              <div className="grid md:grid-cols-3 gap-8 items-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <HandMetal className="h-10 w-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-serif font-semibold text-gray-900">Deacons</h3>
-                  <p className="text-green-600 font-semibold">Diaconate</p>
-                </div>
-                <div className="md:col-span-2 space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
-                    Deacons are ordained for service and assist bishops and priests. They can baptize, 
-                    preach, distribute Communion, witness marriages, and have a special ministry 
-                    to the poor and marginalized.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Responsibilities:</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Baptizing and preaching</li>
-                        <li>• Distributing Communion</li>
-                        <li>• Witnessing marriages</li>
-                        <li>• Works of charity and justice</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Symbol:</h4>
-                      <p className="text-sm text-gray-600">Dalmatic and stole worn over the left shoulder</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Vocation and Calling */}
-      <ContentSection background="white">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
-              The Call to Priesthood
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              A priestly vocation is a call from God to serve his people in a special way.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Divine Calling",
-                description: "God calls certain men to serve as priests through prayer, reflection, and spiritual discernment.",
-                icon: Heart,
-                color: "red"
-              },
-              {
-                title: "Seminary Formation",
-                description: "Seminary training includes academic study, spiritual formation, human development, and pastoral experience.",
-                icon: Book,
-                color: "blue"
-              },
-              {
-                title: "Celibacy",
-                description: "In the Roman Catholic Church, priests take a vow of celibacy to devote themselves fully to God and his people.",
-                icon: Cross,
-                color: "purple"
-              },
-              {
-                title: "Pastoral Heart",
-                description: "Priests must have a genuine love for God's people and a desire to serve their spiritual needs.",
-                icon: Users,
-                color: "green"
-              },
-              {
-                title: "Life of Prayer",
-                description: "Priests commit to a life of prayer, including daily celebration of Mass and the Liturgy of the Hours.",
-                icon: Book,
-                color: "amber"
-              },
-              {
-                title: "Ongoing Formation",
-                description: "Priestly formation continues throughout life through study, retreat, and spiritual direction.",
-                icon: HandMetal,
-                color: "indigo"
-              }
-            ].map((aspect, index) => (
-              <motion.div
-                key={aspect.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                viewport={{ once: true }}
-                className="text-center space-y-4"
-              >
-                <div className={`w-16 h-16 bg-${aspect.color}-600 rounded-full flex items-center justify-center mx-auto`}>
-                  <aspect.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900">{aspect.title}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{aspect.description}</p>
-              </motion.div>
+                  </Grid>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
 
-      {/* The Ordination Rite */}
-      <ContentSection background="navy">
-        <div className="text-white space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gold-400 mb-4">
+      {/* The Rite of Ordination */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               The Rite of Ordination
-            </h2>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Ordination is a solemn liturgical celebration that confers the sacrament of Holy Orders.
-            </p>
+            </Text>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-serif font-semibold text-gold-400">Key Elements</h3>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 text-sm font-bold">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Presentation of Candidates</h4>
-                    <p className="text-gray-300 text-sm">The bishop calls the candidates forward and they express their willingness to serve.</p>
+          <Grid cols={2} gap="lg" className="max-w-4xl mx-auto">
+            {/* Key Elements */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-indigo-600">
+                    Key Elements
+                  </Heading>
+                  <div className="space-y-4">
+                    {[
+                      {
+                        step: 1,
+                        title: "Presentation of Candidates",
+                        description: "The bishop calls the candidates forward and they express their willingness to serve"
+                      },
+                      {
+                        step: 2,
+                        title: "Homily",
+                        description: "The bishop explains the dignity and duties of the priestly office"
+                      },
+                      {
+                        step: 3,
+                        title: "Examination",
+                        description: "Candidates publicly promise obedience and commit to their duties"
+                      },
+                      {
+                        step: 4,
+                        title: "Laying on of Hands",
+                        description: "The essential element - the bishop and all priests present lay hands on the candidates"
+                      }
+                    ].map((element) => (
+                      <Flex key={element.step} align="start" gap="md">
+                        <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                          {element.step}
+                        </div>
+                        <div>
+                          <Text weight="bold" className="text-gray-900">{element.title}</Text>
+                          <Text size="sm" color="muted">{element.description}</Text>
+                        </div>
+                      </Flex>
+                    ))}
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 text-sm font-bold">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Homily</h4>
-                    <p className="text-gray-300 text-sm">The bishop explains the dignity and duties of the priestly office.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 text-sm font-bold">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Examination</h4>
-                    <p className="text-gray-300 text-sm">Candidates publicly promise obedience and commit to their duties.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 text-sm font-bold">
-                    4
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Laying on of Hands</h4>
-                    <p className="text-gray-300 text-sm">The essential element - the bishop and all priests present lay hands on the candidates.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
-            <div className="space-y-6">
-              <h3 className="text-2xl font-serif font-semibold text-gold-400">Sacred Symbols</h3>
-              <div className="space-y-4">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <h4 className="font-semibold text-gold-300 mb-2">Investiture with Vestments</h4>
-                  <p className="text-gray-300 text-sm">The newly ordained are clothed with the stole and chasuble, symbols of their priestly office.</p>
+            {/* Sacred Symbols */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-2xl font-semibold text-indigo-600">
+                    Sacred Symbols
+                  </Heading>
+                  <div className="space-y-4">
+                    {[
+                      {
+                        title: "Investiture with Vestments",
+                        description: "The newly ordained are clothed with the stole and chasuble, symbols of their priestly office"
+                      },
+                      {
+                        title: "Anointing of Hands", 
+                        description: "The bishop anoints the palms of the new priests with sacred chrism"
+                      },
+                      {
+                        title: "Presentation of Gifts",
+                        description: "The chalice and paten are given as symbols of the power to offer sacrifice"
+                      }
+                    ].map((symbol, index) => (
+                      <Card key={index} variant="outlined" padding="md" className="bg-indigo-50 border-indigo-200">
+                        <CardContent>
+                          <Text weight="bold" className="text-indigo-800 mb-2">{symbol.title}</Text>
+                          <Text size="sm" className="text-indigo-700">{symbol.description}</Text>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <h4 className="font-semibold text-gold-300 mb-2">Anointing of Hands</h4>
-                  <p className="text-gray-300 text-sm">The bishop anoints the palms of the new priests with sacred chrism.</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <h4 className="font-semibold text-gold-300 mb-2">Presentation of Gifts</h4>
-                  <p className="text-gray-300 text-sm">The chalice and paten are given as symbols of the power to offer sacrifice.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Container>
+      </Section>
 
-      {/* Vocations */}
-      <ContentSection background="gray">
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+      {/* Vocations Discernment */}
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" align="center" className="mb-6">
               Considering a Vocation?
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               If you feel called to serve God and his people as a priest or deacon, we encourage you to explore this vocation.
-            </p>
+            </Text>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-sm max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold text-gray-900">Signs of a Vocation</h3>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
-                    <span>Deep prayer life and love for the Eucharist</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
-                    <span>Desire to serve God and his people</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
-                    <span>Others recognizing priestly qualities in you</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
-                    <span>Peace and joy when considering priesthood</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
-                    <span>Ability to relate well to people of all ages</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold text-gray-900">Next Steps</h3>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-gold-500 rounded-full mt-2"></div>
-                    <span>Speak with one of our priests</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-gold-500 rounded-full mt-2"></div>
-                    <span>Contact the diocesan vocations director</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-gold-500 rounded-full mt-2"></div>
-                    <span>Attend vocation events and retreats</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-gold-500 rounded-full mt-2"></div>
-                    <span>Increase prayer and spiritual reading</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <div className="w-2 h-2 bg-gold-500 rounded-full mt-2"></div>
-                    <span>Consider visiting a seminary</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+          <Grid cols={2} gap="lg" className="max-w-4xl mx-auto">
+            {/* Signs of a Vocation */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
+                    Signs of a Vocation
+                  </Heading>
+                  <div className="space-y-3">
+                    {[
+                      "Deep prayer life and love for the Eucharist",
+                      "Desire to serve God and his people",
+                      "Others recognizing priestly qualities in you",
+                      "Peace and joy when considering priesthood",
+                      "Ability to relate well to people of all ages"
+                    ].map((sign, index) => (
+                      <Flex key={index} align="start" gap="sm">
+                        <div className="w-2 h-2 bg-indigo-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <Text size="sm" color="muted">{sign}</Text>
+                      </Flex>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Next Steps */}
+            <Card variant="default" padding="lg" className="bg-white">
+              <CardContent>
+                <div className="space-y-6">
+                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
+                    Next Steps
+                  </Heading>
+                  <div className="space-y-3">
+                    {[
+                      "Speak with one of our priests",
+                      "Contact the diocesan vocations director",
+                      "Attend vocation events and retreats",
+                      "Increase prayer and spiritual reading",
+                      "Consider visiting a seminary"
+                    ].map((step, index) => (
+                      <Flex key={index} align="start" gap="sm">
+                        <div className="w-2 h-2 bg-gold-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <Text size="sm" color="muted">{step}</Text>
+                      </Flex>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Container>
+      </Section>
 
       {/* Call to Action */}
-      <ContentSection background="white">
-        <div className="text-center space-y-8">
-          <h2 className="text-3xl font-serif font-light text-gray-900">
-            Pray for Vocations
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Please pray for vocations to the priesthood and diaconate. The Church needs holy men 
-            to serve God's people and continue Christ's mission.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-500 transition-colors"
-            >
-              Explore Your Vocation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="/the-sacraments"
-              className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-            >
-              All Sacraments
-            </Link>
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <div className="text-center text-white space-y-8">
+            <div className="space-y-6">
+              <Heading level="h2" className="text-3xl font-light text-white">
+                Pray for Vocations
+              </Heading>
+              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                Please pray for vocations to the priesthood and diaconate. The Church needs holy men 
+                to serve God's people and continue Christ's mission in the world.
+              </Text>
+            </div>
+            
+            <Flex justify="center" gap="md" wrap>
+              <Link href="/contact-us">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  leftIcon={<Phone className="h-5 w-5" />}
+                >
+                  Explore Your Vocation
+                </Button>
+              </Link>
+              <Link href="/the-sacraments">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  leftIcon={<ArrowRight className="h-5 w-5" />}
+                >
+                  Explore Other Sacraments
+                </Button>
+              </Link>
+            </Flex>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

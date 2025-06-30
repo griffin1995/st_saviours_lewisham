@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
-import ContentSection from "@/components/ContentSection";
+import React, { useState } from 'react'
+import Link from 'next/link'
 import { 
   Cookie, 
   Shield, 
@@ -17,7 +13,22 @@ import {
   RefreshCw,
   AlertCircle,
   Info
-} from "lucide-react";
+} from 'lucide-react'
+
+// New modern component system
+import { PageLayout, PageHero } from '@/components/layout'
+import { 
+  Button, 
+  Card,
+  CardContent,
+  Heading, 
+  Text, 
+  Section,
+  Container,
+  Grid,
+  Flex
+} from '@/components/ui'
+import { prefersReducedMotion } from '@/lib/utils'
 
 const cookieTypes = [
   {
@@ -110,24 +121,25 @@ const thirdPartyServices = [
 ];
 
 export default function CookiePolicy() {
+  const reducedMotion = prefersReducedMotion()
   const [preferences, setPreferences] = useState({
     analytics: true,
     functional: true,
     thirdParty: true
-  });
+  })
 
   const handlePreferenceChange = (category: string, value: boolean) => {
     setPreferences(prev => ({
       ...prev,
       [category]: value
-    }));
-  };
+    }))
+  }
 
   const savePreferences = () => {
     // This would typically save to localStorage and update cookie consent
-    console.log('Saving preferences:', preferences);
-    alert('Cookie preferences saved!');
-  };
+    console.log('Saving preferences:', preferences)
+    alert('Cookie preferences saved!')
+  }
 
   return (
     <PageLayout
@@ -140,453 +152,542 @@ export default function CookiePolicy() {
         subtitle="How We Use Cookies"
         description="Learn about the cookies we use on our website and how you can control them."
         backgroundImage="/images/church/digital-privacy.jpg"
-        height="medium"
+        height="large"
         overlay="medium"
+        actions={
+          <Flex justify="center" gap="md">
+            <Button 
+              variant="primary" 
+              size="lg"
+              leftIcon={<Settings className="h-5 w-5" />}
+              onClick={savePreferences}
+            >
+              Manage Preferences
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="lg"
+              leftIcon={<Info className="h-5 w-5" />}
+            >
+              About Cookies
+            </Button>
+          </Flex>
+        }
       />
 
       {/* Introduction */}
-      <ContentSection background="white" padding="large">
-        <div className="max-w-4xl mx-auto">
+      <Section spacing="lg" background="white">
+        <Container size="lg">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-6">
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Cookie className="h-8 w-8 text-orange-600" />
             </div>
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+            <Heading level="h2" align="center" className="mb-6">
               What Are Cookies?
-            </h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Cookies are small text files that are placed on your device when you visit our website. 
               They help us provide you with a better experience and understand how our website is used.
-            </p>
+            </Text>
           </div>
 
-          <div className="prose prose-lg max-w-none">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">How We Use Cookies</h3>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              St Saviour's Catholic Church uses cookies to:
-            </p>
-            <ul className="text-gray-600 mb-8 space-y-2">
-              <li>• Ensure our website works properly and securely</li>
-              <li>• Remember your preferences and settings</li>
-              <li>• Understand how visitors use our website to help us improve it</li>
-              <li>• Provide enhanced functionality like embedded videos</li>
-              <li>• Remember your cookie consent choices</li>
-            </ul>
-
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 mb-8">
-              <div className="flex items-start">
-                <Info className="h-6 w-6 text-blue-600 mt-1 mr-3 flex-shrink-0" />
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Your Control</h4>
-                  <p className="text-gray-700">
-                    You can control which cookies we set through your cookie preferences. 
-                    Some cookies are essential for the website to work, but you can choose 
-                    whether to allow others.
-                  </p>
-                </div>
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div>
+              <Heading level="h3" className="mb-4">
+                How We Use Cookies
+              </Heading>
+              <Text color="muted" className="mb-6 leading-relaxed">
+                St Saviour's Catholic Church uses cookies to:
+              </Text>
+              <div className="space-y-2">
+                {[
+                  "Ensure our website works properly and securely",
+                  "Remember your preferences and settings",
+                  "Understand how visitors use our website to help us improve it",
+                  "Provide enhanced functionality like embedded videos",
+                  "Remember your cookie consent choices"
+                ].map((item, index) => (
+                  <Flex key={index} align="start" gap="sm">
+                    <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <Text color="muted">{item}</Text>
+                  </Flex>
+                ))}
               </div>
             </div>
 
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Last Updated</h3>
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              This cookie policy was last updated on <strong>1st January 2025</strong>. 
-              We may update this policy from time to time to reflect changes in our use of cookies.
-            </p>
+            <Card variant="outlined" padding="lg" className="bg-blue-50 border-blue-200">
+              <CardContent>
+                <Flex align="start" gap="md">
+                  <Info className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <Heading level="h4" className="text-blue-800 mb-2">
+                      Your Control
+                    </Heading>
+                    <Text className="text-blue-700 leading-relaxed">
+                      You can control which cookies we set through your cookie preferences. 
+                      Some cookies are essential for the website to work, but you can choose 
+                      whether to allow others.
+                    </Text>
+                  </div>
+                </Flex>
+              </CardContent>
+            </Card>
+
+            <div>
+              <Heading level="h3" className="mb-4">
+                Last Updated
+              </Heading>
+              <Text color="muted" className="leading-relaxed">
+                This cookie policy was last updated on <Text weight="bold">1st January 2025</Text>. 
+                We may update this policy from time to time to reflect changes in our use of cookies.
+              </Text>
+            </div>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
 
       {/* Cookie Types */}
-      <ContentSection background="gray" padding="large">
-        <div className="max-w-6xl mx-auto">
+      <Section spacing="lg" background="gray">
+        <Container size="xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+            <Heading level="h2" align="center" className="mb-6">
               Types of Cookies We Use
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               We use different types of cookies for different purposes
-            </p>
+            </Text>
           </div>
 
           <div className="space-y-8">
-            {cookieTypes.map((cookie, index) => (
-              <motion.div
-                key={cookie.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="flex items-start mb-6">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mr-6 flex-shrink-0 ${
-                    cookie.color === 'green' ? 'bg-green-100' :
-                    cookie.color === 'blue' ? 'bg-blue-100' :
-                    cookie.color === 'purple' ? 'bg-purple-100' : 'bg-orange-100'
-                  }`}>
-                    <cookie.icon className={`h-6 w-6 ${
-                      cookie.color === 'green' ? 'text-green-600' :
-                      cookie.color === 'blue' ? 'text-blue-600' :
-                      cookie.color === 'purple' ? 'text-purple-600' : 'text-orange-600'
-                    }`} />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-2xl font-semibold text-gray-900">{cookie.category}</h3>
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        cookie.canOptOut 
-                          ? 'bg-yellow-100 text-yellow-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
-                        {cookie.canOptOut ? 'Optional' : 'Required'}
-                      </span>
-                    </div>
-                    <p className="text-gray-600 mb-4">{cookie.purpose}</p>
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-700 mb-2">Examples:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
-                          {cookie.examples.map((example, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <CheckCircle className="h-3 w-3 text-green-500 mt-1 mr-2 flex-shrink-0" />
-                              {example}
-                            </li>
-                          ))}
-                        </ul>
+            {cookieTypes.map((cookie, index) => {
+              const colorClasses = {
+                green: { bg: 'bg-green-100', text: 'text-green-600' },
+                blue: { bg: 'bg-blue-100', text: 'text-blue-600' },
+                purple: { bg: 'bg-purple-100', text: 'text-purple-600' },
+                orange: { bg: 'bg-orange-100', text: 'text-orange-600' }
+              }[cookie.color] || { bg: 'bg-gray-100', text: 'text-gray-600' }
+              
+              return (
+                <Card
+                  key={cookie.category}
+                  variant="default"
+                  padding="lg"
+                  className="bg-white hover:shadow-lg transition-shadow duration-300"
+                >
+                  <CardContent>
+                    <Flex align="start" gap="lg" className="mb-6">
+                      <div className={`w-12 h-12 ${colorClasses.bg} rounded-full flex items-center justify-center flex-shrink-0`}>
+                        <cookie.icon className={`h-6 w-6 ${colorClasses.text}`} />
                       </div>
-                      <div>
-                        <div className="mb-3">
-                          <h4 className="text-sm font-semibold text-gray-700 mb-1">Retention Period:</h4>
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {cookie.retention}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-700 mb-1">Can Opt Out:</h4>
-                          <p className="text-sm text-gray-600 flex items-center">
-                            {cookie.canOptOut ? (
-                              <>
-                                <CheckCircle className="h-3 w-3 text-green-500 mr-1" />
-                                Yes - you can disable these cookies
-                              </>
-                            ) : (
-                              <>
-                                <X className="h-3 w-3 text-red-500 mr-1" />
-                                No - required for website functionality
-                              </>
-                            )}
-                          </p>
-                        </div>
+                      <div className="flex-1">
+                        <Flex justify="between" align="start" className="mb-4">
+                          <Heading level="h3" className="text-2xl">
+                            {cookie.category}
+                          </Heading>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            cookie.canOptOut 
+                              ? 'bg-yellow-100 text-yellow-800' 
+                              : 'bg-red-100 text-red-800'
+                          }`}>
+                            {cookie.canOptOut ? 'Optional' : 'Required'}
+                          </span>
+                        </Flex>
+                        <Text color="muted" className="mb-4">
+                          {cookie.purpose}
+                        </Text>
+                        
+                        <Grid cols={2} gap="lg" className="grid-cols-1 lg:grid-cols-2">
+                          <div>
+                            <Heading level="h4" className="text-sm font-semibold text-gray-700 mb-2">
+                              Examples:
+                            </Heading>
+                            <div className="space-y-1">
+                              {cookie.examples.map((example, idx) => (
+                                <Flex key={idx} align="start" gap="sm">
+                                  <CheckCircle className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                                  <Text size="sm" color="muted">{example}</Text>
+                                </Flex>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="space-y-3">
+                            <div>
+                              <Heading level="h4" className="text-sm font-semibold text-gray-700 mb-1">
+                                Retention Period:
+                              </Heading>
+                              <Flex align="center" gap="sm">
+                                <Clock className="h-3 w-3" />
+                                <Text size="sm" color="muted">{cookie.retention}</Text>
+                              </Flex>
+                            </div>
+                            <div>
+                              <Heading level="h4" className="text-sm font-semibold text-gray-700 mb-1">
+                                Can Opt Out:
+                              </Heading>
+                              <Flex align="center" gap="sm">
+                                {cookie.canOptOut ? (
+                                  <>
+                                    <CheckCircle className="h-3 w-3 text-green-500" />
+                                    <Text size="sm" color="muted">Yes - you can disable these cookies</Text>
+                                  </>
+                                ) : (
+                                  <>
+                                    <X className="h-3 w-3 text-red-500" />
+                                    <Text size="sm" color="muted">No - required for website functionality</Text>
+                                  </>
+                                )}
+                              </Flex>
+                            </div>
+                          </div>
+                        </Grid>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                    </Flex>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
 
       {/* Third-Party Services */}
-      <ContentSection background="white" padding="large">
-        <div className="max-w-6xl mx-auto">
+      <Section spacing="lg" background="white">
+        <Container size="xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
+            <Heading level="h2" align="center" className="mb-6">
               Third-Party Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               We use some external services that may set their own cookies
-            </p>
+            </Text>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Grid cols={2} gap="lg" className="grid-cols-1 lg:grid-cols-2">
             {thirdPartyServices.map((service, index) => (
-              <motion.div
+              <Card
                 key={service.service}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+                variant="outlined"
+                padding="lg"
+                className="bg-white hover:shadow-md transition-shadow duration-300"
               >
-                <div className="flex items-start mb-4">
-                  <div className="inline-flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full mr-4 flex-shrink-0">
-                    <Globe className="h-5 w-5 text-gray-600" />
+                <CardContent>
+                  <Flex align="start" gap="md" className="mb-4">
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Globe className="h-5 w-5 text-gray-600" />
+                    </div>
+                    <div>
+                      <Heading level="h3" className="text-lg mb-2">
+                        {service.service}
+                      </Heading>
+                      <Text size="sm" color="muted">
+                        {service.purpose}
+                      </Text>
+                    </div>
+                  </Flex>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <Heading level="h4" className="text-sm font-semibold text-gray-700 mb-1">
+                        Cookies Set:
+                      </Heading>
+                      <div className="flex flex-wrap gap-1">
+                        {service.cookies.map((cookieName, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-1 rounded-md text-xs font-mono bg-gray-100 text-gray-700"
+                          >
+                            {cookieName}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <Flex gap="sm" wrap>
+                      <Link
+                        href={service.privacy}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          leftIcon={<Eye className="h-3 w-3" />}
+                        >
+                          Privacy Policy
+                        </Button>
+                      </Link>
+                      <span className="inline-flex items-center px-3 py-2 text-xs text-gray-600 bg-gray-50 rounded-lg">
+                        <Settings className="h-3 w-3 mr-1" />
+                        {service.optOut}
+                      </span>
+                    </Flex>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.service}</h3>
-                    <p className="text-gray-600 text-sm">{service.purpose}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* Cookie Preferences */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <div className="text-center mb-12">
+            <Heading level="h2" className="text-white mb-6">
+              Manage Your Cookie Preferences
+            </Heading>
+            <Text size="xl" className="text-gray-200 max-w-3xl mx-auto">
+              You can control which cookies we set on your device
+            </Text>
+          </div>
+
+          <Card variant="default" padding="lg" className="bg-white">
+            <CardContent>
+              <div className="space-y-6">
+                <div>
+                  <Flex justify="between" align="center" className="mb-3">
+                    <div>
+                      <Heading level="h3" className="text-lg">
+                        Strictly Necessary Cookies
+                      </Heading>
+                      <Text size="sm" color="muted">
+                        Required for the website to function properly
+                      </Text>
+                    </div>
+                    <Flex align="center" gap="sm">
+                      <Text size="sm" color="muted">Always enabled</Text>
+                      <div className="w-12 h-6 bg-green-100 rounded-full flex items-center">
+                        <div className="w-5 h-5 bg-green-600 rounded-full ml-1"></div>
+                      </div>
+                    </Flex>
+                  </Flex>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <Flex justify="between" align="center" className="mb-3">
+                    <div>
+                      <Heading level="h3" className="text-lg">
+                        Analytics Cookies
+                      </Heading>
+                      <Text size="sm" color="muted">
+                        Help us understand how our website is used
+                      </Text>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferences.analytics}
+                        onChange={(e) => handlePreferenceChange('analytics', e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </Flex>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <Flex justify="between" align="center" className="mb-3">
+                    <div>
+                      <Heading level="h3" className="text-lg">
+                        Functional Cookies
+                      </Heading>
+                      <Text size="sm" color="muted">
+                        Enable enhanced functionality and personalization
+                      </Text>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferences.functional}
+                        onChange={(e) => handlePreferenceChange('functional', e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                    </label>
+                  </Flex>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <Flex justify="between" align="center" className="mb-3">
+                    <div>
+                      <Heading level="h3" className="text-lg">
+                        Third-Party Cookies
+                      </Heading>
+                      <Text size="sm" color="muted">
+                        Set by external services like YouTube and Google Analytics
+                      </Text>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferences.thirdParty}
+                        onChange={(e) => handlePreferenceChange('thirdParty', e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
+                    </label>
+                  </Flex>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <Flex gap="md" wrap>
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      leftIcon={<CheckCircle className="h-5 w-5" />}
+                      onClick={savePreferences}
+                      className="flex-1"
+                    >
+                      Save Preferences
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      leftIcon={<X className="h-5 w-5" />}
+                      onClick={() => setPreferences({ analytics: false, functional: false, thirdParty: false })}
+                      className="flex-1"
+                    >
+                      Reject All Optional
+                    </Button>
+                  </Flex>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* Browser Settings */}
+      <Section spacing="lg" background="gray">
+        <Container size="lg">
+          <Heading level="h2" align="center" className="mb-8">
+            Browser Cookie Settings
+          </Heading>
+          
+          <Card variant="default" padding="lg" className="bg-white">
+            <CardContent>
+              <Text color="muted" className="mb-6 leading-relaxed">
+                You can also control cookies through your browser settings. Most browsers allow you to:
+              </Text>
+              
+              <Grid cols={2} gap="lg" className="grid-cols-1 md:grid-cols-2 mb-8">
+                <div>
+                  <Heading level="h3" className="text-lg mb-3">
+                    Cookie Controls
+                  </Heading>
+                  <div className="space-y-2">
+                    {[
+                      "Block all cookies",
+                      "Block third-party cookies only", 
+                      "Delete all cookies",
+                      "Get notifications when cookies are set"
+                    ].map((control, index) => (
+                      <Flex key={index} align="start" gap="sm">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
+                        <Text color="muted">{control}</Text>
+                      </Flex>
+                    ))}
                   </div>
                 </div>
                 
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-700 mb-1">Cookies Set:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {service.cookies.map((cookieName, idx) => (
-                        <span
-                          key={idx}
-                          className="inline-flex items-center px-2 py-1 rounded-md text-xs font-mono bg-gray-100 text-gray-700"
-                        >
-                          {cookieName}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Link
-                      href={service.privacy}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-3 py-2 text-xs font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
-                    >
-                      <Eye className="h-3 w-3 mr-1" />
-                      Privacy Policy
-                    </Link>
-                    <span className="inline-flex items-center px-3 py-2 text-xs text-gray-600 bg-gray-50 rounded-lg">
-                      <Settings className="h-3 w-3 mr-1" />
-                      {service.optOut}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Cookie Preferences */}
-      <ContentSection background="navy" padding="large">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
-              Manage Your Cookie Preferences
-            </h2>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-              You can control which cookies we set on your device
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-8">
-            <div className="space-y-6">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Strictly Necessary Cookies</h3>
-                    <p className="text-sm text-gray-600">Required for the website to function properly</p>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-sm text-gray-500 mr-2">Always enabled</span>
-                    <div className="w-12 h-6 bg-green-100 rounded-full flex items-center">
-                      <div className="w-5 h-5 bg-green-600 rounded-full ml-1"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Analytics Cookies</h3>
-                    <p className="text-sm text-gray-600">Help us understand how our website is used</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={preferences.analytics}
-                      onChange={(e) => handlePreferenceChange('analytics', e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Functional Cookies</h3>
-                    <p className="text-sm text-gray-600">Enable enhanced functionality and personalization</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={preferences.functional}
-                      onChange={(e) => handlePreferenceChange('functional', e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Third-Party Cookies</h3>
-                    <p className="text-sm text-gray-600">Set by external services like YouTube and Google Analytics</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={preferences.thirdParty}
-                      onChange={(e) => handlePreferenceChange('thirdParty', e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={savePreferences}
-                    className="flex-1 inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
-                  >
-                    <CheckCircle className="h-5 w-5 mr-2" />
-                    Save Preferences
-                  </button>
-                  <button
-                    onClick={() => setPreferences({ analytics: false, functional: false, thirdParty: false })}
-                    className="flex-1 inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                  >
-                    <X className="h-5 w-5 mr-2" />
-                    Reject All Optional
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
-
-      {/* Browser Settings */}
-      <ContentSection background="gray" padding="large">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-8 text-center">
-            Browser Cookie Settings
-          </h2>
-          
-          <div className="bg-white rounded-xl p-8 shadow-md">
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              You can also control cookies through your browser settings. Most browsers allow you to:
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Cookie Controls</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 mr-2 flex-shrink-0" />
-                    Block all cookies
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 mr-2 flex-shrink-0" />
-                    Block third-party cookies only
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 mr-2 flex-shrink-0" />
-                    Delete all cookies
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-1 mr-2 flex-shrink-0" />
-                    Get notifications when cookies are set
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Browser Help</h3>
-                <div className="space-y-2">
-                  <Link
-                    href="https://support.google.com/chrome/answer/95647"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 hover:text-blue-700 text-sm"
-                  >
-                    Chrome Cookie Settings
-                  </Link>
-                  <Link
-                    href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 hover:text-blue-700 text-sm"
-                  >
-                    Firefox Cookie Settings
-                  </Link>
-                  <Link
-                    href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 hover:text-blue-700 text-sm"
-                  >
-                    Safari Cookie Settings
-                  </Link>
-                  <Link
-                    href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-600 hover:text-blue-700 text-sm"
-                  >
-                    Edge Cookie Settings
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-              <div className="flex items-start">
-                <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5 mr-3 flex-shrink-0" />
                 <div>
-                  <h4 className="text-sm font-semibold text-yellow-800 mb-1">Please Note</h4>
-                  <p className="text-sm text-yellow-700">
-                    If you disable all cookies, some parts of our website may not work properly. 
-                    Essential cookies are required for basic functionality.
-                  </p>
+                  <Heading level="h3" className="text-lg mb-3">
+                    Browser Help
+                  </Heading>
+                  <div className="space-y-2">
+                    {[
+                      { name: "Chrome Cookie Settings", url: "https://support.google.com/chrome/answer/95647" },
+                      { name: "Firefox Cookie Settings", url: "https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" },
+                      { name: "Safari Cookie Settings", url: "https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac" },
+                      { name: "Edge Cookie Settings", url: "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" }
+                    ].map((browser, index) => (
+                      <Link
+                        key={index}
+                        href={browser.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-blue-600 hover:text-blue-700 text-sm"
+                      >
+                        {browser.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ContentSection>
+              </Grid>
+
+              <Card variant="outlined" padding="md" className="bg-yellow-50 border-yellow-200">
+                <CardContent>
+                  <Flex align="start" gap="md">
+                    <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <Heading level="h4" className="text-sm font-semibold text-yellow-800 mb-1">
+                        Please Note
+                      </Heading>
+                      <Text size="sm" className="text-yellow-700">
+                        If you disable all cookies, some parts of our website may not work properly. 
+                        Essential cookies are required for basic functionality.
+                      </Text>
+                    </div>
+                  </Flex>
+                </CardContent>
+              </Card>
+            </CardContent>
+          </Card>
+        </Container>
+      </Section>
 
       {/* Contact Information */}
-      <ContentSection background="white" padding="large">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-8">
-            Questions About Cookies?
-          </h2>
-          
-          <div className="bg-gray-50 rounded-xl p-8">
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              If you have any questions about our use of cookies or this cookie policy, 
-              please don't hesitate to contact us.
-            </p>
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="text-center">
+            <Heading level="h2" align="center" className="mb-8">
+              Questions About Cookies?
+            </Heading>
             
-            <div className="space-y-2 text-sm text-gray-600 mb-6">
-              <p><strong>Email:</strong> privacy@saintsaviours.org.uk</p>
-              <p><strong>Phone:</strong> 020 8852 7411</p>
-              <p><strong>Post:</strong> St Saviour's Catholic Church, 123 Church Lane, Lewisham, London SE13 7XX</p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="mailto:privacy@saintsaviours.org.uk"
-                className="inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-gold-600 rounded-lg hover:bg-gold-700 transition-colors duration-200"
-              >
-                Email Us
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className="inline-flex items-center px-6 py-3 text-lg font-medium text-gold-600 bg-gold-50 rounded-lg hover:bg-gold-100 transition-colors duration-200"
-              >
-                View Privacy Policy
-              </Link>
-            </div>
+            <Card variant="default" padding="lg" className="bg-gray-50 max-w-4xl mx-auto">
+              <CardContent>
+                <Text color="muted" className="mb-6 leading-relaxed">
+                  If you have any questions about our use of cookies or this cookie policy, 
+                  please don't hesitate to contact us.
+                </Text>
+                
+                <div className="space-y-2 mb-6">
+                  <Text size="sm" color="muted">
+                    <Text weight="bold">Email:</Text> info@stsaviourslewisham.org.uk
+                  </Text>
+                  <Text size="sm" color="muted">
+                    <Text weight="bold">Phone:</Text> 020 8852 7411
+                  </Text>
+                  <Text size="sm" color="muted">
+                    <Text weight="bold">Post:</Text> St Saviour's Catholic Church, 3 Vesta Road, Lewisham, London SE13 6QJ
+                  </Text>
+                </div>
+                
+                <Flex justify="center" gap="md" wrap>
+                  <Link href="mailto:info@stsaviourslewisham.org.uk">
+                    <Button 
+                      variant="primary" 
+                      size="lg"
+                    >
+                      Email Us
+                    </Button>
+                  </Link>
+                  <Link href="/privacy-policy">
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                    >
+                      View Privacy Policy
+                    </Button>
+                  </Link>
+                </Flex>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-      </ContentSection>
+        </Container>
+      </Section>
     </PageLayout>
-  );
+  )
 }
+
+// Maintenance mode check
+export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'

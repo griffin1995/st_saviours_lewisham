@@ -129,9 +129,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        'serif': ['Georgia', 'Times New Roman', 'serif'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'display': ['Inter', 'system-ui', 'sans-serif'],
+        'serif': ['"EB Garamond"', 'Garamond', 'Georgia', 'Times New Roman', 'serif'],
+        'sans': ['"Source Sans Pro"', 'Inter', 'system-ui', 'sans-serif'],
+        'display': ['"EB Garamond"', 'Garamond', 'Georgia', 'serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],

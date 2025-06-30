@@ -5,11 +5,13 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Church, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { historyCards } from "@/lib/data";
+import { getHistoryImages } from "@/lib/cms-images";
 
 export default function HistorySection() {
   const [isHistoryHovered, setIsHistoryHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const historyImages = getHistoryImages();
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function HistorySection() {
   return (
     <section className="py-24 bg-slate-800 relative overflow-hidden">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 pt-12 pb-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 pt-6 pb-12 relative z-10">
         {/* Enhanced section header */}
         <motion.div
           className="text-center space-y-6"
@@ -188,8 +190,8 @@ export default function HistorySection() {
                         transition={prefersReducedMotion ? {} : { duration: 0.7, ease: "easeOut" }}
                       >
                         <Image
-                          src={card.image}
-                          alt={`${card.title} - ${card.category} section about St Saviour's parish history and community heritage`}
+                          src={historyImages[index]?.url || card.image}
+                          alt={historyImages[index]?.alt || `${card.title} - ${card.category} section about St Saviour's parish history and community heritage`}
                           fill
                           className="object-cover"
                           sizes="(max-width: 640px) 85vw, (max-width: 768px) 80vw, (max-width: 1024px) 70vw, (max-width: 1280px) 60vw, 60vw"

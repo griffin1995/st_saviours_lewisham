@@ -95,6 +95,123 @@ Color: Matches parent text color
 Style: Lucide React icons
 ```
 
+<<<<<<< HEAD
+=======
+## Church-Specific Components
+
+### GroupCard Component
+```typescript
+// Purpose: Display parish groups with consistent styling
+// Features: Color-coded icons, contact integration, activity lists
+// Colors: red, blue, green, purple, pink, amber, indigo, teal
+// Contact: Auto-detects email/phone and creates appropriate links
+```
+
+### NewsCard Component  
+```typescript
+// Purpose: Display parish news articles
+// Variants: default, compact, horizontal, minimal
+// Features: Category badges, featured articles, read time
+// Meta: Date, author, reading time with gold accent icons
+```
+
+### ContactForm Component
+```typescript
+// Purpose: Modern contact forms with validation
+// Features: Success/error states, loading states, accessibility
+// Fields: Name, email, phone, subject dropdown, message
+// Styling: Gold focus rings, proper spacing, white backgrounds
+```
+
+### ContactInfo Component
+```typescript
+// Purpose: Display contact information consistently
+// Layouts: grid, vertical for different use cases
+// Special: Emergency contact (red styling), staff (slate-900 background)
+// Integration: Clickable phone/email links
+```
+
+### DonationForm Component
+```typescript
+// Purpose: Modern donation form with flexible amount selection
+// Features: One-time/monthly toggle, preset amounts, custom input, Gift Aid
+// Payment: Designed for Stripe integration with security indicators
+// UX: Expandable details section, form validation, loading states
+```
+
+### DonationStats Component
+```typescript
+// Purpose: Display annual donation impact with transparency
+// Background: Slate-900 with white text for contrast
+// Features: Impact statistics cards, annual report download CTA
+// Design: Gold accent colors for amounts, glass card effect
+```
+
+### GalleryGrid Component
+```typescript
+// Purpose: Filterable image grid with category-based organization
+// Features: Category filtering, responsive grid, hover overlays, image metadata
+// Layouts: 2, 3, or 4 column responsive grids
+// Interaction: Click to open lightbox, smooth animations, category badges
+```
+
+### ImageLightbox Component  
+```typescript
+// Purpose: Full-screen image viewing with navigation
+// Features: Keyboard navigation, image details, prev/next controls
+// Accessibility: Focus management, escape key, screen reader support
+// Design: Dark overlay, white text, gold accent category badges
+```
+
+### VenueCard Component
+```typescript
+// Purpose: Display venue information with flexible layouts
+// Variants: default, featured, compact for different use cases
+// Features: Pricing display, feature lists, suitability tags, booking integration
+// Layouts: Left/right image positioning, responsive grid support
+```
+
+### VenueEnquiryForm Component
+```typescript
+// Purpose: Comprehensive venue booking enquiry form
+// Features: Form validation, venue selection, date picker, guest count
+// Validation: Required fields, email format, future dates only
+// UX: Error handling, loading states, contact integration
+```
+
+### StreamingStatus Component
+```typescript
+// Purpose: Display live/offline streaming status with video player integration
+// Features: Live status indicators, viewer count, next stream information
+// States: Live with viewer count, offline with next stream details
+// Integration: Video player placeholder, reminder signup, schedule navigation
+```
+
+### PodcastEpisodeCard Component
+```typescript
+// Purpose: Display podcast episodes with play/pause functionality
+// Variants: featured (large), horizontal (compact), with episode metadata
+// Features: Play/pause state, download links, duration, guest information
+// Design: Featured episodes with larger imagery, season/episode numbering
+```
+
+### SacramentCard Component
+```typescript
+// Purpose: Display individual sacraments with color-coded design system
+// Colors: blue, red, amber, green, purple, indigo, pink (one per sacrament)
+// Features: Icon display, descriptions, navigation links, hover animations
+// Layout: Consistent card structure with sacrament-specific theming
+```
+
+### SacramentInfo Component
+```typescript
+// Purpose: Comprehensive template for individual sacrament pages
+// Features: Effects display, requirements, preparation guidance, contact integration
+// Sections: Introduction, effects, requirements, contact, biblical quote
+// Customization: Color theming per sacrament, flexible content structure
+```
+
+>>>>>>> 17463bf8741007b40f7e342ea802cf231ebbc62f
 ## Animation Guidelines
 
 ### Motion Preferences
@@ -173,6 +290,28 @@ container: { staggerChildren: 0.1 }
 - NewsCard
 - PriestCard
 - ContactInfo
+<<<<<<< HEAD
+=======
+- ContactForm
+- GroupCard
+- DonationForm
+- DonationStats
+- GalleryGrid
+- ImageLightbox
+- VenueCard
+- VenueEnquiryForm
+- LocationCard
+- MapEmbed
+- StreamingStatus
+- StreamingSchedule
+- WatchingOptions
+- OnlineCommunity
+- PodcastEpisodeCard
+- PodcastSearch
+- PodcastSubscribe
+- SacramentCard
+- SacramentInfo
+>>>>>>> 17463bf8741007b40f7e342ea802cf231ebbc62f
 
 ## File Organization
 

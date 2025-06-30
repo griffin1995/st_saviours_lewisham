@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { getCTAImages } from "@/lib/cms-images";
+import { getParishPriest } from "@/lib/cms-content";
 
 export default function CTASection() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const ctaImages = getCTAImages();
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -37,14 +40,22 @@ export default function CTASection() {
             className="group"
           >
             <motion.div
-              className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer"
-              whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -4 }}
+              className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-gold-400/30 transition-all duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, transparent 50%, rgba(234, 179, 8, 0.1) 100%)',
+                backgroundSize: '400% 400%',
+              }}
+              whileHover={prefersReducedMotion ? {} : { 
+                scale: 1.02, 
+                y: -4,
+                backgroundPosition: '100% 100%'
+              }}
               transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 30 }}
             >
               <div className="absolute inset-0">
                 <Image
-                  src="/images/pexels-brett-sayles-3633711.jpg"
-                  alt="Meet Father Krisz - Our parish priest ready to guide and support our faith community"
+                  src={ctaImages.priest.url}
+                  alt={ctaImages.priest.alt}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -74,7 +85,7 @@ export default function CTASection() {
                     }
                     viewport={{ once: true }}
                   >
-                    Learn about Father Krisz and his journey of faith serving our community
+                    Learn about {getParishPriest()} and his journey of faith serving our community
                   </motion.p>
                   <motion.div
                     className="pt-4"
@@ -83,10 +94,10 @@ export default function CTASection() {
                   >
                     <a
                       href="/about/priest"
-                      className="inline-flex items-center px-6 py-3 bg-gold-600 text-navy-900 rounded-lg font-semibold hover:bg-gold-500 focus:bg-gold-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-transparent"
+                      className="inline-flex items-center px-6 py-3 bg-gold-600 text-navy-900 rounded-lg font-semibold hover:bg-gold-500 focus:bg-gold-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-transparent group/cta"
                     >
                       Learn More
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover/cta:translate-x-1 group-hover/cta:rotate-12 transition-transform duration-300" />
                     </a>
                   </motion.div>
                 </div>
@@ -105,14 +116,22 @@ export default function CTASection() {
             className="group"
           >
             <motion.div
-              className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer"
-              whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -4 }}
+              className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-gold-400/30 transition-all duration-500"
+              style={{
+                background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, transparent 50%, rgba(234, 179, 8, 0.1) 100%)',
+                backgroundSize: '400% 400%',
+              }}
+              whileHover={prefersReducedMotion ? {} : { 
+                scale: 1.02, 
+                y: -4,
+                backgroundPosition: '100% 100%'
+              }}
               transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 30 }}
             >
               <div className="absolute inset-0">
                 <Image
-                  src="/images/pexels-shelaghmurphy-1666816.jpg"
-                  alt="Beautiful church interior available for weddings and special celebrations"
+                  src={ctaImages.venue.url}
+                  alt={ctaImages.venue.alt}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -151,10 +170,10 @@ export default function CTASection() {
                   >
                     <a
                       href="/venue-hire"
-                      className="inline-flex items-center px-6 py-3 bg-gold-600 text-navy-900 rounded-lg font-semibold hover:bg-gold-500 focus:bg-gold-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-transparent"
+                      className="inline-flex items-center px-6 py-3 bg-gold-600 text-navy-900 rounded-lg font-semibold hover:bg-gold-500 focus:bg-gold-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-transparent group/cta"
                     >
                       Enquire Now
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover/cta:translate-x-1 group-hover/cta:rotate-12 transition-transform duration-300" />
                     </a>
                   </motion.div>
                 </div>
