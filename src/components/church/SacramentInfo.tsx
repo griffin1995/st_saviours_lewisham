@@ -69,6 +69,11 @@ interface SacramentInfoProps {
   effectsColor?: string
   
   /**
+   * Theme variant for different background colors
+   */
+  theme?: 'light' | 'dark'
+  
+  /**
    * Additional CSS classes
    */
   className?: string
@@ -106,6 +111,7 @@ export default function SacramentInfo({
   requirements,
   contactInfo,
   effectsColor = 'blue',
+  theme = 'light',
   className
 }: SacramentInfoProps) {
   const reducedMotion = prefersReducedMotion()
@@ -149,19 +155,51 @@ export default function SacramentInfo({
       <Grid cols={2} gap="xl" className="grid-cols-1 lg:grid-cols-2 items-center">
         {/* Content */}
         <div className="space-y-6">
-          <Heading level="h2" className="text-3xl font-light">
-            {title}
-          </Heading>
+          <div className="relative">
+            {theme === 'dark' && (
+              <motion.div
+                className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
+                initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
+                whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
+                transition={reducedMotion 
+                  ? { duration: 0.3 }
+                  : { duration: 1, delay: 0.3 }
+                }
+                viewport={{ once: true }}
+              />
+            )}
+            <Heading 
+              level="h2" 
+              className={cn(
+                "text-3xl font-light",
+                theme === 'dark' ? "text-white" : "text-gray-900"
+              )}
+            >
+              {title}
+            </Heading>
+          </div>
           
           {subtitle && (
-            <Text size="lg" color="muted" className="leading-relaxed">
+            <Text 
+              size="lg" 
+              className={cn(
+                "leading-relaxed",
+                theme === 'dark' ? "text-gray-200" : "text-gray-600"
+              )}
+            >
               {subtitle}
             </Text>
           )}
           
           <div className="space-y-4">
             {content.map((paragraph, index) => (
-              <Text key={index} color="muted" className="leading-relaxed">
+              <Text 
+                key={index} 
+                className={cn(
+                  "leading-relaxed",
+                  theme === 'dark' ? "text-gray-100" : "text-gray-600"
+                )}
+              >
                 {paragraph}
               </Text>
             ))}
@@ -170,7 +208,12 @@ export default function SacramentInfo({
           {quote && (
             <Flex align="center" gap="sm" className={getIconColor(effectsColor)}>
               <Icon className="h-5 w-5 flex-shrink-0" />
-              <Text className="italic">
+              <Text 
+                className={cn(
+                  "italic",
+                  theme === 'dark' ? "text-gray-200" : "text-gray-600"
+                )}
+              >
                 "{quote.text}" - {quote.source}
               </Text>
             </Flex>
@@ -184,21 +227,38 @@ export default function SacramentInfo({
             padding="lg" 
             className={cn(
               'border',
-              getEffectsColorClasses(effectsColor)
+              theme === 'dark' 
+                ? 'bg-white/10 backdrop-blur-sm border-slate-600 text-white'
+                : getEffectsColorClasses(effectsColor)
             )}
           >
             <CardContent>
               <div className="space-y-4">
-                <Heading level="h3" className="text-xl font-semibold">
+                <Heading 
+                  level="h3" 
+                  className={cn(
+                    "text-xl font-semibold",
+                    theme === 'dark' ? "text-white" : "text-gray-900"
+                  )}
+                >
                   Effects of {title.includes('in') ? title.split(' in ')[0] : title}
                 </Heading>
                 <div className="space-y-3">
                   {effects.map((effect, index) => (
                     <div key={index}>
-                      <Text weight="bold" className="mb-1">
+                      <Text 
+                        weight="bold" 
+                        className={cn(
+                          "mb-1",
+                          theme === 'dark' ? "text-white" : "text-gray-900"
+                        )}
+                      >
                         • {effect.title}
                       </Text>
-                      <Text size="sm" color="muted">
+                      <Text 
+                        size="sm" 
+                        className={theme === 'dark' ? "text-gray-200" : "text-gray-600"}
+                      >
                         {effect.description}
                       </Text>
                     </div>
@@ -210,10 +270,23 @@ export default function SacramentInfo({
         )}
       </Grid>
 
+      {/* Section Divider */}
+      {requirements && requirements.length > 0 && theme === 'dark' && (
+        <div className="flex justify-center py-20">
+          <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+        </div>
+      )}
+
       {/* Requirements Section */}
       {requirements && requirements.length > 0 && (
-        <div className="mt-12">
-          <Heading level="h3" className="text-2xl font-light mb-8 text-center">
+        <div className={theme === 'dark' ? "mt-8" : "mt-12"}>
+          <Heading 
+            level="h3" 
+            className={cn(
+              "text-2xl font-light mb-8 text-center",
+              theme === 'dark' ? "text-white" : "text-gray-900"
+            )}
+          >
             Preparation & Requirements
           </Heading>
           <Grid cols={3} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -228,15 +301,34 @@ export default function SacramentInfo({
                 }}
                 viewport={{ once: true }}
               >
-                <Card variant="default" padding="lg" className="bg-white h-full">
+                <Card 
+                  variant="default" 
+                  padding="lg" 
+                  className={cn(
+                    "h-full",
+                    theme === 'dark' 
+                      ? "bg-white/10 backdrop-blur-sm border border-slate-600" 
+                      : "bg-white"
+                  )}
+                >
                   <CardContent>
                     <div className="space-y-4">
-                      <Heading level="h4" className="text-lg font-semibold">
+                      <Heading 
+                        level="h4" 
+                        className={cn(
+                          "text-lg font-semibold",
+                          theme === 'dark' ? "text-white" : "text-gray-900"
+                        )}
+                      >
                         {requirement.title}
                       </Heading>
                       <div className="space-y-2">
                         {requirement.items.map((item, idx) => (
-                          <Text key={idx} size="sm" color="muted">
+                          <Text 
+                            key={idx} 
+                            size="sm" 
+                            className={theme === 'dark' ? "text-gray-200" : "text-gray-600"}
+                          >
                             • {item}
                           </Text>
                         ))}
