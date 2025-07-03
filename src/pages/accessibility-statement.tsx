@@ -205,7 +205,7 @@ export default function AccessibilityStatement() {
       </Section>
 
       {/* Accessibility Features */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="xl">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">

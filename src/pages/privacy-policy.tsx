@@ -216,7 +216,7 @@ export default function PrivacyPolicy() {
       </Section>
 
       {/* How We Collect Data */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <Heading level="h2" align="center" className="mb-12">
             How We Collect Your Data
@@ -383,7 +383,7 @@ export default function PrivacyPolicy() {
       </Section>
 
       {/* Your Rights */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="xl">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">
@@ -561,7 +561,7 @@ export default function PrivacyPolicy() {
       </Section>
 
       {/* Data Sharing */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <Heading level="h2" align="center" className="mb-8">
             When We Share Your Data

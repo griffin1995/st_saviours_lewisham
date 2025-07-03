@@ -254,7 +254,7 @@ export default function Safeguarding() {
 
       {/* Emergency Contacts */}
       {/* Emergency Contacts */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="xl">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">
@@ -367,7 +367,7 @@ export default function Safeguarding() {
       </Section>
 
       {/* Policies and Documents */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">

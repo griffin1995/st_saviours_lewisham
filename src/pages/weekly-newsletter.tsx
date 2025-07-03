@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
+import { PageLayout } from "@/components/layout";
+import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
 import { 
   Mail, 
@@ -81,6 +81,7 @@ export default function WeeklyNewsletter() {
       title="Weekly Newsletter"
       description="Stay connected with St Saviour's through our weekly parish newsletter. Get updates on events, spiritual reflections, and community news."
       keywords="Parish Newsletter, Weekly Newsletter, Church Newsletter, Parish Updates, Community News, Catholic Newsletter"
+      background="white"
     >
       <PageHero
         title="Weekly Newsletter"
@@ -157,7 +158,7 @@ export default function WeeklyNewsletter() {
       </ContentSection>
 
       {/* What's Included */}
-      <ContentSection background="gray">
+      <ContentSection background="white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-serif font-light text-gray-900 mb-4">
@@ -300,7 +301,7 @@ export default function WeeklyNewsletter() {
       </ContentSection>
 
       {/* Newsletter Archive Info */}
-      <ContentSection background="navy">
+      <ContentSection background="white">
         <div className="text-center text-white">
           <h2 className="text-3xl font-serif font-light mb-6">
             Newsletter Archive
@@ -346,7 +347,7 @@ export default function WeeklyNewsletter() {
       </ContentSection>
 
       {/* Contact for Contributions */}
-      <ContentSection background="gray">
+      <ContentSection background="white">
         <div className="text-center">
           <h2 className="text-3xl font-serif font-light text-gray-900 mb-6">
             Contribute to Our Newsletter

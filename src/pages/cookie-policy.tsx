@@ -247,7 +247,7 @@ export default function CookiePolicy() {
       </Section>
 
       {/* Cookie Types */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="xl">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">
@@ -557,7 +557,7 @@ export default function CookiePolicy() {
       </Section>
 
       {/* Browser Settings */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <Heading level="h2" align="center" className="mb-8">
             Browser Cookie Settings
