@@ -242,7 +242,7 @@ export default function VenueHire() {
       </Section>
 
       {/* Venues */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -411,7 +411,7 @@ export default function VenueHire() {
       </Section>
 
       {/* FAQ Section */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}

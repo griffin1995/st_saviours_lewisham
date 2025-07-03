@@ -134,7 +134,7 @@ export default function Streaming() {
       </Section>
 
       {/* Streaming Schedule */}
-      <Section spacing="lg" background="gray" id="schedule">
+      <Section spacing="lg" background="white" id="schedule">
         <Container size="lg">
           <StreamingSchedule
             streams={upcomingStreams}
@@ -159,7 +159,7 @@ export default function Streaming() {
       </Section>
 
       {/* Online Community */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <OnlineCommunity />
         </Container>

@@ -251,7 +251,7 @@ export default function ParishGroups() {
       </Section>
 
       {/* Parish Groups Grid */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -371,7 +371,7 @@ export default function ParishGroups() {
       </Section>
 
       {/* Weekly Schedule */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}

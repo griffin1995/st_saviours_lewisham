@@ -222,7 +222,7 @@ export default function Podcasts() {
 
       {/* Featured Episodes */}
       {featuredEpisodes.length > 0 && (
-        <Section spacing="lg" background="gray">
+        <Section spacing="lg" background="white">
           <Container size="lg">
             <div className="text-center mb-12">
               <Heading level="h2" align="center" className="mb-6">
@@ -264,7 +264,7 @@ export default function Podcasts() {
       </Section>
 
       {/* All Episodes */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <div className="text-center mb-12">
             <Heading level="h2" align="center" className="mb-6">

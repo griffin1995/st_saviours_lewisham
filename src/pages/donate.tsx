@@ -67,25 +67,25 @@ export default function Donate() {
       icon: Banknote,
       title: "Collection Basket",
       description: "Place your donation in the collection basket during Mass on Sundays.",
-      color: "bg-green-600"
+      color: "bg-navy-600"
     },
     {
       icon: Building,
       title: "Bank Transfer",
       description: "Set up a standing order directly to our parish account. Contact the office for details.",
-      color: "bg-blue-600"
+      color: "bg-navy-700"
     },
     {
       icon: QrCode,
       title: "QR Code",
       description: "Scan the QR code in the church to make a quick donation using your mobile device.",
-      color: "bg-purple-600"
+      color: "bg-navy-800"
     },
     {
       icon: Gift,
       title: "Legacy Giving",
       description: "Remember the parish in your will. Contact us to discuss legacy giving options.",
-      color: "bg-amber-600"
+      color: "bg-navy-500"
     }
   ]
 
@@ -108,7 +108,7 @@ export default function Donate() {
         title="Support Our Mission"
         subtitle="Your Generosity Makes a Difference"
         description="Help us continue our work of faith, community, and service through your generous donations."
-        backgroundImage="/images/hero/church-community.jpg"
+        pageName="donate"
         height="large"
         overlay="medium"
         actions={
@@ -182,7 +182,7 @@ export default function Donate() {
       </Section>
 
       {/* Online Donation Form */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <Grid cols={2} gap="xl" className="items-start">
             {/* Donation Form */}
@@ -305,7 +305,7 @@ export default function Donate() {
       <DonationStats onDownloadReport={handleReportDownload} />
 
       {/* Contact for Questions */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}

@@ -2,16 +2,16 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { 
-  MapPin, 
-  Car, 
-  Train, 
-  Bus, 
-  Clock, 
-  Accessibility, 
-  Phone,
-  Navigation,
-  Mail
-} from 'lucide-react'
+  MapPinIcon as MapPin, 
+  TruckIcon as Car, 
+  BuildingOffice2Icon as Train, 
+  TruckIcon as Bus, 
+  ClockIcon as Clock, 
+  UserIcon as Accessibility, 
+  PhoneIcon as Phone,
+  ArrowTopRightOnSquareIcon as Navigation,
+  EnvelopeIcon as Mail
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -74,7 +74,7 @@ export default function FindUs() {
           "Lewisham Shopping Centre car park",
           "River Park Retail Park"
         ],
-        highlight: "Postcode for Sat Nav: SE13 6EE"
+        highlight: "Postcode for Sat Nav: SE13 6AA"
       }
     }
   ]
@@ -136,7 +136,7 @@ export default function FindUs() {
         title="Find Us"
         subtitle="Visit Our Church"
         description="Located in the heart of Lewisham, we're easily accessible by public transport and car."
-        backgroundImage="/images/hero/church-exterior.jpg"
+        backgroundImage="/images/pexels-pixabay-218480.jpg"
         height="large"
         overlay="medium"
         actions={
@@ -175,7 +175,7 @@ export default function FindUs() {
             
             <div className="max-w-2xl mx-auto space-y-6">
               <Flex justify="center" align="center" gap="md">
-                <MapPin className="h-6 w-6 text-gold-400" />
+                <MapPin className="h-6 w-6 text-white" />
                 <Text size="xl" className="text-white">
                   St Saviour's Catholic Church
                 </Text>
@@ -183,14 +183,14 @@ export default function FindUs() {
               
               <address className="not-italic">
                 <Text size="lg" className="text-gray-300">
-                  Lewisham High Street<br />
-                  London SE13 6EE<br />
+                  175 Lewisham High Street<br />
+                  London SE13 6AA<br />
                   United Kingdom
                 </Text>
               </address>
               
               <Flex justify="center" align="center" gap="md" className="pt-4">
-                <Phone className="h-5 w-5 text-gold-400" />
+                <Phone className="h-5 w-5 text-white" />
                 <Text className="text-white">020 8852 7411</Text>
               </Flex>
             </div>
@@ -199,11 +199,12 @@ export default function FindUs() {
       </Section>
 
       {/* Interactive Map */}
-      <Section spacing="sm" background="gray">
+      <Section spacing="sm" background="slate">
         <Container size="lg">
           <MapEmbed
-            address="St Saviour's Catholic Church, Lewisham High Street, London SE13 6EE"
-            postcode="SE13 6EE"
+            address="175 Lewisham High Street, London SE13 6AA"
+            postcode="SE13 6AA"
+            embedUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487.234!2d-0.013558!3d51.462778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a9b2d5e0f123%3A0xabcdef1234567890!2s175%20Lewisham%20High%20St%2C%20London%20SE13%206AA!5e0!3m2!1sen!2suk!4v1640000000000!5m2!1sen!2suk"
             height="lg"
             showDirections={true}
           />
@@ -211,7 +212,7 @@ export default function FindUs() {
       </Section>
 
       {/* Transport Options */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -220,10 +221,10 @@ export default function FindUs() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <Heading level="h2" align="center" className="mb-6">
+            <Heading level="h2" color="white" align="center" className="mb-6">
               How to Get Here
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+            <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
               We're conveniently located in central Lewisham with excellent transport links.
             </Text>
           </motion.div>
@@ -243,7 +244,7 @@ export default function FindUs() {
       </Section>
 
       {/* Accessibility & Facilities */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <Grid cols={2} gap="xl">
             {/* Accessibility */}
@@ -255,29 +256,29 @@ export default function FindUs() {
               className="space-y-6"
             >
               <Flex align="center" gap="md">
-                <Accessibility className="h-6 w-6 text-gold-600" />
-                <Heading level="h3" className="text-2xl font-semibold">
+                <Accessibility className="h-6 w-6 text-white" />
+                <Heading level="h3" color="white" className="text-2xl font-semibold">
                   Accessibility
                 </Heading>
               </Flex>
               
               <div className="space-y-4">
                 {accessibilityFeatures.map((feature, index) => (
-                  <Card key={index} variant="default" padding="md" className="bg-white">
+                  <Card key={index} variant="default" padding="md" className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-white transition-all duration-300">
                     <CardContent>
                       <div className="space-y-2">
-                        <Heading level="h4" className="font-semibold">
+                        <Heading level="h4" color="white" className="font-semibold">
                           {feature.title}
                         </Heading>
                         {feature.description && (
-                          <Text size="sm" color="muted">
+                          <Text size="sm" className="text-gray-200">
                             {feature.description}
                           </Text>
                         )}
                         {feature.items && (
                           <div className="space-y-1">
                             {feature.items.map((item, idx) => (
-                              <Text key={idx} size="sm" color="muted">
+                              <Text key={idx} size="sm" className="text-gray-200">
                                 • {item}
                               </Text>
                             ))}
@@ -299,29 +300,29 @@ export default function FindUs() {
               className="space-y-6"
             >
               <Flex align="center" gap="md">
-                <Clock className="h-6 w-6 text-gold-600" />
-                <Heading level="h3" className="text-2xl font-semibold">
+                <Clock className="h-6 w-6 text-white" />
+                <Heading level="h3" color="white" className="text-2xl font-semibold">
                   Facilities & Information
                 </Heading>
               </Flex>
               
               <div className="space-y-4">
                 {facilityInfo.map((facility, index) => (
-                  <Card key={index} variant="default" padding="md" className="bg-white">
+                  <Card key={index} variant="default" padding="md" className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-white transition-all duration-300">
                     <CardContent>
                       <div className="space-y-2">
-                        <Heading level="h4" className="font-semibold">
+                        <Heading level="h4" color="white" className="font-semibold">
                           {facility.title}
                         </Heading>
                         {facility.description && (
-                          <Text size="sm" color="muted">
+                          <Text size="sm" className="text-gray-200">
                             {facility.description}
                           </Text>
                         )}
                         {facility.items && (
                           <div className="space-y-1">
                             {facility.items.map((item, idx) => (
-                              <Text key={idx} size="sm" color="muted">
+                              <Text key={idx} size="sm" className="text-gray-200">
                                 • {item}
                               </Text>
                             ))}

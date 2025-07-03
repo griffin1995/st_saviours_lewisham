@@ -218,7 +218,7 @@ export default function Gallery() {
       </Section>
 
       {/* Gallery Grid */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="white">
         <Container size="lg">
           <GalleryGrid
             images={galleryImages}
