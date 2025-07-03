@@ -1,6 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
-import { Droplets, Calendar, Phone, BookOpen, Users, Heart, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { 
+  BeakerIcon as Droplets, 
+  CalendarDaysIcon as Calendar, 
+  PhoneIcon as Phone, 
+  BookOpenIcon as BookOpen, 
+  UserGroupIcon as Users, 
+  HeartIcon as Heart, 
+  ArrowRightIcon as ArrowRight 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -105,7 +114,7 @@ export default function Baptism() {
         title="Baptism"
         subtitle="The Sacrament of New Life"
         description="The gateway to life in the Spirit and the door which gives access to the other sacraments."
-        backgroundImage="/images/sacraments/baptism-font.jpg"
+        backgroundImage="/images/candles.jpg"
         height="large"
         overlay="medium"
         actions={
@@ -114,22 +123,16 @@ export default function Baptism() {
               variant="primary" 
               size="lg"
               leftIcon={<Calendar className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
-              Schedule Baptism
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              leftIcon={<BookOpen className="h-5 w-5" />}
-            >
-              Learn About RCIA
+              Start Your Baptism Journey
             </Button>
           </Flex>
         }
       />
 
       {/* Sacrament Information */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <SacramentInfo
             icon={Droplets}
@@ -139,122 +142,57 @@ export default function Baptism() {
             quote={quote}
             effects={baptismEffects}
             requirements={baptismRequirements}
-            contactInfo={contactInfo}
             effectsColor="blue"
+            theme="dark"
           />
         </Container>
       </Section>
 
-      {/* Baptism Schedule & Process */}
-      <Section spacing="lg" background="gray">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              Baptism at St Saviour's
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              We celebrate baptisms regularly and provide comprehensive preparation for families and adults.
-            </Text>
-          </div>
-
-          <Grid cols={2} gap="lg">
-            {/* Infant Baptism */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                      <Heart className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Infant Baptism
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    We welcome families who wish to have their children baptized. Our preparation 
-                    process helps parents understand the significance of this sacrament and their 
-                    role in raising their child in the Catholic faith.
-                  </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
-                      Baptism Schedule:
-                    </Text>
-                    <div className="space-y-1">
-                      <Text size="sm" color="muted">• Second Sunday of each month at 12:30 PM</Text>
-                      <Text size="sm" color="muted">• Fourth Sunday of each month at 12:30 PM</Text>
-                      <Text size="sm" color="muted">• Special arrangements for feast days</Text>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    leftIcon={<Calendar className="h-4 w-4" />}
-                  >
-                    Book Preparation Course
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Adult Baptism */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Adult Baptism (RCIA)
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    Adults seeking baptism join our RCIA (Rite of Christian Initiation of Adults) 
-                    program. This journey of faith formation typically takes 6-12 months and 
-                    culminates in baptism at the Easter Vigil.
-                  </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
-                      RCIA Sessions:
-                    </Text>
-                    <div className="space-y-1">
-                      <Text size="sm" color="muted">• Wednesday evenings at 7:00 PM</Text>
-                      <Text size="sm" color="muted">• September through Easter</Text>
-                      <Text size="sm" color="muted">• New participants welcome anytime</Text>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    leftIcon={<BookOpen className="h-4 w-4" />}
-                  >
-                    Join RCIA Program
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Container>
-      </Section>
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
 
       {/* Call to Action */}
       <Section spacing="lg" background="slate">
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
-              <Heading level="h2" className="text-3xl font-light text-white">
-                Begin Your Journey of Faith
-              </Heading>
-              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
-                Baptism is the first step in a lifelong journey with Christ. Whether for yourself 
-                or your child, we're here to support and guide you through this sacred process.
-              </Text>
+              <div className="space-y-4">
+                <Heading level="h2" className="text-3xl font-light text-white text-center">
+                  Begin Your Journey of Faith
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                  Ready to take the next step? Contact us to begin your baptism preparation 
+                  or learn more about this sacred sacrament.
+                </Text>
+                <Flex justify="center" gap="lg" wrap>
+                  <a href="tel:020 8852 7411">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      📞 020 8852 7411
+                    </Text>
+                  </a>
+                  <a href="mailto:info@stsaviourslewisham.org.uk">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      ✉️ info@stsaviourslewisham.org.uk
+                    </Text>
+                  </a>
+                </Flex>
+              </div>
             </div>
             
             <Flex justify="center" gap="md" wrap>
@@ -263,17 +201,9 @@ export default function Baptism() {
                   variant="primary" 
                   size="lg"
                   leftIcon={<Phone className="h-5 w-5" />}
+                  className="bg-white text-slate-900 hover:bg-gray-100"
                 >
-                  Contact Us Today
-                </Button>
-              </Link>
-              <Link href="/the-sacraments">
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  leftIcon={<ArrowRight className="h-5 w-5" />}
-                >
-                  Explore Other Sacraments
+                  Contact Us to Begin
                 </Button>
               </Link>
             </Flex>

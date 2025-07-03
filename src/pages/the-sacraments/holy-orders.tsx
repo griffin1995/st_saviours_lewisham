@@ -1,6 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
-import { HandMetal, Calendar, Phone, BookOpen, Heart, Users, ArrowRight, Crown, Cross } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { 
+  HandRaisedIcon as HandMetal, 
+  CalendarDaysIcon as Calendar, 
+  PhoneIcon as Phone, 
+  BookOpenIcon as BookOpen, 
+  HeartIcon as Heart, 
+  UserGroupIcon as Users, 
+  ArrowRightIcon as ArrowRight, 
+  StarIcon as Crown, 
+  PlusIcon as Cross 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -100,7 +111,7 @@ export default function HolyOrders() {
       subtitle: "Episcopate",
       description: "Bishops possess the fullness of the sacrament of Holy Orders. They are the successors of the apostles and have the authority to ordain priests and deacons, confirm the faithful, and govern dioceses.",
       icon: Crown,
-      color: "bg-purple-600",
+      color: "bg-navy-600",
       responsibilities: [
         "Teaching and preaching",
         "Sanctifying through sacraments", 
@@ -150,7 +161,7 @@ export default function HolyOrders() {
         title="Holy Orders"
         subtitle="Sacrament of Service"
         description="Through Holy Orders, men are consecrated to serve God and his people as bishops, priests, and deacons."
-        backgroundImage="/images/sacraments/holy-orders-ordination.jpg"
+        backgroundImage="/images/inside-church-aisle.jpg"
         height="large"
         overlay="medium"
         actions={
@@ -159,22 +170,16 @@ export default function HolyOrders() {
               variant="primary" 
               size="lg"
               leftIcon={<Phone className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
               Explore Your Vocation
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              leftIcon={<BookOpen className="h-5 w-5" />}
-            >
-              Vocations Information
             </Button>
           </Flex>
         }
       />
 
       {/* Sacrament Information */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <SacramentInfo
             icon={HandMetal}
@@ -184,266 +189,70 @@ export default function HolyOrders() {
             quote={quote}
             effects={holyOrdersEffects}
             requirements={holyOrdersRequirements}
-            contactInfo={contactInfo}
             effectsColor="indigo"
+            theme="dark"
           />
         </Container>
       </Section>
 
-      {/* The Three Degrees of Holy Orders */}
-      <Section spacing="lg" background="gray">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              The Three Degrees of Holy Orders
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              Each degree of Holy Orders has its own unique role and responsibilities in the Church's mission.
-            </Text>
-          </div>
 
-          <div className="space-y-8">
-            {holyOrdersDegrees.map((order, index) => (
-              <Card key={order.title} variant="default" padding="lg" className="bg-white">
-                <CardContent>
-                  <Grid cols={3} gap="lg" className="items-center">
-                    <div className="text-center">
-                      <div className={`w-20 h-20 ${order.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                        <order.icon className="h-10 w-10 text-white" />
-                      </div>
-                      <Heading level="h3" className="text-2xl font-semibold">
-                        {order.title}
-                      </Heading>
-                      <Text className={`${order.color.replace('bg-', 'text-')} font-semibold`}>
-                        {order.subtitle}
-                      </Text>
-                    </div>
-                    <div className="md:col-span-2 space-y-4">
-                      <Text color="muted" className="leading-relaxed">
-                        {order.description}
-                      </Text>
-                      <Grid cols={2} gap="md">
-                        <div>
-                          <Heading level="h4" className="font-semibold text-gray-900 mb-2">
-                            Responsibilities:
-                          </Heading>
-                          <div className="space-y-1">
-                            {order.responsibilities.map((responsibility, idx) => (
-                              <Text key={idx} size="sm" color="muted">• {responsibility}</Text>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <Heading level="h4" className="font-semibold text-gray-900 mb-2">
-                            Symbol:
-                          </Heading>
-                          <Text size="sm" color="muted">{order.symbol}</Text>
-                        </div>
-                      </Grid>
-                    </div>
-                  </Grid>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* The Rite of Ordination */}
-      <Section spacing="lg" background="white">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              The Rite of Ordination
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              Ordination is a solemn liturgical celebration that confers the sacrament of Holy Orders.
-            </Text>
-          </div>
-
-          <Grid cols={2} gap="lg" className="max-w-4xl mx-auto">
-            {/* Key Elements */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Heading level="h3" className="text-2xl font-semibold text-indigo-600">
-                    Key Elements
-                  </Heading>
-                  <div className="space-y-4">
-                    {[
-                      {
-                        step: 1,
-                        title: "Presentation of Candidates",
-                        description: "The bishop calls the candidates forward and they express their willingness to serve"
-                      },
-                      {
-                        step: 2,
-                        title: "Homily",
-                        description: "The bishop explains the dignity and duties of the priestly office"
-                      },
-                      {
-                        step: 3,
-                        title: "Examination",
-                        description: "Candidates publicly promise obedience and commit to their duties"
-                      },
-                      {
-                        step: 4,
-                        title: "Laying on of Hands",
-                        description: "The essential element - the bishop and all priests present lay hands on the candidates"
-                      }
-                    ].map((element) => (
-                      <Flex key={element.step} align="start" gap="md">
-                        <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-                          {element.step}
-                        </div>
-                        <div>
-                          <Text weight="bold" className="text-gray-900">{element.title}</Text>
-                          <Text size="sm" color="muted">{element.description}</Text>
-                        </div>
-                      </Flex>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Sacred Symbols */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Heading level="h3" className="text-2xl font-semibold text-indigo-600">
-                    Sacred Symbols
-                  </Heading>
-                  <div className="space-y-4">
-                    {[
-                      {
-                        title: "Investiture with Vestments",
-                        description: "The newly ordained are clothed with the stole and chasuble, symbols of their priestly office"
-                      },
-                      {
-                        title: "Anointing of Hands", 
-                        description: "The bishop anoints the palms of the new priests with sacred chrism"
-                      },
-                      {
-                        title: "Presentation of Gifts",
-                        description: "The chalice and paten are given as symbols of the power to offer sacrifice"
-                      }
-                    ].map((symbol, index) => (
-                      <Card key={index} variant="outlined" padding="md" className="bg-indigo-50 border-indigo-200">
-                        <CardContent>
-                          <Text weight="bold" className="text-indigo-800 mb-2">{symbol.title}</Text>
-                          <Text size="sm" className="text-indigo-700">{symbol.description}</Text>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* Vocations Discernment */}
-      <Section spacing="lg" background="gray">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              Considering a Vocation?
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              If you feel called to serve God and his people as a priest or deacon, we encourage you to explore this vocation.
-            </Text>
-          </div>
-
-          <Grid cols={2} gap="lg" className="max-w-4xl mx-auto">
-            {/* Signs of a Vocation */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
-                    Signs of a Vocation
-                  </Heading>
-                  <div className="space-y-3">
-                    {[
-                      "Deep prayer life and love for the Eucharist",
-                      "Desire to serve God and his people",
-                      "Others recognizing priestly qualities in you",
-                      "Peace and joy when considering priesthood",
-                      "Ability to relate well to people of all ages"
-                    ].map((sign, index) => (
-                      <Flex key={index} align="start" gap="sm">
-                        <div className="w-2 h-2 bg-indigo-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <Text size="sm" color="muted">{sign}</Text>
-                      </Flex>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Next Steps */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Heading level="h3" className="text-xl font-semibold text-gray-900">
-                    Next Steps
-                  </Heading>
-                  <div className="space-y-3">
-                    {[
-                      "Speak with one of our priests",
-                      "Contact the diocesan vocations director",
-                      "Attend vocation events and retreats",
-                      "Increase prayer and spiritual reading",
-                      "Consider visiting a seminary"
-                    ].map((step, index) => (
-                      <Flex key={index} align="start" gap="sm">
-                        <div className="w-2 h-2 bg-gold-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <Text size="sm" color="muted">{step}</Text>
-                      </Flex>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Container>
-      </Section>
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
 
       {/* Call to Action */}
       <Section spacing="lg" background="slate">
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
-              <Heading level="h2" className="text-3xl font-light text-white">
-                Pray for Vocations
-              </Heading>
-              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
-                Please pray for vocations to the priesthood and diaconate. The Church needs holy men 
-                to serve God's people and continue Christ's mission in the world.
-              </Text>
+              <div className="space-y-4">
+                <Heading level="h2" className="text-3xl font-light text-white text-center">
+                  Pray for Vocations
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                  Please pray for vocations to the priesthood and diaconate. The Church needs holy men 
+                  to serve God's people and continue Christ's mission in the world.
+                </Text>
+                <Flex justify="center" gap="lg" wrap>
+                  <a href="tel:020 8852 7411">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      📞 020 8852 7411
+                    </Text>
+                  </a>
+                  <a href="mailto:info@stsaviourslewisham.org.uk">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      ✉️ info@stsaviourslewisham.org.uk
+                    </Text>
+                  </a>
+                </Flex>
+              </div>
             </div>
             
-            <Flex justify="center" gap="md" wrap>
-              <Link href="/contact-us">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  leftIcon={<Phone className="h-5 w-5" />}
-                >
-                  Explore Your Vocation
-                </Button>
-              </Link>
-              <Link href="/the-sacraments">
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  leftIcon={<ArrowRight className="h-5 w-5" />}
-                >
-                  Explore Other Sacraments
-                </Button>
-              </Link>
-            </Flex>
+            <Link href="/contact-us">
+              <Button 
+                variant="primary" 
+                size="lg"
+                leftIcon={<Phone className="h-5 w-5" />}
+                className="bg-white text-slate-900 hover:bg-gray-100"
+              >
+                Explore Your Vocation
+              </Button>
+            </Link>
           </div>
         </Container>
       </Section>

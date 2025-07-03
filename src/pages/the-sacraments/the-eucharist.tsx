@@ -1,6 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
-import { Cookie, Calendar, Phone, BookOpen, Users, Heart, ArrowRight, Utensils } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { 
+  CircleStackIcon as Cookie, 
+  CalendarDaysIcon as Calendar, 
+  PhoneIcon as Phone, 
+  BookOpenIcon as BookOpen, 
+  UserGroupIcon as Users, 
+  HeartIcon as Heart, 
+  ArrowRightIcon as ArrowRight 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -105,7 +114,7 @@ export default function TheEucharist() {
         title="The Holy Eucharist"
         subtitle="Source and Summit of Christian Life"
         description="The Eucharist is the Body and Blood of Christ, truly present under the appearances of bread and wine."
-        backgroundImage="/images/sacraments/eucharist-altar.jpg"
+        backgroundImage="/images/inside-church-aisle.jpg"
         height="large"
         overlay="medium"
         actions={
@@ -114,22 +123,16 @@ export default function TheEucharist() {
               variant="primary" 
               size="lg"
               leftIcon={<Calendar className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
-              See Mass Times
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              leftIcon={<BookOpen className="h-5 w-5" />}
-            >
-              First Communion Classes
+              Join Us for Mass
             </Button>
           </Flex>
         }
       />
 
       {/* Sacrament Information */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <SacramentInfo
             icon={Cookie}
@@ -139,232 +142,70 @@ export default function TheEucharist() {
             quote={quote}
             effects={eucharistEffects}
             requirements={eucharistRequirements}
-            contactInfo={contactInfo}
             effectsColor="amber"
+            theme="dark"
           />
         </Container>
       </Section>
 
-      {/* The Holy Mass */}
-      <Section spacing="lg" background="gray">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              The Celebration of the Eucharist
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              The Mass is the celebration of the Eucharist, where the sacrifice of Calvary is made present and we receive Christ himself.
-            </Text>
-          </div>
 
-          <Grid cols={2} gap="lg">
-            {/* Liturgy of the Word */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                      <BookOpen className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Liturgy of the Word
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    In the first part of Mass, we listen to God's word through readings 
-                    from Scripture and the priest's homily, preparing our hearts to receive Christ.
-                  </Text>
-                  
-                  <div className="space-y-2">
-                    {[
-                      "First Reading (Old Testament)",
-                      "Responsorial Psalm", 
-                      "Second Reading (New Testament)",
-                      "Gospel Acclamation",
-                      "Gospel Reading",
-                      "Homily and Creed"
-                    ].map((item, index) => (
-                      <Flex key={index} align="center" gap="sm">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                        <Text size="sm" color="muted">{item}</Text>
-                      </Flex>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Liturgy of the Eucharist */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-amber-600 rounded-lg flex items-center justify-center">
-                      <Cookie className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Liturgy of the Eucharist
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    In the second part of Mass, bread and wine are transformed into the Body 
-                    and Blood of Christ through the power of the Holy Spirit and the priest's consecration.
-                  </Text>
-                  
-                  <div className="space-y-2">
-                    {[
-                      "Preparation of the Gifts",
-                      "Eucharistic Prayer",
-                      "Consecration",
-                      "Lord's Prayer",
-                      "Sign of Peace",
-                      "Holy Communion"
-                    ].map((item, index) => (
-                      <Flex key={index} align="center" gap="sm">
-                        <div className="w-2 h-2 bg-amber-600 rounded-full"></div>
-                        <Text size="sm" color="muted">{item}</Text>
-                      </Flex>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* First Holy Communion */}
-      <Section spacing="lg" background="white">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              First Holy Communion at St Saviour's
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              We prepare children and adults to receive their First Holy Communion with comprehensive formation programs.
-            </Text>
-          </div>
-
-          <Grid cols={2} gap="lg">
-            {/* Children's Program */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-amber-600 rounded-lg flex items-center justify-center">
-                      <Heart className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Children's First Communion
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    Our 2-year preparation program helps children understand the significance 
-                    of the Eucharist and prepares them to receive Jesus with faith and reverence.
-                  </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
-                      Program Details:
-                    </Text>
-                    <div className="space-y-1">
-                      <Text size="sm" color="muted">• Usually begins in Year 2 (age 6-7)</Text>
-                      <Text size="sm" color="muted">• Saturday morning classes 10:00 AM</Text>
-                      <Text size="sm" color="muted">• First Communion in May/June</Text>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    leftIcon={<Calendar className="h-4 w-4" />}
-                  >
-                    Enroll Your Child
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Adult Preparation */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Adult First Communion
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
-                    Adults who have been baptized but have not received First Communion 
-                    can join our RCIA program or special adult preparation sessions.
-                  </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
-                      Preparation Options:
-                    </Text>
-                    <div className="space-y-1">
-                      <Text size="sm" color="muted">• RCIA program (September-Easter)</Text>
-                      <Text size="sm" color="muted">• Individual preparation available</Text>
-                      <Text size="sm" color="muted">• Reception at Easter Vigil or Sunday Mass</Text>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    leftIcon={<BookOpen className="h-4 w-4" />}
-                  >
-                    Start Preparation
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Container>
-      </Section>
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
 
       {/* Call to Action */}
       <Section spacing="lg" background="slate">
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
-              <Heading level="h2" className="text-3xl font-light text-white">
-                Come to the Table of the Lord
-              </Heading>
-              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
-                The Eucharist is the greatest gift Christ has given us. Join us for Mass 
-                and experience the profound mystery of God's love in Holy Communion.
-              </Text>
+              <div className="space-y-4">
+                <Heading level="h2" className="text-3xl font-light text-white text-center">
+                  Come to the Table of the Lord
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                  The Eucharist is the greatest gift Christ has given us. Join us for Mass 
+                  and experience the profound mystery of God's love in Holy Communion.
+                </Text>
+                <Flex justify="center" gap="lg" wrap>
+                  <a href="tel:020 8852 7411">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      📞 020 8852 7411
+                    </Text>
+                  </a>
+                  <a href="mailto:info@stsaviourslewisham.org.uk">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      ✉️ info@stsaviourslewisham.org.uk
+                    </Text>
+                  </a>
+                </Flex>
+              </div>
             </div>
             
-            <Flex justify="center" gap="md" wrap>
-              <Link href="/mass">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  leftIcon={<Utensils className="h-5 w-5" />}
-                >
-                  View Mass Times
-                </Button>
-              </Link>
-              <Link href="/the-sacraments">
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  leftIcon={<ArrowRight className="h-5 w-5" />}
-                >
-                  Explore Other Sacraments
-                </Button>
-              </Link>
-            </Flex>
+            <Link href="/mass">
+              <Button 
+                variant="primary" 
+                size="lg"
+                leftIcon={<Calendar className="h-5 w-5" />}
+                className="bg-white text-slate-900 hover:bg-gray-100"
+              >
+                View Mass Times
+              </Button>
+            </Link>
           </div>
         </Container>
       </Section>

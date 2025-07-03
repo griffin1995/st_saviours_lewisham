@@ -1,6 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import { Cross, Calendar, Phone, BookOpen, Users, Heart, ArrowRight, Gift } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { 
+  PlusIcon as Cross, 
+  CalendarDaysIcon as Calendar, 
+  PhoneIcon as Phone, 
+  BookOpenIcon as BookOpen, 
+  UserGroupIcon as Users, 
+  HeartIcon as Heart, 
+  ArrowRightIcon as ArrowRight, 
+  GiftIcon as Gift 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -105,7 +115,7 @@ export default function Confirmation() {
         title="Confirmation"
         subtitle="Strengthened by the Spirit"
         description="Confirmation completes Christian initiation and strengthens us with the gifts of the Holy Spirit."
-        backgroundImage="/images/sacraments/confirmation-ceremony.jpg"
+        backgroundImage="/images/inside-church-aisle.jpg"
         height="large"
         overlay="medium"
         actions={
@@ -114,13 +124,15 @@ export default function Confirmation() {
               variant="primary" 
               size="lg"
               leftIcon={<Calendar className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
               Join Preparation Program
             </Button>
             <Button 
-              variant="secondary" 
+              variant="primary" 
               size="lg"
               leftIcon={<BookOpen className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
               Learn About RCIA
             </Button>
@@ -129,7 +141,7 @@ export default function Confirmation() {
       />
 
       {/* Sacrament Information */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <SacramentInfo
             icon={Cross}
@@ -139,170 +151,215 @@ export default function Confirmation() {
             quote={quote}
             effects={confirmationEffects}
             requirements={confirmationRequirements}
-            contactInfo={contactInfo}
             effectsColor="red"
+            theme="dark"
           />
         </Container>
       </Section>
 
-      {/* Seven Gifts & Confirmation Process */}
-      <Section spacing="lg" background="gray">
-        <Container size="lg">
-          <div className="text-center mb-12">
-            <Heading level="h2" align="center" className="mb-6">
-              The Seven Gifts of the Holy Spirit
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              Through Confirmation, candidates receive seven special gifts from the Holy Spirit to help them live as mature Christians.
-            </Text>
-          </div>
+      {/* Section Divider */}
+      <div className="flex justify-center py-16 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+      </div>
 
-          <Grid cols={4} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-12">
-            {[
-              { name: "Wisdom", description: "Helps us see life from God's perspective" },
-              { name: "Understanding", description: "Deepens our comprehension of faith truths" },
-              { name: "Counsel", description: "Guides us to make good decisions" },
-              { name: "Fortitude", description: "Gives us courage to do what is right" },
-              { name: "Knowledge", description: "Helps us know God's will in our lives" },
-              { name: "Piety", description: "Inspires us to worship and serve God" },
-              { name: "Fear of the Lord", description: "Develops reverence and respect for God" }
-            ].map((gift, index) => (
-              <Card key={gift.name} variant="default" padding="md" className="bg-white text-center">
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mx-auto">
-                      <Gift className="h-6 w-6 text-white" />
+      {/* Seven Gifts & Confirmation Process */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <Grid cols={2} gap="xl" className="items-start">
+            {/* Left Column - Content */}
+            <div className="space-y-8">
+              <div className="relative">
+                <motion.div
+                  className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
+                  initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
+                  whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
+                  transition={reducedMotion 
+                    ? { duration: 0.3 }
+                    : { duration: 1, delay: 0.3 }
+                  }
+                  viewport={{ once: true }}
+                />
+                <Heading level="h2" color="white" className="text-3xl lg:text-4xl font-light">
+                  The Seven Gifts of the Holy Spirit
+                </Heading>
+              </div>
+              <Text size="xl" className="text-gray-100 leading-relaxed">
+                Through Confirmation, candidates receive seven special gifts from the Holy Spirit 
+                to help them live as mature Christians and witnesses to Christ in the world.
+              </Text>
+            </div>
+            
+            {/* Right Column - Gift Cards Grid */}
+            <div className="grid grid-cols-2 gap-4">
+
+              {[
+                { name: "Wisdom", description: "Helps us see life from God's perspective" },
+                { name: "Understanding", description: "Deepens our comprehension of faith truths" },
+                { name: "Counsel", description: "Guides us to make good decisions" },
+                { name: "Fortitude", description: "Gives us courage to do what is right" },
+                { name: "Knowledge", description: "Helps us know God's will in our lives" },
+                { name: "Piety", description: "Inspires us to worship and serve God" },
+                { name: "Fear of the Lord", description: "Develops reverence and respect for God" }
+              ].map((gift, index) => (
+                <Card key={gift.name} variant="default" padding="sm" className="bg-white/10 backdrop-blur-sm border border-slate-600 text-center">
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="w-8 h-8 icon-container-white rounded-full flex items-center justify-center mx-auto">
+                        <Gift className="h-4 w-4 text-black" />
+                      </div>
+                      <Heading level="h4" className="text-sm font-semibold text-white">
+                        {gift.name}
+                      </Heading>
+                      <Text size="xs" className="text-gray-200 leading-relaxed">
+                        {gift.description}
+                      </Text>
                     </div>
-                    <Heading level="h4" className="text-lg font-semibold">
-                      {gift.name}
-                    </Heading>
-                    <Text size="sm" color="muted" className="leading-relaxed">
-                      {gift.description}
-                    </Text>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </Grid>
 
-          <Grid cols={2} gap="lg">
-            {/* Youth Program */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Youth Confirmation Program
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
+          {/* Section Divider */}
+          <div className="flex justify-center pt-16 pb-8">
+            <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+          </div>
+
+          <Grid cols={2} gap="xl" className="items-start">
+            {/* Left Column - Youth Program */}
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="w-16 h-16 icon-container-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Users className="h-8 w-8 text-black" />
+                </div>
+                <div className="space-y-3">
+                  <Heading level="h3" color="white" className="text-xl font-serif font-semibold">
+                    Youth Confirmation Program
+                  </Heading>
+                  <Text className="text-gray-100 leading-relaxed">
                     Our comprehensive 2-year program prepares young people (Year 9 and above) 
                     for Confirmation through weekly classes, retreats, and service opportunities.
                   </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
+                  <div className="space-y-2">
+                    <Text weight="bold" className="text-white">
                       Program Schedule:
                     </Text>
                     <div className="space-y-1">
-                      <Text size="sm" color="muted">• Sunday mornings at 10:00 AM</Text>
-                      <Text size="sm" color="muted">• September through May</Text>
-                      <Text size="sm" color="muted">• Confirmation ceremony in June</Text>
+                      <Text size="sm" className="text-gray-200">• Sunday mornings at 10:00 AM</Text>
+                      <Text size="sm" className="text-gray-200">• September through May</Text>
+                      <Text size="sm" className="text-gray-200">• Confirmation ceremony in June</Text>
                     </div>
                   </div>
-                  
                   <Button 
-                    variant="outline" 
+                    variant="primary" 
                     size="sm"
                     leftIcon={<Calendar className="h-4 w-4" />}
+                    className="bg-white text-slate-900 hover:bg-gray-100"
                   >
                     Enroll in Program
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {/* Adult Confirmation */}
-            <Card variant="default" padding="lg" className="bg-white">
-              <CardContent>
-                <div className="space-y-6">
-                  <Flex align="center" gap="md">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                      <Heart className="h-6 w-6 text-white" />
-                    </div>
-                    <Heading level="h3" className="text-xl font-semibold">
-                      Adult Confirmation (RCIA)
-                    </Heading>
-                  </Flex>
-                  
-                  <Text color="muted" className="leading-relaxed">
+            {/* Right Column - Adult Confirmation */}
+            <div className="space-y-8 text-right">
+              <div className="flex items-start gap-6 flex-row-reverse">
+                <div className="w-16 h-16 icon-container-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Heart className="h-8 w-8 text-black" />
+                </div>
+                <div className="space-y-3">
+                  <Heading level="h3" color="white" className="text-xl font-serif font-semibold">
+                    Adult Confirmation (RCIA)
+                  </Heading>
+                  <Text className="text-gray-100 leading-relaxed text-right">
                     Adults who have been baptized but not confirmed join our RCIA process 
                     to complete their Christian initiation and receive the fullness of the Spirit.
                   </Text>
-                  
-                  <div className="space-y-3">
-                    <Text weight="bold" className="text-gray-900">
+                  <div className="space-y-2">
+                    <Text weight="bold" className="text-white text-right">
                       RCIA Sessions:
                     </Text>
                     <div className="space-y-1">
-                      <Text size="sm" color="muted">• Wednesday evenings at 7:00 PM</Text>
-                      <Text size="sm" color="muted">• September through Easter</Text>
-                      <Text size="sm" color="muted">• Confirmation at Easter Vigil</Text>
+                      <Text size="sm" className="text-gray-200 text-right">• Wednesday evenings at 7:00 PM</Text>
+                      <Text size="sm" className="text-gray-200 text-right">• September through Easter</Text>
+                      <Text size="sm" className="text-gray-200 text-right">• Confirmation at Easter Vigil</Text>
                     </div>
                   </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    leftIcon={<BookOpen className="h-4 w-4" />}
-                  >
-                    Join RCIA
-                  </Button>
+                  <div className="flex justify-end">
+                    <Button 
+                      variant="primary" 
+                      size="sm"
+                      leftIcon={<BookOpen className="h-4 w-4" />}
+                      className="bg-white text-slate-900 hover:bg-gray-100"
+                    >
+                      Join RCIA
+                    </Button>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </Grid>
         </Container>
       </Section>
+
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
 
       {/* Call to Action */}
       <Section spacing="lg" background="slate">
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
-              <Heading level="h2" className="text-3xl font-light text-white">
-                Come, Holy Spirit
-              </Heading>
-              <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
-                Confirmation is a beautiful milestone in your faith journey. Whether you're a young person 
-                or an adult, we invite you to discover the power of the Holy Spirit in your life.
-              </Text>
+              <div className="space-y-4">
+                <Heading level="h2" className="text-3xl font-light text-white text-center">
+                  Come, Holy Spirit
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Text size="lg" className="text-gray-300 max-w-2xl mx-auto">
+                  Confirmation is a beautiful milestone in your faith journey. Whether you're a young person 
+                  or an adult, we invite you to discover the power of the Holy Spirit in your life.
+                </Text>
+                <Flex justify="center" gap="lg" wrap>
+                  <a href="tel:020 8852 7411">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      📞 020 8852 7411
+                    </Text>
+                  </a>
+                  <a href="mailto:info@stsaviourslewisham.org.uk">
+                    <Text className="text-white hover:text-gray-200 font-medium transition-colors">
+                      ✉️ info@stsaviourslewisham.org.uk
+                    </Text>
+                  </a>
+                </Flex>
+              </div>
             </div>
             
-            <Flex justify="center" gap="md" wrap>
-              <Link href="/contact-us">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  leftIcon={<Phone className="h-5 w-5" />}
-                >
-                  Contact Us Today
-                </Button>
-              </Link>
-              <Link href="/the-sacraments">
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  leftIcon={<ArrowRight className="h-5 w-5" />}
-                >
-                  Explore Other Sacraments
-                </Button>
-              </Link>
-            </Flex>
+            <Link href="/contact-us">
+              <Button 
+                variant="primary" 
+                size="lg"
+                leftIcon={<Phone className="h-5 w-5" />}
+                className="bg-white text-slate-900 hover:bg-gray-100"
+              >
+                Contact Us Today
+              </Button>
+            </Link>
           </div>
         </Container>
       </Section>
