@@ -28,13 +28,13 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-lg font-serif font-semibold text-white">
+              <h3 className="text-xl font-serif font-semibold text-white">
                 {getParishName()}
               </h3>
             </div>
             <div className="w-16 h-px bg-white/40 mx-8"></div>
             <div className="text-center flex-1">
-              <h4 className="text-lg font-serif font-semibold text-white">
+              <h4 className="text-xl font-serif font-semibold text-white">
                 Roman Catholic Archdiocese of {getParishDiocese()}
               </h4>
             </div>
@@ -49,43 +49,43 @@ export default function Footer() {
           <nav className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
             <Link 
               href="/about-us" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               About Us
             </Link>
             <Link 
               href="/mass" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               Mass Times
             </Link>
             <Link 
               href="/the-sacraments" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               Sacraments
             </Link>
             <Link 
               href="/news" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               News
             </Link>
             <Link 
               href="/parish-groups" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               Groups
             </Link>
             <Link 
               href="/contact-us" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               Contact
             </Link>
             <Link 
               href="/donate" 
-              className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+              className="text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
             >
               Donate
             </Link>
@@ -100,19 +100,19 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {/* Phone */}
             <div className="text-center">
-              <h5 className="text-white font-semibold text-sm mb-2">Call Us</h5>
-              <p className="text-gray-300 text-sm">{getContactPhone()}</p>
+              <h5 className="text-white font-semibold text-base mb-2">Call Us</h5>
+              <p className="text-gray-300 text-base">{getContactPhone()}</p>
             </div>
             
             {/* Email */}
             <div className="text-center">
-              <h5 className="text-white font-semibold text-sm mb-2">Email Us</h5>
-              <p className="text-gray-300 text-sm">{getContactEmail()}</p>
+              <h5 className="text-white font-semibold text-base mb-2">Email Us</h5>
+              <p className="text-gray-300 text-base">{getContactEmail()}</p>
             </div>
             
             {/* Social Media */}
             <div className="text-center">
-              <h5 className="text-white font-semibold text-sm mb-2">Follow Us</h5>
+              <h5 className="text-white font-semibold text-base mb-2">Follow Us</h5>
               <div className="flex justify-center space-x-4">
                 {getSocialLinks().map((social) => (
                   <Link 
@@ -138,7 +138,7 @@ export default function Footer() {
 
         {/* Row 4: Legal & Credits */}
         <div className="py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             {/* Copyright */}
             <div className="text-center md:text-left">
               <p>© 2025 {getParishName()}</p>

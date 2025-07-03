@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Cross, Menu, ChevronDown, X, Search } from "lucide-react";
+import { Cross, Menu, ChevronDown, X, Search, Heart } from "lucide-react";
 import { navigationMenu } from "@/lib/data";
 import { getLogo } from "@/lib/cms-images";
 import { getParishName, getParishLocation } from "@/lib/cms-content";
@@ -110,7 +110,7 @@ export default function Navigation({
                   }}
                 >
                   <button
-                    className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    className={`flex items-center px-4 py-2 text-base font-medium rounded-lg transition-all duration-200 ${
                       dropdownOpen === item.name
                         ? 'bg-white/20 text-white'
                         : 'text-white hover:text-white hover:bg-white/10'
@@ -126,15 +126,23 @@ export default function Navigation({
                 </div>
               ))}
 
-              {/* Search Only - Theme Toggle Disabled */}
-              <div className="flex items-center space-x-2 ml-4">
+              {/* Search and Donate buttons */}
+              <div className="flex items-center space-x-3 ml-4">
                 <button
                   onClick={() => setSearchOpen(true)}
                   className="p-2 rounded-lg transition-colors duration-200 text-white hover:text-white hover:bg-white/10"
                 >
                   <Search className="h-5 w-5" />
                 </button>
-                {/* Theme toggle temporarily disabled for future implementation */}
+                
+                {/* Donate Button */}
+                <Link
+                  href="/donate"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-slate-900 font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                >
+                  <Heart className="h-4 w-4" />
+                  <span className="hidden xl:inline">Donate</span>
+                </Link>
               </div>
             </div>
 
@@ -160,7 +168,7 @@ export default function Navigation({
                 <div key={item.name}>
                   <button
                     onClick={() => setDropdownOpen(dropdownOpen === item.name ? null : item.name)}
-                    className="flex items-center justify-between w-full px-3 py-2 text-white hover:text-white hover:bg-white/10 rounded-lg font-medium transition-colors duration-200"
+                    className="flex items-center justify-between w-full px-3 py-2 text-white hover:text-white hover:bg-white/10 rounded-lg font-medium text-base transition-colors duration-200"
                   >
                     {item.name}
                     <ChevronDown 
@@ -175,7 +183,7 @@ export default function Navigation({
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors duration-200"
+                          className="block px-3 py-2 text-base text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors duration-200"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           {subItem.name}
@@ -185,6 +193,18 @@ export default function Navigation({
                   )}
                 </div>
               ))}
+              
+              {/* Mobile Donate Button */}
+              <div className="pt-4 mt-4 border-t border-slate-700/50">
+                <Link
+                  href="/donate"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-white hover:bg-gray-100 text-slate-900 font-semibold rounded-lg transition-colors duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Heart className="h-5 w-5" />
+                  Donate
+                </Link>
+              </div>
             </div>
           </div>
         )}
@@ -212,11 +232,11 @@ export default function Navigation({
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <h3 className="text-base font-semibold text-white group-hover:text-gold-300 transition-colors duration-300 relative">
+                        <h3 className="text-lg font-semibold text-white group-hover:text-gold-300 transition-colors duration-300 relative">
                           {subItem.name}
                           <span className="absolute bottom-0 left-0 h-0.5 bg-gold-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                         </h3>
-                        <p className="mt-2 text-sm text-white/70 group-hover:text-white/90 transition-colors duration-300">
+                        <p className="mt-2 text-base text-white/70 group-hover:text-white/90 transition-colors duration-300">
                           Learn more about {subItem.name.toLowerCase()}
                         </p>
                       </div>

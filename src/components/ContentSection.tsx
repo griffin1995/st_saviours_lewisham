@@ -32,9 +32,13 @@ export default function ContentSection({
     }
   }, []);
 
+  // Background classes
+  // NOTE: Uses 'bg-white-fixed' instead of 'bg-white' due to Tailwind CSS compilation issue
+  // where 'bg-white' was not rendering properly (showed transparent instead of white)
+  // See CLAUDE.md "Critical Bug Fixes" section for full details
   const backgroundClasses = {
-    white: "bg-white",
-    gray: "bg-gray-50",
+    white: "bg-white-fixed", // Custom class in globals.css - ensures reliable white background
+    gray: "bg-white-fixed",  // Also uses fixed class for consistency
     navy: "bg-navy-900 text-white",
     slate: "bg-slate-800 text-white",
     red: "bg-red-600 text-white"
@@ -55,7 +59,10 @@ export default function ContentSection({
   };
 
   return (
-    <section className={`${backgroundClasses[background]} ${paddingClasses[padding]} ${className}`}>
+    <section 
+      data-content-section
+      className={`${backgroundClasses[background]} ${paddingClasses[padding]} ${className}`}
+    >
       <div className={`${maxWidthClasses[maxWidth]} mx-auto px-4 sm:px-6 lg:px-8`}>
         <motion.div
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
