@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Filter, ArrowRight } from 'lucide-react'
+import { 
+  MagnifyingGlassIcon as Search, 
+  FunnelIcon as Filter, 
+  ArrowRightIcon as ArrowRight 
+} from '@heroicons/react/24/solid'
 import Link from 'next/link'
 
 // New modern component system
@@ -54,22 +58,16 @@ export default function News() {
               variant="primary" 
               size="lg"
               leftIcon={<Search className="h-5 w-5" />}
+              className="bg-white text-slate-900 hover:bg-gray-100"
             >
               Search Articles
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="lg"
-              leftIcon={<ArrowRight className="h-5 w-5" />}
-            >
-              Subscribe Newsletter
             </Button>
           </Flex>
         }
       />
 
       {/* Search and Filter */}
-      <Section spacing="md" background="gray">
+      <Section spacing="md" background="slate">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -78,10 +76,10 @@ export default function News() {
             viewport={{ once: true }}
             className="text-center mb-8"
           >
-            <Heading level="h2" align="center" className="mb-6">
+            <Heading level="h2" align="center" className="mb-6 text-white">
               Find What Interests You
             </Heading>
-            <Text size="xl" align="center" color="muted">
+            <Text size="xl" align="center" className="text-gray-300">
               Search through our parish news and filter by category
             </Text>
           </motion.div>
@@ -92,7 +90,7 @@ export default function News() {
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card variant="default" padding="lg" className="bg-white">
+            <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-slate-600">
               <CardContent>
                 <Flex direction="col" gap="md" className="lg:flex-row lg:items-center lg:justify-between">
                   <div className="relative flex-1 max-w-md">
@@ -102,16 +100,16 @@ export default function News() {
                       placeholder="Search news articles..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white text-gray-900"
+                      className="w-full pl-10 pr-4 py-3 border border-slate-500 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white/20 backdrop-blur-sm text-white placeholder-gray-300"
                     />
                   </div>
                   
                   <Flex align="center" gap="md">
-                    <Filter className="h-5 w-5 text-gray-600" />
+                    <Filter className="h-5 w-5 text-gray-300" />
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white text-gray-900"
+                      className="px-4 py-3 border border-slate-500 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white/20 backdrop-blur-sm text-white"
                     >
                       {categories.map(category => (
                         <option key={category} value={category}>{category}</option>
@@ -121,7 +119,7 @@ export default function News() {
                 </Flex>
 
                 <div className="mt-4 text-center">
-                  <Text color="muted">
+                  <Text className="text-gray-300">
                     Showing {filteredArticles.length} of {newsArticles.length} articles
                   </Text>
                 </div>
@@ -133,7 +131,7 @@ export default function News() {
 
       {/* Featured Article */}
       {filteredArticles.length > 0 && (
-        <Section spacing="lg" background="white">
+        <Section spacing="lg" background="slate">
           <Container size="lg">
             <motion.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -142,10 +140,10 @@ export default function News() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <Heading level="h2" align="center" className="mb-6">
+              <Heading level="h2" align="center" className="mb-6 text-white">
                 Featured Article
               </Heading>
-              <Text size="xl" align="center" color="muted">
+              <Text size="xl" align="center" className="text-gray-300">
                 Our latest parish news and updates
               </Text>
             </motion.div>
@@ -169,7 +167,7 @@ export default function News() {
       )}
 
       {/* Articles Grid */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -178,10 +176,10 @@ export default function News() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <Heading level="h2" align="center" className="mb-6">
+            <Heading level="h2" align="center" className="mb-6 text-white">
               Recent Articles
             </Heading>
-            <Text size="xl" align="center" color="muted">
+            <Text size="xl" align="center" className="text-gray-300">
               Stay informed with our parish community updates
             </Text>
           </motion.div>
@@ -208,14 +206,14 @@ export default function News() {
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Card variant="default" padding="lg" className="text-center bg-white">
+              <Card variant="default" padding="lg" className="text-center bg-white/10 backdrop-blur-sm border border-slate-600">
                 <CardContent>
                   <div className="py-12">
                     <Search className="h-16 w-16 text-gray-400 mx-auto mb-6" />
-                    <Heading level="h3" align="center" className="mb-4">
+                    <Heading level="h3" align="center" className="mb-4 text-white">
                       No articles found
                     </Heading>
-                    <Text align="center" color="muted" className="mb-6">
+                    <Text align="center" className="mb-6 text-gray-300">
                       Try adjusting your search terms or filter selection.
                     </Text>
                     <Button 
@@ -224,6 +222,7 @@ export default function News() {
                         setSearchTerm('')
                         setSelectedCategory('All')
                       }}
+                      className="border-white text-white hover:bg-white hover:text-slate-900"
                     >
                       Clear Filters
                     </Button>
@@ -236,7 +235,7 @@ export default function News() {
       </Section>
 
       {/* Newsletter Signup */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -244,7 +243,7 @@ export default function News() {
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Card variant="default" padding="lg" className="bg-slate-900 text-white">
+            <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-slate-600 text-white">
               <CardContent>
                 <div className="text-center space-y-8">
                   <div>
@@ -263,16 +262,9 @@ export default function News() {
                         variant="primary" 
                         size="lg"
                         rightIcon={<ArrowRight className="h-5 w-5" />}
+                        className="bg-white text-slate-900 hover:bg-gray-100"
                       >
                         Subscribe to Newsletter
-                      </Button>
-                    </Link>
-                    <Link href="/contact-us">
-                      <Button 
-                        variant="secondary" 
-                        size="lg"
-                      >
-                        Contact Us
                       </Button>
                     </Link>
                   </Flex>
