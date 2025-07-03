@@ -28,6 +28,27 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors;
   }
+  
+  /* 
+   * Fix for bg-white not working properly
+   * 
+   * ISSUE: Tailwind's 'bg-white' class was not rendering on PageLayout and ContentSection components
+   * SYMPTOM: Computed CSS showed rgba(0, 0, 0, 0) (transparent) instead of white
+   * SOLUTION: Custom utility class with !important to override any conflicting styles
+   * 
+   * Used in: PageLayout.tsx, ContentSection.tsx
+   * Date Fixed: 2025-07-02
+   * See: CLAUDE.md "Critical Bug Fixes" for full investigation details
+   */
+  .bg-white-fixed {
+    background-color: #ffffff !important;
+  }
+  
+  /* Force white background for icon containers */
+  .icon-container-white {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
 }
 
 @layer utilities {
