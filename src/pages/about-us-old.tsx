@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
+import { PageLayout } from "@/components/layout";
 import { Church, Heart, Users, BookOpen, Calendar, MapPin, Phone, Mail, Cross, Star, Award, Clock } from "lucide-react";
 
 export default function AboutUs() {
@@ -68,6 +68,7 @@ export default function AboutUs() {
       title="About Us"
       description="Learn about St Saviour's Catholic Church in Lewisham - our history, mission, and vibrant community serving South East London."
       keywords="About St Saviours, Catholic Church Lewisham, Parish History, Community, Mission, Values"
+      background="white"
     >
       {/* Hero Section */}
       <section className="relative h-[70vh] overflow-hidden">

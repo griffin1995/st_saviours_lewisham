@@ -1,6 +1,6 @@
 import React from "react";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
+import { PageLayout } from "@/components/layout";
+import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
 import { Clock, Calendar, MapPin, Phone } from "lucide-react";
 import { massTimings, confessionTimes, adorationTimes } from "@/lib/data";
@@ -15,6 +15,7 @@ export default function MassTimes() {
       title="Mass Times"
       description="Find Mass times, confession schedules, and service information at St Saviour's Catholic Church in Lewisham."
       keywords="Mass Times, Catholic Mass, Confession, Adoration, Service Times, Sunday Mass, Weekday Mass"
+      background="white"
     >
       <PageHero
         title="Mass Times & Services"
@@ -26,7 +27,7 @@ export default function MassTimes() {
       />
 
       {/* Current Day Highlight */}
-      <ContentSection background="navy" padding="medium">
+      <ContentSection background="white" padding="medium">
         <div className="text-center">
           <h2 className="text-2xl lg:text-3xl font-serif text-gold-400 mb-4">
             Today's Services - {currentDay}
@@ -107,7 +108,7 @@ export default function MassTimes() {
       </ContentSection>
 
       {/* Other Services */}
-      <ContentSection background="gray">
+      <ContentSection background="white">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Confession Times */}
           <div className="space-y-6">

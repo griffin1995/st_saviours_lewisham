@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
+import { PageLayout } from "@/components/layout";
+import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
 import { 
   GraduationCap, 
@@ -78,12 +78,13 @@ export default function StSavioursPrimarySchool() {
       title="St Saviour's Primary School"
       description="St Saviour's Catholic Primary School in Lewisham - nurturing young minds in faith, learning, and community since 1872."
       keywords="Catholic Primary School, Lewisham Schools, Catholic Education, Primary Education, Faith School, St Saviours School"
+      background="white"
     >
       <PageHero
         title="St Saviour's Catholic Primary School"
         subtitle="Faith, Learning, Community"
         description="Nurturing young minds and hearts in the Catholic tradition since 1872"
-        backgroundImage="/images/school/school-exterior.jpg"
+        pageName="st-saviours-primary-school"
         height="large"
         overlay="medium"
       />
@@ -135,7 +136,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* School Statistics */}
-      <ContentSection background="gray" padding="large">
+      <ContentSection background="white" padding="large">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-gray-900 mb-4">
             Our School at a Glance
@@ -195,7 +196,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* Key Stages */}
-      <ContentSection background="navy" padding="large">
+      <ContentSection background="white" padding="large">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
             Learning Journey
@@ -236,7 +237,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* School Life */}
-      <ContentSection background="gray" padding="large">
+      <ContentSection background="white" padding="large">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <Image
@@ -353,7 +354,7 @@ export default function StSavioursPrimarySchool() {
       </ContentSection>
 
       {/* Contact & Visit */}
-      <ContentSection background="navy" padding="large">
+      <ContentSection background="white" padding="large">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
             Visit Our School

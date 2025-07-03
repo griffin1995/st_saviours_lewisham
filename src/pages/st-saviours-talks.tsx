@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PageLayout from "@/components/PageLayout";
-import PageHero from "@/components/PageHero";
+import { PageLayout } from "@/components/layout";
+import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
 import { Play, Calendar, Clock, User, Download, Search, Filter } from "lucide-react";
 
@@ -123,6 +123,7 @@ export default function StSavioursTalks() {
       title="St Saviour's Talks"
       description="Watch and listen to inspiring talks from St Saviour's Catholic Church covering faith, spirituality, scripture, and Catholic teaching."
       keywords="Catholic Talks, Spiritual Formation, Parish Talks, Catholic Teaching, Faith Formation, Scripture Study"
+      background="white"
     >
       <PageHero
         title="St Saviour's Talks"
@@ -219,7 +220,7 @@ export default function StSavioursTalks() {
       )}
 
       {/* Search and Filter */}
-      <ContentSection background="gray" padding="medium">
+      <ContentSection background="white" padding="medium">
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -366,7 +367,7 @@ export default function StSavioursTalks() {
       </ContentSection>
 
       {/* Call to Action */}
-      <ContentSection background="navy" padding="large">
+      <ContentSection background="white" padding="large">
         <div className="text-center">
           <h2 className="text-3xl lg:text-4xl font-serif font-light text-white mb-4">
             Join Our Learning Community
