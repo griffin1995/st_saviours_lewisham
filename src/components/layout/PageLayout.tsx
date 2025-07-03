@@ -53,11 +53,15 @@ export default function PageLayout({
     : `${title} | St Saviour's Catholic Church`
 
   // Background classes
+  // NOTE: Uses 'bg-white-fixed' instead of 'bg-white' due to Tailwind CSS compilation issue
+  // where 'bg-white' was not rendering properly (showed transparent instead of white)
+  // See CLAUDE.md "Critical Bug Fixes" section for full details
   const backgroundClasses = {
-    white: 'bg-white',
+    white: 'bg-white-fixed', // Custom class in globals.css - ensures reliable white background
     gray: 'bg-gray-50', 
     slate: 'bg-slate-900'
   }
+
 
   return (
     <>
@@ -158,10 +162,13 @@ export default function PageLayout({
         />
       </Head>
       
-      <div className={cn(
-        'min-h-screen flex flex-col',
-        backgroundClasses[background]
-      )}>
+      <div 
+        data-page-layout 
+        className={cn(
+          'min-h-screen flex flex-col',
+          backgroundClasses[background]
+        )}
+      >
         {includeNavigation && <Navigation />}
         
         <main className={cn('flex-grow', className)}>

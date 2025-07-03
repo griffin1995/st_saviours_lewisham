@@ -22,12 +22,13 @@ interface PageHeroProps {
   description?: string
   
   /**
-   * Background image URL or CMS page name
+   * Background image URL (optional - will use CMS if not provided)
    */
   backgroundImage?: string
   
   /**
    * CMS page identifier for automatic image selection
+   * If not provided, will try to auto-detect from window.location
    */
   pageName?: string
   
@@ -73,7 +74,7 @@ export default function PageHero({
   title,
   subtitle,
   description,
-  backgroundImage = '/images/hero/church-exterior.jpg',
+  backgroundImage,
   pageName,
   height = 'medium',
   overlay = 'medium',
@@ -82,10 +83,24 @@ export default function PageHero({
   actions
 }: PageHeroProps) {
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [autoPageName, setAutoPageName] = useState<string | null>(null)
   
-  // Get CMS page image if pageName is provided
-  const cmsPageImage = pageName ? getPageImage(pageName) : null
-  const heroImage = cmsPageImage?.url || backgroundImage
+  // Auto-detect page name from URL if not provided
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !pageName && !backgroundImage) {
+      const pathname = window.location.pathname
+      const detected = pathname === '/' ? 'home' : pathname.slice(1).replace(/\//g, '-')
+      setAutoPageName(detected)
+    }
+  }, [pageName, backgroundImage])
+  
+  // Get CMS page image using provided pageName or auto-detected name
+  const effectivePageName = pageName || autoPageName
+  const cmsPageImage = effectivePageName ? getPageImage(effectivePageName) : null
+  
+  // Determine final image and alt text
+  // Priority: explicit backgroundImage > CMS image > fallback image
+  const heroImage = backgroundImage || cmsPageImage?.url || '/images/pexels-pixabay-248199.jpg'
   const heroAlt = cmsPageImage?.alt || `${title} - St Saviour's Catholic Church`
 
   useEffect(() => {

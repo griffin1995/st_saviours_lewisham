@@ -12,20 +12,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary: Gold gradient background
+        // Primary: White background for dark themes
         primary: [
-          'bg-gradient-to-r from-gold-600 to-gold-500 text-white',
-          'hover:from-gold-700 hover:to-gold-600 hover:shadow-lg',
-          'focus:ring-gold-500 focus:ring-offset-white',
-          'active:from-gold-800 active:to-gold-700'
+          'bg-white text-slate-900',
+          'hover:bg-gray-100 hover:shadow-lg',
+          'focus:ring-white focus:ring-offset-slate-900',
+          'active:bg-gray-200'
         ],
         
-        // Secondary: Slate border with hover fill
+        // Secondary: White border with hover fill for dark themes
         secondary: [
-          'border-2 border-slate-900 text-slate-900 bg-transparent',
-          'hover:bg-slate-900 hover:text-white',
-          'focus:ring-slate-500 focus:ring-offset-white',
-          'active:bg-slate-800'
+          'border-2 border-white text-white bg-transparent',
+          'hover:bg-white hover:text-slate-900',
+          'focus:ring-white focus:ring-offset-slate-900',
+          'active:bg-gray-100 active:text-slate-900'
         ],
         
         // Outline: Light border for subtle actions

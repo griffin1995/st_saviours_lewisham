@@ -68,8 +68,11 @@ const sectionVariants = cva(
       
       background: {
         white: 'bg-white',
-        gray: 'bg-gray-50',
-        slate: 'bg-slate-900',
+        navy: 'bg-navy-900 text-white',
+        'navy-light': 'bg-navy-50',
+        slate: 'bg-slate-900 text-white',
+        'slate-800': 'bg-slate-800 text-white',
+        'gray-950': 'bg-gray-950 text-white',
         transparent: 'bg-transparent'
       }
     },
