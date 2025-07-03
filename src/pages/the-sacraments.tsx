@@ -1,6 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, Droplets, Cross, Cookie, Heart, Gem, HandMetal, Plus } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { 
+  ArrowRightIcon as ArrowRight, 
+  BeakerIcon as Droplets, 
+  PlusIcon as Cross, 
+  CircleStackIcon as Cookie, 
+  HeartIcon as Heart, 
+  SparklesIcon as Gem, 
+  HandRaisedIcon as HandMetal, 
+  PlusIcon as Plus 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -81,7 +91,6 @@ const sacramentCategories = [
   {
     title: "Sacraments of Initiation",
     icon: Droplets,
-    color: "bg-blue-600",
     description: "Baptism, Confirmation, and Eucharist lay the foundation of Christian life. They initiate us into the Church and establish our relationship with Christ.",
     sacraments: [
       "Baptism - Rebirth in Christ",
@@ -92,7 +101,6 @@ const sacramentCategories = [
   {
     title: "Sacraments of Healing",
     icon: Heart,
-    color: "bg-green-600",
     description: "Confession and Anointing of the Sick continue Jesus' work of healing and forgiveness. They restore us to spiritual health and strengthen us in times of need.",
     sacraments: [
       "Confession - Forgiveness of sins",
@@ -102,7 +110,6 @@ const sacramentCategories = [
   {
     title: "Sacraments of Service",
     icon: HandMetal,
-    color: "bg-purple-600",
     description: "Holy Orders and Matrimony are directed toward the salvation of others. They consecrate people to serve God and the Church in specific ways.",
     sacraments: [
       "Holy Orders - Service to the Church",
@@ -125,78 +132,121 @@ export default function TheSacraments() {
         title="The Seven Sacraments"
         subtitle="Sacred Signs of Grace"
         description="The sacraments are efficacious signs of grace, instituted by Christ and entrusted to the Church."
-        backgroundImage="/images/hero/church-sanctuary.jpg"
+        backgroundImage="/images/inside-church-aisle.jpg"
         height="large"
         overlay="medium"
       />
 
       {/* Introduction */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
-            <Heading level="h2" align="center" className="text-3xl lg:text-4xl font-light">
-              What Are the Sacraments?
-            </Heading>
-            <Text size="xl" align="center" color="muted" className="leading-relaxed">
-              The sacraments are visible signs of invisible grace, instituted by Christ 
-              to sanctify us, to build up the body of Christ, and to give worship to God. 
-              They are seven in number and are celebrated in the Catholic Church as 
-              sacred encounters with the living God.
-            </Text>
+          <Grid cols={2} gap="xl" className="items-center">
+            {/* Left Column - Content */}
+            <div className="space-y-8">
+              <div className="relative">
+                <motion.div
+                  className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
+                  initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
+                  whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
+                  transition={reducedMotion 
+                    ? { duration: 0.3 }
+                    : { duration: 1, delay: 0.3 }
+                  }
+                  viewport={{ once: true }}
+                />
+                <Heading level="h2" color="white" className="text-3xl lg:text-4xl font-light">
+                  What Are the Sacraments?
+                </Heading>
+              </div>
+              <Text size="xl" className="text-gray-100 leading-relaxed">
+                The sacraments are visible signs of invisible grace, instituted by Christ 
+                to sanctify us, to build up the body of Christ, and to give worship to God. 
+                They are seven in number and are celebrated in the Catholic Church as 
+                sacred encounters with the living God.
+              </Text>
+            </div>
             
-            <Grid cols={3} gap="lg" className="text-left">
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                  <Cross className="h-6 w-6 text-white" />
+            {/* Right Column - Features Grid */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 icon-container-white rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                    <Cross className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <Heading level="h3" color="white" className="text-lg font-semibold mb-2">
+                      Signs of Grace
+                    </Heading>
+                    <Text className="text-gray-200">
+                      Each sacrament is an outward sign that communicates inward grace, 
+                      making God's love tangible in our lives.
+                    </Text>
+                  </div>
                 </div>
-                <Heading level="h3" className="text-lg font-semibold">
-                  Signs of Grace
-                </Heading>
-                <Text color="muted">
-                  Each sacrament is an outward sign that communicates inward grace, 
-                  making God's love tangible in our lives.
-                </Text>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                  <Heart className="h-6 w-6 text-white" />
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 icon-container-white rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                    <Heart className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <Heading level="h3" color="white" className="text-lg font-semibold mb-2">
+                      Christ's Presence
+                    </Heading>
+                    <Text className="text-gray-200">
+                      Through the sacraments, Christ himself acts, touching our hearts 
+                      and transforming our souls.
+                    </Text>
+                  </div>
                 </div>
-                <Heading level="h3" className="text-lg font-semibold">
-                  Christ's Presence
-                </Heading>
-                <Text color="muted">
-                  Through the sacraments, Christ himself acts, touching our hearts 
-                  and transforming our souls.
-                </Text>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center">
-                  <Gem className="h-6 w-6 text-white" />
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 icon-container-white rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                    <Gem className="h-6 w-6 text-black" />
+                  </div>
+                  <div>
+                    <Heading level="h3" color="white" className="text-lg font-semibold mb-2">
+                      Church Community
+                    </Heading>
+                    <Text className="text-gray-200">
+                      The sacraments unite us as one body in Christ, building up 
+                      the community of faith.
+                    </Text>
+                  </div>
                 </div>
-                <Heading level="h3" className="text-lg font-semibold">
-                  Church Community
-                </Heading>
-                <Text color="muted">
-                  The sacraments unite us as one body in Christ, building up 
-                  the community of faith.
-                </Text>
               </div>
-            </Grid>
-          </div>
+            </div>
+          </Grid>
         </Container>
       </Section>
+      
+      {/* Section Divider */}
+      <div className="flex justify-center py-16 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+      </div>
 
       {/* The Seven Sacraments */}
-      <Section spacing="lg" background="gray">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
           <div className="space-y-12">
             <div className="text-center">
-              <Heading level="h2" align="center" className="mb-6">
-                The Seven Sacraments
-              </Heading>
-              <Text size="lg" align="center" color="muted" className="max-w-3xl mx-auto">
+              <div className="space-y-4 mb-6">
+                <Heading level="h2" color="white" align="center">
+                  The Seven Sacraments
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 96 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
+              <Text size="lg" align="center" className="text-gray-100 max-w-3xl mx-auto">
                 Each sacrament has its own unique role in our spiritual journey, 
                 from initiation to healing to service.
               </Text>
@@ -214,31 +264,71 @@ export default function TheSacraments() {
           </div>
         </Container>
       </Section>
+      
+      {/* Section Divider */}
+      <div className="flex justify-center py-16 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+      </div>
 
       {/* Sacrament Categories */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="lg">
-          <Grid cols={3} gap="lg" className="grid-cols-1 lg:grid-cols-3">
-            {sacramentCategories.map((category, index) => (
-              <div key={category.title} className="text-center space-y-4">
-                <div className={`w-20 h-20 ${category.color} rounded-full flex items-center justify-center mx-auto`}>
-                  <category.icon className="h-10 w-10 text-white" />
-                </div>
-                <Heading level="h3" className="text-2xl font-serif font-semibold">
-                  {category.title}
-                </Heading>
-                <Text color="muted" className="leading-relaxed">
-                  {category.description}
-                </Text>
-                <div className="space-y-1">
-                  {category.sacraments.map((sacrament, idx) => (
-                    <Text key={idx} size="sm" color="muted">
-                      • {sacrament}
+          <Grid cols={2} gap="xl" className="items-start">
+            {/* Left Column - Categories Cards */}
+            <div className="space-y-8">
+              {sacramentCategories.map((category, index) => (
+                <div key={category.title} className="flex items-start gap-6">
+                  <div className="w-16 h-16 icon-container-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                    <category.icon className="h-8 w-8 text-black" />
+                  </div>
+                  <div className="space-y-3">
+                    <Heading level="h3" color="white" className="text-xl font-serif font-semibold">
+                      {category.title}
+                    </Heading>
+                    <Text className="text-gray-100 leading-relaxed">
+                      {category.description}
                     </Text>
-                  ))}
+                    <div className="space-y-1">
+                      {category.sacraments.map((sacrament, idx) => (
+                        <Text key={idx} size="sm" className="text-gray-200">
+                          • {sacrament}
+                        </Text>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+              ))}
+            </div>
+            
+            {/* Right Column - Content */}
+            <div className="space-y-8 text-right">
+              <div className="relative flex justify-end">
+                <motion.div
+                  className="absolute -right-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
+                  initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
+                  whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
+                  transition={reducedMotion 
+                    ? { duration: 0.3 }
+                    : { duration: 1, delay: 0.3 }
+                  }
+                  viewport={{ once: true }}
+                />
+                <Heading level="h2" color="white" className="text-3xl lg:text-4xl font-light">
+                  Three Sacred Categories
+                </Heading>
               </div>
-            ))}
+              <Text size="xl" className="text-gray-100 leading-relaxed text-right">
+                The seven sacraments are organized into three meaningful categories, 
+                each serving a distinct purpose in our spiritual journey and relationship 
+                with God and the Church community.
+              </Text>
+              <Text className="text-gray-200 leading-relaxed text-right">
+                From the foundational sacraments of initiation that welcome us into the faith, 
+                to the healing sacraments that restore us, and the sacraments of service that 
+                call us to serve others - each category reflects Christ's continuing presence 
+                in our lives through the Church.
+              </Text>
+            </div>
           </Grid>
         </Container>
       </Section>
@@ -248,9 +338,23 @@ export default function TheSacraments() {
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
-              <Heading level="h2" className="text-3xl font-light text-white">
-                Begin Your Sacramental Journey
-              </Heading>
+              <div className="space-y-4">
+                <Heading level="h2" className="text-3xl font-light text-white text-center">
+                  Begin Your Sacramental Journey
+                </Heading>
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
+                    initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
+                    whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
+                    transition={reducedMotion 
+                      ? { duration: 0.3 }
+                      : { duration: 1, delay: 0.3 }
+                    }
+                    viewport={{ once: true }}
+                  />
+                </div>
+              </div>
               <Text size="lg" className="text-gray-300 max-w-3xl mx-auto">
                 Whether you're seeking baptism, preparing for confirmation, or exploring 
                 any of the sacraments, we're here to guide and support you on your spiritual journey.
@@ -263,14 +367,16 @@ export default function TheSacraments() {
                   variant="primary" 
                   size="lg"
                   rightIcon={<ArrowRight className="h-5 w-5" />}
+                  className="bg-white text-slate-900 hover:bg-gray-100"
                 >
                   Contact Us for Information
                 </Button>
               </Link>
               <Link href="/mass">
                 <Button 
-                  variant="secondary" 
+                  variant="primary" 
                   size="lg"
+                  className="bg-white text-slate-900 hover:bg-gray-100"
                 >
                   See Mass Times
                 </Button>

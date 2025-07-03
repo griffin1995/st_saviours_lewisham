@@ -123,7 +123,7 @@ export default function ContactUs() {
         title="Contact Us"
         subtitle="Get in Touch"
         description="We'd love to hear from you. Reach out with any questions or to learn more about our community."
-        backgroundImage="/images/hero/church-entrance.jpg"
+        pageName="contact-us"
         height="large"
         overlay="medium"
         actions={
@@ -147,7 +147,7 @@ export default function ContactUs() {
       />
 
       {/* Quick Contact Info */}
-      <Section spacing="md" background="gray">
+      <Section spacing="md" background="white">
         <Container size="lg">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}

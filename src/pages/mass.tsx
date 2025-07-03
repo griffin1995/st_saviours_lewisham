@@ -1,6 +1,14 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Clock, Calendar, MapPin, Phone, Mail, Info, Heart } from 'lucide-react'
+import { 
+  ClockIcon as Clock, 
+  CalendarDaysIcon as Calendar, 
+  MapPinIcon as MapPin, 
+  PhoneIcon as Phone, 
+  EnvelopeIcon as Mail, 
+  InformationCircleIcon as Info, 
+  HeartIcon as Heart 
+} from '@heroicons/react/24/solid'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -60,14 +68,14 @@ export default function MassTimes() {
       icon: Heart,
       description: "Sacrament of Reconciliation available",
       times: confessionTimes,
-      color: "from-green-500 to-emerald-500"
+      color: "from-navy-500 to-navy-600"
     },
     {
       title: "Adoration",
       icon: Calendar,
       description: "Eucharistic Adoration and quiet prayer",
       times: adorationTimes,
-      color: "from-purple-500 to-violet-500"
+      color: "from-navy-600 to-navy-700"
     }
   ]
 
@@ -82,7 +90,7 @@ export default function MassTimes() {
         title="Mass Times & Services"
         subtitle="Worship with us"
         description="Join us for Mass, confession, and adoration. All are welcome to worship with our community."
-        backgroundImage="/images/hero/church-altar.jpg"
+        pageName="mass"
         height="large"
         overlay="medium"
         actions={
@@ -95,7 +103,7 @@ export default function MassTimes() {
               Call Parish
             </Button>
             <Button 
-              variant="secondary" 
+              variant="primary" 
               size="lg"
               leftIcon={<MapPin className="h-5 w-5" />}
             >
@@ -106,7 +114,7 @@ export default function MassTimes() {
       />
 
       {/* Today's Services Highlight */}
-      <Section spacing="md" background="white">
+      <Section spacing="md" background="slate">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -115,10 +123,10 @@ export default function MassTimes() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <Heading level="h2" align="center" className="mb-6">
+            <Heading level="h2" color="white" align="center" className="mb-6">
               Today's Services
             </Heading>
-            <Text size="xl" align="center" color="muted">
+            <Text size="xl" align="center" className="text-gray-100">
               Join us for worship today
             </Text>
           </motion.div>
@@ -128,7 +136,7 @@ export default function MassTimes() {
       </Section>
 
       {/* Weekly Mass Schedule */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <motion.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -136,10 +144,10 @@ export default function MassTimes() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Heading level="h2" align="center" className="mb-6">
+          <Heading level="h2" color="white" align="center" className="mb-6">
             Weekly Mass Schedule
           </Heading>
-          <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+          <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
             Our regular weekly Mass times. Please note that times may vary during 
             special liturgical seasons and holidays.
           </Text>
@@ -153,7 +161,7 @@ export default function MassTimes() {
       </Section>
 
       {/* Additional Services */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <motion.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -161,10 +169,10 @@ export default function MassTimes() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Heading level="h2" align="center" className="mb-6">
+          <Heading level="h2" color="white" align="center" className="mb-6">
             Additional Services
           </Heading>
-          <Text size="xl" align="center" color="muted">
+          <Text size="xl" align="center" className="text-gray-100">
             Other spiritual services available at our parish
           </Text>
         </motion.div>
@@ -179,17 +187,17 @@ export default function MassTimes() {
               viewport={{ once: true }}
               className="group"
             >
-              <Card variant="default" padding="lg" className="h-full border border-gray-200 hover:border-gold-200 transition-all duration-300">
+              <Card variant="default" padding="lg" className="h-full border border-slate-600 hover:border-white transition-all duration-300 bg-white/10 backdrop-blur-sm">
                 <CardContent>
                   <div className="space-y-6">
                     <div className="text-center">
-                      <div className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                        <service.icon className="h-10 w-10 text-white" />
+                      <div className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <service.icon className="h-10 w-10 text-black" />
                       </div>
-                      <Heading level="h3" align="center" className="text-2xl font-bold mb-2">
+                      <Heading level="h3" color="white" align="center" className="text-2xl font-bold mb-2">
                         {service.title}
                       </Heading>
-                      <Text color="muted" align="center" className="mb-6">
+                      <Text color="white" align="center" className="mb-6">
                         {service.description}
                       </Text>
                     </div>
@@ -197,23 +205,23 @@ export default function MassTimes() {
                     <div className="space-y-3">
                       {service.times && Array.isArray(service.times) ? (
                         service.times.map((time, timeIndex) => (
-                          <div key={timeIndex} className="p-3 bg-gray-50 rounded-lg">
+                          <div key={timeIndex} className="p-3 bg-white/10 rounded-lg border border-slate-600">
                             <Flex align="center" gap="sm">
-                              <Clock className="h-4 w-4 text-gold-600" />
-                              <Text weight="medium">
+                              <Clock className="h-4 w-4 text-white" />
+                              <Text weight="medium" color="white">
                                 {time.time} - {(time as any).note || (time as any).description}
                               </Text>
                             </Flex>
                             {((time as any).description && (time as any).description !== ((time as any).note || (time as any).description)) && (
-                              <Text size="sm" color="muted" className="mt-1 ml-6">
+                              <Text size="sm" className="text-gray-200 mt-1 ml-6">
                                 {(time as any).description}
                               </Text>
                             )}
                           </div>
                         ))
                       ) : (
-                        <div className="p-3 bg-gray-50 rounded-lg text-center">
-                          <Text color="muted" className="italic">
+                        <div className="p-3 bg-white/10 rounded-lg text-center border border-slate-600">
+                          <Text color="white" className="italic">
                             Please contact the parish office for current times
                           </Text>
                         </div>
@@ -228,7 +236,7 @@ export default function MassTimes() {
       </Section>
 
       {/* Important Information */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -236,49 +244,49 @@ export default function MassTimes() {
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Card variant="outlined" padding="lg" className="border-2 border-gold-200 bg-gold-50">
+            <Card variant="outlined" padding="lg" className="border border-slate-600 bg-white/10 backdrop-blur-sm">
               <CardContent>
                 <div className="text-center space-y-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center mx-auto">
-                    <Info className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 icon-container-white rounded-full flex items-center justify-center mx-auto shadow-lg">
+                    <Info className="h-8 w-8 text-black" />
                   </div>
 
-                  <Heading level="h3" align="center" className="text-2xl font-bold">
+                  <Heading level="h3" color="white" align="center" className="text-2xl font-bold">
                     Important Information
                   </Heading>
 
                   <div className="space-y-4 max-w-2xl mx-auto">
-                    <Text align="center">
+                    <Text align="center" color="white">
                       <strong>Special Occasions:</strong> Mass times may vary during Christmas, Easter, 
                       and other special liturgical seasons. Please check our weekly newsletter or 
                       contact the parish office for holiday schedules.
                     </Text>
                     
-                    <Text align="center">
+                    <Text align="center" color="white">
                       <strong>First Time Visitors:</strong> We warmly welcome all visitors to our services. 
                       If you have any questions or need assistance, please don't hesitate to speak 
                       with our welcoming team.
                     </Text>
                     
-                    <Text align="center">
+                    <Text align="center" color="white">
                       <strong>Accessibility:</strong> Our church is wheelchair accessible with designated 
                       seating areas. Hearing loops are available for those with hearing aids.
                     </Text>
                   </div>
 
-                  <div className="pt-4 border-t border-gold-200">
+                  <div className="pt-4 border-t border-slate-600">
                     <Flex justify="center" gap="md" wrap>
                       <Flex align="center" gap="sm">
-                        <Phone className="h-4 w-4 text-gold-600" />
-                        <Text weight="medium">020 8852 7411</Text>
+                        <Phone className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">020 8852 7411</Text>
                       </Flex>
                       <Flex align="center" gap="sm">
-                        <Mail className="h-4 w-4 text-gold-600" />
-                        <Text weight="medium">parish@saintsaviours.org.uk</Text>
+                        <Mail className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">parish@saintsaviours.org.uk</Text>
                       </Flex>
                       <Flex align="center" gap="sm">
-                        <MapPin className="h-4 w-4 text-gold-600" />
-                        <Text weight="medium">Brockley Rise, SE23 1NG</Text>
+                        <MapPin className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">Brockley Rise, SE23 1NG</Text>
                       </Flex>
                     </Flex>
                   </div>
@@ -290,7 +298,7 @@ export default function MassTimes() {
       </Section>
 
       {/* Call to Action */}
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="slate">
         <Container size="md">
           <motion.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
@@ -299,10 +307,10 @@ export default function MassTimes() {
             viewport={{ once: true }}
             className="text-center space-y-8"
           >
-            <Heading level="h2" align="center">
+            <Heading level="h2" color="white" align="center">
               Join Us for Worship
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+            <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
               Whether you're a regular parishioner or visiting for the first time, 
               we invite you to join our community in worship and fellowship.
             </Text>
@@ -316,7 +324,7 @@ export default function MassTimes() {
                 Get Directions
               </Button>
               <Button 
-                variant="secondary" 
+                variant="primary" 
                 size="lg" 
                 leftIcon={<Phone className="h-5 w-5" />}
               >
