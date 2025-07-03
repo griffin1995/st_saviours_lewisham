@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, ExternalLink, Navigation } from 'lucide-react'
+import { MapPinIcon as MapPin, ArrowTopRightOnSquareIcon as ExternalLink, ArrowTopRightOnSquareIcon as Navigation } from '@heroicons/react/24/solid'
 import { Card, CardContent, Button, Text, Heading, Flex } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
 
@@ -82,7 +82,7 @@ export default function MapEmbed({
       viewport={{ once: true }}
       className={className}
     >
-      <Card variant="default" padding="none" className="bg-white shadow-lg overflow-hidden">
+      <Card variant="default" padding="none" className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-white transition-all duration-300 shadow-lg overflow-hidden">
         {/* Map Container */}
         <div className={cn('relative', heightClasses[height])}>
           {embedUrl ? (
@@ -135,7 +135,7 @@ export default function MapEmbed({
                 Directions
               </Button>
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={handleViewOnMaps}
                 leftIcon={<ExternalLink className="h-4 w-4" />}
@@ -152,28 +152,28 @@ export default function MapEmbed({
           <div className="py-4">
             <Flex align="center" justify="between" wrap>
               <div>
-                <Text weight="bold" className="text-gray-900">
+                <Text weight="bold" className="text-white">
                   St Saviour's Catholic Church
                 </Text>
-                <Text size="sm" color="muted">
+                <Text size="sm" className="text-gray-200">
                   {address}
                 </Text>
               </div>
               <div className="text-right">
-                <Text size="sm" weight="bold" className="text-blue-600">
+                <Text size="sm" weight="bold" className="text-white">
                   {postcode}
                 </Text>
-                <Text size="sm" color="muted">
+                <Text size="sm" className="text-gray-300">
                   For Sat Nav
                 </Text>
               </div>
             </Flex>
 
             {showDirections && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <Flex gap="sm" wrap>
+              <div className="mt-4 pt-4 border-t border-slate-600">
+                <Flex gap="sm" wrap justify="center">
                   <Button
-                    variant="outline"
+                    variant="primary"
                     size="sm"
                     onClick={handleGetDirections}
                     leftIcon={<Navigation className="h-4 w-4" />}
@@ -181,7 +181,7 @@ export default function MapEmbed({
                     Get Directions
                   </Button>
                   <Button
-                    variant="ghost"
+                    variant="secondary"
                     size="sm"
                     onClick={handleViewOnMaps}
                     leftIcon={<ExternalLink className="h-4 w-4" />}
