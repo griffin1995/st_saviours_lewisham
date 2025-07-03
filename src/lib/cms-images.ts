@@ -143,40 +143,84 @@ const defaultImages = {
   ],
   pages: {
     "about-us": {
-      url: "/images/pages/about-us.jpg",
-      alt: "About St Saviour's Catholic Church"
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "About St Saviour's Catholic Church - Beautiful interior showing our community space"
     },
     "contact-us": {
-      url: "/images/pages/contact-us.jpg", 
-      alt: "Contact St Saviour's Catholic Church"
+      url: "/images/pexels-pixabay-248199.jpg", 
+      alt: "Contact St Saviour's Catholic Church - Visit us in the heart of Lewisham"
+    },
+    "mass": {
+      url: "/images/pexels-jibarofoto-2014775.jpg",
+      alt: "Mass times and services at St Saviour's Catholic Church"
     },
     "mass-times": {
-      url: "/images/pages/mass-times.jpg",
-      alt: "Mass times at St Saviour's"
+      url: "/images/pexels-jibarofoto-2014775.jpg",
+      alt: "Mass times and services at St Saviour's Catholic Church"
     },
     "find-us": {
-      url: "/images/pages/find-us.jpg",
-      alt: "Find St Saviour's Catholic Church"
+      url: "/images/pexels-pixabay-248199.jpg",
+      alt: "Find St Saviour's Catholic Church in Lewisham, South East London"
     },
     "donate": {
-      url: "/images/pages/donate.jpg",
-      alt: "Support St Saviour's Catholic Church"
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Support St Saviour's Catholic Church - Your donations help our community"
     },
     "venue-hire": {
-      url: "/images/pages/venue-hire.jpg",
-      alt: "Venue hire at St Saviour's"
+      url: "/images/pexels-shelaghmurphy-1666816.jpg",
+      alt: "Venue hire at St Saviour's - Beautiful spaces for your special occasions"
     },
     "gallery": {
-      url: "/images/pages/gallery.jpg",
-      alt: "Photo gallery of St Saviour's"
+      url: "/images/pexels-pixabay-248199.jpg",
+      alt: "Photo gallery of St Saviour's Catholic Church events and community"
     },
     "streaming": {
-      url: "/images/pages/streaming.jpg",
-      alt: "Live streaming services"
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Live streaming services - Join us online for Mass and prayer"
     },
     "podcasts": {
-      url: "/images/pages/podcasts.jpg",
-      alt: "St Saviour's podcasts and talks"
+      url: "/images/pexels-brett-sayles-3633711.jpg",
+      alt: "St Saviour's podcasts and talks - Spiritual formation and teaching"
+    },
+    "news": {
+      url: "/images/pexels-pixabay-208216.jpg",
+      alt: "Latest news and updates from St Saviour's Catholic Church"
+    },
+    "parish-groups": {
+      url: "/images/pexels-pixabay-208216.jpg",
+      alt: "Parish groups and ministries - Get involved in our community"
+    },
+    "the-sacraments": {
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "The Seven Sacraments at St Saviour's Catholic Church"
+    },
+    "privacy-policy": {
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Privacy policy - St Saviour's Catholic Church"
+    },
+    "cookie-policy": {
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Cookie policy - St Saviour's Catholic Church"
+    },
+    "accessibility-statement": {
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Accessibility statement - St Saviour's Catholic Church"
+    },
+    "safeguarding": {
+      url: "/images/pexels-pixabay-218480.jpg",
+      alt: "Safeguarding at St Saviour's Catholic Church - Protecting our community"
+    },
+    "st-saviours-primary-school": {
+      url: "/images/pexels-pixabay-248199.jpg",
+      alt: "St Saviour's Catholic Primary School - Nurturing young minds in faith and learning"
+    },
+    "st-saviours-talks": {
+      url: "/images/pexels-brett-sayles-3633711.jpg",
+      alt: "St Saviour's Talks - Inspiring spiritual formation and Catholic teaching"
+    },
+    "weekly-newsletter": {
+      url: "/images/pexels-pixabay-208216.jpg",
+      alt: "Weekly newsletter - Stay connected with St Saviour's parish community"
     }
   }
 };

@@ -361,14 +361,23 @@ export const navigationMenu = [
     ]
   },
   {
+    name: "School",
+    href: "/st-saviours-primary-school",
+    dropdown: [
+      { name: "About Our School", href: "/st-saviours-primary-school" },
+      { name: "Admissions", href: "/st-saviours-primary-school#admissions" },
+      { name: "School Tours", href: "/st-saviours-primary-school#visit" },
+      { name: "School Values", href: "/st-saviours-primary-school#values" },
+    ]
+  },
+  {
     name: "Contact & Support",
     href: "/contact-us",
     dropdown: [
       { name: "Contact Us", href: "/contact-us" },
-      { name: "Donate", href: "/donate" },
-      { name: "School", href: "/st-saviours-primary-school" },
       { name: "Venue Hire", href: "/venue-hire" },
       { name: "Emergency Contact", href: "/contact-us#emergency" },
+      { name: "Safeguarding", href: "/safeguarding" },
     ]
   }
 ];
