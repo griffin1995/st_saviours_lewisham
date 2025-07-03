@@ -100,6 +100,8 @@ Color: Matches parent text color
 Style: Lucide React icons
 ```
 
+<<<<<<< HEAD
+=======
 ## Church-Specific Components
 
 ### GroupCard Component
@@ -214,6 +216,7 @@ Style: Lucide React icons
 // Customization: Color theming per sacrament, flexible content structure
 ```
 
+>>>>>>> 17463bf8741007b40f7e342ea802cf231ebbc62f
 ## Animation Guidelines
 
 ### Motion Preferences
@@ -292,6 +295,8 @@ container: { staggerChildren: 0.1 }
 - NewsCard
 - PriestCard
 - ContactInfo
+<<<<<<< HEAD
+=======
 - ContactForm
 - GroupCard
 - DonationForm
@@ -311,6 +316,7 @@ container: { staggerChildren: 0.1 }
 - PodcastSubscribe
 - SacramentCard
 - SacramentInfo
+>>>>>>> 17463bf8741007b40f7e342ea802cf231ebbc62f
 
 ## File Organization
 
