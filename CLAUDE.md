@@ -14,20 +14,68 @@ We are modernizing the St Saviour's Catholic Church website (Lewisham) to meet 2
 - **Welcome Section**: ✅ **COMPLETE** - Professional white sidebar cards, perfect alignment, dark gray colors
 
 ## Latest Achievements (Current Session)
-- ✅ **CMS System Implementation**: Complete content management with cms-content.ts and cms-images.ts
-- ✅ **Component CMS Integration**: All core components now use centralised content system
-- ✅ **Modern Styling Overhaul**: Dark theme EventsSection, enhanced CTASection with golden accents
-- ✅ **Logo System**: Parish branding with SVG logo and dynamic footer integration
-- ✅ **Complete Site Rebuild Started**: Modern component architecture with CVA and design tokens
-- ✅ **Church Components Created**: 24 modern components including ContactForm, ContactInfo, ServiceTimes, EventCard, NewsCard, GroupCard, DonationForm, DonationStats, GalleryGrid, ImageLightbox, VenueCard, VenueEnquiryForm, LocationCard, MapEmbed, StreamingStatus, StreamingSchedule, WatchingOptions, OnlineCommunity, PodcastEpisodeCard, PodcastSearch, PodcastSubscribe, SacramentCard, SacramentInfo
-- ✅ **Core Pages Rebuilt (11 pages)**: About Us, Mass Times, Contact Us, News, Parish Groups, Donate, Gallery, Venue Hire, Find Us, Streaming, Podcasts
-- ✅ **Complete Sacraments System (8 pages)**: Main sacraments page + ALL 7 individual sacrament pages with color-coded theming
-- ✅ **SacramentInfo Template**: Reusable component system for consistent sacrament page structure
-- ✅ **Color-Coded Sacraments**: Blue (Baptism), Red (Confirmation), Amber (Eucharist), Green (Confession), Purple (Anointing), Indigo (Holy Orders), Pink (Matrimony)
-- ✅ **Documentation Updated**: Design system specification and rebuild progress with current state
-- ✅ **Build System Stable**: All TypeScript errors resolved, clean compilation, 19 pages rebuilt
-- ✅ **Design System Enforced**: Consistent slate-900 blue, white backgrounds, gold accents throughout
-- ✅ **Performance Optimized**: Bundle sizes remain optimal (165kB max per page)
+- ✅ **MODERN LAYOUT SYSTEM PERFECTED**: Established optimal design principles with sacraments page as reference
+- ✅ **Asymmetrical Layout Pattern**: Professional left-right-center flow replacing amateur "everything centered" approach
+- ✅ **Gold Accent System Refined**: Perfect positioning for both left-aligned (vertical) and centered (horizontal underline) headings
+- ✅ **Section Divider Standard**: Elegant white lines (640px wide, 0.5px thin) for professional content separation
+- ✅ **Button Consistency Achieved**: All buttons forced to white backgrounds (`bg-white text-slate-900 hover:bg-gray-100`)
+- ✅ **Heroicons Integration**: Complete migration from Lucide to Heroicons for modern, clean iconography
+- ✅ **Icon Container System**: White backgrounds with black icons (`icon-container-white`) for perfect contrast
+- ✅ **Mass Page Enhanced**: Welcome section color scheme applied, "Today" badge responsive design, 2-row weekend/weekday layout
+- ✅ **Find-Us Page Updated**: Working Google Maps integration, proper address (SE13 6AA), slate color scheme
+- ✅ **About-Us Page Modernized**: Complete Heroicon migration, white button system, Welcome color hierarchy
+- ✅ **Sacraments Page Redesigned**: Modern asymmetrical layout, proper gold accents, elegant section dividers
+
+## 🎨 OPTIMAL DESIGN PRINCIPLES (Established from Sacraments Page Success)
+
+### **MODERN LAYOUT SYSTEM**
+- **Asymmetrical Flow**: Left-Right-Center pattern breaks amateur "everything centered" monotony
+- **Section Variation**: Different layouts emphasize different content types professionally
+- **Visual Hierarchy**: Alternating alignment creates sophisticated reading flow
+- **Grid Usage**: 2-column grids with `items-start` for clean top alignment
+
+### **GOLD ACCENT SYSTEM**
+- **Left-Aligned Headings**: Vertical accent bars (`absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600`)
+- **Centered Headings**: Horizontal underlines (`w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-600`)
+- **Animation**: Growing effect from 0 to target size with 1s duration, 0.3s delay
+- **Positioning**: Always match alignment of heading (left accent for left text, centered accent for centered text)
+
+### **SECTION DIVIDERS**
+- **Elegant Separation**: White lines between major sections
+- **Specifications**: `w-[640px]` wide, `height: '0.5px'` thin, `style={{ backgroundColor: '#ffffff' }}`
+- **Spacing**: `py-16` (64px top/bottom) for proper breathing room
+- **Background**: `bg-slate-900` to match section backgrounds
+
+### **COLOR HIERARCHY (Welcome Section Standard)**
+- **Backgrounds**: All sections use `background="slate"` (slate-900)
+- **Main Headings**: `color="white"` - pure white for maximum contrast
+- **Primary Text**: `text-gray-100` - light gray for readability
+- **Secondary Text**: `text-gray-200` - medium gray for descriptions
+- **Subtle Text**: `text-gray-300` - lighter gray for captions/details
+
+### **BUTTON SYSTEM**
+- **Always White**: Force white backgrounds with `className="bg-white text-slate-900 hover:bg-gray-100"`
+- **No Transparency**: Never use secondary/outline variants that could appear transparent
+- **Consistent Variants**: Use `variant="primary"` for all important actions
+- **Dark Text**: Always `text-slate-900` on white backgrounds for proper contrast
+
+### **ICON SYSTEM**
+- **Heroicons Only**: Use `@heroicons/react/24/solid` for modern, clean appearance
+- **White Containers**: All icons use `icon-container-white` class with `shadow-lg`
+- **Black Icons**: `text-black` for perfect contrast on white backgrounds
+- **Container Sizes**: `w-12 h-12` for features, `w-16 h-16` for categories, `w-20 h-20` for hero elements
+
+### **TYPOGRAPHY SYSTEM**
+- **Font Hierarchy**: Use `font-light` for main headings, `font-semibold` for subheadings
+- **Text Alignment**: Match content type (left for body text, center for CTAs, right for secondary columns)
+- **Line Heights**: `leading-relaxed` for body text, `leading-tight` for headings
+- **Max Widths**: `max-w-3xl mx-auto` for centered content to maintain readability
+
+### **COMPONENT PATTERNS**
+- **Card Styling**: `bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-white`
+- **Spacing**: `space-y-8` for major sections, `space-y-4` for related elements
+- **Responsive**: `Grid cols={2}` with mobile-first responsive classes
+- **Animations**: Framer Motion with `prefersReducedMotion` support throughout
 
 ## Project Structure
 
@@ -211,9 +259,52 @@ npm run lint    # Code linting
 - **Comprehensive Guide**: `/COMPLETE_WEBSITE_SPECIFICATION.md` (7000+ words)
 - **Implementation Standards**: Use specifications as definitive reference for all styling decisions
 
+## Critical Bug Fixes
+
+### ✅ Dark Gray Background Issue (RESOLVED)
+**Problem**: All non-homepage pages displayed dark gray backgrounds instead of white backgrounds.
+
+**Root Cause**: Tailwind CSS `bg-white` class was not working properly - computed CSS showed `rgba(0, 0, 0, 0)` (transparent) instead of white.
+
+**Investigation Process**:
+1. Initially suspected dark mode was enabled (`darkMode: 'class'` in tailwind.config.js)
+2. Debugging revealed `bg-white` class was applied but not rendering
+3. Discovered Tailwind compilation or CSS specificity issue
+
+**Solution**: 
+- Created `.bg-white-fixed` class in `/src/styles/globals.css` with `background-color: #ffffff !important;`
+- Updated `PageLayout` and `ContentSection` components to use `bg-white-fixed` instead of `bg-white`
+- Applied `background="white"` prop explicitly to all affected pages
+
+**Files Modified**:
+- `/src/components/layout/PageLayout.tsx` - Background class mapping
+- `/src/components/ContentSection.tsx` - Background class mapping  
+- `/src/styles/globals.css` - Added `.bg-white-fixed` utility class
+- Multiple page files - Added explicit background props
+
+**Future Prevention**: Always use `.bg-white-fixed` for guaranteed white backgrounds in layout components.
+
 ---
 
-**Last Updated**: 2025-06-30 (Comprehensive Audit Session)  
-**Current Status**: ✅ **PRODUCTION READY** - Major Quality Audit Complete!  
-**Major Milestone**: Comprehensive codebase audit with 6/8 critical areas PASSED ✅  
-**Latest Achievement**: Complete technical audit covering build process, TypeScript compliance, import/export verification, dependency optimization, CMS system testing, and code quality analysis. Zero critical issues found - production ready status achieved.
+**Last Updated**: 2025-07-02 (Design System Simplification)  
+**Current Status**: ✅ **PRODUCTION READY** - Simplified Design System Complete!
+
+## 🎨 **NEW SIMPLIFIED DESIGN SYSTEM**
+
+### **Background Pattern Standardization** 
+- **Previous**: Complex 5-color rotation pattern (slate-900, navy-900, slate-800, gray-950)
+- **Current**: **Simplified uniform `bg-slate-900`** for ALL page sections
+- **Benefits**: Consistent dark theme, easier maintenance, better accessibility
+
+### **Section Component Updates**
+- Added support for additional background variants: `slate-800`, `gray-950`
+- **Standardized Usage**: All pages now use `background="slate"` for uniform appearance
+- **Text Colors**: Automatic white text on dark backgrounds
+
+### **About-Us Page Template**
+- All 6 sections now use consistent `bg-slate-900` background
+- Proper white text and gold accents throughout
+- Semi-transparent cards with `bg-white/10 backdrop-blur-sm`
+- Serves as template for all other page styling  
+**Major Milestone**: Fixed critical visual bug affecting all non-homepage pages  
+**Latest Achievement**: Systematic debugging and resolution of Tailwind CSS background issue with proper documentation for future reference.

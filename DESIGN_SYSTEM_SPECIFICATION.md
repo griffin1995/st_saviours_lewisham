@@ -6,14 +6,14 @@ This document defines the exact design system, colors, typography, and styling r
 ## Color Palette
 
 ### Primary Colors
-- **Primary Blue**: `slate-900` (#0f172a) - Main brand color for headings, buttons, navigation
+- **Background Dark**: `slate-900` (#0f172a) - Primary background for all content sections
 - **Gold Accent**: `gold-500` (#eab308) - Secondary accent color for highlights, CTAs
-- **Background**: `white` (#ffffff) - Primary background for all content areas
+- **Text White**: `white` (#ffffff) - Primary text color on dark backgrounds
 
 ### Supporting Colors
-- **Text Primary**: `slate-900` (#0f172a) - Main headings and important text
-- **Text Secondary**: `gray-600` (#4b5563) - Body text, descriptions, secondary content
-- **Text Light**: `gray-500` (#6b7280) - Captions, metadata, subtle text
+- **Text Primary**: `white` (#ffffff) - Main headings and important text on dark backgrounds
+- **Text Secondary**: `gray-200` (#e5e7eb) - Body text, descriptions on dark backgrounds
+- **Text Light**: `gray-300` (#d1d5db) - Captions, metadata, subtle text on dark backgrounds
 
 ### Interaction Colors
 - **Gold Hover**: `gold-600` (#d97706) - Hover state for gold elements
@@ -30,16 +30,16 @@ This document defines the exact design system, colors, typography, and styling r
 - **Monospace**: `font-mono` - For code and technical content
 
 ### Heading Scale
-- **H1**: `text-4xl lg:text-6xl font-serif font-light text-slate-900`
-- **H2**: `text-3xl lg:text-4xl font-serif font-light text-slate-900`
-- **H3**: `text-2xl lg:text-3xl font-serif font-medium text-slate-900`
-- **H4**: `text-xl lg:text-2xl font-serif font-medium text-slate-900`
+- **H1**: `text-4xl lg:text-6xl font-serif font-light text-white`
+- **H2**: `text-3xl lg:text-4xl font-serif font-light text-white`
+- **H3**: `text-2xl lg:text-3xl font-serif font-medium text-white`
+- **H4**: `text-xl lg:text-2xl font-serif font-medium text-white`
 
 ### Body Text
-- **Large**: `text-xl text-gray-600 leading-relaxed`
-- **Regular**: `text-lg text-gray-600 leading-relaxed`
-- **Small**: `text-base text-gray-600`
-- **Caption**: `text-sm text-gray-500`
+- **Large**: `text-xl text-gray-200 leading-relaxed`
+- **Regular**: `text-lg text-gray-200 leading-relaxed`
+- **Small**: `text-base text-gray-200`
+- **Caption**: `text-sm text-gray-300`
 
 ## Layout System
 
@@ -47,7 +47,7 @@ This document defines the exact design system, colors, typography, and styling r
 ```
 1. Navigation (sticky, white background)
 2. Hero Section (full height, image background with slate-900 overlay)
-3. Content Sections (white background, consistent padding)
+3. Content Sections (slate-900 background, white text, consistent padding)
 4. Footer (slate-900 background, white text)
 ```
 
@@ -83,10 +83,15 @@ Hover: Scale and shadow enhancement
 
 ### Buttons
 ```css
-Primary: bg-gradient-to-r from-gold-600 to-gold-500 text-white
-Secondary: border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white
-Outline: border border-gray-300 text-gray-700 hover:bg-gray-50
+Primary: bg-white text-slate-900 hover:bg-gray-100 (for dark backgrounds)
+Secondary: border-2 border-white text-white hover:bg-white hover:text-slate-900 (for dark backgrounds)
+Outline: border border-gray-300 text-gray-700 hover:bg-gray-50 (for light backgrounds)
 ```
+
+### Button Usage Guidelines
+- **Primary/Secondary**: White buttons on dark slate-900 backgrounds
+- **Gold Accents**: Reserved for small decorative elements, icons, and hover states
+- **Navigation**: White donate button with dark text for better accessibility
 
 ### Icons
 ```css
