@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface PageLayoutProps {
   children: React.ReactNode
-  title: string
+  title?: string
   description?: string
   keywords?: string
   className?: string
@@ -39,7 +39,7 @@ interface PageLayoutProps {
  */
 export default function PageLayout({
   children,
-  title,
+  title = "St Saviour's Catholic Church",
   description = "St Saviour's Catholic Church in Lewisham - A welcoming community of faith serving South East London.",
   keywords = "Catholic Church, Lewisham, Mass Times, Sacraments, Community, Faith, South East London",
   className = "",
@@ -80,7 +80,7 @@ export default function PageLayout({
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://saintsaviourslewisham.co.uk${title === "Home" ? "/" : `/${title.toLowerCase().replace(/\s+/g, "-")}`}`} />
+        <meta property="og:url" content={`https://saintsaviourslewisham.co.uk${title === "Home" ? "/" : `/${title?.toLowerCase()?.replace(/\s+/g, "-") || ""}`}`} />
         <meta property="og:title" content={fullTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:site_name" content="St Saviour's Catholic Church" />
@@ -97,7 +97,7 @@ export default function PageLayout({
         <meta name="twitter:image" content="https://saintsaviourslewisham.co.uk/images/og-image.jpg" />
         
         {/* Canonical URL */}
-        <link rel="canonical" href={`https://saintsaviourslewisham.co.uk${title === "Home" ? "/" : `/${title.toLowerCase().replace(/\s+/g, "-")}`}`} />
+        <link rel="canonical" href={`https://saintsaviourslewisham.co.uk${title === "Home" ? "/" : `/${title?.toLowerCase()?.replace(/\s+/g, "-") || ""}`}`} />
         
         {/* Favicons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

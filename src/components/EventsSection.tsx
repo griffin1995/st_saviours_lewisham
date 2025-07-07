@@ -95,36 +95,36 @@ export default function EventsSection() {
               className="group"
             >
               <motion.div
-                className="bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-gold-500/20 transition-all duration-500 h-full flex flex-col events-card-container"
-                whileHover={prefersReducedMotion ? {} : { y: -8, scale: 1.02, borderColor: 'rgba(234, 179, 8, 0.3)' }}
+                className="btn-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:border-gold-300 transition-all duration-300 h-full flex flex-col"
+                whileHover={prefersReducedMotion ? {} : { y: -4, scale: 1.02 }}
                 transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 30 }}
               >
                 {/* Enhanced event card header with gold accents */}
-                <div className="p-8 flex-1 events-card-content flex flex-col">
+                <div className="p-8 flex-1 flex flex-col">
                   <div className="flex items-center justify-between mb-6">
                     <motion.div
                       className="flex items-center space-x-3"
                       whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                       transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
                     >
-                      <div className="w-14 h-14 bg-gradient-to-br from-gold-600 to-gold-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-gold-500/30 transition-all duration-300 events-icon-background">
-                        <Calendar className="h-7 w-7 text-white" />
+                      <div className="w-14 h-14 btn-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200 group-hover:shadow-xl transition-all duration-300">
+                        <Calendar className="h-7 w-7 text-slate-900" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white group-hover:text-gold-300 transition-colors duration-300">
+                        <div className="text-2xl font-bold text-slate-900 group-hover:text-gold-600 transition-colors duration-300">
                           {new Date(event.date).getDate()}
                         </div>
-                        <div className="text-sm font-semibold text-gray-300 uppercase">
+                        <div className="text-sm font-semibold text-gray-600 uppercase">
                           {new Date(event.date).toLocaleDateString('en-GB', { month: 'short' })}
                         </div>
                       </div>
                     </motion.div>
                     
                     <div className="text-right">
-                      <div className="text-lg font-semibold text-white">
+                      <div className="text-lg font-semibold text-slate-900">
                         {event.time}
                       </div>
-                      <div className="text-sm text-gray-400">
+                      <div className="text-sm text-gray-600">
                         {event.duration}
                       </div>
                     </div>
@@ -133,7 +133,7 @@ export default function EventsSection() {
                   {/* Growing content area */}
                   <div className="flex-1">
                     <motion.h3
-                      className="text-xl font-serif font-semibold text-white mb-4 group-hover:text-gold-300 transition-colors duration-300"
+                      className="text-xl font-serif font-semibold text-slate-900 mb-4 group-hover:text-gold-600 transition-colors duration-300"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={prefersReducedMotion 
@@ -146,7 +146,7 @@ export default function EventsSection() {
                     </motion.h3>
 
                     <motion.div
-                      className="flex items-center text-gray-300 mb-4"
+                      className="flex items-center text-gray-700 mb-4"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={prefersReducedMotion 
@@ -155,12 +155,12 @@ export default function EventsSection() {
                       }
                       viewport={{ once: true }}
                     >
-                      <MapPin className="h-4 w-4 mr-2 text-gold-400" />
+                      <MapPin className="h-4 w-4 mr-2 text-gold-600" />
                       <span className="text-sm font-medium">{event.location}</span>
                     </motion.div>
 
                     <motion.p
-                      className="text-gray-300 leading-relaxed mb-6"
+                      className="text-gray-700 leading-relaxed mb-6"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={prefersReducedMotion 
@@ -184,14 +184,14 @@ export default function EventsSection() {
                     }
                     viewport={{ once: true }}
                   >
-                    <div className="flex items-center justify-between border-t border-slate-700/50 pt-4">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/20 border border-gold-400/30 text-gold-300">
+                    <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gold-100 border border-gold-200 text-gold-800">
                         {event.category}
                       </span>
                       
                       <motion.a
                         href={`/events/${event.id}`}
-                        className="group/link inline-flex items-center text-gold-400 hover:text-gold-300 focus:text-gold-300 font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-slate-800 rounded"
+                        className="group/link inline-flex items-center text-gold-600 hover:text-gold-700 focus:text-gold-700 font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-white rounded"
                         whileHover={prefersReducedMotion ? {} : { x: 4 }}
                         transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 30 }}
                       >

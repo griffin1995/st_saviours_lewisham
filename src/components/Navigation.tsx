@@ -76,7 +76,7 @@ export default function Navigation({
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="navbar-container px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20 py-2">
             {/* Logo with SVG and Text */}
             <Link href="/" className="flex items-center space-x-3 group">
@@ -138,7 +138,7 @@ export default function Navigation({
                 {/* Donate Button */}
                 <Link
                   href="/donate"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-slate-900 font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center gap-2 px-4 py-2 btn-white hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
                 >
                   <Heart className="h-4 w-4" />
                   <span className="hidden xl:inline">Donate</span>
@@ -198,7 +198,7 @@ export default function Navigation({
               <div className="pt-4 mt-4 border-t border-slate-700/50">
                 <Link
                   href="/donate"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-white hover:bg-gray-100 text-slate-900 font-semibold rounded-lg transition-colors duration-200"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 btn-white hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-200"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <Heart className="h-5 w-5" />
@@ -220,7 +220,7 @@ export default function Navigation({
             transformOrigin: 'top'
           }}
         >
-          <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="navbar-container px-6 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {navigationMenu
                 .find(item => item.name === dropdownOpen)
