@@ -53,8 +53,8 @@ export default function CommunityNews() {
       <PageHero
         title="Community News"
         subtitle="Stay connected with the latest news from our vibrant parish community"
-        image="/images/mid-mass-priest-and-community.jpg"
-        overlay="from-black/70 via-black/40 to-black/60"
+        backgroundImage="/images/mid-mass-priest-and-community.jpg"
+        overlay="dark"
       />
 
       {/* Introduction Section */}
