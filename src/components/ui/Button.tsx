@@ -12,43 +12,50 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary: White background for dark themes
+        // Primary: Always white background with dark text
+        // NOTE: Uses .btn-white instead of .bg-white due to CSS specificity conflicts
+        // See globals.css for detailed explanation of this enterprise solution
         primary: [
-          'bg-white text-slate-900',
-          'hover:bg-gray-100 hover:shadow-lg',
-          'focus:ring-white focus:ring-offset-slate-900',
-          'active:bg-gray-200'
+          'btn-white border border-white',
+          'hover:shadow-lg hover:border-gray-100',
+          'focus:ring-2 focus:ring-gray-300 focus:ring-offset-2',
+          'active:bg-gray-200 shadow-md'
         ],
         
-        // Secondary: White border with hover fill for dark themes
+        // Secondary: Theme-aware secondary button
         secondary: [
-          'border-2 border-white text-white bg-transparent',
-          'hover:bg-white hover:text-slate-900',
+          'border-2 text-white bg-transparent',
+          'border-white hover:bg-white hover:text-slate-900',
+          'dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-slate-900',
           'focus:ring-white focus:ring-offset-slate-900',
           'active:bg-gray-100 active:text-slate-900'
         ],
         
-        // Outline: Light border for subtle actions
+        // Outline: Theme-aware outline button
         outline: [
-          'border border-gray-300 text-gray-700 bg-white',
-          'hover:bg-gray-50 hover:border-gray-400',
-          'focus:ring-gray-300 focus:ring-offset-white',
-          'active:bg-gray-100'
+          'border bg-white text-gray-700',
+          'border-gray-300 hover:bg-gray-50 hover:border-gray-400',
+          'dark:bg-slate-700 dark:text-gray-100 dark:border-slate-600',
+          'dark:hover:bg-slate-600 dark:hover:border-slate-500',
+          'focus:ring-gray-300 focus:ring-offset-white dark:focus:ring-slate-500 dark:focus:ring-offset-slate-900',
+          'active:bg-gray-100 dark:active:bg-slate-600'
         ],
         
-        // Ghost: No background, minimal styling
+        // Ghost: Theme-aware ghost button
         ghost: [
-          'text-gray-600 bg-transparent',
+          'bg-transparent text-gray-600',
           'hover:bg-gray-100 hover:text-gray-900',
-          'focus:ring-gray-300 focus:ring-offset-white',
-          'active:bg-gray-200'
+          'dark:text-gray-300 dark:hover:bg-slate-700 dark:hover:text-white',
+          'focus:ring-gray-300 focus:ring-offset-white dark:focus:ring-slate-600 dark:focus:ring-offset-slate-900',
+          'active:bg-gray-200 dark:active:bg-slate-600'
         ],
         
-        // Destructive: Red for delete actions
+        // Destructive: Theme-aware destructive button
         destructive: [
           'bg-red-600 text-white',
           'hover:bg-red-700 hover:shadow-lg',
-          'focus:ring-red-500 focus:ring-offset-white',
+          'dark:bg-red-700 dark:hover:bg-red-800',
+          'focus:ring-red-500 focus:ring-offset-white dark:focus:ring-red-600 dark:focus:ring-offset-slate-900',
           'active:bg-red-800'
         ]
       },

@@ -44,10 +44,56 @@
     background-color: #ffffff !important;
   }
   
-  /* Force white background for icon containers */
+  /* Clean icon and badge styling */
   .icon-container-white {
-    background-color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .icon-theme-dark {
+    color: #000000;
+  }
+  
+  .badge-gold-theme {
+    background-color: #ffc832;
+    color: #000000;
+  }
+  
+  /* 
+   * ENTERPRISE SOLUTION: Button Background Fix
+   * 
+   * PROBLEM: Buttons appearing transparent due to CSS specificity conflicts
+   * CAUSE: Global CSS overrides with !important interfering with Tailwind utilities
+   * 
+   * SOLUTION: Component-specific classes with higher specificity than Tailwind
+   * - .btn-white has higher specificity than .bg-white utility class
+   * - No !important needed - clean CSS architecture
+   * - Targeted styling prevents interference with other components
+   * 
+   * PATTERN FOR FUTURE: When Tailwind utilities don't work:
+   * 1. Check for conflicting global CSS with: grep -r "background-color.*important" /src/styles/
+   * 2. Remove wildcard selectors (*) that affect child elements  
+   * 3. Create component-specific classes instead of global overrides
+   * 4. Use CSS specificity hierarchy: Component classes > Utility classes
+   * 
+   * DO NOT: Use !important, inline styles, or wildcard global overrides
+   */
+  button.bg-white,
+  .btn-white {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
+  
+  button.bg-white:hover,
+  .btn-white:hover {
+    background-color: #f3f4f6;
+  }
+  
+  /* Custom navbar width - 15% wider than max-w-7xl (1280px + 15% = 1472px) */
+  .navbar-container {
+    max-width: 1472px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -63,60 +109,48 @@
     }
   }
   
-  /* Force white backgrounds for news cards - exclude category badge */
-  .news-card-container,
-  .news-card-content,
-  .news-card-content * {
-    background-color: #ffffff !important;
+  /* 
+   * IMPORTANT: Component styling guidelines
+   * 
+   * These are SPECIFIC component classes - NOT global overrides
+   * - Target individual components, not all children (avoid *)
+   * - No !important declarations needed with proper specificity
+   * - Each class serves a specific component purpose
+   * 
+   * WHEN ADDING NEW STYLES:
+   * - Use specific class names (.component-name)
+   * - Avoid affecting child elements globally
+   * - Test that Tailwind utilities still work in other components
+   * - Document any CSS specificity decisions
+   */
+  .news-card-container {
+    background-color: #ffffff;
   }
   
-  /* Ensure category badge has transparent background */
   .news-category-badge {
-    background-color: transparent !important;
+    background-color: transparent;
   }
   
-  /* Force white backgrounds for welcome section sidebar cards */
-  .welcome-sidebar-card,
-  .welcome-sidebar-card *:not(.welcome-schedule-button):not(.welcome-schedule-button *) {
-    background-color: #ffffff !important;
+  .welcome-sidebar-card {
+    background-color: #ffffff;
   }
   
-  /* Force white background for Learn More button */
   .welcome-learn-more-button {
-    background-color: #ffffff !important;
-    color: #111827 !important;
+    background-color: #ffffff;
+    color: #111827;
   }
   
-  /* Ensure schedule button has proper dark background and white text */
   .welcome-schedule-button {
-    background-color: #1f2937 !important;
-    color: #ffffff !important;
+    background-color: #1f2937;
+    color: #ffffff;
   }
   
   .welcome-schedule-button:hover {
-    background-color: #374151 !important;
-    color: #ffffff !important;
+    background-color: #374151;
+    color: #ffffff;
   }
   
-  /* Force white backgrounds for events section cards */
-  .events-card-container,
-  .events-card-content,
-  .events-card-content *:not(.events-icon-background):not(.events-icon-background *) {
-    background-color: #ffffff !important;
-  }
-  
-  /* Ensure events icon background stays dark */
-  .events-icon-background {
-    background: linear-gradient(to bottom right, #374151, #1f2937) !important;
-  }
-  
-  /* Ensure SVG icons inside events cards maintain proper styling */
-  .events-icon-background svg,
-  .events-icon-background * {
-    background-color: transparent !important;
-    color: #ffffff !important;
-    stroke: #ffffff !important;
-  }
+  /* Events section - removed old overrides, now uses clean component styling */
 
   /* Unique Asymmetrical Curves - Using Working Border-Radius Method */
   

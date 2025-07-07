@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
  * Heading component variants for consistent typography
  */
 const headingVariants = cva(
-  'font-serif font-light text-slate-900',
+  'font-serif font-light text-slate-900 dark:text-white',
   {
     variants: {
       level: {
@@ -19,9 +19,9 @@ const headingVariants = cva(
       },
       
       color: {
-        default: 'text-slate-900',
-        muted: 'text-gray-600',
-        gold: 'text-gold-600',
+        default: 'text-slate-900 dark:text-white',
+        muted: 'text-gray-600 dark:text-gray-300',
+        gold: 'text-gold-600 dark:text-gold-400',
         white: 'text-white'
       },
       
@@ -99,11 +99,14 @@ const textVariants = cva(
       },
       
       color: {
-        default: 'text-gray-600',
-        muted: 'text-gray-500',
-        dark: 'text-slate-900',
+        default: 'text-gray-600 dark:text-gray-300',
+        muted: 'text-gray-500 dark:text-gray-400',
+        dark: 'text-slate-900 dark:text-white',
         white: 'text-white',
-        gold: 'text-gold-600'
+        gold: 'text-gold-600 dark:text-gold-400',
+        'gray-100': 'text-gray-100',
+        'gray-200': 'text-gray-200',
+        'gray-300': 'text-gray-300'
       },
       
       weight: {
@@ -175,7 +178,7 @@ Text.displayName = 'Text'
  * Label component for form labels and captions
  */
 const labelVariants = cva(
-  'font-medium text-slate-900',
+  'font-medium text-slate-900 dark:text-white',
   {
     variants: {
       size: {
@@ -226,7 +229,7 @@ export const Caption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-sm text-gray-500 leading-normal', className)}
+    className={cn('text-sm text-gray-500 dark:text-gray-400 leading-normal', className)}
     {...props}
   />
 ))
@@ -241,7 +244,7 @@ export const Lead = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-xl lg:text-2xl text-gray-600 leading-relaxed', className)}
+    className={cn('text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed', className)}
     {...props}
   />
 ))
