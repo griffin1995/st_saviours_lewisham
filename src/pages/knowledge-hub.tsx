@@ -58,8 +58,8 @@ export default function KnowledgeHub() {
       <PageHero
         title="Knowledge Hub"
         subtitle="Deepen your understanding of Catholic theology through the wisdom of saints, mystics, and theologians"
-        image="/images/inside-church-3-glass-windows.jpg"
-        overlay="from-black/70 via-black/40 to-black/60"
+        backgroundImage="/images/inside-church-3-glass-windows.jpg"
+        overlay="dark"
       />
 
       {/* Introduction Section */}

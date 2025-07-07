@@ -84,8 +84,8 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
       <PageHero
         title={article.title}
         subtitle={article.subtitle || article.excerpt}
-        image={article.image.src}
-        overlay="from-black/70 via-black/40 to-black/60"
+        backgroundImage={article.image.src}
+        overlay="dark"
       />
 
       {/* Article Content */}
