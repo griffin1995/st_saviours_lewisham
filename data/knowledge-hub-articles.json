@@ -1,0 +1,75 @@
+{
+  "articles": [
+    {
+      "id": "peter-abelard-philosopher-love",
+      "slug": "peter-abelard-philosopher-love",
+      "title": "Peter Abelard: The Philosopher of Love",
+      "subtitle": "Critical Methodology and the Scholastic Tradition",
+      "excerpt": "Discover the profound theological insights of this 12th-century philosopher who developed critical methodology for understanding the Catholic faith.",
+      "author": "St Saviour's Knowledge Hub",
+      "categoryId": "medieval-theology",
+      "tags": ["Philosophy", "Scholasticism", "Medieval", "Theology", "Love", "Reason", "Faith"],
+      "readTime": "12 min",
+      "publishedDate": "2025-01-15",
+      "lastModified": "2025-01-15",
+      "image": {
+        "src": "/images/inside-church-3-glass-windows.jpg",
+        "alt": "Stained glass windows representing medieval theological scholarship",
+        "caption": "The beauty of medieval church architecture reflects the sophisticated theological thought of the period"
+      },
+      "featured": true,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Peter Abelard: The Philosopher of Love | Knowledge Hub | St Saviour's",
+        "metaDescription": "Discover Peter Abelard's revolutionary critical methodology and his profound impact on medieval theology.",
+        "keywords": ["Peter Abelard", "medieval theology", "scholasticism", "critical methodology"]
+      }
+    },
+    {
+      "id": "augustine-doctor-grace",
+      "slug": "augustine-doctor-grace",
+      "title": "St Augustine of Hippo: The Doctor of Grace",
+      "subtitle": "Foundations of Western Christian Thought",
+      "excerpt": "Explore the life and teachings of one of the most influential theologians in Christian history.",
+      "author": "St Saviour's Knowledge Hub",
+      "categoryId": "church-fathers",
+      "tags": ["Church Fathers", "Grace", "Doctrine", "Patristics", "Conversion", "Trinity"],
+      "readTime": "15 min",
+      "publishedDate": "Coming Soon",
+      "image": {
+        "src": "/images/painted-glass-jesus.jpg",
+        "alt": "Stained glass depiction representing early Church theology"
+      },
+      "featured": false,
+      "status": "draft",
+      "seo": {
+        "metaTitle": "St Augustine of Hippo: The Doctor of Grace | Knowledge Hub | St Saviour's",
+        "metaDescription": "Explore the profound theological insights of St Augustine of Hippo.",
+        "keywords": ["St Augustine", "Doctor of Grace", "Church Fathers", "Catholic theology"]
+      }
+    },
+    {
+      "id": "julian-norwich-revelations",
+      "slug": "julian-norwich-revelations", 
+      "title": "Julian of Norwich: Revelations of Divine Love",
+      "subtitle": "England's First Female Theologian",
+      "excerpt": "Journey into the mystical visions of England's first female theologian and her profound insights into God's love.",
+      "author": "St Saviour's Knowledge Hub",
+      "categoryId": "catholic-mystics",
+      "tags": ["Mysticism", "English Saints", "Divine Love", "Contemplation", "Medieval Women"],
+      "readTime": "10 min",
+      "publishedDate": "Coming Soon",
+      "image": {
+        "src": "/images/inside-church-aisle.jpg",
+        "alt": "Church interior suggesting contemplative prayer and mysticism"
+      },
+      "featured": false,
+      "status": "draft",
+      "seo": {
+        "metaTitle": "Julian of Norwich: Revelations of Divine Love | Knowledge Hub | St Saviour's",
+        "metaDescription": "Explore the mystical visions and theological insights of Julian of Norwich.",
+        "keywords": ["Julian of Norwich", "Revelations of Divine Love", "English mystics", "medieval theology"]
+      }
+    }
+  ]
+}

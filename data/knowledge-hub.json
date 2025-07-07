@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "id": "church-fathers",
+      "slug": "church-fathers",
+      "title": "Church Fathers",
+      "description": "Explore the foundational teachings of the early Church Fathers and their lasting impact on Catholic theology.",
+      "icon": "BookOpen",
+      "color": "from-blue-600 to-blue-500",
+      "articleCount": 3,
+      "featured": true
+    },
+    {
+      "id": "medieval-theology",
+      "slug": "medieval-theology", 
+      "title": "Medieval Theology",
+      "description": "Discover the scholastic tradition and the great theologians of the Middle Ages.",
+      "icon": "AcademicCap",
+      "color": "from-purple-600 to-purple-500",
+      "articleCount": 2,
+      "featured": true
+    },
+    {
+      "id": "catholic-mystics",
+      "slug": "catholic-mystics",
+      "title": "Catholic Mystics",
+      "description": "Learn from the contemplative saints and their profound spiritual experiences.",
+      "icon": "Heart",
+      "color": "from-pink-600 to-pink-500",
+      "articleCount": 4,
+      "featured": true
+    },
+    {
+      "id": "modern-saints",
+      "slug": "modern-saints",
+      "title": "Modern Saints",
+      "description": "Study the lives and teachings of recent saints and their relevance to contemporary life.",
+      "icon": "Sparkles",
+      "color": "from-green-600 to-green-500",
+      "articleCount": 1,
+      "featured": false
+    }
+  ],
+  "settings": {
+    "articlesPerPage": 6,
+    "featuredArticlesLimit": 3,
+    "relatedArticlesLimit": 2,
+    "enableComments": false,
+    "enableNewsletter": true,
+    "enableSocialSharing": true
+  },
+  "metadata": {
+    "lastUpdated": "2025-01-15",
+    "totalArticles": 3,
+    "totalCategories": 4,
+    "totalAuthors": 1
+  }
+}
