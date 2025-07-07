@@ -308,3 +308,113 @@ npm run lint    # Code linting
 - Serves as template for all other page styling  
 **Major Milestone**: Fixed critical visual bug affecting all non-homepage pages  
 **Latest Achievement**: Systematic debugging and resolution of Tailwind CSS background issue with proper documentation for future reference.
+
+## 🌙 **THEME SYSTEM FIXES (2025-07-06)**
+
+### **Dark Mode as Default**
+- **Problem**: Theme system defaulted to `auto` mode (follows system preference)
+- **Solution**: Changed default theme to `dark` mode for consistent branding
+- **Files Updated**: `/src/contexts/ThemeContext.tsx`, `/src/pages/_app.tsx`
+
+### **Typography Component Theme Support**
+- **Problem**: Headings and text showing black text on dark backgrounds
+- **Root Cause**: Components used hardcoded `text-slate-900` and `text-black` classes
+- **Solution**: Added theme-aware classes with `dark:` variants throughout typography system
+- **Files Updated**: `/src/components/ui/Typography.tsx`, `/src/components/ui/Button.tsx`
+
+### **Icon and Badge Theme Support**
+- **Problem**: Icons and badges using `text-black` appeared invisible on dark backgrounds
+- **Solution**: Created CSS utility classes for theme-aware styling:
+  - `.icon-theme-dark` - Always black icons (for white containers)
+  - `.badge-gold-theme` - Gold background with black text (theme-consistent)
+- **Files Updated**: `/src/styles/globals.css`, `/src/pages/about-us.tsx`
+
+### **Button Component Theme Fixes**
+- **Enhanced Variants**: All button variants now support proper `dark:` mode styling
+- **Primary**: Maintains white background with dark text in both themes
+- **Secondary**: Proper border and hover states for dark mode
+- **Outline/Ghost**: Theme-aware backgrounds and text colors
+
+### **Meta Tag Updates**
+- **Theme Color**: Changed from light (`#fefefe`) to dark (`#1a1a1a`) as default
+- **Color Scheme**: Prioritized dark mode in browser settings
+
+### **Current Theme System Features**
+- ✅ **Three Modes**: Light, Dark, Auto (follows system preference)
+- ✅ **Default**: Dark mode for brand consistency
+- ✅ **Persistence**: User preference saved in localStorage
+- ✅ **Accessibility**: Respects `prefers-reduced-motion` for animations
+- ✅ **Mobile Support**: Proper theme-color meta tags for mobile browsers
+- ✅ **Theme Toggle**: Cycles through all three modes with visual indicators
+
+**Status**: All components now properly support dark mode with appropriate text contrast and styling.
+
+## ⚠️ **CSS SPECIFICITY ISSUES - PATTERN & SOLUTION (2025-07-06)**
+
+### **🔄 Recurring Problem: Transparent Button Backgrounds**
+**Pattern**: Buttons appear transparent instead of white, only showing background on hover
+**Root Cause**: Global CSS overrides with `!important` conflicting with Tailwind utility classes
+
+### **🎯 Enterprise Solution Pattern:**
+
+#### **Step 1: Identify Conflicting CSS**
+```bash
+# Find all !important background overrides
+grep -r "background-color.*important" /src/styles/
+```
+
+#### **Step 2: Remove Global Wildcards**
+```css
+/* PROBLEM - affects all child elements */
+.parent-class * {
+    background-color: #ffffff !important;
+}
+
+/* SOLUTION - target specific components */
+.parent-class {
+    background-color: #ffffff;
+}
+```
+
+#### **Step 3: Create Component-Specific Classes**
+```css
+/* Add to globals.css - higher specificity than Tailwind */
+.btn-white {
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+.btn-white:hover {
+    background-color: #f3f4f6;
+}
+```
+
+#### **Step 4: Update Component Variants**
+```typescript
+// In Button.tsx - use custom class instead of Tailwind utility
+primary: [
+  'btn-white border border-white',  // Instead of 'bg-white'
+  'hover:shadow-lg hover:border-gray-100',
+  // ... rest of styling
+]
+```
+
+### **🚫 What NOT to Do:**
+- ❌ **Never use `!important`** in component CSS
+- ❌ **Avoid inline styles** as quick fixes
+- ❌ **Don't use wildcard selectors** (`*`) that affect children
+- ❌ **No global overrides** that interfere with components
+
+### **✅ Enterprise Standards:**
+- ✅ **CSS specificity hierarchy**: Component classes > Utility classes
+- ✅ **Targeted styling**: Specific component classes only
+- ✅ **Clean architecture**: No conflicting global overrides
+- ✅ **Maintainable**: Changes in one place, consistent behavior
+
+### **🔧 Prevention Strategy:**
+1. **Audit CSS regularly** for `!important` declarations
+2. **Use component-specific classes** instead of global overrides
+3. **Test button rendering** in both light/dark themes
+4. **Prefer CSS specificity** over `!important` for overrides
+
+**Files to Check**: `/src/styles/globals.css`, component CSS files, Tailwind utility conflicts
