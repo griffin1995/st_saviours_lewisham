@@ -38,8 +38,8 @@ export default function StBakhitaGroupPage() {
       <PageHero
         title="The St Bakhita Group"
         subtitle="A community rooted in prayer and welcome"
-        image="/images/devotion_to_saint_josephine_bakhita.jpeg"
-        overlay="from-black/70 via-black/40 to-black/60"
+        backgroundImage="/images/devotion_to_saint_josephine_bakhita.jpeg"
+        overlay="dark"
       />
 
       {/* Introduction Section */}
