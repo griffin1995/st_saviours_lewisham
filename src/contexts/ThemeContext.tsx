@@ -16,10 +16,10 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('light');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
 
-  // Initialize theme from localStorage or system preference
+  // Initialize theme from localStorage or default to dark
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -27,8 +27,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (savedTheme && ['light', 'dark', 'auto'].includes(savedTheme)) {
       setTheme(savedTheme);
     } else {
-      // Default to auto if no saved preference
-      setTheme('auto');
+      // Default to dark mode for St Saviour's website
+      setTheme('dark');
     }
   }, []);
 

@@ -7,8 +7,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta name="theme-color" content="#fefefe" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#1a1a1a" />
+        <meta name="color-scheme" content="dark light" />
       </Head>
       <ThemeProvider>
         <Component {...pageProps} />
