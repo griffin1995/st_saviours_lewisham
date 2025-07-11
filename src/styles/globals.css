@@ -44,6 +44,36 @@
     background-color: #ffffff !important;
   }
   
+  /* U-shaped card designs */
+  .card-u-shape {
+    border-radius: 16px 16px 0 0; /* Rounded top corners, straight bottom corners */
+    position: relative;
+  }
+  
+  .card-u-shape::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(71, 85, 105, 0.1) 20%, 
+      rgba(71, 85, 105, 0.2) 50%, 
+      rgba(71, 85, 105, 0.1) 80%, 
+      transparent 100%
+    );
+  }
+  
+  .card-u-shape-small {
+    border-radius: 12px 12px 0 0; /* Smaller U-shape for nested elements */
+  }
+  
+  .card-u-shape-large {
+    border-radius: 20px 20px 0 0; /* Larger U-shape for hero cards */
+  }
+
   /* Clean icon and badge styling */
   .icon-container-white {
     background-color: #ffffff;

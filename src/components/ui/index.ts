@@ -8,6 +8,14 @@
 // Base components
 export { Button, buttonVariants, type ButtonProps } from './Button'
 export { 
+  Badge, 
+  BadgeGroup, 
+  CountBadge, 
+  StatusBadge,
+  badgeVariants,
+  type BadgeProps 
+} from './Badge'
+export { 
   Card, 
   CardHeader, 
   CardTitle, 

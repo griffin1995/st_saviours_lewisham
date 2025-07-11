@@ -3,20 +3,22 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
-  LayoutDashboard,
-  FileText,
-  Calendar,
-  Clock,
-  Settings,
-  Users,
-  Camera,
-  LogOut,
-  Shield,
-  BarChart3,
-  Plus,
-  Edit,
-  Eye
-} from 'lucide-react';
+  DocumentTextIcon as FileText,
+  CalendarDaysIcon as Calendar,
+  ClockIcon as Clock,
+  Cog6ToothIcon as Settings,
+  UserGroupIcon as Users,
+  CameraIcon as Camera,
+  ArrowRightOnRectangleIcon as LogOut,
+  ShieldCheckIcon as Shield,
+  ChartBarIcon as BarChart3,
+  PlusIcon as Plus,
+  PencilIcon as Edit,
+  EyeIcon as Eye
+} from '@heroicons/react/24/solid';
+
+// Modern imports with Zustand integration
+import { useUI, useActions } from '@/stores/churchStore';
 
 interface DashboardStats {
   totalNews: number;
@@ -27,6 +29,8 @@ interface DashboardStats {
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const ui = useUI();
+  const actions = useActions();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<DashboardStats>({
@@ -35,6 +39,36 @@ export default function AdminDashboard() {
     publishedNews: 0,
     upcomingEvents: 0
   });
+
+  // Enhanced animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: ui.reducedMotion ? 0.2 : 0.8,
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+  };
+
+  const scaleVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+  };
 
   useEffect(() => {
     checkAuth();
@@ -259,19 +293,25 @@ export default function AdminDashboard() {
           {statCards.map((stat, index) => (
             <motion.div
               key={stat.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-sm p-6 border border-gray-200"
+              variants={scaleVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: ui.reducedMotion ? 0 : index * 0.1 }}
+              className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-lg transition-shadow duration-300 group"
+              whileHover={ui.reducedMotion ? {} : { y: -4, scale: 1.02 }}
             >
               <div className="flex items-center">
-                <div className={`${stat.color} p-3 rounded-lg`}>
+                <motion.div 
+                  className={`${stat.color} p-3 rounded-lg`}
+                  whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <stat.icon className="h-6 w-6 text-white" />
-                </div>
+                </motion.div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                  <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
-                  <p className="text-xs text-gray-500">{stat.subtitle}</p>
+                  <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">{stat.title}</p>
+                  <p className="text-2xl font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{stat.value}</p>
+                  <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">{stat.subtitle}</p>
                 </div>
               </div>
             </motion.div>
@@ -283,32 +323,43 @@ export default function AdminDashboard() {
           {menuItems.map((item, index) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200"
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: ui.reducedMotion ? 0 : index * 0.1 }}
+              className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              whileHover={ui.reducedMotion ? {} : { y: -4, scale: 1.02 }}
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className={`${item.color} p-3 rounded-lg`}>
+                  <motion.div 
+                    className={`${item.color} p-3 rounded-lg`}
+                    whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <item.icon className="h-6 w-6 text-white" />
-                  </div>
+                  </motion.div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                    <p className="text-sm text-gray-600">{item.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{item.title}</h3>
+                    <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">{item.description}</p>
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
                   {item.actions.map((action, actionIndex) => (
-                    <Link
+                    <motion.div
                       key={actionIndex}
-                      href={action.href}
-                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                      whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
+                      whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                     >
-                      <action.icon className="h-4 w-4 mr-1" />
-                      {action.label}
-                    </Link>
+                      <Link
+                        href={action.href}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-200 hover:shadow-md"
+                      >
+                        <action.icon className="h-4 w-4 mr-1" />
+                        {action.label}
+                      </Link>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -317,39 +368,73 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300"
+        >
+          <motion.h3 
+            variants={itemVariants}
+            className="text-lg font-semibold text-gray-900 mb-4"
+          >
+            Quick Actions
+          </motion.h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link
-              href="/admin/news/new"
-              className="flex items-center justify-center px-4 py-3 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors duration-200"
+            <motion.div
+              variants={itemVariants}
+              whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
-              <Plus className="h-5 w-5 mr-2" />
-              Add News Article
-            </Link>
-            <Link
-              href="/admin/events/new"
-              className="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors duration-200"
+              <Link
+                href="/admin/news/new"
+                className="flex items-center justify-center px-4 py-3 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-all duration-200 hover:shadow-md"
+              >
+                <Plus className="h-5 w-5 mr-2" />
+                Add News Article
+              </Link>
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
-              <Plus className="h-5 w-5 mr-2" />
-              Add Event
-            </Link>
-            <Link
-              href="/admin/mass-times"
-              className="flex items-center justify-center px-4 py-3 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-colors duration-200"
+              <Link
+                href="/admin/events/new"
+                className="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-all duration-200 hover:shadow-md"
+              >
+                <Plus className="h-5 w-5 mr-2" />
+                Add Event
+              </Link>
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
-              <Edit className="h-5 w-5 mr-2" />
-              Update Mass Times
-            </Link>
-            <Link
-              href="/admin/settings"
-              className="flex items-center justify-center px-4 py-3 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              <Link
+                href="/admin/mass-times"
+                className="flex items-center justify-center px-4 py-3 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-all duration-200 hover:shadow-md"
+              >
+                <Edit className="h-5 w-5 mr-2" />
+                Update Mass Times
+              </Link>
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
-              <Settings className="h-5 w-5 mr-2" />
-              Site Settings
-            </Link>
+              <Link
+                href="/admin/settings"
+                className="flex items-center justify-center px-4 py-3 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-all duration-200 hover:shadow-md"
+              >
+                <Settings className="h-5 w-5 mr-2" />
+                Site Settings
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </main>
     </div>
   );

@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { ChevronDownIcon, PlayIcon } from "@heroicons/react/24/solid";
+
+// Enhanced Motion with LazyMotion optimization
+import { Motion, fadeInUp, fadeInDown, staggerChildren, reverentReveal, goldAccent } from "@/lib/motion";
+
+// Professional Typography
+import { typographyScale } from "@/lib/fonts";
 
 // Import our new components
 import Navigation from "@/components/Navigation";
@@ -13,22 +19,28 @@ import HistorySection from "@/components/HistorySection";
 import EventsSection from "@/components/EventsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import ScrollRevealSection from "@/components/ScrollRevealSection";
+
+// Import modern components
+import { NewsletterForm } from "@/components/modern/NewsletterForm";
+
+// Import store and hooks
+import { useChurchStore, useUI, useActions } from "@/stores/churchStore";
+import { useEventsQuery } from "@/hooks/useData";
 
 export default function HomePage() {
-  // Navigation state
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
-  const [navbarHovered, setNavbarHovered] = useState(false);
+  // Zustand store state
+  const navigation = useChurchStore((state: any) => state.navigation);
+  const ui = useUI();
+  const actions = useActions();
   
-  // Global state for components
-  const [scrollY, setScrollY] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Local state (keeping some for component-specific needs)
   const [imagesLoaded, setImagesLoaded] = useState(new Set<string>());
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  
+  // Data fetching
+  const { data: events, isLoading: eventsLoading } = useEventsQuery();
   
   // Scroll timeout ref for cleanup
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
@@ -54,68 +66,11 @@ export default function HomePage() {
     setImagesLoaded(prev => new Set(prev).add(imageId));
   }, []);
 
-  // Enhanced scroll tracking
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      setIsScrolling(true);
-      
-      // Clear the scrolling state after a delay
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 150);
-    };
+  // Enhanced scroll tracking (now handled by Zustand store in _app.tsx)
+  // The scroll position is automatically tracked by the store
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  // Simulate initial loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Motion preference detection
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      setPrefersReducedMotion(mediaQuery.matches);
-      
-      const handleChange = (e: MediaQueryListEvent) => {
-        setPrefersReducedMotion(e.matches);
-      };
-      
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    }
-  }, []);
-
-  // Mobile detection
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile, { passive: true });
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  // Initial loading and device detection are now handled by the store
+  // Motion preferences are automatically detected in _app.tsx
 
   // Close search on escape key
   useEffect(() => {
@@ -135,38 +90,21 @@ export default function HomePage() {
     <>
       {/* Navigation - MUST BE FIRST */}
       <Navigation
-        navbarHovered={navbarHovered}
-        setNavbarHovered={setNavbarHovered}
-        dropdownOpen={dropdownOpen}
-        setDropdownOpen={setDropdownOpen}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
         setSearchOpen={setSearchOpen}
       />
 
-      {/* Blue Overlay when navbar is hovered or dropdown is active */}
-      {(navbarHovered || dropdownOpen) && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed inset-0 bg-navy-900/40 backdrop-blur-md z-[9997] pointer-events-none"
-          style={{ 
-            top: navbarHovered || dropdownOpen ? '80px' : '64px',
-            backdropFilter: 'blur(8px) saturate(1.2)'
-          }}
-        />
-      )}
+      {/* Additional overlay for homepage styling (if needed) */}
+      {/* Note: Navigation component now handles its own backdrop overlay */}
 
-      {/* Scroll Progress Indicator */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-gold-500 to-primary-500 z-[9998] origin-left"
+      {/* Enhanced Scroll Progress Indicator with Catholic Gold */}
+      <Motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-navy-900 via-gold-700 to-navy-900 z-[9998] origin-left"
         style={{
           scaleX: typeof window !== 'undefined' 
-            ? scrollY / (document.documentElement.scrollHeight - window.innerHeight)
+            ? navigation.scrollPosition / (document.documentElement.scrollHeight - window.innerHeight)
             : 0
         }}
+        transition={{ duration: 0.1 }}
       />
 
       <Head>
@@ -202,44 +140,110 @@ export default function HomePage() {
         <link rel="preload" as="image" href="/images/pexels-jibarofoto-2014775.jpg" />
       </Head>
 
-      {/* Hero Section */}
-      <HeroSection
-        scrollToSection={scrollToSection}
-        scrollY={scrollY}
-        navbarHovered={navbarHovered}
-        dropdownOpen={dropdownOpen}
-        mobileMenuOpen={mobileMenuOpen}
-      />
+      {/* Enhanced Hero Section with Professional Catholic Aesthetics */}
+      <Motion.div
+        initial="initial"
+        animate="animate"
+        variants={staggerChildren}
+        className="relative"
+      >
+        <HeroSection
+          scrollToSection={scrollToSection}
+          scrollY={navigation.scrollPosition}
+          navbarHovered={false}
+          dropdownOpen={navigation.activeDropdown}
+          mobileMenuOpen={navigation.isOpen}
+        />
+      </Motion.div>
 
-      {/* Welcome Section */}
-      <div className="relative z-20">
+      {/* Enhanced Welcome Section with Scroll-Triggered Animation */}
+      <ScrollRevealSection>
         <WelcomeSection />
-      </div>
+      </ScrollRevealSection>
 
-      {/* News Section with subtle overlap */}
-      <div className="relative z-30 -mt-16">
+      {/* Enhanced News Section with Professional Media Presentation */}
+      <ScrollRevealSection className="-mt-16">
         <NewsSection
-          isLoading={isLoading}
+          isLoading={ui.isLoading}
           imagesLoaded={imagesLoaded}
           handleImageLoad={handleImageLoad}
-          isMobile={isMobile}
+          isMobile={false}
         />
-      </div>
+      </ScrollRevealSection>
 
-      {/* History Section with subtle overlap */}
-      <div className="relative z-40 -mt-16">
+      {/* Enhanced History Section with Reverent Animation */}
+      <ScrollRevealSection className="-mt-16" variant="reverent">
         <HistorySection />
-      </div>
+      </ScrollRevealSection>
 
-      {/* Events Section with subtle overlap */}
-      <div className="relative z-50 -mt-16">
+      {/* Enhanced Events Section with Interactive Elements */}
+      <ScrollRevealSection className="-mt-16">
         <EventsSection />
-      </div>
+      </ScrollRevealSection>
 
-      {/* CTA Section with subtle overlap */}
-      <div className="relative z-60">
+      {/* Enhanced Newsletter Section with Catholic Color Psychology */}
+      <ScrollRevealSection className="py-20 bg-navy-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header Section with Professional Typography */}
+          <Motion.div
+            initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: ui.reducedMotion ? 0.2 : 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className={`${typographyScale.h1} text-white mb-6 relative`}>
+              Stay Connected with Our Community
+              {/* Gold accent underline */}
+              <Motion.div
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                variants={goldAccent}
+                style={{ width: '120px' }}
+              />
+            </h2>
+            <p className={`${typographyScale.bodyLarge} text-gray-100 mb-8 max-w-4xl mx-auto`}>
+              Join our newsletter to receive weekly updates about parish life, spiritual reflections, 
+              upcoming events, and important announcements from St Saviour's Catholic Church.
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 text-gray-300">
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-700 rounded-full"></span>
+                <span className={typographyScale.body}>Weekly updates</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-700 rounded-full"></span>
+                <span className={typographyScale.body}>Event announcements</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-700 rounded-full"></span>
+                <span className={typographyScale.body}>Spiritual reflections</span>
+              </span>
+            </div>
+          </Motion.div>
+
+          {/* Enhanced Form Container */}
+          <Motion.div
+            initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
+            whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: ui.reducedMotion ? 0.2 : 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="w-full"
+          >
+            <div className="shadow-2xl bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 lg:p-12 hover:bg-white/15 transition-all duration-300">
+              <NewsletterForm 
+                variant="default" 
+                showInterests={true}
+                className="w-full max-w-none"
+              />
+            </div>
+          </Motion.div>
+        </div>
+      </ScrollRevealSection>
+
+      {/* Enhanced CTA Section */}
+      <ScrollRevealSection>
         <CTASection />
-      </div>
+      </ScrollRevealSection>
 
       {/* Footer */}
       <Footer />

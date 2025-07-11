@@ -209,7 +209,7 @@ export const useMassTimesQuery = () => {
 
 export const useMassTimesMutation = () => {
   const queryClient = useQueryClient()
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: api.updateMassTimes,
@@ -249,7 +249,7 @@ export const useEventQuery = (id: string) => {
 
 export const useCreateEventMutation = () => {
   const queryClient = useQueryClient()
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: api.createEvent,
@@ -276,7 +276,7 @@ export const useCreateEventMutation = () => {
 
 export const useUpdateEventMutation = () => {
   const queryClient = useQueryClient()
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<EventData> }) =>
@@ -304,7 +304,7 @@ export const useUpdateEventMutation = () => {
 
 export const useDeleteEventMutation = () => {
   const queryClient = useQueryClient()
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: api.deleteEvent,
@@ -355,7 +355,7 @@ export const usePrayersQuery = (category?: string) => {
 
 // Newsletter Hook
 export const useNewsletterMutation = () => {
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: api.subscribeNewsletter,
@@ -378,7 +378,7 @@ export const useNewsletterMutation = () => {
 
 // Contact Form Hook
 export const useContactMutation = () => {
-  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
 
   return useMutation({
     mutationFn: api.submitContactForm,

@@ -23,7 +23,7 @@ module.exports = {
           800: '#3f34a8',
           900: '#1e1b4b',
         },
-        // Catholic Navy - Deep, reverent blues
+        // Catholic Navy - Deep, reverent blues based on #1a365d
         navy: {
           50: '#f0f4ff',
           100: '#e0eaff',
@@ -32,9 +32,9 @@ module.exports = {
           400: '#8691f8',
           500: '#6366f1',
           600: '#4f46e5',
-          700: '#4338ca',
+          700: '#2d4a87',
           800: '#1e3a8a',
-          900: '#1e2a5e',
+          900: '#1a365d',
         },
         // Pure whites for sacred spaces
         white: {
@@ -49,7 +49,7 @@ module.exports = {
           800: '#e8e8e8',
           900: '#e0e0e0',
         },
-        // Catholic Gold - Warm, sacred metallics
+        // Catholic Gold - Warm, sacred metallics based on #d4af37
         gold: {
           50: '#fffef7',
           100: '#fffce8',
@@ -57,10 +57,10 @@ module.exports = {
           300: '#ffeb97',
           400: '#ffda58',
           500: '#ffc832',
-          600: '#f1a82a',
-          700: '#d18225',
-          800: '#b5621f',
-          900: '#8b4513',
+          600: '#f1c40f',
+          700: '#d4af37',
+          800: '#b8941f',
+          900: '#8b6914',
         },
         // Liturgical burgundy for accents
         burgundy: {
@@ -129,9 +129,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        'serif': ['"EB Garamond"', 'Garamond', 'Georgia', 'Times New Roman', 'serif'],
+        'serif': ['Merriweather', 'Georgia', 'Times New Roman', 'serif'],
         'sans': ['"Source Sans Pro"', 'Inter', 'system-ui', 'sans-serif'],
-        'display': ['"EB Garamond"', 'Garamond', 'Georgia', 'serif'],
+        'display': ['Merriweather', 'Georgia', 'serif'],
+        'body': ['"Source Sans Pro"', 'Inter', 'system-ui', 'sans-serif'],
+        'multilingual': ['"Noto Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],
@@ -141,7 +143,7 @@ module.exports = {
         'xl': ['1.25rem', { lineHeight: '1.75rem' }],
         '2xl': ['1.5rem', { lineHeight: '2rem' }],
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '4xl': ['2.5rem', { lineHeight: '2.75rem' }],
         '5xl': ['3rem', { lineHeight: '1.2' }],
         '6xl': ['3.75rem', { lineHeight: '1.1' }],
         '7xl': ['4.5rem', { lineHeight: '1.1' }],

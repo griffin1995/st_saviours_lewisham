@@ -1,5 +1,6 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useRef } from 'react'
+// Dynamic GSAP imports for SSR compatibility
+import { Loader } from '@googlemaps/js-api-loader'
 import { 
   HomeModernIcon as Church, 
   HeartIcon as Heart, 
@@ -10,10 +11,22 @@ import {
   TrophyIcon as Award, 
   ClockIcon as Clock, 
   EnvelopeIcon as Mail, 
-  PhoneIcon as Phone 
+  PhoneIcon as Phone,
+  ArrowRightIcon,
+  MapPinIcon
 } from '@heroicons/react/24/solid'
 
-// New modern component system
+// Enhanced 2025 Components
+import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
+import { typographyScale } from '@/lib/fonts'
+import ScrollRevealSection from '@/components/ScrollRevealSection'
+import { InteractiveStatistics } from '@/components/enhanced/InteractiveStatistics'
+import { EnhancedTimeline } from '@/components/enhanced/EnhancedTimeline'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { LeadershipCarousel } from '@/components/enhanced/LeadershipCarousel'
+import { PhotoSwipeLightbox, EnhancedImage } from '@/components/enhanced/PhotoSwipeLightbox'
+
+// Modern imports with Zustand integration
 import { PageLayout, PageHero } from '@/components/layout'
 import { 
   Button, 
@@ -26,11 +39,118 @@ import {
   Flex,
   Container
 } from '@/components/ui'
-import { prefersReducedMotion } from '@/lib/utils'
+import { useUI, useActions } from '@/stores/churchStore'
 import { priestBiographies } from '@/lib/data'
 
 export default function AboutUs() {
-  const reducedMotion = prefersReducedMotion()
+  const ui = useUI()
+  const actions = useActions()
+  const mapRef = useRef<HTMLDivElement>(null)
+
+  // Enhanced page initialization
+  useEffect(() => {
+    actions.addNotification({
+      type: 'info',
+      message: 'Welcome to our About page',
+      dismissible: true
+    })
+  }, [])
+
+  // Google Maps integration for CTA section
+  useEffect(() => {
+    if (!mapRef.current) return
+
+    const initMap = async () => {
+      const loader = new Loader({
+        apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+        version: 'weekly',
+        libraries: ['places']
+      })
+
+      try {
+        const google = await loader.load()
+        
+        const map = new google.maps.Map(mapRef.current!, {
+          center: { lat: 51.4619, lng: -0.0366 }, // St Saviour's coordinates
+          zoom: 15,
+          styles: [
+            // Catholic color scheme map styling
+            {
+              featureType: 'all',
+              elementType: 'geometry.fill',
+              stylers: [{ color: '#1a365d' }]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{ color: '#d4af37' }]
+            }
+          ]
+        })
+
+        new google.maps.Marker({
+          position: { lat: 51.4619, lng: -0.0366 },
+          map: map,
+          title: "St Saviour's Catholic Church",
+          icon: {
+            url: '/icons/church-marker.svg',
+            scaledSize: new google.maps.Size(40, 40)
+          }
+        })
+      } catch (error) {
+        console.log('Maps API not available')
+        // Show fallback content
+        if (mapRef.current) {
+          mapRef.current.innerHTML = `
+            <div class="w-full h-full bg-navy-900 rounded-xl flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="w-16 h-16 bg-gold-700/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <svg class="h-8 w-8 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <p class="text-lg font-medium">St Saviour's Catholic Church</p>
+                <p class="text-gray-300">Lewisham High Street, SE13 6AA</p>
+              </div>
+            </div>
+          `
+        }
+      }
+    }
+
+    initMap()
+  }, [])
+
+  // Enhanced animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: ui.reducedMotion ? 0.2 : 0.8,
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+  }
+
+  const scaleVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+  }
 
   // Data arrays for cleaner code
   const stats = [
@@ -67,7 +187,14 @@ export default function AboutUs() {
     }
   ]
 
-  const timelineEvents = [
+  const timelineEvents: Array<{
+    year: string
+    title: string
+    event: string
+    icon: React.ComponentType<any>
+    image: string
+    side: 'left' | 'right'
+  }> = [
     { 
       year: "849-918", 
       title: "Medieval Origins", 
@@ -168,337 +295,366 @@ export default function AboutUs() {
         overlay="medium"
       />
 
-      {/* Statistics Section */}
+      {/* Enhanced Interactive Statistics with Chart.js */}
       <Section spacing="md" background="slate">
-        <Grid cols={4} gap="lg">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
-              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
-              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.5, delay: index * 0.1 }}
+        <ScrollRevealSection>
+          <Container>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center group"
             >
-              <div className="w-16 h-16 icon-container-white rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <stat.icon className="h-8 w-8 icon-theme-dark" />
-              </div>
-              <Heading level="h3" color="white" className="text-3xl lg:text-4xl font-bold mb-2">
-                {stat.number}
-              </Heading>
-              <Text color="white" weight="medium">
-                {stat.label}
-              </Text>
-            </motion.div>
-          ))}
-        </Grid>
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Our Parish by the Numbers
+                {/* Gold accent underline */}
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '120px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                These numbers represent the vibrant community that makes St Saviour's a beacon of faith in Lewisham.
+              </p>
+            </Motion.div>
+            
+            <InteractiveStatistics 
+              stats={stats} 
+              reducedMotion={ui.reducedMotion}
+              showCharts={true}
+            />
+          </Container>
+        </ScrollRevealSection>
       </Section>
 
-      {/* Mission Statement */}
+      {/* Enhanced Mission Statement with Scripture Card */}
       <Section spacing="lg" background="slate">
         <Container size="md">
-          <motion.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8"
-          >
-            <div className="w-20 h-20 icon-container-white rounded-full flex items-center justify-center mx-auto shadow-lg">
-              <Church className="h-10 w-10 icon-theme-dark" />
+          <ScrollRevealSection variant="reverent">
+            <div className="text-center space-y-12">
+              <Motion.div
+                className="w-20 h-20 icon-container-white rounded-full flex items-center justify-center mx-auto shadow-lg"
+                whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Church className="h-10 w-10 icon-theme-dark" />
+              </Motion.div>
+              
+              <h2 className={`${typographyScale.h1} text-white mb-8 relative`}>
+                Our Mission
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '80px' }}
+                />
+              </h2>
+              
+              <ScriptureCard
+                title=""
+                content="St Saviour's Catholic Church exists to be a beacon of hope and faith in Lewisham, where all people can encounter the transforming love of Jesus Christ and grow together as a community of believers."
+                verse="Matthew 5:14 - 'You are the light of the world'"
+                variant="mission"
+                reducedMotion={ui.reducedMotion}
+              />
+
+              {/* Mission highlights with enhanced animations */}
+              <Motion.div 
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+                variants={staggerChildren}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+              >
+                {[
+                  { icon: Heart, text: "Welcome All", desc: "Every person finds a home" },
+                  { icon: Users, text: "Build Community", desc: "Strengthen bonds of faith" },
+                  { icon: Star, text: "Share Faith", desc: "Spread God's love" }
+                ].map((item, index) => (
+                  <Motion.div
+                    key={index}
+                    className="flex flex-col items-center space-y-4 group"
+                    variants={fadeInUp}
+                    whileHover={ui.reducedMotion ? {} : { y: -8, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="w-16 h-16 bg-gold-700/20 rounded-2xl flex items-center justify-center group-hover:bg-gold-700/30 transition-all duration-300">
+                      <item.icon className="h-8 w-8 text-gold-400 group-hover:text-gold-300 transition-colors duration-300" />
+                    </div>
+                    <div className="text-center">
+                      <h3 className={`${typographyScale.h4} text-white mb-2`}>
+                        {item.text}
+                      </h3>
+                      <p className={`${typographyScale.caption} text-gray-300`}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  </Motion.div>
+                ))}
+              </Motion.div>
             </div>
-            
-            <Heading level="h2" color="white" align="center" className="mb-8">
-              Our Mission
-            </Heading>
-            
-            <Text size="xl" align="center" className="lg:text-2xl max-w-4xl mx-auto">
-              St Saviour's Catholic Church exists to be a beacon of hope and faith in Lewisham, 
-              where all people can encounter the transforming love of Jesus Christ and grow 
-              together as a community of believers.
-            </Text>
-          </motion.div>
+          </ScrollRevealSection>
         </Container>
       </Section>
 
-      {/* Values Section */}
+      {/* Enhanced Values Section with React Spring */}
       <Section spacing="lg" background="slate">
-        <motion.div
-          initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-          whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Heading level="h2" color="white" align="center" className="mb-6">
-            Our Values
-          </Heading>
-          <Text size="xl" align="center" color="white">
-            These core values guide everything we do as a parish community.
-          </Text>
-        </motion.div>
+        <ScrollRevealSection>
+          <Motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+              Our Core Values
+              <Motion.div
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                style={{ width: '120px' }}
+              />
+            </h2>
+            <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+              These core values guide everything we do as a parish community, shaping our mission and ministry.
+            </p>
+          </Motion.div>
 
-        <Grid cols={4} gap="lg">
-          {values.map((value, index) => (
-            <motion.div
-              key={index}
-              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              <Card variant="default" padding="lg" className="h-full border border-slate-600 hover:border-white transition-all duration-300 bg-white/10 backdrop-blur-sm">
-                <CardContent>
-                  <div className="text-center space-y-6">
-                    <div className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      <value.icon className="h-10 w-10 icon-theme-dark" />
+          <Grid cols={4} gap="lg">
+            {values.map((value, index) => (
+              <Motion.div
+                key={index}
+                className="group h-full"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Motion.div
+                  className="h-full bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-500 rounded-2xl p-8 group-hover:bg-white/15"
+                  whileHover={ui.reducedMotion ? {} : { y: -10, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="text-center space-y-6 h-full flex flex-col justify-between">
+                    <div>
+                      <Motion.div 
+                        className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                        whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <value.icon className="h-10 w-10 icon-theme-dark" />
+                      </Motion.div>
+                      <h3 className={`${typographyScale.h3} text-white mb-4 group-hover:text-gold-300 transition-colors duration-300`}>
+                        {value.title}
+                      </h3>
                     </div>
-                    <Heading level="h3" color="white" align="center" className="text-xl font-bold">
-                      {value.title}
-                    </Heading>
-                    <Text color="white" align="center">
+                    <p className={`${typographyScale.body} text-gray-100 leading-relaxed`}>
                       {value.description}
-                    </Text>
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Grid>
+                </Motion.div>
+              </Motion.div>
+            ))}
+          </Grid>
+        </ScrollRevealSection>
       </Section>
 
-      {/* History Section - Vertical Timeline */}
+      {/* Enhanced History Section with GSAP Timeline */}
       <Section spacing="lg" background="slate">
         <Container>
-          <motion.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <Heading level="h2" color="white" align="center" className="mb-6">
-              Our Rich History
-            </Heading>
-            <Text size="xl" align="center" color="white" className="max-w-4xl mx-auto">
-              From medieval origins to modern sanctuary, discover the remarkable journey of St Saviour's Catholic Church through the centuries.
-            </Text>
-          </motion.div>
+          <ScrollRevealSection variant="reverent">
+            <Motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Our Sacred History
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-4xl mx-auto leading-relaxed`}>
+                From medieval origins to modern sanctuary, discover the remarkable journey of St Saviour's Catholic Church through the centuries of faith and service.
+              </p>
+            </Motion.div>
 
-          {/* Vertical Timeline */}
-          <div className="relative max-w-6xl mx-auto">
-            {/* Central Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"></div>
-            
-            {/* Timeline Events */}
-            <div className="space-y-12">
-              {timelineEvents.map((event, index) => (
-                <motion.div
-                  key={index}
-                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-                  whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                  transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className={`relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${
-                    event.side === 'left' ? 'lg:text-right' : 'lg:text-left'
-                  }`}
-                >
-                  {/* Timeline Node */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 bg-slate-900 rounded-full border-4 border-gold-500 flex items-center justify-center z-10 shadow-2xl">
-                    <event.icon className="h-8 w-8 text-gold-500" />
-                  </div>
-
-                  {/* Content Card */}
-                  <div className={`${event.side === 'left' ? 'lg:pr-12' : 'lg:pl-12 lg:col-start-2'}`}>
-                    <Card className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-300 group">
-                      <CardContent className="p-8">
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-4 mb-4">
-                            <span className="px-4 py-2 badge-gold-theme rounded-full font-bold text-lg">
-                              {event.year}
-                            </span>
-                          </div>
-                          <Heading level="h3" color="white" className="text-2xl font-bold mb-4">
-                            {event.title}
-                          </Heading>
-                          <Text color="gray-100" size="lg" className="leading-relaxed">
-                            {event.event}
-                          </Text>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Event Image */}
-                  <div className={`${event.side === 'left' ? 'lg:pl-12 lg:col-start-2 lg:row-start-1' : 'lg:pr-12 lg:col-start-1'}`}>
-                    <div className="relative h-64 rounded-2xl overflow-hidden shadow-2xl group-hover:scale-105 transition-transform duration-300">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <Text size="sm" color="white" className="font-medium">
-                          {event.year} - {event.title}
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+            {/* Enhanced Timeline with PhotoSwipe Integration */}
+            <PhotoSwipeLightbox 
+              galleryId="history-gallery" 
+              images={timelineEvents.map(event => ({
+                src: event.image,
+                width: 800,
+                height: 600,
+                alt: event.title,
+                caption: `${event.year} - ${event.title}: ${event.event}`
+              }))}
+            >
+              <EnhancedTimeline 
+                events={timelineEvents} 
+                reducedMotion={ui.reducedMotion}
+              />
+            </PhotoSwipeLightbox>
+          </ScrollRevealSection>
         </Container>
       </Section>
 
-      {/* Leadership Section */}
+      {/* Enhanced Leadership Section with Embla Carousel */}
       <Section spacing="lg" background="slate">
-        <motion.div
-          initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-          whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Heading level="h2" color="white" align="center" className="mb-6">
-            Our Leadership
-          </Heading>
-          <Text size="xl" align="center" color="white">
-            Meet the dedicated team who guide our parish community.
-          </Text>
-        </motion.div>
+        <ScrollRevealSection>
+          <Motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+              Our Spiritual Leadership
+              <Motion.div
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                style={{ width: '160px' }}
+              />
+            </h2>
+            <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+              Meet the dedicated priests and pastoral team who guide our parish community with wisdom, compassion, and faith.
+            </p>
+          </Motion.div>
 
-        <Grid cols={2} gap="lg">
-          {leadership.map((leader, index) => (
-            <motion.div
-              key={index}
-              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              <Card variant="default" padding="lg" className="text-center border border-gray-700 hover:border-white transition-all duration-300 bg-white/10 backdrop-blur-sm">
-                <CardContent>
-                  <div className="space-y-6">
-                    <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      <img
-                        src={leader.image}
-                        alt={leader.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <Heading level="h3" color="white" align="center" className="text-2xl font-bold mb-2">
-                        {leader.name}
-                      </Heading>
-                      <Text color="white" weight="semibold" align="center" className="text-lg mb-6 opacity-80">
-                        {leader.role}
-                      </Text>
-                    </div>
-                    <Text color="white" align="center">
-                      {leader.description}
-                    </Text>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Grid>
-
-        {/* Detailed Priest Biographies */}
-        <div className="mt-16 space-y-8">
-          {priestBiographies.map((priest, index) => (
-            <motion.div
-              key={priest.id}
-              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Card variant="default" padding="lg" className="border border-slate-600 hover:border-white transition-all duration-300 bg-white/10 backdrop-blur-sm">
-                <CardContent>
-                  <div className="grid md:grid-cols-3 gap-8 items-start">
-                    <div className="text-center md:text-left">
-                      <div className="w-32 h-32 bg-gray-300 rounded-xl mx-auto md:mx-0 mb-4 overflow-hidden">
-                        <img
-                          src={priest.image}
-                          alt={priest.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <Heading level="h3" color="white" className="text-xl font-bold mb-2">
-                        {priest.name}
-                      </Heading>
-                      <Text color="white" weight="semibold" className="text-lg mb-4 opacity-80">
-                        {priest.title}
-                      </Text>
-                      <div className="space-y-2 text-sm">
-                        <Text color="white" className="opacity-70">
-                          <strong>Ordained:</strong> {priest.ordination}
-                        </Text>
-                        <Text color="white" className="opacity-70">
-                          <strong>Diocese:</strong> {priest.diocese}
-                        </Text>
-                      </div>
-                    </div>
-                    <div className="md:col-span-2">
-                      <Text color="white" size="base" className="leading-relaxed mb-6">
-                        {priest.bio}
-                      </Text>
-                      <div>
-                        <Text color="white" weight="semibold" className="mb-3">
-                          Areas of Ministry:
-                        </Text>
-                        <div className="flex flex-wrap gap-2">
-                          {priest.specialties.map((specialty, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1 bg-gold-500/20 text-gold-300 rounded-full text-sm"
-                            >
-                              {specialty}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+          <LeadershipCarousel
+            leaders={leadership}
+            priestBiographies={priestBiographies}
+            autoplay={!ui.reducedMotion}
+            reducedMotion={ui.reducedMotion}
+          />
+        </ScrollRevealSection>
       </Section>
 
-      {/* Call to Action */}
+      {/* Enhanced Call to Action with Google Maps */}
       <Section spacing="lg" background="slate">
-        <Container size="md">
-          <motion.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8"
-          >
-            <Heading level="h2" color="white" align="center">
-              Join Our Community
-            </Heading>
-            <Text size="xl" align="center" color="white" className="max-w-3xl mx-auto">
-              Whether you're new to the area or have been part of Lewisham for years, 
-              we'd love to welcome you to St Saviour's.
-            </Text>
-            
-            <Flex justify="center" gap="md" className="pt-4">
-              <Button variant="primary" size="lg" leftIcon={<Mail className="h-5 w-5" />}>
-                Get in Touch
-              </Button>
-              <Button variant="secondary" size="lg" leftIcon={<Clock className="h-5 w-5" />}>
-                Mass Times
-              </Button>
-            </Flex>
-          </motion.div>
+        <Container size="lg">
+          <ScrollRevealSection>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - CTA Content */}
+              <Motion.div
+                className="space-y-8"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div>
+                  <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                    Join Our Faith Community
+                    <Motion.div
+                      className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                      style={{ width: '120px' }}
+                    />
+                  </h2>
+                  <p className={`${typographyScale.bodyLarge} text-gray-100 leading-relaxed`}>
+                    Whether you're new to the area or have been part of Lewisham for years, 
+                    we'd love to welcome you to St Saviour's vibrant Catholic community.
+                  </p>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Motion.div
+                    whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                    whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                  >
+                    <Button 
+                      variant="primary" 
+                      size="lg" 
+                      leftIcon={<Mail className="h-5 w-5" />}
+                      rightIcon={<ArrowRightIcon className="h-4 w-4" />}
+                      className="bg-white text-slate-900 hover:bg-gray-100 shadow-xl"
+                    >
+                      Get in Touch
+                    </Button>
+                  </Motion.div>
+                  
+                  <Motion.div
+                    whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                    whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                  >
+                    <Button 
+                      variant="secondary" 
+                      size="lg" 
+                      leftIcon={<Clock className="h-5 w-5" />}
+                      className="border-white/30 text-white hover:bg-white/10 hover:border-white"
+                    >
+                      Mass Times
+                    </Button>
+                  </Motion.div>
+                </div>
+
+                {/* Enhanced contact info */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-gold-700/20 rounded-xl flex items-center justify-center">
+                      <MapPinIcon className="h-5 w-5 text-gold-400" />
+                    </div>
+                    <div>
+                      <p className={`${typographyScale.body} text-white font-medium`}>Visit Us</p>
+                      <p className={`${typographyScale.caption} text-gray-300`}>Lewisham High Street, SE13 6AA</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-gold-700/20 rounded-xl flex items-center justify-center">
+                      <Phone className="h-5 w-5 text-gold-400" />
+                    </div>
+                    <div>
+                      <p className={`${typographyScale.body} text-white font-medium`}>Call Us</p>
+                      <p className={`${typographyScale.caption} text-gray-300`}>020 8852 3073</p>
+                    </div>
+                  </div>
+                </div>
+              </Motion.div>
+
+              {/* Right Column - Interactive Google Map */}
+              <Motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 group hover:border-gold-500/50 transition-all duration-500">
+                  <div className="relative h-80 w-full rounded-xl overflow-hidden">
+                    <div ref={mapRef} className="w-full h-full" />
+                    {/* Fallback image if Maps API not available */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-navy-900 to-navy-800 flex items-center justify-center opacity-0 group-hover:opacity-5 transition-opacity duration-300">
+                      <MapPinIcon className="h-16 w-16 text-gold-500" />
+                    </div>
+                  </div>
+                  <div className="mt-4 text-center">
+                    <p className={`${typographyScale.caption} text-gray-300`}>
+                      Click and drag to explore the area around our church
+                    </p>
+                  </div>
+                </div>
+              </Motion.div>
+            </div>
+          </ScrollRevealSection>
         </Container>
       </Section>
     </PageLayout>

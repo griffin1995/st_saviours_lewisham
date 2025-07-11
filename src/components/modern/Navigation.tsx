@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -18,21 +18,10 @@ import { getLogo } from '@/lib/cms-images'
 import { getParishName, getParishLocation } from '@/lib/cms-content'
 
 interface NavigationProps {
-  navbarHovered?: boolean;
-  setNavbarHovered?: (hovered: boolean) => void;
-  dropdownOpen?: string | null;
-  setDropdownOpen?: (item: string | null) => void;
-  mobileMenuOpen?: boolean;
-  setMobileMenuOpen?: (open: boolean) => void;
-  setSearchOpen?: (open: boolean) => void;
-  className?: string;
+  className?: string
 }
 
-export default function Navigation({
-  // Legacy props for backward compatibility
-  setSearchOpen: externalSetSearchOpen,
-  className = ''
-}: NavigationProps = {}) {
+export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
   const navigation = useNavigation()
   const ui = useUI()
   const actions = useActions()
@@ -50,36 +39,11 @@ export default function Navigation({
     return () => document.removeEventListener('keydown', handleEscape)
   }, [actions])
 
-  // Handle hover with proper delays to prevent flickering
-  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null)
-
-  const handleMouseEnterNav = (itemName: string) => {
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout)
-      setHoverTimeout(null)
-    }
-    actions.setActiveDropdown(itemName)
-  }
-
-  const handleMouseLeaveNavArea = () => {
-    const timeout = setTimeout(() => {
-      actions.setActiveDropdown(null)
-    }, 150) // Small delay to allow moving to dropdown
-    setHoverTimeout(timeout)
-  }
-
-  const handleMouseEnterDropdown = () => {
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout)
-      setHoverTimeout(null)
-    }
-  }
-
   // Handle outside clicks
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       const target = e.target as Element
-      if (!target.closest('[data-navigation]') && !target.closest('.dropdown-area')) {
+      if (!target.closest('[data-navigation]')) {
         actions.setActiveDropdown(null)
       }
     }
@@ -89,15 +53,6 @@ export default function Navigation({
       return () => document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [navigation.activeDropdown, actions])
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout)
-      }
-    }
-  }, [hoverTimeout])
 
   const handleDropdownToggle = (itemName: string) => {
     actions.setActiveDropdown(
@@ -117,8 +72,6 @@ export default function Navigation({
     actions.setNavigationOpen(false)
     actions.setActiveDropdown(null)
   }
-
-  const setSearchOpen = externalSetSearchOpen ?? (() => {})
 
   // Animation variants
   const navVariants = {
@@ -178,7 +131,6 @@ export default function Navigation({
 
   const isScrolled = navigation.scrollPosition > 20
 
-
   return (
     <>
       <motion.nav
@@ -227,15 +179,13 @@ export default function Navigation({
             </Link>
 
             {/* Desktop Navigation */}
-            <div 
-              className="hidden lg:flex items-center space-x-1"
-              onMouseLeave={handleMouseLeaveNavArea}
-            >
+            <div className="hidden lg:flex items-center space-x-1">
               {navigationMenu.map((item) => (
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => handleMouseEnterNav(item.name)}
+                  onMouseEnter={() => actions.setActiveDropdown(item.name)}
+                  onMouseLeave={() => actions.setActiveDropdown(null)}
                 >
                   <motion.button
                     className={`
@@ -267,7 +217,7 @@ export default function Navigation({
                   className="p-2 rounded-lg transition-colors duration-200 text-white hover:text-white hover:bg-white/10"
                   whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                   whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
-                  onClick={() => setSearchOpen(true)}
+                  onClick={() => {/* Handle search */}}
                 >
                   <MagnifyingGlassIcon className="h-5 w-5" />
                 </motion.button>
@@ -399,18 +349,6 @@ export default function Navigation({
         </AnimatePresence>
       </motion.nav>
 
-      {/* Hover Bridge - Invisible area to connect nav and dropdown */}
-      <AnimatePresence>
-        {navigation.activeDropdown && (
-          <div 
-            className="fixed left-0 right-0 h-4 z-[9997] dropdown-area"
-            style={{ top: '76px' }}
-            onMouseEnter={handleMouseEnterDropdown}
-            onMouseLeave={handleMouseLeaveNavArea}
-          />
-        )}
-      </AnimatePresence>
-
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
         {navigation.activeDropdown && (
@@ -419,11 +357,9 @@ export default function Navigation({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed left-0 right-0 bg-slate-900/95 backdrop-blur-xl shadow-xl border-b border-slate-700/50 z-[9998] dropdown-area"
+            className="fixed left-0 right-0 bg-slate-900/95 backdrop-blur-xl shadow-xl border-b border-slate-700/50 z-[9998]"
             style={{ top: '80px' }}
             data-navigation
-            onMouseEnter={handleMouseEnterDropdown}
-            onMouseLeave={handleMouseLeaveNavArea}
           >
             <div className="max-w-7xl mx-auto px-6 py-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -446,7 +382,7 @@ export default function Navigation({
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white group-hover:text-gold-300 transition-colors duration-300 relative inline-block">
+                            <h3 className="text-lg font-semibold text-white group-hover:text-gold-300 transition-colors duration-300 relative">
                               {subItem.name}
                               <span className="absolute bottom-0 left-0 h-0.5 bg-gold-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left w-full"></span>
                             </h3>
@@ -516,3 +452,5 @@ export default function Navigation({
     </>
   )
 }
+
+export default Navigation
