@@ -64,8 +64,8 @@ const EventCard: React.FC<EventCardProps> = ({
   const [isRegistering, setIsRegistering] = useState(false)
   const [showShareMenu, setShowShareMenu] = useState(false)
   
-  const addNotification = useChurchStore((state: any) => state.actions.addNotification)
-  const reducedMotion = useChurchStore((state: any) => state.ui.reducedMotion)
+  const addNotification = useChurchStore((state) => state.actions.addNotification)
+  const reducedMotion = useChurchStore((state) => state.ui.reducedMotion)
   
   // Format date and time
   const eventDate = new Date(event.date)
