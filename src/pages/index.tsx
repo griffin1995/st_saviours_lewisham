@@ -24,6 +24,12 @@ import ScrollRevealSection from "@/components/ScrollRevealSection";
 // Import modern components
 import { NewsletterForm } from "@/components/modern/NewsletterForm";
 
+// Import enhanced 2025 components
+import { TestimonialsCarousel } from "@/components/enhanced/TestimonialsCarousel";
+import { EmblaHeroCarousel } from "@/components/enhanced/EmblaHeroCarousel";
+import { CommunityMetrics } from "@/components/enhanced/CommunityMetrics";
+import { PhotoSwipeLightbox } from "@/components/enhanced/PhotoSwipeLightbox";
+
 // Import store and hooks
 import { useChurchStore, useUI, useActions } from "@/stores/churchStore";
 import { useEventsQuery } from "@/hooks/useData";
@@ -140,25 +146,91 @@ export default function HomePage() {
         <link rel="preload" as="image" href="/images/pexels-jibarofoto-2014775.jpg" />
       </Head>
 
-      {/* Enhanced Hero Section with Professional Catholic Aesthetics */}
-      <Motion.div
-        initial="initial"
-        animate="animate"
-        variants={staggerChildren}
-        className="relative"
-      >
-        <HeroSection
-          scrollToSection={scrollToSection}
-          scrollY={navigation.scrollPosition}
-          navbarHovered={false}
-          dropdownOpen={navigation.activeDropdown}
-          mobileMenuOpen={navigation.isOpen}
-        />
-      </Motion.div>
+      {/* Enhanced Hero Section with Embla Carousel */}
+      <EmblaHeroCarousel
+        autoPlay={true}
+        autoPlayDelay={6000}
+        reducedMotion={ui.reducedMotion}
+        slides={[
+          {
+            id: '1',
+            image: '/images/pexels-pixabay-208216.jpg',
+            title: 'Welcome to St Saviour\'s',
+            subtitle: 'A Place of Faith, Hope & Community',
+            description: 'Join our vibrant Catholic community where faith meets fellowship. All are welcome in God\'s house.',
+            overlay: 'medium',
+            cta: {
+              text: 'Explore Our Community',
+              action: () => scrollToSection('welcome')
+            }
+          },
+          {
+            id: '2',
+            image: '/images/pexels-jibarofoto-2014775.jpg',
+            title: 'Sunday Mass',
+            subtitle: 'Worship with Us',
+            description: 'Experience the beauty of the Mass in our historic church. Multiple service times available.',
+            overlay: 'medium',
+            cta: {
+              text: 'View Mass Times',
+              action: () => window.location.href = '/mass'
+            }
+          },
+          {
+            id: '3',
+            image: '/images/st_saviours_interior_1939_archive_photo.jpeg',
+            title: 'Rich History',
+            subtitle: 'Over 150 Years of Faith',
+            description: 'Discover the heritage and traditions that make St Saviour\'s a cornerstone of our community.',
+            overlay: 'dark',
+            cta: {
+              text: 'Learn Our History',
+              action: () => scrollToSection('history')
+            }
+          }
+        ]}
+        onSlideChange={(index) => {
+          // Optional: Track slide changes for analytics
+          console.log('Slide changed to:', index);
+        }}
+      />
 
       {/* Enhanced Welcome Section with Scroll-Triggered Animation */}
       <ScrollRevealSection>
         <WelcomeSection />
+      </ScrollRevealSection>
+
+      {/* Community Testimonials Section */}
+      <ScrollRevealSection className="py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Motion.div
+            initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={{ duration: ui.reducedMotion ? 0.2 : 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className={`${typographyScale.h1} text-white mb-6 relative`}>
+              Voices from Our Community
+              {/* Gold accent underline */}
+              <Motion.div
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                variants={goldAccent}
+                style={{ width: '140px' }}
+              />
+            </h2>
+            <p className={`${typographyScale.bodyLarge} text-gray-100 mb-8 max-w-4xl mx-auto`}>
+              Hear from our parish family about their experiences of faith, fellowship, and spiritual growth at St Saviour's.
+            </p>
+          </Motion.div>
+
+          <TestimonialsCarousel
+            autoPlay={true}
+            interval={7000}
+            reducedMotion={ui.reducedMotion}
+            className="max-w-5xl mx-auto"
+          />
+        </div>
       </ScrollRevealSection>
 
       {/* Enhanced News Section with Professional Media Presentation */}
@@ -179,6 +251,16 @@ export default function HomePage() {
       {/* Enhanced Events Section with Interactive Elements */}
       <ScrollRevealSection className="-mt-16">
         <EventsSection />
+      </ScrollRevealSection>
+
+      {/* Community Metrics Dashboard */}
+      <ScrollRevealSection className="py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CommunityMetrics
+            reducedMotion={ui.reducedMotion}
+            className="w-full"
+          />
+        </div>
       </ScrollRevealSection>
 
       {/* Enhanced Newsletter Section with Catholic Color Psychology */}

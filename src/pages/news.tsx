@@ -817,6 +817,8 @@ export default function News() {
                               <EnhancedImage
                                 src={article.image || '/images/placeholder-article.jpg'}
                                 alt={article.title}
+                                width={400}
+                                height={200}
                                 className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                               <div className="absolute top-3 right-3 flex items-center gap-2">
@@ -933,6 +935,8 @@ export default function News() {
                                 <EnhancedImage
                                   src={article.image || '/images/placeholder-article.jpg'}
                                   alt={article.title}
+                                  width={96}
+                                  height={96}
                                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
                               </div>
@@ -1035,6 +1039,8 @@ export default function News() {
                                   <EnhancedImage
                                     src={article.image || '/images/placeholder-article.jpg'}
                                     alt={article.title}
+                                    width={80}
+                                    height={80}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                   />
                                 </div>
