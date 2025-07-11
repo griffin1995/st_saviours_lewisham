@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 
 interface OfficeHoursProps {
@@ -193,7 +193,7 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -202,11 +202,11 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
     >
       <div className="text-center space-y-4">
         {/* Current Status */}
-        <motion.div
+        <m.div
           className="flex items-center justify-center gap-3"
           variants={itemVariants}
         >
-          <motion.div
+          <m.div
             className={`w-12 h-12 rounded-full flex items-center justify-center ${
               isOpen ? 'bg-green-500/20' : 'bg-red-500/20'
             }`}
@@ -218,7 +218,7 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
             ) : (
               <XCircleIcon className="h-6 w-6 text-red-400" />
             )}
-          </motion.div>
+          </m.div>
           <div className="text-left">
             <div className={`text-lg font-semibold ${isOpen ? 'text-green-400' : 'text-red-400'}`}>
               {isOpen ? 'Open Now' : 'Closed'}
@@ -227,10 +227,10 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
               {nextChange}
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Time Until Change */}
-        <motion.div
+        <m.div
           className="text-center"
           variants={itemVariants}
         >
@@ -240,10 +240,10 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
           <div className="text-sm text-gray-400">
             {isOpen ? 'until closing' : 'until opening'}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Current Time */}
-        <motion.div
+        <m.div
           className="flex items-center justify-center gap-2 text-gray-300"
           variants={itemVariants}
         >
@@ -255,10 +255,10 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
               hour12: false
             })}
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Weekly Schedule */}
-        <motion.div
+        <m.div
           className="mt-6 space-y-2"
           variants={itemVariants}
         >
@@ -282,9 +282,9 @@ export const RealTimeOfficeHours: React.FC<OfficeHoursProps> = ({
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 

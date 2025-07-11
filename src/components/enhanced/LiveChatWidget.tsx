@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -207,7 +207,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
   return (
     <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
       {/* Chat Button */}
-      <motion.button
+      <m.button
         onClick={toggleChat}
         className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
           isOpen ? 'bg-red-600 hover:bg-red-500' : 'bg-gold-600 hover:bg-gold-500'
@@ -224,7 +224,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
         
         {/* Unread Badge */}
         {unreadCount > 0 && !isOpen && (
-          <motion.div
+          <m.div
             className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -233,14 +233,14 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
             <span className="text-white text-xs font-bold">
               {unreadCount > 9 ? '9+' : unreadCount}
             </span>
-          </motion.div>
+          </m.div>
         )}
-      </motion.button>
+      </m.button>
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             className={`absolute bottom-16 right-0 w-80 bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 ${
               isMinimized ? 'h-12' : 'h-96'
             }`}
@@ -286,7 +286,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 {/* Messages */}
                 <div className="h-64 overflow-y-auto p-4 space-y-3 bg-gray-50">
                   {messages.map((message) => (
-                    <motion.div
+                    <m.div
                       key={message.id}
                       className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                       variants={messageVariants}
@@ -310,12 +310,12 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           {formatTime(message.timestamp)}
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                   
                   {/* Typing Indicator */}
                   {isTyping && (
-                    <motion.div
+                    <m.div
                       className="flex justify-start"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -325,7 +325,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           <span className="text-sm">{currentStaff.name} is typing</span>
                           <div className="flex gap-1">
                             {[0, 1, 2].map((i) => (
-                              <motion.div
+                              <m.div
                                 key={i}
                                 className="w-1 h-1 bg-gray-400 rounded-full"
                                 animate={{ opacity: [0, 1, 0] }}
@@ -339,7 +339,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                   
                   <div ref={messagesEndRef} />
@@ -386,7 +386,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 </div>
               </>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

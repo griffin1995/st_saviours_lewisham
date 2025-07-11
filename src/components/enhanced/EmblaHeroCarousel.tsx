@@ -3,7 +3,7 @@ import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import Fade from 'embla-carousel-fade'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/solid'
 
 interface HeroSlide {
@@ -212,7 +212,7 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                   <AnimatePresence mode="wait">
                     {currentIndex === index && (
-                      <motion.div
+                      <m.div
                         key={slide.id}
                         variants={textVariants}
                         initial="hidden"
@@ -220,43 +220,43 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
                         exit="hidden"
                         className="text-white"
                       >
-                        <motion.h2
+                        <m.h2
                           variants={itemVariants}
                           className="text-lg sm:text-xl md:text-2xl font-light text-gold-300 mb-4"
                         >
                           {slide.subtitle}
-                        </motion.h2>
+                        </m.h2>
                         
-                        <motion.h1
+                        <m.h1
                           variants={itemVariants}
                           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight"
                         >
                           {slide.title}
-                        </motion.h1>
+                        </m.h1>
                         
-                        <motion.p
+                        <m.p
                           variants={itemVariants}
                           className="text-xl sm:text-2xl md:text-3xl font-light leading-relaxed mb-8 max-w-3xl mx-auto"
                         >
                           {slide.description}
-                        </motion.p>
+                        </m.p>
 
                         {slide.cta && (
-                          <motion.div
+                          <m.div
                             variants={itemVariants}
                             className="flex justify-center"
                           >
-                            <motion.button
+                            <m.button
                               onClick={slide.cta.action}
                               className="bg-gold-600 hover:bg-gold-500 text-black font-semibold py-4 px-8 rounded-lg transition-colors duration-300 text-lg shadow-lg"
                               whileHover={reducedMotion ? {} : { scale: 1.05 }}
                               whileTap={reducedMotion ? {} : { scale: 0.95 }}
                             >
                               {slide.cta.text}
-                            </motion.button>
-                          </motion.div>
+                            </m.button>
+                          </m.div>
                         )}
-                      </motion.div>
+                      </m.div>
                     )}
                   </AnimatePresence>
                 </div>
@@ -268,7 +268,7 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
 
       {/* Navigation controls */}
       <div className="absolute inset-y-0 left-0 flex items-center pl-4 z-20">
-        <motion.button
+        <m.button
           onClick={scrollPrev}
           className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
           variants={buttonVariants}
@@ -277,11 +277,11 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
           aria-label="Previous slide"
         >
           <ChevronLeftIcon className="h-6 w-6 text-white" />
-        </motion.button>
+        </m.button>
       </div>
 
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 z-20">
-        <motion.button
+        <m.button
           onClick={scrollNext}
           className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
           variants={buttonVariants}
@@ -290,13 +290,13 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
           aria-label="Next slide"
         >
           <ChevronRightIcon className="h-6 w-6 text-white" />
-        </motion.button>
+        </m.button>
       </div>
 
       {/* Dots pagination */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
         {slides.map((_, index) => (
-          <motion.button
+          <m.button
             key={index}
             onClick={() => scrollTo(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -315,7 +315,7 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
       {/* Play/Pause button */}
       {autoPlay && !reducedMotion && (
         <div className="absolute bottom-8 right-8 z-20">
-          <motion.button
+          <m.button
             onClick={toggleAutoplay}
             className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
             variants={buttonVariants}
@@ -328,7 +328,7 @@ export const EmblaHeroCarousel: React.FC<EmblaHeroCarouselProps> = ({
             ) : (
               <PlayIcon className="h-6 w-6 text-white" />
             )}
-          </motion.button>
+          </m.button>
         </div>
       )}
 

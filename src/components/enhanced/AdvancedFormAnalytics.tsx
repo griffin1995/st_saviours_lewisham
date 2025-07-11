@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface FormAnalytics {
   formId: string

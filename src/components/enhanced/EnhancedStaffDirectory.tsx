@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   EnvelopeIcon, 
   PhoneIcon, 
@@ -154,7 +154,7 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       className={`w-full ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -162,7 +162,7 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
       viewport={{ once: true }}
     >
       {/* Header */}
-      <motion.div
+      <m.div
         className="text-center mb-12"
         variants={itemVariants}
       >
@@ -176,10 +176,10 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
           Our dedicated staff are here to serve you and support your spiritual journey. 
           Click on any team member to learn more about their ministry and how to contact them.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* View Mode Toggle */}
-      <motion.div
+      <m.div
         className="flex justify-center mb-8"
         variants={itemVariants}
       >
@@ -205,12 +205,12 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
             List View
           </button>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Staff Directory */}
       <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'space-y-6'}`}>
         {staffData.map((staff, index) => (
-          <motion.div
+          <m.div
             key={staff.id}
             className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:border-gold-500/50 transition-all duration-300 ${
               viewMode === 'list' ? 'flex items-center' : ''
@@ -328,18 +328,18 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
                   className="w-full bg-white/5 text-white px-4 py-2 rounded-xl font-medium hover:bg-white/10 transition-colors duration-300 flex items-center justify-center gap-2"
                 >
                   {selectedStaff === staff.id ? 'Show Less' : 'Show More'}
-                  <motion.div
+                  <m.div
                     animate={{ rotate: selectedStaff === staff.id ? 90 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     <ChevronRightIcon className="h-4 w-4" />
-                  </motion.div>
+                  </m.div>
                 </button>
 
                 {/* Expanded Details */}
                 <AnimatePresence>
                   {selectedStaff === staff.id && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
@@ -367,17 +367,17 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
                           <p>🕒 {staff.availability}</p>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Emergency Contact Info */}
-      <motion.div
+      <m.div
         className="mt-12 p-6 bg-red-500/10 border border-red-500/20 rounded-2xl text-center"
         variants={itemVariants}
       >
@@ -393,8 +393,8 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
         >
           Call Emergency Line: 020 8852 7411
         </a>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 

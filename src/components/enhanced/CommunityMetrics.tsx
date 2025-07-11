@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import {
   Chart as ChartJS,
@@ -260,7 +260,7 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={`w-full ${className}`}
       variants={containerVariants}
@@ -269,7 +269,7 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
       viewport={{ once: true }}
     >
       {/* Header */}
-      <motion.div
+      <m.div
         variants={itemVariants}
         className="text-center mb-12"
       >
@@ -284,10 +284,10 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
         <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
           See how our parish community continues to grow and serve others through faith, fellowship, and outreach.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Key Statistics */}
-      <motion.div
+      <m.div
         variants={itemVariants}
         className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
       >
@@ -297,7 +297,7 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
           { icon: CalendarDaysIcon, label: 'Annual Events', value: countUp.events, color: 'green' },
           { icon: HeartIcon, label: 'Outreach Programs', value: countUp.outreach, color: 'red' }
         ].map((stat, index) => (
-          <motion.div
+          <m.div
             key={index}
             variants={cardVariants}
             whileHover="hover"
@@ -322,14 +322,14 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
             <div className="text-sm text-gray-300">
               {stat.label}
             </div>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Charts Grid */}
       <div className="grid lg:grid-cols-2 gap-8 mb-12">
         {/* Attendance Chart */}
-        <motion.div
+        <m.div
           variants={cardVariants}
           whileHover="hover"
           className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6"
@@ -346,10 +346,10 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
           <div className="h-64">
             <Bar data={attendanceData} options={chartOptions} />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Ministry Participation */}
-        <motion.div
+        <m.div
           variants={cardVariants}
           whileHover="hover"
           className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6"
@@ -366,11 +366,11 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
           <div className="h-64">
             <Doughnut data={ministryData} options={doughnutOptions} />
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Growth Chart */}
-      <motion.div
+      <m.div
         variants={cardVariants}
         whileHover="hover"
         className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6"
@@ -387,8 +387,8 @@ export const CommunityMetrics: React.FC<CommunityMetricsProps> = ({
         <div className="h-64">
           <Line data={growthData} options={lineOptions} />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 

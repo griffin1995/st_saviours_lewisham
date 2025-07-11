@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from '@heroicons/react/24/solid'
 import { ChatBubbleLeftIcon as QuoteIcon } from '@heroicons/react/24/outline'
 
@@ -143,7 +143,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
   const currentTestimonial = testimonials[currentIndex]
 
   return (
-    <motion.div
+    <m.div
       className={`relative w-full max-w-4xl mx-auto ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -160,7 +160,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
         </div>
 
         {/* Navigation arrows */}
-        <motion.button
+        <m.button
           onClick={prevTestimonial}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors z-10"
           variants={buttonVariants}
@@ -169,9 +169,9 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           aria-label="Previous testimonial"
         >
           <ChevronLeftIcon className="h-6 w-6 text-white" />
-        </motion.button>
+        </m.button>
 
-        <motion.button
+        <m.button
           onClick={nextTestimonial}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors z-10"
           variants={buttonVariants}
@@ -180,12 +180,12 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           aria-label="Next testimonial"
         >
           <ChevronRightIcon className="h-6 w-6 text-white" />
-        </motion.button>
+        </m.button>
 
         {/* Testimonial content */}
         <div className="w-full mx-16">
           <AnimatePresence mode="wait" custom={1}>
-            <motion.div
+            <m.div
               key={currentIndex}
               custom={1}
               variants={testimonialVariants}
@@ -236,7 +236,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>
@@ -244,7 +244,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
       {/* Pagination dots */}
       <div className="flex justify-center mt-8 space-x-2">
         {testimonials.map((_, index) => (
-          <motion.button
+          <m.button
             key={index}
             onClick={() => goToTestimonial(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -263,7 +263,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
       {/* Progress indicator */}
       {autoPlay && !reducedMotion && (
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 rounded-full overflow-hidden">
-          <motion.div
+          <m.div
             className="h-full bg-gold-400"
             initial={{ width: '0%' }}
             animate={{ width: isHovered ? '0%' : '100%' }}
@@ -276,7 +276,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           />
         </div>
       )}
-    </motion.div>
+    </m.div>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   MagnifyingGlassIcon,
   XMarkIcon,
@@ -260,7 +260,7 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
   }
 
   return (
-    <motion.div
+    <m.div
       className={`w-full ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -268,7 +268,7 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
       viewport={{ once: true }}
     >
       {/* Header */}
-      <motion.div
+      <m.div
         className="text-center mb-12"
         variants={itemVariants}
       >
@@ -281,10 +281,10 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
         <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
           {description}
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Category Filter */}
-      <motion.div
+      <m.div
         className="flex flex-wrap justify-center gap-2 mb-8"
         variants={itemVariants}
       >
@@ -301,12 +301,12 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
             {category.charAt(0).toUpperCase() + category.slice(1)}
           </button>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredImages.map((image, index) => (
-          <motion.div
+          <m.div
             key={index}
             className="group relative overflow-hidden rounded-2xl cursor-pointer bg-white/5 backdrop-blur-sm border border-white/10"
             variants={itemVariants}
@@ -361,14 +361,14 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
                 </span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
         {selectedImage !== null && (
-          <motion.div
+          <m.div
             ref={lightboxRef}
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
             variants={lightboxVariants}
@@ -411,7 +411,7 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
             </button>
 
             {/* Image */}
-            <motion.div
+            <m.div
               className="relative max-w-full max-h-full"
               variants={imageVariants}
               initial="hidden"
@@ -435,12 +435,12 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
                   }
                 }}
               />
-            </motion.div>
+            </m.div>
 
             {/* Image Info Panel */}
             <AnimatePresence>
               {showInfo && (
-                <motion.div
+                <m.div
                   className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm rounded-2xl p-6 text-white"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -481,7 +481,7 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
@@ -497,10 +497,10 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
                 {selectedImage + 1} / {filteredImages.length}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   )
 }
 

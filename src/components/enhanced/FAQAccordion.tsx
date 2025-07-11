@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
 
 interface FAQItem {
@@ -145,7 +145,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       className={`w-full ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -153,7 +153,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
       viewport={{ once: true }}
     >
       {/* Header */}
-      <motion.div
+      <m.div
         className="text-center mb-12"
         variants={itemVariants}
       >
@@ -166,10 +166,10 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
         <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
           Find answers to common questions about our parish, services, and how to get involved in our community.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Category Filter */}
-      <motion.div
+      <m.div
         className="flex flex-wrap justify-center gap-2 mb-8"
         variants={itemVariants}
       >
@@ -196,12 +196,12 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
             {label}
           </button>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* FAQ Items */}
       <div className="space-y-4">
         {filteredFAQs.map((faq, index) => (
-          <motion.div
+          <m.div
             key={faq.id}
             className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:border-gold-500/50 transition-all duration-300"
             variants={itemVariants}
@@ -224,7 +224,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
                   {faq.question}
                 </span>
               </div>
-              <motion.div
+              <m.div
                 animate={{
                   rotate: openItems.includes(faq.id) ? 180 : 0
                 }}
@@ -234,12 +234,12 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
                 }}
               >
                 <ChevronDownIcon className="h-5 w-5 text-gold-400" />
-              </motion.div>
+              </m.div>
             </button>
             
             <AnimatePresence>
               {openItems.includes(faq.id) && (
-                <motion.div
+                <m.div
                   variants={contentVariants}
                   initial="hidden"
                   animate="visible"
@@ -253,15 +253,15 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Contact CTA */}
-      <motion.div
+      <m.div
         className="text-center mt-12 p-6 bg-white/5 rounded-2xl border border-white/10"
         variants={itemVariants}
       >
@@ -282,8 +282,8 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
             Send Email
           </a>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 

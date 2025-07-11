@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { 
   BookOpenIcon,
   SpeakerWaveIcon,
@@ -242,7 +242,7 @@ export const ScriptureCard: React.FC<ScriptureCardProps> = ({
   if (!currentScripture) return null
 
   return (
-    <motion.div
+    <m.div
       className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 ${className}`}
       variants={cardVariants}
       initial="hidden"
@@ -294,7 +294,7 @@ export const ScriptureCard: React.FC<ScriptureCardProps> = ({
       </div>
 
       {/* Scripture Content */}
-      <motion.div
+      <m.div
         className="space-y-6"
         variants={contentVariants}
       >
@@ -388,8 +388,8 @@ export const ScriptureCard: React.FC<ScriptureCardProps> = ({
             </span>
           </button>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 

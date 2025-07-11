@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { motion, useInView, useAnimation } from 'framer-motion'
+import { m, useInView, useAnimation } from 'framer-motion'
 
 interface ScrollRevealSectionProps {
   children: React.ReactNode
@@ -88,7 +88,7 @@ export const ScrollRevealSection: React.FC<ScrollRevealSectionProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial="hidden"
@@ -96,7 +96,7 @@ export const ScrollRevealSection: React.FC<ScrollRevealSectionProps> = ({
       variants={getVariants()}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -189,7 +189,7 @@ export const ScrollRevealStagger: React.FC<ScrollRevealStaggerProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial="hidden"
@@ -197,11 +197,11 @@ export const ScrollRevealStagger: React.FC<ScrollRevealStaggerProps> = ({
       variants={containerVariants}
     >
       {React.Children.map(children, (child, index) => (
-        <motion.div key={index} variants={itemVariants}>
+        <m.div key={index} variants={itemVariants}>
           {child}
-        </motion.div>
+        </m.div>
       ))}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -299,7 +299,7 @@ export const ScrollRevealAdvanced: React.FC<ScrollRevealAdvancedProps> = ({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial="hidden"
@@ -307,7 +307,7 @@ export const ScrollRevealAdvanced: React.FC<ScrollRevealAdvancedProps> = ({
       variants={getAdvancedVariants()}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 

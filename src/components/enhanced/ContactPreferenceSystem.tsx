@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { 
   EnvelopeIcon, 
   PhoneIcon, 
@@ -173,14 +173,14 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
   }
 
   return (
-    <motion.div
+    <m.div
       className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 ${className}`}
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
     >
-      <motion.div
+      <m.div
         className="text-center mb-8"
         variants={itemVariants}
       >
@@ -193,12 +193,12 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
         <p className="text-gray-300 text-sm">
           Tell us how you'd like to be contacted and we'll respect your preferences
         </p>
-      </motion.div>
+      </m.div>
 
       <div className="space-y-8">
         {/* Contact Methods */}
         {preferences.map((preference, index) => (
-          <motion.div
+          <m.div
             key={index}
             className="bg-white/5 rounded-xl p-6 border border-white/10"
             variants={itemVariants}
@@ -320,11 +320,11 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
 
         {/* Add New Method */}
-        <motion.div
+        <m.div
           className="text-center"
           variants={itemVariants}
         >
@@ -334,10 +334,10 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
           >
             + Add Another Contact Method
           </button>
-        </motion.div>
+        </m.div>
 
         {/* Topic Interests */}
-        <motion.div
+        <m.div
           className="bg-white/5 rounded-xl p-6 border border-white/10"
           variants={itemVariants}
         >
@@ -367,10 +367,10 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
               </button>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Summary */}
-        <motion.div
+        <m.div
           className="bg-gold-500/10 rounded-xl p-6 border border-gold-500/20"
           variants={itemVariants}
         >
@@ -397,9 +397,9 @@ export const ContactPreferenceSystem: React.FC<ContactPreferenceSystemProps> = (
               </div>
             )}
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 
