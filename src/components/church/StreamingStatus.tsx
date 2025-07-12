@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Play, Bell, Calendar } from 'lucide-react'
 import { Card, CardContent, Button, Heading, Text, Flex } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
@@ -66,7 +66,7 @@ export default function StreamingStatus({
   const reducedMotion = prefersReducedMotion()
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -185,7 +185,7 @@ export default function StreamingStatus({
           )}
         </div>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }
 

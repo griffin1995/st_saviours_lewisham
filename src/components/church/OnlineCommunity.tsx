@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Heart, Users, Bell, MessageCircle, Hand, Rss } from 'lucide-react'
 import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -119,7 +119,7 @@ export default function OnlineCommunity({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -138,7 +138,7 @@ export default function OnlineCommunity({
 
       <Grid cols={3} gap="lg">
         {features.map((feature, index) => (
-          <motion.div
+          <m.div
             key={feature.id}
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -194,10 +194,10 @@ export default function OnlineCommunity({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
       </Grid>
-    </motion.div>
+    </m.div>
   )
 }
 

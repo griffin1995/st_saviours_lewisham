@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Monitor, Smartphone, Tv, Wifi, Volume2 } from 'lucide-react'
 import { LucideIcon } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Grid, Flex } from '@/components/ui'
@@ -86,7 +86,7 @@ export default function WatchingOptions({
   const reducedMotion = prefersReducedMotion()
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -104,7 +104,7 @@ export default function WatchingOptions({
 
       <Grid cols={4} gap="lg">
         {options.map((option, index) => (
-          <motion.div
+          <m.div
             key={option.id}
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -146,10 +146,10 @@ export default function WatchingOptions({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
       </Grid>
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -199,7 +199,7 @@ export function TechnicalRequirements({ className }: { className?: string }) {
   ]
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -279,7 +279,7 @@ export function TechnicalRequirements({ className }: { className?: string }) {
           </Card>
         </div>
       </Grid>
-    </motion.div>
+    </m.div>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Calendar, Clock, Play, Star } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Grid, Flex } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
@@ -86,7 +86,7 @@ export default function StreamingSchedule({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -104,7 +104,7 @@ export default function StreamingSchedule({
 
       <Grid cols={2} gap="lg">
         {streams.map((stream, index) => (
-          <motion.div
+          <m.div
             key={stream.id}
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -209,10 +209,10 @@ export default function StreamingSchedule({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
       </Grid>
-    </motion.div>
+    </m.div>
   )
 }
 
