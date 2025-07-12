@@ -9,8 +9,7 @@ interface ScrollRevealSectionProps {
   distance?: number
   className?: string
   reducedMotion?: boolean
-  threshold?: number
-  triggerOnce?: boolean
+    triggerOnce?: boolean
 }
 
 export const ScrollRevealSection: React.FC<ScrollRevealSectionProps> = ({
@@ -21,13 +20,11 @@ export const ScrollRevealSection: React.FC<ScrollRevealSectionProps> = ({
   distance = 50,
   className = '',
   reducedMotion = false,
-  threshold = 0.1,
-  triggerOnce = true
+    triggerOnce = true
 }) => {
   const controls = useAnimation()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { 
-    threshold, 
     once: triggerOnce,
     margin: "-100px 0px -100px 0px"
   })
@@ -160,7 +157,7 @@ export const ScrollRevealStagger: React.FC<ScrollRevealStaggerProps> = ({
 }) => {
   const controls = useAnimation()
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { threshold: 0.1, once: true })
+  const isInView = useInView(ref, { once: true })
 
   useEffect(() => {
     if (isInView) {
@@ -225,12 +222,11 @@ export const ScrollRevealAdvanced: React.FC<ScrollRevealAdvancedProps> = ({
   skew = 0,
   className = '',
   reducedMotion = false,
-  threshold = 0.1,
-  triggerOnce = true
+    triggerOnce = true
 }) => {
   const controls = useAnimation()
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { threshold, once: triggerOnce })
+  const isInView = useInView(ref, {  once: triggerOnce })
 
   useEffect(() => {
     if (isInView) {
@@ -317,7 +313,7 @@ export const useScrollReveal = (
   triggerOnce: boolean = true
 ) => {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { threshold, once: triggerOnce })
+  const isInView = useInView(ref, {  once: triggerOnce })
   const controls = useAnimation()
 
   useEffect(() => {

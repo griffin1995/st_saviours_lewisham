@@ -6,7 +6,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ShareIcon,
-  DownloadIcon,
+  ArrowDownTrayIcon,
   TagIcon,
   PhotoIcon,
   EyeIcon
@@ -477,7 +477,7 @@ export const EnhancedPhotoSwipeGallery: React.FC<EnhancedPhotoSwipeGalleryProps>
                         onClick={() => handleDownload(filteredImages[selectedImage])}
                         className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
                       >
-                        <DownloadIcon className="h-4 w-4" />
+                        <ArrowDownTrayIcon className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
