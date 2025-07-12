@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 import { Camera, Heart, Mail, Phone } from 'lucide-react'
 
@@ -16,6 +16,7 @@ import {
   Container
 } from '@/components/ui'
 import { GalleryGrid, ImageLightbox, type GalleryImage } from '@/components/church'
+import { EnhancedGalleryGrid, EnhancedPhotoSwipeLightbox } from '@/components/enhanced'
 import { prefersReducedMotion } from '@/lib/utils'
 
 // Gallery data
@@ -136,12 +137,6 @@ export default function Gallery() {
   const reducedMotion = prefersReducedMotion()
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
-  const [currentCategory, setCurrentCategory] = useState('All')
-
-  // Calculate filtered images based on current category
-  const filteredImages = galleryImages.filter(image => 
-    currentCategory === 'All' || image.category === currentCategory
-  )
 
   const handleImageClick = (image: GalleryImage, index: number) => {
     setSelectedImage(image)
@@ -154,11 +149,11 @@ export default function Gallery() {
 
   const navigateLightbox = (direction: 'prev' | 'next') => {
     const newIndex = direction === 'prev' 
-      ? (lightboxIndex - 1 + filteredImages.length) % filteredImages.length
-      : (lightboxIndex + 1) % filteredImages.length
+      ? (lightboxIndex - 1 + galleryImages.length) % galleryImages.length
+      : (lightboxIndex + 1) % galleryImages.length
     
     setLightboxIndex(newIndex)
-    setSelectedImage(filteredImages[newIndex])
+    setSelectedImage(galleryImages[newIndex])
   }
 
   return (
@@ -198,7 +193,7 @@ export default function Gallery() {
       {/* Introduction */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -213,20 +208,18 @@ export default function Gallery() {
               these photos capture the essence of our faith community. Browse through 
               memories of sacraments, events, and the beautiful spaces where we worship.
             </Text>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
-      {/* Gallery Grid */}
+      {/* Enhanced Gallery Grid */}
       <Section spacing="lg" background="white">
-        <Container size="lg">
-          <GalleryGrid
+        <Container size="xl">
+          <EnhancedGalleryGrid
             images={galleryImages}
             categories={categories}
-            columns={4}
-            showFilter={true}
             onImageClick={handleImageClick}
-            initialCategory={currentCategory}
+            reducedMotion={reducedMotion}
             className="mb-16"
           />
         </Container>
@@ -235,7 +228,7 @@ export default function Gallery() {
       {/* Share Your Photos CTA */}
       <Section spacing="lg" background="slate">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -273,14 +266,14 @@ export default function Gallery() {
                 </Button>
               </Link>
             </Flex>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
       {/* Photography Guidelines */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -293,7 +286,7 @@ export default function Gallery() {
             <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               When taking photos at parish events, please follow these simple guidelines
             </Text>
-          </motion.div>
+          </m.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -313,7 +306,7 @@ export default function Gallery() {
                 description: "Please submit high-resolution photos with a brief description of the event and date taken."
               }
             ].map((guideline, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -335,20 +328,20 @@ export default function Gallery() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* Image Lightbox */}
-      <ImageLightbox
+      {/* Enhanced PhotoSwipe Lightbox */}
+      <EnhancedPhotoSwipeLightbox
         image={selectedImage}
-        images={filteredImages}
+        images={galleryImages}
         currentIndex={lightboxIndex}
         onClose={closeLightbox}
         onNavigate={navigateLightbox}
-        showNavigation={true}
+        reducedMotion={reducedMotion}
       />
     </PageLayout>
   )

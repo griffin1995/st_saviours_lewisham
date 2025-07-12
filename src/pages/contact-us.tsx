@@ -423,10 +423,9 @@ export default function ContactUs() {
             {/* Scripture Card about Community */}
             <div className="mb-16">
               <ScriptureCard
-                title="Open Doors, Open Hearts"
-                content="Our parish doors and hearts are always open to welcome, support, and serve. Whether you seek spiritual guidance, practical help, or simply want to connect with our community, we are here for you."
-                verse="Matthew 7:7 - 'Ask and it will be given to you; seek and you will find; knock and the door will be opened to you'"
-                variant="mission"
+                displayMode="themed"
+                theme="welcome"
+                showReflection={true}
                 reducedMotion={ui.reducedMotion}
               />
             </div>

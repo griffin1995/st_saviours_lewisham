@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 import { 
   Users, 
@@ -29,6 +29,7 @@ import {
   Container
 } from '@/components/ui'
 import { GroupCard } from '@/components/church'
+import { EnhancedGroupCard, AnimatedWeeklySchedule } from '@/components/enhanced'
 import { prefersReducedMotion, cn } from '@/lib/utils'
 
 export default function ParishGroups() {
@@ -203,7 +204,7 @@ export default function ParishGroups() {
       {/* Introduction */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -218,11 +219,11 @@ export default function ParishGroups() {
               groups offer opportunities to deepen your relationship with God, build 
               meaningful friendships, and serve others in need.
             </Text>
-          </motion.div>
+          </m.div>
 
           <Grid cols={3} gap="lg">
             {benefits.map((benefit, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -244,7 +245,7 @@ export default function ParishGroups() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -253,7 +254,7 @@ export default function ParishGroups() {
       {/* Parish Groups Grid */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -267,27 +268,25 @@ export default function ParishGroups() {
               Whether you're looking for spiritual growth, community service, or 
               social connection, there's a place for you.
             </Text>
-          </motion.div>
+          </m.div>
 
-          <Grid cols={2} gap="lg" className="md:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {groups.map((group, index) => (
-              <GroupCard
+              <EnhancedGroupCard
                 key={group.name}
-                {...group}
-                className={cn(
-                  "group",
-                  reducedMotion ? "" : "animate-on-scroll"
-                )}
+                group={group}
+                index={index}
+                reducedMotion={reducedMotion}
               />
             ))}
-          </Grid>
+          </div>
         </Container>
       </Section>
 
       {/* Getting Involved */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -301,11 +300,11 @@ export default function ParishGroups() {
               Joining a parish group is easy and everyone is welcome, regardless 
               of how long you've been part of our community.
             </Text>
-          </motion.div>
+          </m.div>
 
           <Grid cols={3} gap="lg" className="mb-16">
             {steps.map((step, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -322,11 +321,11 @@ export default function ParishGroups() {
                 <Text size="sm" align="center" color="muted">
                   {step.description}
                 </Text>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
 
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -366,55 +365,17 @@ export default function ParishGroups() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
-      {/* Weekly Schedule */}
+      {/* Enhanced Weekly Schedule */}
       <Section spacing="lg" background="white">
-        <Container size="md">
-          <motion.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <Heading level="h2" align="center" className="mb-6">
-              Weekly Schedule
-            </Heading>
-            <Text size="xl" align="center" color="muted">
-              Quick overview of when our groups meet
-            </Text>
-          </motion.div>
-
-          <motion.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <Card variant="default" padding="none" className="bg-white overflow-hidden">
-              <div className="divide-y divide-gray-200">
-                <div className="px-6 py-4 bg-gray-50">
-                  <Grid cols={3} gap="md" className="font-semibold text-gray-900">
-                    <Text weight="bold">Day</Text>
-                    <Text weight="bold">Group</Text>
-                    <Text weight="bold">Time</Text>
-                  </Grid>
-                </div>
-                {weeklySchedule.map((item, index) => (
-                  <div key={index} className="px-6 py-4">
-                    <Grid cols={3} gap="md">
-                      <Text weight="medium">{item.day}</Text>
-                      <Text color="muted">{item.group}</Text>
-                      <Text color="muted">{item.time}</Text>
-                    </Grid>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </motion.div>
+        <Container size="lg">
+          <AnimatedWeeklySchedule
+            schedule={weeklySchedule}
+            reducedMotion={reducedMotion}
+          />
         </Container>
       </Section>
     </PageLayout>

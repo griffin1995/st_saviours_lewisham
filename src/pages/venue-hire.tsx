@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Link from 'next/link'
 import { 
   Building, 
@@ -27,6 +27,7 @@ import {
   Container
 } from '@/components/ui'
 import { VenueCard, VenueEnquiryForm, type Venue, type VenueEnquiryData } from '@/components/church'
+import { EnhancedVenueCard, AnimatedTestimonials } from '@/components/enhanced'
 import { prefersReducedMotion } from '@/lib/utils'
 
 // Venue data
@@ -178,7 +179,7 @@ export default function VenueHire() {
       {/* Introduction */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -193,7 +194,7 @@ export default function VenueHire() {
               Whether you're planning a wedding reception, birthday celebration, community meeting, or 
               corporate event, our flexible spaces provide the perfect setting for your special occasion.
             </Text>
-          </motion.div>
+          </m.div>
 
           <Grid cols={3} gap="lg">
             {[
@@ -213,7 +214,7 @@ export default function VenueHire() {
                 description: "Competitive rates with all proceeds supporting parish work"
               }
             ].map((benefit, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -235,7 +236,7 @@ export default function VenueHire() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -244,7 +245,7 @@ export default function VenueHire() {
       {/* Venues */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -257,16 +258,17 @@ export default function VenueHire() {
             <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Choose from our range of flexible spaces to suit events of all sizes
             </Text>
-          </motion.div>
+          </m.div>
 
           <div className="space-y-12">
             {venues.map((venue, index) => (
-              <VenueCard
+              <EnhancedVenueCard
                 key={venue.id}
                 venue={venue}
-                variant="default"
                 imagePosition={index % 2 === 1 ? 'right' : 'left'}
                 onBookClick={handleVenueBooking}
+                reducedMotion={reducedMotion}
+                featured={index === 0} // Make first venue featured
               />
             ))}
           </div>
@@ -276,7 +278,7 @@ export default function VenueHire() {
       {/* Booking Process */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -289,7 +291,7 @@ export default function VenueHire() {
             <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Simple steps to secure your venue
             </Text>
-          </motion.div>
+          </m.div>
 
           <Grid cols={4} gap="lg">
             {[
@@ -318,7 +320,7 @@ export default function VenueHire() {
                 icon: PartyPopper
               }
             ].map((step, index) => (
-              <motion.div
+              <m.div
                 key={step.step}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -340,7 +342,7 @@ export default function VenueHire() {
                 <Text color="muted" align="center">
                   {step.description}
                 </Text>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -351,7 +353,7 @@ export default function VenueHire() {
         <Container size="lg">
           <Grid cols={2} gap="xl" className="items-start">
             {/* Contact Information */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
               whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -397,7 +399,7 @@ export default function VenueHire() {
                   </div>
                 </Flex>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Enquiry Form */}
             <VenueEnquiryForm
@@ -410,10 +412,17 @@ export default function VenueHire() {
         </Container>
       </Section>
 
+      {/* Testimonials Section */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <AnimatedTestimonials reducedMotion={reducedMotion} />
+        </Container>
+      </Section>
+
       {/* FAQ Section */}
       <Section spacing="lg" background="white">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -426,11 +435,11 @@ export default function VenueHire() {
             <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Everything you need to know about hiring our venues
             </Text>
-          </motion.div>
+          </m.div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -457,7 +466,7 @@ export default function VenueHire() {
                     </div>
                   )}
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </Container>

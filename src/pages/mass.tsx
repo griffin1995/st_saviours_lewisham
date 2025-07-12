@@ -369,10 +369,9 @@ export default function MassTimes() {
             {/* Scripture Card about the Eucharist */}
             <div className="mb-16">
               <ScriptureCard
-                title="The Heart of Catholic Worship"
-                content="The Mass is the source and summit of the Christian life. In this sacred celebration, we join with Christ in His perfect offering to the Father, receiving Him in the Eucharist as our spiritual food."
-                verse="Luke 22:19 - 'This is my body given for you; do this in remembrance of me'"
-                variant="mission"
+                displayMode="themed"
+                theme="eucharist"
+                showReflection={true}
                 reducedMotion={ui.reducedMotion}
               />
             </div>

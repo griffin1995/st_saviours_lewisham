@@ -395,10 +395,8 @@ export default function News() {
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
-                title="Today's Reflection"
-                content="Be it known to you therefore, brethren, that through this man forgiveness of sins is proclaimed to you."
-                verse="Acts 13:38"
-                variant="mission"
+                displayMode="daily"
+                showReflection={true}
               />
             </div>
           </ScrollRevealSection>

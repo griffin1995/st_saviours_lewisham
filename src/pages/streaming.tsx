@@ -19,6 +19,7 @@ import {
   TechnicalRequirements, 
   OnlineCommunity 
 } from '@/components/church'
+import { LiveStreamingDashboard, StreamingAnalytics } from '@/components/enhanced'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Streaming() {
@@ -117,18 +118,16 @@ export default function Streaming() {
         }
       />
 
-      {/* Live Stream Status */}
-      <Section spacing="lg" background="white">
-        <Container size="lg">
-          <StreamingStatus
+      {/* Enhanced Live Stream Dashboard */}
+      <Section spacing="lg" background="slate">
+        <Container size="xl">
+          <LiveStreamingDashboard
             isLive={false}
-            nextStream={{
-              title: "Sunday Mass",
-              time: "11:30 AM",
-              date: "Tomorrow"
-            }}
-            onSetReminder={() => handleReminderSignup('sunday-mass')}
-            onViewSchedule={handleViewSchedule}
+            viewerCount={247}
+            streamTitle="Sunday Mass - 11:30 AM"
+            streamDescription="Join our parish community for the celebration of the Eucharist with hymns, prayers, and fellowship."
+            nextStreamTime="Tomorrow at 11:30 AM"
+            reducedMotion={reducedMotion}
           />
         </Container>
       </Section>
@@ -155,6 +154,13 @@ export default function Streaming() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <TechnicalRequirements />
+        </Container>
+      </Section>
+
+      {/* Streaming Analytics Dashboard */}
+      <Section spacing="lg" background="slate">
+        <Container size="xl">
+          <StreamingAnalytics reducedMotion={reducedMotion} />
         </Container>
       </Section>
 
