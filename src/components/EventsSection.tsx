@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 
 // Modern imports
@@ -23,7 +23,7 @@ export default function EventsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 relative z-10">
         {/* Enhanced Header */}
         <div className="flex justify-between items-end mb-16">
-          <motion.div
+          <m.div
             className="space-y-4"
             initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
             whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -33,7 +33,7 @@ export default function EventsSection() {
             }
             viewport={{ once: true }}
           >
-            <motion.div
+            <m.div
               className="flex items-center space-x-3"
               initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
               whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -47,16 +47,16 @@ export default function EventsSection() {
               <span className="text-gold-400 font-semibold text-sm uppercase tracking-wider">
                 Parish Events
               </span>
-            </motion.div>
+            </m.div>
             <h2 className="text-4xl lg:text-5xl font-serif font-light text-white">
               <span className="block">Upcoming</span>
               <span className="block text-3xl lg:text-4xl text-gold-400 font-medium">
                 Events & Activities
               </span>
             </h2>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
             whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={ui.reducedMotion 
@@ -72,7 +72,7 @@ export default function EventsSection() {
               View All Events
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Loading State */}
@@ -88,7 +88,7 @@ export default function EventsSection() {
 
         {/* Error State */}
         {error && !isLoading && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-12"
@@ -96,7 +96,7 @@ export default function EventsSection() {
             <div className="text-white/60 mb-4">
               Unable to load latest events. Showing upcoming events:
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Events Grid */}
@@ -122,7 +122,7 @@ export default function EventsSection() {
               };
 
               return (
-                <motion.div
+                <m.div
                   key={(event as any).id || `event-${index}`}
                   initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
                   whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -143,14 +143,14 @@ export default function EventsSection() {
                     }}
                     className="h-full"
                   />
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
         )}
 
         {/* Call to Action */}
-        <motion.div
+        <m.div
           initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={ui.reducedMotion 
@@ -184,7 +184,7 @@ export default function EventsSection() {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Clock, MapPin } from "lucide-react";
 import { getHeroImages } from "@/lib/cms-images";
 import { getHeroContent } from "@/lib/cms-content";
@@ -53,7 +53,7 @@ export default function HeroSection({
   return (
     <section className="relative h-screen overflow-hidden bg-gradient-to-br from-charcoal-900 via-charcoal-800 to-primary-900">
       {heroImages.map((hero, index) => (
-        <motion.div
+        <m.div
           key={index}
           className={`absolute inset-0 ${
             index === currentHeroImage ? "opacity-100" : "opacity-0"
@@ -79,7 +79,7 @@ export default function HeroSection({
 
           {/* Simplified overlay system for better performance */}
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/60 via-charcoal-800/40 to-charcoal-900/70 z-10" />
-        </motion.div>
+        </m.div>
       ))}
 
       {/* Modern navbar hover overlay */}
@@ -90,7 +90,7 @@ export default function HeroSection({
       {/* Content container with premium typography and modern spacing */}
       <div className="relative z-50 h-full flex items-center justify-center text-center text-cream-50">
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div
+          <m.div
             key={currentHeroImage}
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.95 }}
             animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
@@ -105,7 +105,7 @@ export default function HeroSection({
           >
             {/* Enhanced typography with better hierarchy */}
             <div className="space-y-6">
-              <motion.h1
+              <m.h1
                 className="text-5xl sm:text-6xl lg:text-8xl font-serif font-light leading-tight tracking-tight drop-shadow-xl"
                 style={{ 
                   textShadow: '3px 3px 8px rgba(26,26,26,0.8), 1px 1px 3px rgba(26,26,26,0.9)',
@@ -136,9 +136,9 @@ export default function HeroSection({
                     .slice(2)
                     .join(" ")}
                 </span>
-              </motion.h1>
+              </m.h1>
 
-              <motion.p
+              <m.p
                 className="text-xl sm:text-2xl lg:text-3xl font-light max-w-3xl mx-auto leading-relaxed text-cream-100 drop-shadow-lg"
                 style={{ 
                   textShadow: '2px 2px 6px rgba(26,26,26,0.7), 1px 1px 3px rgba(26,26,26,0.8)',
@@ -152,11 +152,11 @@ export default function HeroSection({
                 }
               >
                 {heroContent[currentHeroImage]?.subtitle || heroImages[currentHeroImage].subtitle}
-              </motion.p>
+              </m.p>
             </div>
 
             {/* Enhanced CTA buttons with modern design */}
-            <motion.div
+            <m.div
               className="flex flex-col sm:flex-row gap-6 justify-center pt-8"
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
               animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -165,7 +165,7 @@ export default function HeroSection({
                 : { duration: 0.8, delay: 0.9 }
               }
             >
-              <motion.div
+              <m.div
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                 transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 400, damping: 17 }}
@@ -178,9 +178,9 @@ export default function HeroSection({
                   <Clock className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
                   Join Us This Sunday
                 </button>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                 transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 400, damping: 17 }}
@@ -193,15 +193,15 @@ export default function HeroSection({
                   <MapPin className="mr-3 h-6 w-6 group-hover:bounce transition-transform duration-300" />
                   Our Community
                 </button>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </m.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
 
       {/* Enhanced scroll indicator with refined animation */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-50">
-        <motion.div
+        <m.div
           animate={prefersReducedMotion ? {} : {
             y: [0, 12, 0],
             opacity: [0.7, 1, 0.7],
@@ -238,7 +238,7 @@ export default function HeroSection({
             Scroll for more
           </span>
           <div className="relative w-1 h-16 overflow-hidden">
-            <motion.div
+            <m.div
               animate={prefersReducedMotion ? {} : { 
                 y: [-20, 64],
                 opacity: [0, 1, 1, 0]
@@ -257,13 +257,13 @@ export default function HeroSection({
               }}
             />
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Image progress indicators */}
       <div className="absolute bottom-8 right-8 z-50 flex space-x-2">
         {heroImages.map((_, index) => (
-          <motion.button
+          <m.button
             key={index}
             className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cream-50/60 focus:ring-offset-2 focus:ring-offset-charcoal-900/50 ${
               index === currentHeroImage

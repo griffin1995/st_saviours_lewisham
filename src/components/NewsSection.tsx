@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { newsArticles } from "@/lib/data";
@@ -92,7 +92,7 @@ export default function NewsSection({
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 relative z-10">
         {/* Enhanced section header with refined animation */}
-        <motion.div
+        <m.div
           className="flex justify-between items-end mb-16"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function NewsSection({
           viewport={{ once: true }}
         >
           <div className="space-y-4">
-            <motion.div
+            <m.div
               className="flex items-center space-x-3"
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -117,7 +117,7 @@ export default function NewsSection({
               <span className="text-gold-400 font-semibold text-sm uppercase tracking-wider">
                 Parish News
               </span>
-            </motion.div>
+            </m.div>
             <h2 
               id="news-heading"
               className="text-4xl lg:text-5xl font-serif font-light text-white"
@@ -131,7 +131,7 @@ export default function NewsSection({
 
           {/* Desktop navigation controls with enhanced design */}
           <div className="hidden lg:flex items-center space-x-4">
-            <motion.button
+            <m.button
               onClick={scrollNewsPrev}
               className="group flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm shadow-lg rounded-full border border-white/20 hover:border-gold-400 hover:shadow-xl hover:shadow-gold-500/10 focus:border-gold-400 focus:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
               variants={buttonVariants}
@@ -141,8 +141,8 @@ export default function NewsSection({
               type="button"
             >
               <ChevronLeft className="h-6 w-6 text-white group-hover:text-gold-400 transition-colors duration-300" aria-hidden="true" />
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
               onClick={scrollNewsNext}
               className="group flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm shadow-lg rounded-full border border-white/20 hover:border-gold-400 hover:shadow-xl hover:shadow-gold-500/10 focus:border-gold-400 focus:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
               variants={buttonVariants}
@@ -152,9 +152,9 @@ export default function NewsSection({
               type="button"
             >
               <ChevronRight className="h-6 w-6 text-white group-hover:text-gold-400 transition-colors duration-300" aria-hidden="true" />
-            </motion.button>
+            </m.button>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* News Cards with Events-style grid layout but with scrolling */}
         <div 
@@ -172,7 +172,7 @@ export default function NewsSection({
                   index === 0 ? 'pl-0 pr-4' : 'px-4'
                 }`}
               >
-                <motion.article
+                <m.article
                   className="h-full"
                   variants={cardVariants}
                   initial="hidden"
@@ -193,7 +193,7 @@ export default function NewsSection({
                       {!imagesLoaded.has(`news-${article.id}`) && (
                         <LoadingSkeleton className="absolute inset-0 w-full h-full" />
                       )}
-                      <motion.div
+                      <m.div
                         className="relative w-full h-full"
                         whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
                         transition={prefersReducedMotion ? {} : { duration: 0.6, ease: "easeOut" }}
@@ -209,7 +209,7 @@ export default function NewsSection({
                           quality={85}
                           onLoad={() => handleImageLoad(`news-${article.id}`)}
                         />
-                      </motion.div>
+                      </m.div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                       
                       {/* Enhanced category badge */}
@@ -236,7 +236,7 @@ export default function NewsSection({
 
                     {/* Enhanced content with improved typography and spacing */}
                     <div className="p-8 flex-1 flex flex-col news-card-content" style={{ backgroundColor: '#ffffff' }}>
-                      <motion.h3
+                      <m.h3
                         className="text-xl font-serif font-semibold text-gray-900 mb-4 line-clamp-2 relative cursor-pointer"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -248,9 +248,9 @@ export default function NewsSection({
                       >
                         {article.title}
                         <span className="absolute bottom-0 left-0 h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                      </motion.h3>
+                      </m.h3>
                       
-                      <motion.p
+                      <m.p
                         className="text-gray-600 leading-relaxed mb-6 flex-1 line-clamp-3"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -261,10 +261,10 @@ export default function NewsSection({
                         viewport={{ once: true }}
                       >
                         {article.excerpt}
-                      </motion.p>
+                      </m.p>
 
                       {/* Enhanced read more link with animation */}
-                      <motion.div
+                      <m.div
                         className="flex items-center justify-between pt-4 border-t border-gray-200"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -274,7 +274,7 @@ export default function NewsSection({
                         }
                         viewport={{ once: true }}
                       >
-                        <motion.a
+                        <m.a
                           href={`/news/${article.id}`}
                           className="group/link inline-flex items-center text-gray-900 hover:text-gray-700 focus:text-gray-700 font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded"
                           whileHover={prefersReducedMotion ? {} : { x: 4 }}
@@ -282,15 +282,15 @@ export default function NewsSection({
                         >
                           Read More
                           <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform duration-300" />
-                        </motion.a>
+                        </m.a>
                         
                         <div className="text-sm text-gray-500 font-medium">
                           {article.readTime} min read
                         </div>
-                      </motion.div>
+                      </m.div>
                     </div>
                   </div>
-                </motion.article>
+                </m.article>
               </div>
             ))}
           </div>
@@ -298,7 +298,7 @@ export default function NewsSection({
 
         {/* Mobile navigation controls - Enhanced for touch */}
         <div className="flex lg:hidden justify-center mt-8 space-x-6">
-          <motion.button
+          <m.button
             onClick={scrollNewsPrev}
             className="flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm shadow-lg rounded-full border border-white/20 hover:bg-white/20 hover:shadow-xl focus:bg-white/20 transition-all duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
             whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
@@ -306,8 +306,8 @@ export default function NewsSection({
             aria-label="Previous news article"
           >
             <ChevronLeft className="h-7 w-7 text-white" />
-          </motion.button>
-          <motion.button
+          </m.button>
+          <m.button
             onClick={scrollNewsNext}
             className="flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm shadow-lg rounded-full border border-white/20 hover:bg-white/20 hover:shadow-xl focus:bg-white/20 transition-all duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
             whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}
@@ -315,12 +315,12 @@ export default function NewsSection({
             aria-label="Next news article"
           >
             <ChevronRight className="h-7 w-7 text-white" />
-          </motion.button>
+          </m.button>
         </div>
         
         {/* Mobile swipe indicator */}
         {isMobile && (
-          <motion.div
+          <m.div
             className="flex justify-center mt-6"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -331,7 +331,7 @@ export default function NewsSection({
               <span>Swipe to browse</span>
               <span>→</span>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </div>
     </section>

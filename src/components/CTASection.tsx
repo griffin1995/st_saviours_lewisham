@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { getCTAImages } from "@/lib/cms-images";
 import { getParishPriest } from "@/lib/cms-content";
@@ -29,7 +29,7 @@ export default function CTASection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10" style={{ maxWidth: '88rem' }}>
         <div className="grid md:grid-cols-2 gap-14">
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={prefersReducedMotion 
@@ -39,7 +39,7 @@ export default function CTASection() {
             viewport={{ once: true }}
             className="group"
           >
-            <motion.div
+            <m.div
               className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-gold-400/30 transition-all duration-500"
               style={{
                 background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, transparent 50%, rgba(234, 179, 8, 0.1) 100%)',
@@ -62,20 +62,20 @@ export default function CTASection() {
                   quality={85}
                 />
               </div>
-              <motion.div
+              <m.div
                 className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40 group-hover:from-black/80 transition-all duration-500"
                 whileHover={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), rgba(0,0,0,0.5))" }}
               />
               <div className="absolute inset-0 flex items-center justify-center text-white">
                 <div className="text-center space-y-4">
-                  <motion.h3
+                  <m.h3
                     className="text-3xl lg:text-4xl font-serif font-semibold"
                     whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                     transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
                   >
                     Meet Our Parish Priest
-                  </motion.h3>
-                  <motion.p
+                  </m.h3>
+                  <m.p
                     className="text-lg lg:text-xl leading-relaxed max-w-md mx-auto"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                     whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -86,8 +86,8 @@ export default function CTASection() {
                     viewport={{ once: true }}
                   >
                     Learn about {getParishPriest()} and his journey of faith serving our community
-                  </motion.p>
-                  <motion.div
+                  </m.p>
+                  <m.div
                     className="pt-4"
                     whileHover={prefersReducedMotion ? {} : { y: -2 }}
                     transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -99,13 +99,13 @@ export default function CTASection() {
                       Learn More
                       <ArrowRight className="ml-2 h-5 w-5 group-hover/cta:translate-x-1 group-hover/cta:rotate-12 transition-transform duration-300" />
                     </a>
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={prefersReducedMotion 
@@ -115,7 +115,7 @@ export default function CTASection() {
             viewport={{ once: true }}
             className="group"
           >
-            <motion.div
+            <m.div
               className="relative h-[28rem] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-gold-400/30 transition-all duration-500"
               style={{
                 background: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, transparent 50%, rgba(234, 179, 8, 0.1) 100%)',
@@ -138,20 +138,20 @@ export default function CTASection() {
                   quality={85}
                 />
               </div>
-              <motion.div
+              <m.div
                 className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40 group-hover:from-black/80 transition-all duration-500"
                 whileHover={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), rgba(0,0,0,0.5))" }}
               />
               <div className="absolute inset-0 flex items-center justify-center text-white">
                 <div className="text-center space-y-4">
-                  <motion.h3
+                  <m.h3
                     className="text-3xl lg:text-4xl font-serif font-semibold"
                     whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                     transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
                   >
                     Church Venue Hire
-                  </motion.h3>
-                  <motion.p
+                  </m.h3>
+                  <m.p
                     className="text-lg lg:text-xl leading-relaxed max-w-md mx-auto"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                     whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -162,8 +162,8 @@ export default function CTASection() {
                     viewport={{ once: true }}
                   >
                     Beautiful sacred space available for weddings and special celebrations
-                  </motion.p>
-                  <motion.div
+                  </m.p>
+                  <m.div
                     className="pt-4"
                     whileHover={prefersReducedMotion ? {} : { y: -2 }}
                     transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -175,11 +175,11 @@ export default function CTASection() {
                       Enquire Now
                       <ArrowRight className="ml-2 h-5 w-5 group-hover/cta:translate-x-1 group-hover/cta:rotate-12 transition-transform duration-300" />
                     </a>
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   Bars3Icon,
   XMarkIcon,
@@ -181,7 +181,7 @@ export default function Navigation({
 
   return (
     <>
-      <motion.nav
+      <m.nav
         variants={navVariants}
         initial="hidden"
         animate="visible"
@@ -203,7 +203,7 @@ export default function Navigation({
               className="flex items-center space-x-3 group"
               onClick={handleLinkClick}
             >
-              <motion.div 
+              <m.div 
                 className="relative w-16 h-16 flex-shrink-0"
                 whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                 transition={{ duration: 0.2 }}
@@ -215,7 +215,7 @@ export default function Navigation({
                   className="object-contain"
                   priority
                 />
-              </motion.div>
+              </m.div>
               <div className="hidden sm:flex flex-col">
                 <span className="text-lg font-semibold font-serif text-white transition-colors duration-200 group-hover:text-gold-300">
                   {getParishName().replace(' Catholic Church', '')}
@@ -237,7 +237,7 @@ export default function Navigation({
                   className="relative"
                   onMouseEnter={() => handleMouseEnterNav(item.name)}
                 >
-                  <motion.button
+                  <m.button
                     className={`
                       flex items-center px-4 py-2 text-base font-medium rounded-lg transition-all duration-200
                       ${navigation.activeDropdown === item.name
@@ -249,44 +249,44 @@ export default function Navigation({
                     whileTap={ui.reducedMotion ? {} : { scale: 0.98 }}
                   >
                     {item.name}
-                    <motion.div
+                    <m.div
                       animate={{ 
                         rotate: navigation.activeDropdown === item.name ? 180 : 0 
                       }}
                       transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                     >
                       <ChevronDownIcon className="ml-1 h-4 w-4" />
-                    </motion.div>
-                  </motion.button>
+                    </m.div>
+                  </m.button>
                 </div>
               ))}
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-3 ml-6">
-                <motion.button
+                <m.button
                   className="p-2 rounded-lg transition-colors duration-200 text-white hover:text-white hover:bg-white/10"
                   whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                   whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   onClick={() => setSearchOpen(true)}
                 >
                   <MagnifyingGlassIcon className="h-5 w-5" />
-                </motion.button>
+                </m.button>
                 
                 <Link href="/donate" onClick={handleLinkClick}>
-                  <motion.div
+                  <m.div
                     className="inline-flex items-center gap-2 px-4 py-2 bg-white text-slate-900 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-200 shadow-lg"
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -1 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
                     <HeartIcon className="h-4 w-4" />
                     <span className="hidden xl:inline">Donate</span>
-                  </motion.div>
+                  </m.div>
                 </Link>
               </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <m.button
               onClick={handleMobileMenuToggle}
               className="lg:hidden p-2 rounded-lg transition-colors duration-200 text-white hover:bg-white/10"
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -294,7 +294,7 @@ export default function Navigation({
             >
               <AnimatePresence mode="wait">
                 {navigation.isOpen ? (
-                  <motion.div
+                  <m.div
                     key="close"
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
@@ -302,9 +302,9 @@ export default function Navigation({
                     transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                   >
                     <XMarkIcon className="h-6 w-6" />
-                  </motion.div>
+                  </m.div>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="menu"
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
@@ -312,17 +312,17 @@ export default function Navigation({
                     transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                   >
                     <Bars3Icon className="h-6 w-6" />
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </m.button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
           {navigation.isOpen && (
-            <motion.div
+            <m.div
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
@@ -332,25 +332,25 @@ export default function Navigation({
               <div className="px-4 py-6 space-y-2">
                 {navigationMenu.map((item) => (
                   <div key={item.name}>
-                    <motion.button
+                    <m.button
                       onClick={() => handleDropdownToggle(item.name)}
                       className="flex items-center justify-between w-full px-3 py-3 text-white hover:text-white hover:bg-white/10 rounded-lg font-medium text-base transition-colors duration-200"
                       whileTap={ui.reducedMotion ? {} : { scale: 0.98 }}
                     >
                       {item.name}
-                      <motion.div
+                      <m.div
                         animate={{ 
                           rotate: navigation.activeDropdown === item.name ? 180 : 0 
                         }}
                         transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                       >
                         <ChevronDownIcon className="h-4 w-4" />
-                      </motion.div>
-                    </motion.button>
+                      </m.div>
+                    </m.button>
                     
                     <AnimatePresence>
                       {navigation.activeDropdown === item.name && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -358,7 +358,7 @@ export default function Navigation({
                           className="ml-4 mt-2 space-y-1 overflow-hidden"
                         >
                           {item.dropdown.map((subItem, index) => (
-                            <motion.div
+                            <m.div
                               key={subItem.name}
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -374,9 +374,9 @@ export default function Navigation({
                               >
                                 {subItem.name}
                               </Link>
-                            </motion.div>
+                            </m.div>
                           ))}
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -394,10 +394,10 @@ export default function Navigation({
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </m.nav>
 
       {/* Hover Bridge - Invisible area to connect nav and dropdown */}
       <AnimatePresence>
@@ -414,7 +414,7 @@ export default function Navigation({
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
         {navigation.activeDropdown && (
-          <motion.div
+          <m.div
             variants={dropdownVariants}
             initial="hidden"
             animate="visible"
@@ -430,7 +430,7 @@ export default function Navigation({
                 {navigationMenu
                   .find(item => item.name === navigation.activeDropdown)
                   ?.dropdown.map((subItem, index) => (
-                    <motion.div
+                    <m.div
                       key={subItem.name}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -454,21 +454,21 @@ export default function Navigation({
                               Learn more about {subItem.name.toLowerCase()}
                             </p>
                           </div>
-                          <motion.div
+                          <m.div
                             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             animate={{ x: 0 }}
                             whileHover={{ x: 4 }}
                           >
                             <ChevronDownIcon className="h-5 w-5 text-gold-300 -rotate-90" />
-                          </motion.div>
+                          </m.div>
                         </div>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
               </div>
               
               {/* Call to Action */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: ui.reducedMotion ? 0.1 : 0.4, delay: 0.2 }}
@@ -488,16 +488,16 @@ export default function Navigation({
                     <ChevronDownIcon className="ml-2 h-4 w-4 -rotate-90" />
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Backdrop Overlay */}
       <AnimatePresence>
         {(navigation.activeDropdown || navigation.isOpen) && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

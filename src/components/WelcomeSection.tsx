@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Phone, Calendar, Clock } from "lucide-react";
 import { getTodaysServices } from "@/lib/data";
 import { staggerContainer, staggerItem } from "@/lib/animations";
@@ -42,7 +42,7 @@ export default function WelcomeSection() {
           
           {/* Left 2/3 - Welcome content */}
           <div className="lg:col-span-2 space-y-12">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={prefersReducedMotion 
@@ -54,7 +54,7 @@ export default function WelcomeSection() {
             >
               {/* Section heading */}
               <div className="relative">
-                <motion.div
+                <m.div
                   className="absolute -left-4 top-0 w-1 h-16 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
                   initial={prefersReducedMotion ? { opacity: 0 } : { height: 0 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { height: 64 }}
@@ -74,7 +74,7 @@ export default function WelcomeSection() {
 
               {/* Content */}
               <div className="prose prose-xl text-gray-100 space-y-8 leading-relaxed">
-                <motion.p
+                <m.p
                   className="text-xl lg:text-2xl font-light text-gray-100 leading-relaxed"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -89,9 +89,9 @@ export default function WelcomeSection() {
                   faith, hope, and love. Our beautiful Victorian church
                   building houses a vibrant parish family that welcomes all
                   who seek to grow in their relationship with God.
-                </motion.p>
+                </m.p>
                 
-                <motion.p
+                <m.p
                   className="text-lg leading-relaxed text-gray-200"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -106,9 +106,9 @@ export default function WelcomeSection() {
                   you can belong, we invite you to join us. Our parish offers
                   regular worship, sacramental preparation, pastoral care, and
                   numerous opportunities for fellowship and service to others.
-                </motion.p>
+                </m.p>
                 
-                <motion.p
+                <m.p
                   className="text-lg leading-relaxed text-gray-200"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -123,11 +123,11 @@ export default function WelcomeSection() {
                   to love one another as He has loved us. Through our
                   liturgies, educational programs, and community outreach, we
                   seek to be the hands and feet of Jesus in South East London.
-                </motion.p>
+                </m.p>
               </div>
 
               {/* CTA Buttons */}
-              <motion.div
+              <m.div
                 className="flex flex-col sm:flex-row gap-4 pt-4"
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -138,7 +138,7 @@ export default function WelcomeSection() {
                 viewport={{ once: true }}
               >
                 {/* Learn More Button - WHITE BACKGROUND */}
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -1 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -150,10 +150,10 @@ export default function WelcomeSection() {
                     Learn More About Us
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </Link>
-                </motion.div>
+                </m.div>
                 
                 {/* Get in Touch Button - WHITE BORDER */}
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -1 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -165,14 +165,14 @@ export default function WelcomeSection() {
                     Get in Touch
                     <Phone className="ml-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
                   </Link>
-                </motion.div>
-              </motion.div>
-            </motion.div>
+                </m.div>
+              </m.div>
+            </m.div>
           </div>
 
           {/* Right 1/3 - Today's Services - WHITE CARDS */}
           <div className="lg:col-span-1">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={prefersReducedMotion 
@@ -204,7 +204,7 @@ export default function WelcomeSection() {
                 <div className="p-6 bg-white">
                   <div className="space-y-4">
                     {todaysServices.map((service, index) => (
-                      <motion.div
+                      <m.div
                         key={index}
                         className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0"
                         initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
@@ -229,14 +229,14 @@ export default function WelcomeSection() {
                           )}
                         </div>
                         <div className="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0"></div>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
 
                 {/* View All Services Button */}
                 <div className="p-6 pt-0 bg-white">
-                  <motion.div
+                  <m.div
                     whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                     whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   >
@@ -245,7 +245,7 @@ export default function WelcomeSection() {
                       <span>View Complete Schedule</span>
                       <ArrowRight className="h-4 w-4" />
                     </button>
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
@@ -278,7 +278,7 @@ export default function WelcomeSection() {
                 <p className="text-sm text-gray-600 mb-4">
                   Our parish office is here to help with any questions about services or parish life.
                 </p>
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                 >
@@ -289,10 +289,10 @@ export default function WelcomeSection() {
                     <Phone className="h-4 w-4" />
                     <span>Contact Parish Office</span>
                   </Link>
-                </motion.div>
+                </m.div>
               </div>
               
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>

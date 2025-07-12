@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { 
   PhoneIcon,
   EnvelopeIcon,
@@ -97,7 +97,7 @@ export default function Footer({ className = '' }: FooterProps) {
     }
   ]
   return (
-    <motion.footer
+    <m.footer
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -118,9 +118,9 @@ export default function Footer({ className = '' }: FooterProps) {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             
             {/* Church Information */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
+            <m.div variants={itemVariants} className="lg:col-span-1">
               <div className="flex items-start space-x-4 mb-6">
-                <motion.div 
+                <m.div 
                   className="relative w-20 h-20 flex-shrink-0"
                   whileHover={ui.reducedMotion ? {} : { scale: 1.05, rotate: 5 }}
                   transition={{ duration: 0.3 }}
@@ -131,7 +131,7 @@ export default function Footer({ className = '' }: FooterProps) {
                     fill
                     className="object-contain"
                   />
-                </motion.div>
+                </m.div>
                 <div>
                   <h3 className="text-xl font-serif font-bold text-white mb-2">
                     {getParishName()}
@@ -144,7 +144,7 @@ export default function Footer({ className = '' }: FooterProps) {
               
               {/* Contact Quick Access */}
               <div className="space-y-3">
-                <motion.a
+                <m.a
                   href={`tel:${getContactPhone()}`}
                   className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors duration-200 group"
                   whileHover={ui.reducedMotion ? {} : { x: 4 }}
@@ -153,9 +153,9 @@ export default function Footer({ className = '' }: FooterProps) {
                     <PhoneIcon className="h-4 w-4" />
                   </div>
                   <span className="text-sm font-medium">{getContactPhone()}</span>
-                </motion.a>
+                </m.a>
                 
-                <motion.a
+                <m.a
                   href={`mailto:${getContactEmail()}`}
                   className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors duration-200 group"
                   whileHover={ui.reducedMotion ? {} : { x: 4 }}
@@ -164,13 +164,13 @@ export default function Footer({ className = '' }: FooterProps) {
                     <EnvelopeIcon className="h-4 w-4" />
                   </div>
                   <span className="text-sm font-medium">{getContactEmail()}</span>
-                </motion.a>
+                </m.a>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Footer Navigation Sections */}
             {footerSections.map((section, sectionIndex) => (
-              <motion.div 
+              <m.div 
                 key={section.title}
                 variants={itemVariants}
                 className="space-y-4"
@@ -186,7 +186,7 @@ export default function Footer({ className = '' }: FooterProps) {
                 
                 <nav className="space-y-3">
                   {section.items.map((item, itemIndex) => (
-                    <motion.div
+                    <m.div
                       key={item.label}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -200,32 +200,32 @@ export default function Footer({ className = '' }: FooterProps) {
                         href={item.href}
                         className="flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-200 group"
                       >
-                        <motion.div 
+                        <m.div 
                           className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                           whileHover={ui.reducedMotion ? {} : { x: 2 }}
                         >
                           <item.icon className="h-4 w-4 text-gold-400" />
-                        </motion.div>
+                        </m.div>
                         <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-200">
                           {item.label}
                         </span>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </nav>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
 
         {/* Divider */}
-        <motion.div 
+        <m.div 
           variants={itemVariants}
           className="border-t border-white/20"
         />
 
         {/* Legal & Credits */}
-        <motion.div variants={itemVariants} className="py-6">
+        <m.div variants={itemVariants} className="py-6">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6 text-sm text-gray-400">
             
             {/* Copyright & Charity Info */}
@@ -257,7 +257,7 @@ export default function Footer({ className = '' }: FooterProps) {
             {/* Back to Top Button & Design Credit */}
             <div className="flex flex-col lg:flex-row items-center gap-4">
               {/* Scroll to Top Button */}
-              <motion.button
+              <m.button
                 onClick={scrollToTop}
                 className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-gold-600 to-gold-700 hover:from-gold-700 hover:to-gold-800 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                 whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -1 }}
@@ -265,7 +265,7 @@ export default function Footer({ className = '' }: FooterProps) {
               >
                 <ChevronUpIcon className="h-4 w-4" />
                 <span className="text-xs">Back to Top</span>
-              </motion.button>
+              </m.button>
               
               {/* Design Credit */}
               <div className="text-center lg:text-right">
@@ -276,9 +276,9 @@ export default function Footer({ className = '' }: FooterProps) {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
-    </motion.footer>
+    </m.footer>
   )
 }
