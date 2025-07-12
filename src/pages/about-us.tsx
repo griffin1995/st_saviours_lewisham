@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 // Dynamic GSAP imports for SSR compatibility
 import { Loader } from '@googlemaps/js-api-loader'
+// Enhanced Animation Libraries (2025 Standards)
+import { useSpring, animated, useTrail, useChain, useSpringRef } from '@react-spring/web'
+import { useInView } from 'react-intersection-observer'
+import { toast } from 'react-hot-toast'
 import { 
   HomeModernIcon as Church, 
   HeartIcon as Heart, 
@@ -25,6 +29,15 @@ import { EnhancedTimeline } from '@/components/enhanced/EnhancedTimeline'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
 import { LeadershipCarousel } from '@/components/enhanced/LeadershipCarousel'
 import { PhotoSwipeLightbox, EnhancedImage } from '@/components/enhanced/PhotoSwipeLightbox'
+// New Magic UI & Enhanced Components
+import { AnimatedTestimonials } from '@/components/enhanced/AnimatedTestimonials'
+import { LiveOfficeHours } from '@/components/enhanced/LiveOfficeHours'
+import { PrayerRequestWidget } from '@/components/enhanced/PrayerRequestWidget'
+import { VirtualTourButton } from '@/components/enhanced/VirtualTourButton'
+import { ParticleBackground } from '@/components/enhanced/ParticleBackground'
+import { EnhancedTooltip } from '@/components/enhanced/EnhancedTooltip'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
+import { FloatingActionButton } from '@/components/enhanced/FloatingActionButton'
 
 // Modern imports with Zustand integration
 import { PageLayout, PageHero } from '@/components/layout'
@@ -46,15 +59,70 @@ export default function AboutUs() {
   const ui = useUI()
   const actions = useActions()
   const mapRef = useRef<HTMLDivElement>(null)
-
-  // Enhanced page initialization
-  useEffect(() => {
-    actions.addNotification({
-      type: 'info',
-      message: 'Welcome to our About page',
-      dismissible: true
+  
+  // Enhanced Animation States (2025)
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeSection, setActiveSection] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // React Spring Animation Refs
+  const springApi = useSpringRef()
+  const trailApi = useSpringRef()
+  
+  // Enhanced Intersection Observers
+  const [heroRef, heroInView] = useInView({ threshold: 0.3 })
+  const [statsRef, statsInView] = useInView({ threshold: 0.2 })
+  const [valuesRef, valuesInView] = useInView({ threshold: 0.1 })
+  const [timelineRef, timelineInView] = useInView({ threshold: 0.1 })
+  
+  // Mouse tracking for parallax effects
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    setMousePosition({
+      x: (e.clientX / window.innerWidth) * 2 - 1,
+      y: (e.clientY / window.innerHeight) * 2 - 1
     })
   }, [])
+
+  // Enhanced page initialization with performance monitoring
+  useEffect(() => {
+    const startTime = performance.now()
+    
+    // Enhanced welcome notification with animation
+    setTimeout(() => {
+      actions.addNotification({
+        type: 'success',
+        message: '🏛️ Welcome to our parish story',
+        dismissible: true,
+        duration: 4000
+      })
+    }, 1000)
+    
+    // Mouse tracking setup
+    window.addEventListener('mousemove', handleMouseMove)
+    
+    // Page load performance tracking
+    const handleLoad = () => {
+      const loadTime = performance.now() - startTime
+      console.log(`About Us page loaded in ${loadTime.toFixed(2)}ms`)
+      setIsLoading(false)
+      toast.success('Page loaded successfully', {
+        duration: 2000,
+        position: 'bottom-right'
+      })
+    }
+    
+    if (document.readyState === 'complete') {
+      handleLoad()
+    } else {
+      window.addEventListener('load', handleLoad)
+    }
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('load', handleLoad)
+    }
+  }, [actions, handleMouseMove])
 
   // Google Maps integration for CTA section
   useEffect(() => {
@@ -122,33 +190,82 @@ export default function AboutUs() {
     initMap()
   }, [])
 
-  // Enhanced animation variants
+  // Enhanced React Spring Animations (2025)
+  const heroSpring = useSpring({
+    ref: springApi,
+    from: { opacity: 0, transform: 'translateY(50px) scale(0.95)' },
+    to: { 
+      opacity: heroInView ? 1 : 0, 
+      transform: heroInView ? 'translateY(0px) scale(1)' : 'translateY(50px) scale(0.95)' 
+    },
+    config: { tension: 280, friction: 60 },
+    delay: ui.reducedMotion ? 0 : 200
+  })
+  
+  const statsSpring = useSpring({
+    opacity: statsInView ? 1 : 0,
+    transform: statsInView ? 'translateY(0px)' : 'translateY(30px)',
+    config: { mass: 1, tension: 120, friction: 14 },
+    delay: ui.reducedMotion ? 0 : 300
+  })
+  
+  const valuesTrail = useTrail(values.length, {
+    ref: trailApi,
+    from: { opacity: 0, transform: 'scale(0.8) translateY(40px)' },
+    to: { 
+      opacity: valuesInView ? 1 : 0, 
+      transform: valuesInView ? 'scale(1) translateY(0px)' : 'scale(0.8) translateY(40px)' 
+    },
+    config: { tension: 300, friction: 40 },
+    delay: ui.reducedMotion ? 0 : 100
+  })
+  
+  // Chain animations for sequential reveals
+  useChain(valuesInView ? [springApi, trailApi] : [], valuesInView ? [0, 0.2] : [])
+  
+  // Parallax effect for mouse movement
+  const parallaxSpring = useSpring({
+    transform: ui.reducedMotion ? 'translate3d(0px, 0px, 0)' : 
+      `translate3d(${mousePosition.x * 5}px, ${mousePosition.y * 5}px, 0)`,
+    config: { tension: 100, friction: 30 }
+  })
+  
+  // Enhanced animation variants for Framer Motion compatibility
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         duration: ui.reducedMotion ? 0.2 : 0.8,
-        staggerChildren: ui.reducedMotion ? 0 : 0.1
+        staggerChildren: ui.reducedMotion ? 0 : 0.1,
+        ease: 'easeOut'
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+      scale: 1,
+      transition: { 
+        duration: ui.reducedMotion ? 0.2 : 0.6,
+        ease: 'easeOut'
+      }
     }
   }
 
   const scaleVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.9, rotateY: -15 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+      rotateY: 0,
+      transition: { 
+        duration: ui.reducedMotion ? 0.2 : 0.5,
+        ease: 'backOut'
+      }
     }
   }
 
@@ -285,20 +402,91 @@ export default function AboutUs() {
       keywords="About St Saviours, Catholic Church Lewisham, Parish History, Community, Mission, Values"
       background="white"
     >
-      {/* Hero Section */}
-      <PageHero
-        title="About St Saviour's"
-        subtitle="Our Community"
-        description="A vibrant Catholic community in the heart of Lewisham, welcoming all to experience God's love and grace."
-        pageName="about-us"
-        height="large"
-        overlay="medium"
+      {/* Enhanced Particle Background */}
+      <ParticleBackground 
+        density={ui.reducedMotion ? 0 : 50}
+        color="gold"
+        opacity={0.1}
+        size={2}
+        speed={0.5}
+      />
+      
+      {/* Floating Action Buttons */}
+      <FloatingActionButton
+        position="bottom-right"
+        actions={[
+          {
+            icon: <Heart className="h-5 w-5" />,
+            label: "Prayer Request",
+            onClick: () => setActiveSection(1),
+            color: "gold"
+          },
+          {
+            icon: <Church className="h-5 w-5" />,
+            label: "Virtual Tour",
+            onClick: () => setActiveSection(2),
+            color: "navy"
+          },
+          {
+            icon: <Phone className="h-5 w-5" />,
+            label: "Contact",
+            onClick: () => window.location.href = '/contact-us',
+            color: "slate"
+          }
+        ]}
+        reducedMotion={ui.reducedMotion}
+      />
+      
+      {/* Progress Indicator */}
+      <ProgressIndicator
+        sections={['Welcome', 'Statistics', 'Mission', 'Values', 'History', 'Leadership', 'Contact']}
+        activeSection={activeSection}
+        position="left"
+        reducedMotion={ui.reducedMotion}
+      />
+      {/* Enhanced Hero Section with React Spring */}
+      <div ref={heroRef}>
+        <animated.div style={heroSpring}>
+          <PageHero
+            title="About St Saviour's"
+            subtitle="Our Community"
+            description="A vibrant Catholic community in the heart of Lewisham, welcoming all to experience God's love and grace."
+            pageName="about-us"
+            height="large"
+            overlay="medium"
+            customContent={
+              <animated.div style={parallaxSpring} className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-gold-400 rounded-full opacity-20 animate-pulse" />
+                <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-white rounded-full opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-gold-300 rounded-full opacity-25 animate-pulse" style={{ animationDelay: '2s' }} />
+              </animated.div>
+            }
+          />
+        </animated.div>
+      </div>
+      
+      {/* Live Office Hours Widget */}
+      <LiveOfficeHours
+        position="top-right"
+        schedule={{
+          monday: { open: '09:00', close: '17:00' },
+          tuesday: { open: '09:00', close: '17:00' },
+          wednesday: { open: '09:00', close: '17:00' },
+          thursday: { open: '09:00', close: '17:00' },
+          friday: { open: '09:00', close: '17:00' },
+          saturday: { open: '10:00', close: '16:00' },
+          sunday: { open: '08:00', close: '12:00' }
+        }}
+        timezone="Europe/London"
+        reducedMotion={ui.reducedMotion}
       />
 
-      {/* Enhanced Interactive Statistics with Chart.js */}
+      {/* Enhanced Interactive Statistics with Chart.js & React Spring */}
       <Section spacing="md" background="slate">
-        <ScrollRevealSection>
-          <Container>
+        <div ref={statsRef}>
+          <animated.div style={statsSpring}>
+            <ScrollRevealSection>
+              <Container>
             <Motion.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
@@ -356,10 +544,9 @@ export default function AboutUs() {
               </h2>
               
               <ScriptureCard
-                title=""
-                content="St Saviour's Catholic Church exists to be a beacon of hope and faith in Lewisham, where all people can encounter the transforming love of Jesus Christ and grow together as a community of believers."
-                verse="Matthew 5:14 - 'You are the light of the world'"
-                variant="mission"
+                displayMode="themed"
+                theme="mission"
+                showReflection={true}
                 reducedMotion={ui.reducedMotion}
               />
 
