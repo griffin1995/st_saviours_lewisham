@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { m } from 'framer-motion'
+import { useSpring, animated, config } from '@react-spring/web'
+import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
-import { Camera, Heart, Mail, Phone } from 'lucide-react'
+import { Camera, Heart, Mail, Phone, Share2, BarChart3, Eye, MousePointer2, Zap, Calendar } from 'lucide-react'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
+import { Bar } from 'react-chartjs-2'
 
 // New modern component system
 import { PageLayout, PageHero } from '@/components/layout'
@@ -17,7 +21,19 @@ import {
 } from '@/components/ui'
 import { GalleryGrid, ImageLightbox, type GalleryImage } from '@/components/church'
 import { EnhancedGalleryGrid, EnhancedPhotoSwipeLightbox } from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { GalleryAnalyticsDashboard } from '@/components/enhanced/GalleryAnalyticsDashboard'
+import { VirtualTourIntegration } from '@/components/enhanced/VirtualTourIntegration'
+import { LivePhotoUpload } from '@/components/enhanced/LivePhotoUpload'
+import { PrayerfulReflectionCard } from '@/components/enhanced/PrayerfulReflectionCard'
+import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
+import { typographyScale } from '@/lib/fonts'
+import ScrollRevealSection from '@/components/ScrollRevealSection'
 import { prefersReducedMotion } from '@/lib/utils'
+import { useUI, useActions } from '@/stores/churchStore'
 
 // Gallery data
 const galleryImages: GalleryImage[] = [
@@ -133,12 +149,93 @@ const galleryImages: GalleryImage[] = [
 
 const categories = ["All", "Church Building", "Liturgical Celebrations", "Sacraments", "Community Events"]
 
+// Chart.js registration
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+
 export default function Gallery() {
+  const ui = useUI()
+  const actions = useActions()
   const reducedMotion = prefersReducedMotion()
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [imageStats, setImageStats] = useState<{[key: string]: {views: number, likes: number, shares: number}}>({})
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [shareImageData, setShareImageData] = useState<GalleryImage | null>(null)
+  const { ref: analyticsRef, inView: analyticsInView } = useInView({ threshold: 0.3, triggerOnce: true })
+
+  // Enhanced page initialization
+  useEffect(() => {
+    actions.addNotification({
+      type: 'info',
+      message: 'Welcome to our Photo Gallery - discover our community in pictures',
+      dismissible: true
+    })
+    
+    // Load image statistics from localStorage
+    const savedStats = localStorage.getItem('gallery-image-stats')
+    if (savedStats) {
+      setImageStats(JSON.parse(savedStats))
+    }
+  }, [])
+
+  // Mouse tracking for interactive effects
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }, [])
+
+  // Image interaction tracking
+  const handleImageView = useCallback((imageId: string) => {
+    setImageStats(prev => {
+      const updated = {
+        ...prev,
+        [imageId]: {
+          views: (prev[imageId]?.views || 0) + 1,
+          likes: prev[imageId]?.likes || 0,
+          shares: prev[imageId]?.shares || 0
+        }
+      }
+      localStorage.setItem('gallery-image-stats', JSON.stringify(updated))
+      return updated
+    })
+  }, [])
+
+  const handleImageLike = useCallback((imageId: string) => {
+    setImageStats(prev => {
+      const updated = {
+        ...prev,
+        [imageId]: {
+          views: prev[imageId]?.views || 0,
+          likes: (prev[imageId]?.likes || 0) + 1,
+          shares: prev[imageId]?.shares || 0
+        }
+      }
+      localStorage.setItem('gallery-image-stats', JSON.stringify(updated))
+      return updated
+    })
+  }, [])
+
+  const handleImageShare = useCallback((image: GalleryImage) => {
+    setShareImageData(image)
+    setIsShareModalOpen(true)
+    
+    setImageStats(prev => {
+      const updated = {
+        ...prev,
+        [image.id]: {
+          views: prev[image.id]?.views || 0,
+          likes: prev[image.id]?.likes || 0,
+          shares: (prev[image.id]?.shares || 0) + 1
+        }
+      }
+      localStorage.setItem('gallery-image-stats', JSON.stringify(updated))
+      return updated
+    })
+  }, [])
 
   const handleImageClick = (image: GalleryImage, index: number) => {
+    handleImageView(String(image.id))
     setSelectedImage(image)
     setLightboxIndex(index)
   }
@@ -154,6 +251,42 @@ export default function Gallery() {
     
     setLightboxIndex(newIndex)
     setSelectedImage(galleryImages[newIndex])
+  }
+
+  // React Spring animations
+  const heroSpring = useSpring({
+    opacity: 1,
+    transform: 'translateY(0px)',
+    from: { opacity: 0, transform: 'translateY(30px)' },
+    config: ui.reducedMotion ? config.default : config.gentle
+  })
+
+  const analyticsSpring = useSpring({
+    opacity: analyticsInView ? 1 : 0,
+    transform: analyticsInView ? 'translateY(0px)' : 'translateY(50px)',
+    config: ui.reducedMotion ? config.default : config.gentle,
+    delay: 300
+  })
+
+  // Gallery analytics data for Chart.js
+  const imageEngagementData = {
+    labels: galleryImages.slice(0, 8).map(img => img.title.substring(0, 15) + '..'),
+    datasets: [
+      {
+        label: 'Views',
+        data: galleryImages.slice(0, 8).map(img => imageStats[img.id]?.views || 0),
+        backgroundColor: 'rgba(212, 175, 55, 0.6)',
+        borderColor: '#d4af37',
+        borderWidth: 1
+      },
+      {
+        label: 'Likes',
+        data: galleryImages.slice(0, 8).map(img => imageStats[img.id]?.likes || 0),
+        backgroundColor: 'rgba(26, 54, 93, 0.6)',
+        borderColor: '#1a365d',
+        borderWidth: 1
+      }
+    ]
   }
 
   return (
@@ -190,16 +323,48 @@ export default function Gallery() {
         }
       />
 
+      {/* Scripture Inspiration Section */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Witnessing God's Love
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Every image tells a story of faith, community, and God's presence among us
+              </p>
+            </Motion.div>
+            
+            <div className="max-w-4xl mx-auto">
+              <ScriptureCard
+                displayMode="themed"
+                theme="community"
+                showReflection={true}
+                reducedMotion={ui.reducedMotion}
+              />
+            </div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Introduction */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <m.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
-          >
+          <animated.div style={heroSpring} className="text-center space-y-8 max-w-4xl mx-auto mb-16">
             <Heading level="h2" align="center" className="mb-6">
               Our Parish Life in Pictures
             </Heading>
@@ -208,20 +373,176 @@ export default function Gallery() {
               these photos capture the essence of our faith community. Browse through 
               memories of sacraments, events, and the beautiful spaces where we worship.
             </Text>
-          </m.div>
+          </animated.div>
         </Container>
       </Section>
 
-      {/* Enhanced Gallery Grid */}
-      <Section spacing="lg" background="white">
+      {/* Gallery Analytics Dashboard */}
+      {analyticsInView && (
+        <Section spacing="lg" background="white">
+          <Container size="lg">
+            <animated.div ref={analyticsRef} style={analyticsSpring}>
+              <div className="text-center mb-12">
+                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                  Community Engagement
+                  <Motion.div
+                    className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                    style={{ width: '120px' }}
+                  />
+                </h2>
+                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                  See how our community engages with our visual memories
+                </p>
+              </div>
+              
+              <div className="grid lg:grid-cols-3 gap-8 mb-12">
+                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+                  <CardContent>
+                    <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                      <Camera className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
+                      {galleryImages.length}
+                    </h3>
+                    <p className={`${typographyScale.body} text-gray-600`}>Total Photos</p>
+                  </CardContent>
+                </Card>
+                
+                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+                  <CardContent>
+                    <div className="w-16 h-16 bg-green-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                      <Eye className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
+                      {Object.values(imageStats).reduce((sum, stats) => sum + stats.views, 0)}
+                    </h3>
+                    <p className={`${typographyScale.body} text-gray-600`}>Total Views</p>
+                  </CardContent>
+                </Card>
+                
+                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+                  <CardContent>
+                    <div className="w-16 h-16 bg-red-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                      <Heart className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
+                      {Object.values(imageStats).reduce((sum, stats) => sum + stats.likes, 0)}
+                    </h3>
+                    <p className={`${typographyScale.body} text-gray-600`}>Community Likes</p>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                <CardContent>
+                  <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                    Most Popular Photos
+                  </h3>
+                  <div className="h-64">
+                    <Bar
+                      data={imageEngagementData}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            labels: { color: '#374151' }
+                          }
+                        },
+                        scales: {
+                          x: {
+                            ticks: { color: '#374151' },
+                            grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                          },
+                          y: {
+                            ticks: { color: '#374151' },
+                            grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </animated.div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+      )}
+
+      {/* Enhanced Gallery Grid with Mouse Tracking */}
+      <Section spacing="lg" background="white" onMouseMove={handleMouseMove}>
         <Container size="xl">
-          <EnhancedGalleryGrid
-            images={galleryImages}
-            categories={categories}
-            onImageClick={handleImageClick}
-            reducedMotion={reducedMotion}
-            className="mb-16"
-          />
+          <div className="relative">
+            {/* Mouse tracking parallax background */}
+            <div 
+              className="absolute inset-0 pointer-events-none opacity-10"
+              style={{
+                background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(212, 175, 55, 0.1), transparent)`,
+                transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+                transition: ui.reducedMotion ? 'none' : 'transform 0.1s ease-out'
+              }}
+            />
+            
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Parish Photo Gallery
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Explore our community through these cherished moments and sacred celebrations
+              </p>
+            </Motion.div>
+
+            {/* Enhanced Gallery with interactive features */}
+            <div className="relative">
+              <EnhancedGalleryGrid
+                images={galleryImages}
+                categories={categories}
+                onImageClick={handleImageClick}
+                onImageLike={handleImageLike}
+                onImageShare={handleImageShare}
+                imageStats={imageStats}
+                reducedMotion={reducedMotion}
+                className="mb-16"
+              />
+              
+              {/* Interactive stats overlay */}
+              <Motion.div
+                className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-3 text-sm">
+                  <div className="flex items-center gap-1">
+                    <MousePointer2 className="h-4 w-4 text-gold-600" />
+                    <span className="text-gray-700">Interactive Gallery</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Zap className="h-4 w-4 text-blue-600" />
+                    <span className="text-gray-700">Live Stats</span>
+                  </div>
+                </div>
+              </Motion.div>
+            </div>
+          </div>
         </Container>
       </Section>
 
@@ -334,6 +655,123 @@ export default function Gallery() {
         </Container>
       </Section>
 
+      {/* Virtual Tour Integration */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Explore Our Sacred Spaces
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '180px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Take a virtual journey through our beautiful church and discover the sacred artistry
+              </p>
+            </Motion.div>
+            
+            <VirtualTourIntegration
+              galleryImages={galleryImages}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Live Photo Upload Section */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Share Your Parish Moments
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '160px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Contribute to our community gallery by sharing your photos from parish events
+              </p>
+            </Motion.div>
+            
+            <LivePhotoUpload
+              onPhotoUploaded={(photo) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: 'Photo uploaded successfully! Thank you for sharing.',
+                  dismissible: true
+                })
+              }}
+              acceptedFormats={['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/webm']}
+              maxFileSize={10 * 1024 * 1024} // 10MB
+              supportVideo={true}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Prayerful Reflection Section */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Sacred Reflections
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Pause and reflect on the sacred beauty captured in our parish life
+              </p>
+            </Motion.div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {galleryImages.filter(img => img.category === 'Church Building' || img.category === 'Liturgical Celebrations').slice(0, 3).map((image, index) => (
+                <PrayerfulReflectionCard
+                  key={image.id}
+                  image={image}
+                  reflectionTheme={index === 0 ? 'architecture' : index === 1 ? 'liturgy' : 'community'}
+                  reducedMotion={ui.reducedMotion}
+                />
+              ))}
+            </div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Enhanced PhotoSwipe Lightbox */}
       <EnhancedPhotoSwipeLightbox
         image={selectedImage}
@@ -342,6 +780,55 @@ export default function Gallery() {
         onClose={closeLightbox}
         onNavigate={navigateLightbox}
         reducedMotion={reducedMotion}
+      />
+
+      {/* Social Sharing Modal */}
+      <SocialSharingSystem
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        shareData={shareImageData}
+        type="gallery-image"
+        analytics={true}
+        customMessage="Check out this beautiful moment from St Saviour's Catholic Church!"
+      />
+
+      {/* Performance Monitor */}
+      <PerformanceMonitor
+        pageName="Gallery"
+        trackLoadTimes={true}
+        trackInteractions={true}
+        trackEngagement={true}
+        onPerformanceData={(data) => {
+          // Track gallery performance metrics
+          console.log('Gallery performance:', data)
+        }}
+      />
+
+      {/* Accessibility Enhancer */}
+      <AccessibilityEnhancer
+        keyboardNavigation={{
+          enableArrowKeys: true,
+          enableSpaceBar: true,
+          enableEnterKey: true,
+          onKeyPress: (key, target) => {
+            if (key === 'ArrowLeft' && selectedImage) {
+              navigateLightbox('prev')
+            } else if (key === 'ArrowRight' && selectedImage) {
+              navigateLightbox('next')
+            } else if (key === 'Escape' && selectedImage) {
+              closeLightbox()
+            }
+          }
+        }}
+        screenReaderSupport={{
+          announcePageChanges: true,
+          announceImageLoading: true,
+          provideFocusIndicators: true
+        }}
+        contrastEnhancement={{
+          enableHighContrast: ui.highContrast,
+          enableFocusVisible: true
+        }}
       />
     </PageLayout>
   )
