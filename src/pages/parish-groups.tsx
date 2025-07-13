@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { m } from 'framer-motion'
+import { useSpring, animated, config } from '@react-spring/web'
+import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PieElement, ArcElement } from 'chart.js'
+import { Bar, Pie } from 'react-chartjs-2'
 import { 
   Users, 
   BookOpen, 
@@ -30,10 +34,36 @@ import {
 } from '@/components/ui'
 import { GroupCard } from '@/components/church'
 import { EnhancedGroupCard, AnimatedWeeklySchedule } from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { InteractiveMemberDirectory } from '@/components/enhanced/InteractiveMemberDirectory'
+import { VirtualGroupMeeting } from '@/components/enhanced/VirtualGroupMeeting'
+import { GroupRegistrationSystem } from '@/components/enhanced/GroupRegistrationSystem'
+import { GroupTestimonialsCarousel } from '@/components/enhanced/GroupTestimonialsCarousel'
+import { PrayerRequestIntegration } from '@/components/enhanced/PrayerRequestIntegration'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
+import { typographyScale } from '@/lib/fonts'
+import ScrollRevealSection from '@/components/ScrollRevealSection'
 import { prefersReducedMotion, cn } from '@/lib/utils'
+import { useUI, useActions } from '@/stores/churchStore'
+
+// Chart.js registration
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PieElement, ArcElement)
 
 export default function ParishGroups() {
+  const ui = useUI()
+  const actions = useActions()
   const reducedMotion = prefersReducedMotion()
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
+  const [groupStats, setGroupStats] = useState<{[key: string]: {members: number, activities: number, engagement: number}}>({})
+  const [registrationMode, setRegistrationMode] = useState(false)
+  const [selectedGroupForReg, setSelectedGroupForReg] = useState<string | null>(null)
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [shareGroupData, setShareGroupData] = useState<any>(null)
+  const [prayerRequestsOpen, setPrayerRequestsOpen] = useState(false)
+  const { ref: analyticsRef, inView: analyticsInView } = useInView({ threshold: 0.3, triggerOnce: true })
 
   const groups = [
     {
@@ -146,6 +176,85 @@ export default function ParishGroups() {
     }
   ]
 
+  // Enhanced page initialization
+  useEffect(() => {
+    actions.addNotification({
+      type: 'info',
+      message: 'Welcome to Parish Groups - find your place in our vibrant community',
+      dismissible: true
+    })
+    
+    // Load group statistics from localStorage
+    const savedStats = localStorage.getItem('parish-group-stats')
+    if (savedStats) {
+      setGroupStats(JSON.parse(savedStats))
+    }
+  }, [])
+
+  const handleGroupRegistration = useCallback((groupName: string) => {
+    setSelectedGroupForReg(groupName)
+    setRegistrationMode(true)
+  }, [])
+
+  const handleGroupShare = useCallback((group: any) => {
+    setShareGroupData(group)
+    setIsShareModalOpen(true)
+  }, [])
+
+  const handlePrayerRequest = useCallback((groupName: string) => {
+    setSelectedGroup(groupName)
+    setPrayerRequestsOpen(true)
+  }, [])
+
+  // React Spring animations
+  const heroSpring = useSpring({
+    opacity: 1,
+    transform: 'translateY(0px)',
+    from: { opacity: 0, transform: 'translateY(30px)' },
+    config: ui.reducedMotion ? config.default : config.gentle
+  })
+
+  const analyticsSpring = useSpring({
+    opacity: analyticsInView ? 1 : 0,
+    transform: analyticsInView ? 'translateY(0px)' : 'translateY(50px)',
+    config: ui.reducedMotion ? config.default : config.gentle,
+    delay: 300
+  })
+
+  // Group engagement analytics data
+  const groupEngagementData = {
+    labels: groups.slice(0, 6).map(group => group.name.substring(0, 15) + '..'),
+    datasets: [
+      {
+        label: 'Active Members',
+        data: groups.slice(0, 6).map(group => groupStats[group.name]?.members || 0),
+        backgroundColor: 'rgba(212, 175, 55, 0.6)',
+        borderColor: '#d4af37',
+        borderWidth: 1
+      },
+      {
+        label: 'Monthly Activities',
+        data: groups.slice(0, 6).map(group => groupStats[group.name]?.activities || 0),
+        backgroundColor: 'rgba(26, 54, 93, 0.6)',
+        borderColor: '#1a365d',
+        borderWidth: 1
+      }
+    ]
+  }
+
+  const groupParticipationData = {
+    labels: groups.map(group => group.name),
+    datasets: [
+      {
+        data: groups.map(group => groupStats[group.name]?.engagement || 0),
+        backgroundColor: [
+          '#d4af37', '#1a365d', '#16a34a', '#dc2626', '#7c3aed', '#ea580c', '#0891b2', '#be185d'
+        ],
+        borderWidth: 2
+      }
+    ]
+  }
+
   const steps = [
     {
       number: 1,
@@ -201,16 +310,48 @@ export default function ParishGroups() {
         }
       />
 
+      {/* Scripture Inspiration Section */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Called to Community
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Where faith grows through fellowship and service to one another
+              </p>
+            </Motion.div>
+            
+            <div className="max-w-4xl mx-auto">
+              <ScriptureCard
+                displayMode="themed"
+                theme="community"
+                showReflection={true}
+                reducedMotion={ui.reducedMotion}
+              />
+            </div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Introduction */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <m.div
-            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
-            whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
-          >
+          <animated.div style={heroSpring} className="text-center space-y-8 max-w-4xl mx-auto mb-16">
             <Heading level="h2" align="center" className="mb-6">
               Find Your Place in Our Community
             </Heading>
@@ -219,7 +360,7 @@ export default function ParishGroups() {
               groups offer opportunities to deepen your relationship with God, build 
               meaningful friendships, and serve others in need.
             </Text>
-          </m.div>
+          </animated.div>
 
           <Grid cols={3} gap="lg">
             {benefits.map((benefit, index) => (
@@ -251,6 +392,216 @@ export default function ParishGroups() {
         </Container>
       </Section>
 
+      {/* Group Engagement Analytics */}
+      {analyticsInView && (
+        <Section spacing="lg" background="white">
+          <Container size="lg">
+            <animated.div ref={analyticsRef} style={analyticsSpring}>
+              <div className="text-center mb-12">
+                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                  Community Engagement & Growth
+                  <Motion.div
+                    className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                    style={{ width: '220px' }}
+                  />
+                </h2>
+                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                  See how our parish groups are thriving and growing together in faith
+                </p>
+              </div>
+              
+              <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                  <CardContent>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                      Group Activity & Membership
+                    </h3>
+                    <div className="h-64">
+                      <Bar
+                        data={groupEngagementData}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              labels: { color: '#374151' }
+                            }
+                          },
+                          scales: {
+                            x: {
+                              ticks: { color: '#374151' },
+                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                            },
+                            y: {
+                              ticks: { color: '#374151' },
+                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                  <CardContent>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                      Participation Levels
+                    </h3>
+                    <div className="h-64">
+                      <Pie
+                        data={groupParticipationData}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: 'bottom',
+                              labels: { color: '#374151' }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </animated.div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+      )}
+
+      {/* Interactive Member Directory */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Connect with Group Leaders
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '180px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Meet the dedicated volunteers who lead our vibrant parish groups
+              </p>
+            </Motion.div>
+            
+            <InteractiveMemberDirectory
+              groups={groups}
+              onContactLeader={(group, leader) => {
+                actions.addNotification({
+                  type: 'info',
+                  message: `Contact details for ${leader.name} from ${group.name} copied to clipboard!`,
+                  dismissible: true
+                })
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Virtual Group Meetings */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Join Virtual Gatherings
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '160px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Can't attend in person? Join our groups online for prayer, study, and fellowship
+              </p>
+            </Motion.div>
+            
+            <VirtualGroupMeeting
+              groups={groups}
+              onJoinMeeting={(group, meetingId) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: `Joining ${group.name} virtual meeting...`,
+                  dismissible: true
+                })
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Group Registration System */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Easy Group Registration
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '160px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Sign up for groups quickly and securely with our streamlined registration process
+              </p>
+            </Motion.div>
+            
+            <GroupRegistrationSystem
+              groups={groups}
+              selectedGroup={selectedGroupForReg}
+              isOpen={registrationMode}
+              onClose={() => setRegistrationMode(false)}
+              onRegister={(groupName, memberData) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: `Welcome to ${groupName}! You'll receive a confirmation email shortly.`,
+                  dismissible: true
+                })
+                setRegistrationMode(false)
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Parish Groups Grid */}
       <Section spacing="lg" background="white">
         <Container size="lg">
@@ -276,6 +627,10 @@ export default function ParishGroups() {
                 key={group.name}
                 group={group}
                 index={index}
+                onRegister={() => handleGroupRegistration(group.name)}
+                onShare={() => handleGroupShare(group)}
+                onPrayerRequest={() => handlePrayerRequest(group.name)}
+                groupStats={groupStats[group.name]}
                 reducedMotion={reducedMotion}
               />
             ))}
@@ -369,6 +724,85 @@ export default function ParishGroups() {
         </Container>
       </Section>
 
+      {/* Group Testimonials */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Stories from Our Community
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '180px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Hear how parish groups have enriched the faith journeys of our community members
+              </p>
+            </Motion.div>
+            
+            <GroupTestimonialsCarousel
+              groups={groups}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Prayer Request Integration */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Pray for Each Other
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Share prayer requests within your groups and lift each other up in faith
+              </p>
+            </Motion.div>
+            
+            <PrayerRequestIntegration
+              groups={groups}
+              selectedGroup={selectedGroup}
+              isOpen={prayerRequestsOpen}
+              onClose={() => setPrayerRequestsOpen(false)}
+              onSubmitRequest={(groupName, request) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: `Prayer request shared with ${groupName}. Our community will pray for you.`,
+                  dismissible: true
+                })
+                setPrayerRequestsOpen(false)
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Enhanced Weekly Schedule */}
       <Section spacing="lg" background="white">
         <Container size="lg">
@@ -378,6 +812,50 @@ export default function ParishGroups() {
           />
         </Container>
       </Section>
+
+      {/* Social Sharing Modal */}
+      <SocialSharingSystem
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        shareData={shareGroupData}
+        type="parish-group"
+        analytics={true}
+        customMessage="Join this amazing parish group at St Saviour's Catholic Church!"
+      />
+
+      {/* Performance Monitor */}
+      <PerformanceMonitor
+        pageName="Parish Groups"
+        trackLoadTimes={true}
+        trackInteractions={true}
+        trackEngagement={true}
+        onPerformanceData={(data) => {
+          console.log('Parish Groups performance:', data)
+        }}
+      />
+
+      {/* Accessibility Enhancer */}
+      <AccessibilityEnhancer
+        keyboardNavigation={{
+          enableArrowKeys: true,
+          enableTabNavigation: true,
+          enableEnterKey: true,
+          onKeyPress: (key, target) => {
+            if (key === 'Enter' && target?.dataset.groupName) {
+              handleGroupRegistration(target.dataset.groupName)
+            }
+          }
+        }}
+        screenReaderSupport={{
+          announcePageChanges: true,
+          announceFormValidation: true,
+          provideFocusIndicators: true
+        }}
+        contrastEnhancement={{
+          enableHighContrast: ui.highContrast,
+          enableFocusVisible: true
+        }}
+      />
     </PageLayout>
   )
 }
