@@ -36,7 +36,7 @@ import { EnhancedNewsletterForm } from '@/components/enhanced/EnhancedNewsletter
 import { AdvancedSearchSystem } from '@/components/enhanced/AdvancedSearchSystem'
 import { ArticleBookmarkSystem } from '@/components/enhanced/ArticleBookmarkSystem'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { ReadingProgressIndicator } from '@/components/enhanced/ReadingProgressIndicator'
+import { ReadingProgressIndicator } from '@/components/enhanced/ReadingProgressIndicator'\nimport { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'\nimport { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 
 // Modern imports with Zustand integration
 import { PageLayout, PageHero } from '@/components/layout'
@@ -1405,6 +1405,45 @@ export default function News() {
           </Motion.div>
         </Motion.div>
       )}
+
+      {/* Performance Monitor */}
+      <PerformanceMonitor
+        pageName=\"Parish News\"
+        trackLoadTimes={true}
+        trackInteractions={true}
+        trackEngagement={true}
+        trackSearchBehavior={true}
+        onPerformanceData={(data) => {
+          console.log('News performance:', data)
+        }}
+      />
+
+      {/* Accessibility Enhancer */}
+      <AccessibilityEnhancer
+        keyboardNavigation={{
+          enableArrowKeys: true,
+          enableTabNavigation: true,
+          enableEnterKey: true,
+          onKeyPress: (key, target) => {
+            if (key === 'Enter' && target?.dataset.articleId) {
+              // Navigate to article
+              window.location.href = `/news/${target.dataset.articleId}`
+            } else if (key === 'b' && target?.dataset.articleId) {
+              handleBookmark(target.dataset.articleId)
+            }
+          }
+        }}
+        screenReaderSupport={{
+          announcePageChanges: true,
+          announceSearchResults: true,
+          announceFilters: true,
+          provideFocusIndicators: true
+        }}
+        contrastEnhancement={{
+          enableHighContrast: ui.highContrast,
+          enableFocusVisible: true
+        }}
+      />
     </PageLayout>
   )
 }
