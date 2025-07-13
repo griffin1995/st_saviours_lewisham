@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useSpring, animated, config } from '@react-spring/web'
+import { useInView } from 'react-intersection-observer'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, RadialLinearScale, ArcElement } from 'chart.js'
+import { Bar, PolarArea } from 'react-chartjs-2'
 import { 
   ArrowRightIcon as ArrowRight, 
   BeakerIcon as Droplets, 
@@ -26,7 +30,20 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentCard, type Sacrament } from '@/components/church'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { InteractiveSacramentalJourney } from '@/components/enhanced/InteractiveSacramentalJourney'
+import { SacramentalPreparationTracker } from '@/components/enhanced/SacramentalPreparationTracker'
+import { SacramentalCalendarIntegration } from '@/components/enhanced/SacramentalCalendarIntegration'
+import { SpiritualGrowthTracker } from '@/components/enhanced/SpiritualGrowthTracker'
+import { SacramentalResourcesLibrary } from '@/components/enhanced/SacramentalResourcesLibrary'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
+import { typographyScale } from '@/lib/fonts'
+import ScrollRevealSection from '@/components/ScrollRevealSection'
 import { prefersReducedMotion } from '@/lib/utils'
+import { useUI, useActions } from '@/stores/churchStore'
 
 const sacraments: Sacrament[] = [
   {
@@ -118,8 +135,111 @@ const sacramentCategories = [
   }
 ]
 
+// Chart.js registration
+ChartJS.register(CategoryScale, LinearScale, BarElement, RadialLinearScale, ArcElement, Title, Tooltip, Legend)
+
 export default function TheSacraments() {
+  const ui = useUI()
+  const actions = useActions()
   const reducedMotion = prefersReducedMotion()
+  const [selectedSacrament, setSelectedSacrament] = useState<string | null>(null)
+  const [sacramentalStats, setSacramentalStats] = useState<{[key: string]: {participants: number, ceremonies: number, growth: number}}>({})
+  const [journeyProgress, setJourneyProgress] = useState<{[key: string]: number}>({})
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [shareSacramentData, setShareSacramentData] = useState<any>(null)
+  const { ref: analyticsRef, inView: analyticsInView } = useInView({ threshold: 0.3, triggerOnce: true })
+
+  // Enhanced page initialization
+  useEffect(() => {
+    actions.addNotification({
+      type: 'info',
+      message: 'Welcome to the Sacraments - discover your spiritual journey',
+      dismissible: true
+    })
+    
+    // Load sacramental statistics from localStorage
+    const savedStats = localStorage.getItem('sacramental-stats')
+    if (savedStats) {
+      setSacramentalStats(JSON.parse(savedStats))
+    }
+    
+    // Load journey progress
+    const savedProgress = localStorage.getItem('sacramental-journey-progress')
+    if (savedProgress) {
+      setJourneyProgress(JSON.parse(savedProgress))
+    }
+  }, [])
+
+  const handleSacramentShare = useCallback((sacrament: any) => {
+    setShareSacramentData(sacrament)
+    setIsShareModalOpen(true)
+  }, [])
+
+  const handleJourneyStep = useCallback((sacramentName: string, stepProgress: number) => {
+    setJourneyProgress(prev => {
+      const updated = { ...prev, [sacramentName]: stepProgress }
+      localStorage.setItem('sacramental-journey-progress', JSON.stringify(updated))
+      return updated
+    })
+    
+    actions.addNotification({
+      type: 'success',
+      message: `Progress updated for ${sacramentName} journey!`,
+      dismissible: true
+    })
+  }, [])
+
+  // React Spring animations
+  const heroSpring = useSpring({
+    opacity: 1,
+    transform: 'translateY(0px)',
+    from: { opacity: 0, transform: 'translateY(30px)' },
+    config: ui.reducedMotion ? config.default : config.gentle
+  })
+
+  const analyticsSpring = useSpring({
+    opacity: analyticsInView ? 1 : 0,
+    transform: analyticsInView ? 'translateY(0px)' : 'translateY(50px)',
+    config: ui.reducedMotion ? config.default : config.gentle,
+    delay: 300
+  })
+
+  // Sacramental analytics data for Chart.js
+  const sacramentalParticipationData = {
+    labels: sacraments.slice(0, 7).map(sacrament => sacrament.name),
+    datasets: [
+      {
+        label: 'Annual Participants',
+        data: sacraments.slice(0, 7).map(sacrament => sacramentalStats[sacrament.name]?.participants || 0),
+        backgroundColor: 'rgba(212, 175, 55, 0.6)',
+        borderColor: '#d4af37',
+        borderWidth: 1
+      },
+      {
+        label: 'Ceremonies Held',
+        data: sacraments.slice(0, 7).map(sacrament => sacramentalStats[sacrament.name]?.ceremonies || 0),
+        backgroundColor: 'rgba(26, 54, 93, 0.6)',
+        borderColor: '#1a365d',
+        borderWidth: 1
+      }
+    ]
+  }
+
+  const spiritualGrowthData = {
+    labels: ['Initiation', 'Healing', 'Service'],
+    datasets: [
+      {
+        data: [
+          sacramentCategories[0].sacraments.length,
+          sacramentCategories[1].sacraments.length,
+          sacramentCategories[2].sacraments.length
+        ],
+        backgroundColor: ['#d4af37', '#1a365d', '#16a34a'],
+        borderColor: '#ffffff',
+        borderWidth: 2
+      }
+    ]
+  }
 
   return (
     <PageLayout
@@ -333,6 +453,323 @@ export default function TheSacraments() {
         </Container>
       </Section>
 
+      {/* Scripture Inspiration Section */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Sacred Signs of Grace
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Discover how Christ meets us through these sacred encounters
+              </p>
+            </Motion.div>
+            
+            <div className="max-w-4xl mx-auto">
+              <ScriptureCard
+                displayMode="themed"
+                theme="sacraments"
+                showReflection={true}
+                reducedMotion={ui.reducedMotion}
+              />
+            </div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Sacramental Analytics Dashboard */}
+      {analyticsInView && (
+        <Section spacing="lg" background="white">
+          <Container size="lg">
+            <animated.div ref={analyticsRef} style={analyticsSpring}>
+              <div className="text-center mb-12">
+                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                  Sacramental Life & Growth
+                  <Motion.div
+                    className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                    style={{ width: '180px' }}
+                  />
+                </h2>
+                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                  See how our parish community grows in faith through the sacraments
+                </p>
+              </div>
+              
+              <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                  <CardContent>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                      Sacramental Participation
+                    </h3>
+                    <div className="h-64">
+                      <Bar
+                        data={sacramentalParticipationData}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              labels: { color: '#374151' }
+                            }
+                          },
+                          scales: {
+                            x: {
+                              ticks: { color: '#374151' },
+                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                            },
+                            y: {
+                              ticks: { color: '#374151' },
+                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                  <CardContent>
+                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                      Categories of Grace
+                    </h3>
+                    <div className="h-64">
+                      <PolarArea
+                        data={spiritualGrowthData}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: 'bottom',
+                              labels: { color: '#374151' }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </animated.div>
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+      )}
+
+      {/* Interactive Sacramental Journey */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Your Sacramental Journey
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '160px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Track your spiritual growth and preparation for each sacrament
+              </p>
+            </Motion.div>
+            
+            <InteractiveSacramentalJourney
+              sacraments={sacraments}
+              journeyProgress={journeyProgress}
+              onProgressUpdate={handleJourneyStep}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Sacramental Preparation Tracker */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Preparation & Formation
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Get guided support and track your preparation for receiving the sacraments
+              </p>
+            </Motion.div>
+            
+            <SacramentalPreparationTracker
+              sacraments={sacraments}
+              currentProgress={journeyProgress}
+              onUpdateProgress={handleJourneyStep}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Sacramental Calendar Integration */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Sacramental Calendar
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '140px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Schedule sacramental preparation and celebrations throughout the liturgical year
+              </p>
+            </Motion.div>
+            
+            <SacramentalCalendarIntegration
+              sacraments={sacraments}
+              onScheduleEvent={(sacrament, eventType) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: `${eventType} scheduled for ${sacrament.name}!`,
+                  dismissible: true
+                })
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Spiritual Growth Tracker */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                Track Your Spiritual Growth
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '160px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+                Monitor your faith journey and celebrate milestones in your sacramental life
+              </p>
+            </Motion.div>
+            
+            <SpiritualGrowthTracker
+              sacraments={sacraments}
+              currentProgress={journeyProgress}
+              onMilestoneReached={(milestone) => {
+                actions.addNotification({
+                  type: 'success',
+                  message: `Milestone reached: ${milestone}! Continue your beautiful journey.`,
+                  dismissible: true
+                })
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
+      {/* Sacramental Resources Library */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <ScrollRevealSection>
+            <Motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                Resources & Formation Materials
+                <Motion.div
+                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{ width: '220px' }}
+                />
+              </h2>
+              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                Access comprehensive resources for sacramental preparation and ongoing formation
+              </p>
+            </Motion.div>
+            
+            <SacramentalResourcesLibrary
+              sacraments={sacraments}
+              onResourceAccess={(resource) => {
+                actions.addNotification({
+                  type: 'info',
+                  message: `Accessing ${resource.title} - may God bless your study!`,
+                  dismissible: true
+                })
+              }}
+              reducedMotion={ui.reducedMotion}
+            />
+          </ScrollRevealSection>
+        </Container>
+      </Section>
+
       {/* Call to Action */}
       <Section spacing="lg" background="slate">
         <Container size="md">
@@ -385,6 +822,51 @@ export default function TheSacraments() {
           </div>
         </Container>
       </Section>
+
+      {/* Social Sharing Modal */}
+      <SocialSharingSystem
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        shareData={shareSacramentData}
+        type="sacrament"
+        analytics={true}
+        customMessage="Discover the beautiful sacraments at St Saviour's Catholic Church!"
+      />
+
+      {/* Performance Monitor */}
+      <PerformanceMonitor
+        pageName="The Sacraments"
+        trackLoadTimes={true}
+        trackInteractions={true}
+        trackEngagement={true}
+        onPerformanceData={(data) => {
+          console.log('Sacraments performance:', data)
+        }}
+      />
+
+      {/* Accessibility Enhancer */}
+      <AccessibilityEnhancer
+        keyboardNavigation={{
+          enableArrowKeys: true,
+          enableTabNavigation: true,
+          enableEnterKey: true,
+          onKeyPress: (key, target) => {
+            if (key === 'Enter' && target?.dataset.sacramentName) {
+              const sacrament = sacraments.find(s => s.name === target.dataset.sacramentName)
+              if (sacrament) handleSacramentShare(sacrament)
+            }
+          }
+        }}
+        screenReaderSupport={{
+          announcePageChanges: true,
+          announceProgressUpdates: true,
+          provideFocusIndicators: true
+        }}
+        contrastEnhancement={{
+          enableHighContrast: ui.highContrast,
+          enableFocusVisible: true
+        }}
+      />
     </PageLayout>
   )
 }
