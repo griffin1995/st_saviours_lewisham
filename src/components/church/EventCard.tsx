@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import { Motion } from '@/lib/motion'
 import { Calendar, Clock, MapPin, Users, ExternalLink, Phone, Mail } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Flex } from '@/components/ui'

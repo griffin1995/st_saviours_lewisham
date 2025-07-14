@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import { Motion } from '@/lib/motion'
 import { ClockIcon as Clock, CalendarDaysIcon as Calendar, MapPinIcon as MapPin } from '@heroicons/react/24/solid'
 import { Card, CardContent, Heading, Text, Grid, Flex } from '@/components/ui'
