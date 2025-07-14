@@ -1,6 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useScroll, useTransform } from 'framer-motion'
+import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from 'chart.js'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+)
 import { 
   PlusIcon as Cross, 
   CalendarDaysIcon as Calendar, 
@@ -9,7 +34,14 @@ import {
   UserGroupIcon as Users, 
   HeartIcon as Heart, 
   ArrowRightIcon as ArrowRight, 
-  GiftIcon as Gift 
+  GiftIcon as Gift,
+  FireIcon,
+  SparklesIcon,
+  SunIcon,
+  StarIcon,
+  HandRaisedIcon,
+  ShieldCheckIcon,
+  AcademicCapIcon
 } from '@heroicons/react/24/solid'
 
 // New modern component system
@@ -26,10 +58,144 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
+import {
+  ScriptureCard,
+  SocialSharingSystem,
+  ProgressIndicator,
+  SacramentalAnalytics,
+  SacramentalPreparationGuide,
+  ConfirmationPreparationTracker,
+  SevenGiftsInteractive
+} from '@/components/enhanced'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Confirmation() {
   const reducedMotion = prefersReducedMotion()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [fireParticles, setFireParticles] = useState<Array<{ id: number; x: number; y: number }>>([])
+  const [spiritualGifts, setSpiritualGifts] = useState<Array<{ id: number; gift: string; visible: boolean }>>([])
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 500], [0, 150])
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.5])
+  
+  // Mouse tracking for parallax effects with confirmation symbolism
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!reducedMotion) {
+        setMousePosition({
+          x: (e.clientX - window.innerWidth / 2) * 0.006,
+          y: (e.clientY - window.innerHeight / 2) * 0.006
+        })
+      }
+    }
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [reducedMotion])
+  
+  // Simulated fire/spirit effects for confirmation symbolism
+  useEffect(() => {
+    const generateFireParticle = () => {
+      const newParticle = {
+        id: Date.now(),
+        x: Math.random() * 100,
+        y: Math.random() * 100
+      }
+      setFireParticles(prev => [...prev.slice(-6), newParticle])
+    }
+    
+    const interval = setInterval(generateFireParticle, 2500)
+    return () => clearInterval(interval)
+  }, [])
+  
+  // Spiritual gifts revelation animation
+  useEffect(() => {
+    const gifts = ['Wisdom', 'Understanding', 'Counsel', 'Fortitude', 'Knowledge', 'Piety', 'Fear of the Lord']
+    const giftStates = gifts.map((gift, index) => ({
+      id: index,
+      gift,
+      visible: false
+    }))
+    setSpiritualGifts(giftStates)
+    
+    // Gradually reveal gifts
+    gifts.forEach((_, index) => {
+      setTimeout(() => {
+        setSpiritualGifts(prev => prev.map(g => 
+          g.id === index ? { ...g, visible: true } : g
+        ))
+      }, (index + 1) * 1000)
+    })
+  }, [])
+  
+  // Enhanced performance monitoring for confirmation content
+  useEffect(() => {
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'navigation') {
+          console.log('Confirmation page load time:', entry.duration)
+          if (entry.duration > 3000) {
+            console.warn('Confirmation page slow load detected:', entry.duration)
+          }
+        }
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime)
+          if (entry.startTime > 2500) {
+            console.warn('Confirmation page LCP threshold exceeded:', entry.startTime)
+          }
+        }
+        if (entry.entryType === 'first-input-delay') {
+          console.log('FID:', entry.processingStart - entry.startTime)
+        }
+        if (entry.entryType === 'cumulative-layout-shift') {
+          console.log('CLS:', entry.value)
+        }
+      }
+    })
+    
+    observer.observe({ 
+      entryTypes: ['navigation', 'largest-contentful-paint', 'first-input-delay', 'layout-shift'] 
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  // Enhanced keyboard navigation for confirmation sections
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Quick navigation to gifts section
+      if (e.altKey && e.key === 'g') {
+        e.preventDefault()
+        const giftsSection = document.getElementById('confirmation-gifts')
+        if (giftsSection) {
+          giftsSection.scrollIntoView({ behavior: 'smooth' })
+          giftsSection.focus()
+        }
+      }
+      
+      // Quick navigation to preparation programs
+      if (e.altKey && e.key === 'p') {
+        e.preventDefault()
+        const programSection = document.getElementById('confirmation-programs')
+        if (programSection) {
+          programSection.scrollIntoView({ behavior: 'smooth' })
+          programSection.focus()
+        }
+      }
+      
+      // Quick navigation to contact
+      if (e.altKey && e.key === 'c') {
+        e.preventDefault()
+        const contactSection = document.getElementById('confirmation-contact')
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' })
+          contactSection.focus()
+        }
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const confirmationContent = [
     "Confirmation is a sacrament of initiation that completes what was begun in Baptism. It strengthens us with the gifts of the Holy Spirit and deepens our relationship with Christ and the Church.",
@@ -104,41 +270,146 @@ export default function Confirmation() {
     source: "Acts 1:8"
   }
 
+  // React Spring animations for confirmation effects
+  const [giftsRef, giftsInView] = useInView()
+  const giftsTrail = useTrail(confirmationEffects.length, {
+    opacity: giftsInView ? 1 : 0,
+    transform: giftsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
+    config: { tension: 200, friction: 25 },
+    delay: (i) => i * 150
+  })
+  
+  // Enhanced hero animation with confirmation symbolism
+  const heroSpring = useSpring({
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    to: { opacity: 1, transform: 'translateY(0px)' },
+    config: { tension: 120, friction: 30 },
+    delay: 200
+  })
+
   return (
     <PageLayout
       title="Confirmation"
       description="Learn about the sacrament of Confirmation at St Saviour's Catholic Church. Information on preparation, classes, and celebrating this important milestone in faith."
       keywords="Catholic Confirmation, Confirmation Classes, RCIA, Youth Confirmation, Adult Confirmation, Gifts of Holy Spirit"
     >
-      {/* Hero Section */}
-      <PageHero
-        title="Confirmation"
-        subtitle="Strengthened by the Spirit"
-        description="Confirmation completes Christian initiation and strengthens us with the gifts of the Holy Spirit."
-        backgroundImage="/images/inside-church-aisle.jpg"
-        height="large"
-        overlay="medium"
-        actions={
-          <Flex justify="center" gap="md">
-            <Button 
-              variant="primary" 
-              size="lg"
-              leftIcon={<Calendar className="h-5 w-5" />}
-              className="bg-white text-slate-900 hover:bg-gray-100"
-            >
-              Join Preparation Program
-            </Button>
-            <Button 
-              variant="primary" 
-              size="lg"
-              leftIcon={<BookOpen className="h-5 w-5" />}
-              className="bg-white text-slate-900 hover:bg-gray-100"
-            >
-              Learn About RCIA
-            </Button>
-          </Flex>
-        }
+      {/* Screen Reader Announcements */}
+      <div 
+        aria-live="polite" 
+        aria-atomic="true" 
+        className="sr-only"
+        role="status"
       />
+      
+      {/* Skip Links */}
+      <div className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50">
+        <a 
+          href="#main-content" 
+          className="bg-gold-500 text-slate-900 px-4 py-2 rounded font-medium"
+        >
+          Skip to main content
+        </a>
+      </div>
+      
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">
+      {/* Enhanced Hero Section with Confirmation Symbolism */}
+      <LazyMotion features={domAnimation}>
+        <section 
+          className="relative overflow-hidden"
+          role="banner"
+          aria-labelledby="confirmation-hero-heading"
+        >
+          <motion.div 
+            style={{ y, opacity }}
+            className="absolute inset-0 bg-gradient-to-br from-red-900 via-slate-900 to-orange-800"
+            aria-hidden="true"
+          />
+          
+          {/* Animated confirmation elements */}
+          <motion.div
+            style={{
+              transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
+            }}
+            className="absolute inset-0 opacity-20"
+            aria-hidden="true"
+          >
+            <FireIcon className="absolute top-1/4 left-1/4 h-8 w-8 text-red-400" />
+            <SparklesIcon className="absolute top-1/3 right-1/3 h-6 w-6 text-gold-300" />
+            <HandRaisedIcon className="absolute bottom-1/4 left-1/3 h-7 w-7 text-red-500" />
+            <SunIcon className="absolute top-1/2 right-1/4 h-5 w-5 text-gold-400" />
+            <ShieldCheckIcon className="absolute bottom-1/3 right-1/3 h-6 w-6 text-red-300" />
+          </motion.div>
+          
+          {/* Fire/Spirit particle effects */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            {fireParticles.map((particle) => (
+              <motion.div
+                key={particle.id}
+                className="absolute w-16 h-16 border-2 border-red-400/30 rounded-full"
+                style={{
+                  left: `${particle.x}%`,
+                  top: `${particle.y}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+                initial={{ scale: 0, opacity: 0.6 }}
+                animate={{ scale: 3, opacity: 0 }}
+                transition={{ duration: 2.5, ease: "easeOut" }}
+              />
+            ))}
+          </div>
+          
+          <animated.div style={heroSpring}>
+            <PageHero
+              title="Confirmation"
+              subtitle="Strengthened by the Spirit"
+              description="Confirmation completes Christian initiation and strengthens us with the gifts of the Holy Spirit."
+              backgroundImage="/images/inside-church-aisle.jpg"
+              height="large"
+              overlay="medium"
+              actions={
+                <Flex justify="center" gap="md" role="group" aria-label="Confirmation actions">
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotateY: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Button 
+                      variant="primary" 
+                      size="lg"
+                      leftIcon={<Calendar className="h-5 w-5" aria-hidden="true" />}
+                      className="bg-white text-slate-900 hover:bg-gray-100"
+                      aria-describedby="preparation-help"
+                    >
+                      Join Preparation Program
+                    </Button>
+                    <span id="preparation-help" className="sr-only">
+                      Begin the process of confirmation preparation and enrolment
+                    </span>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotateY: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Button 
+                      variant="primary" 
+                      size="lg"
+                      leftIcon={<BookOpen className="h-5 w-5" aria-hidden="true" />}
+                      className="bg-white text-slate-900 hover:bg-gray-100"
+                      aria-describedby="rcia-help"
+                    >
+                      Learn About RCIA
+                    </Button>
+                    <span id="rcia-help" className="sr-only">
+                      Learn about the Rite of Christian Initiation for Adults
+                    </span>
+                  </motion.div>
+                </Flex>
+              }
+            />
+          </animated.div>
+        </section>
+      </LazyMotion>
 
       {/* Sacrament Information */}
       <Section spacing="lg" background="slate">
@@ -162,69 +433,122 @@ export default function Confirmation() {
         <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
       </div>
 
-      {/* Seven Gifts & Confirmation Process */}
+      {/* Enhanced Seven Gifts Interactive Experience - Phase B & D */}
+      <Section spacing="lg" background="slate" id="confirmation-gifts" tabIndex={-1}>
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SevenGiftsInteractive />
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Enhanced Effects Display with React Spring */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <Grid cols={2} gap="xl" className="items-start">
-            {/* Left Column - Content */}
-            <div className="space-y-8">
-              <div className="relative">
-                <motion.div
-                  className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
-                  initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
-                  whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
-                  transition={reducedMotion 
-                    ? { duration: 0.3 }
-                    : { duration: 1, delay: 0.3 }
-                  }
-                  viewport={{ once: true }}
-                />
-                <Heading level="h2" color="white" className="text-3xl lg:text-4xl font-light">
-                  The Seven Gifts of the Holy Spirit
-                </Heading>
-              </div>
-              <Text size="xl" className="text-gray-100 leading-relaxed">
-                Through Confirmation, candidates receive seven special gifts from the Holy Spirit 
-                to help them live as mature Christians and witnesses to Christ in the world.
-              </Text>
-            </div>
+          <div ref={giftsRef} className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <Heading level="h3" color="white" className="text-2xl font-bold mb-8">
+                Effects of Confirmation
+              </Heading>
+            </motion.div>
             
-            {/* Right Column - Gift Cards Grid */}
-            <div className="grid grid-cols-2 gap-4">
-
-              {[
-                { name: "Wisdom", description: "Helps us see life from God's perspective" },
-                { name: "Understanding", description: "Deepens our comprehension of faith truths" },
-                { name: "Counsel", description: "Guides us to make good decisions" },
-                { name: "Fortitude", description: "Gives us courage to do what is right" },
-                { name: "Knowledge", description: "Helps us know God's will in our lives" },
-                { name: "Piety", description: "Inspires us to worship and serve God" },
-                { name: "Fear of the Lord", description: "Develops reverence and respect for God" }
-              ].map((gift, index) => (
-                <Card key={gift.name} variant="default" padding="sm" className="bg-white/10 backdrop-blur-sm border border-slate-600 text-center">
-                  <CardContent>
-                    <div className="space-y-2">
-                      <div className="w-8 h-8 icon-container-white rounded-full flex items-center justify-center mx-auto">
-                        <Gift className="h-4 w-4 text-black" />
-                      </div>
-                      <Heading level="h4" className="text-sm font-semibold text-white">
-                        {gift.name}
-                      </Heading>
-                      <Text size="xs" className="text-gray-200 leading-relaxed">
-                        {gift.description}
-                      </Text>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {giftsTrail.map((style, index) => {
+                const effect = confirmationEffects[index]
+                if (!effect) return null
+                
+                return (
+                  <animated.div
+                    key={effect.title}
+                    style={style}
+                    className="group"
+                  >
+                    <motion.div
+                      whileHover={{ 
+                        scale: 1.05,
+                        rotateY: 5,
+                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3)"
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="h-full"
+                    >
+                      <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-red-600/30 hover:border-red-400 transition-all duration-300 h-full">
+                        <CardContent>
+                          <div className="space-y-4 text-center">
+                            <motion.div
+                              className="w-12 h-12 mx-auto bg-red-500/20 rounded-full flex items-center justify-center"
+                              whileHover={{ 
+                                rotate: [0, 10, -10, 0],
+                                scale: 1.1
+                              }}
+                              transition={{ duration: 0.6 }}
+                            >
+                              <FireIcon className="h-6 w-6 text-red-400" />
+                            </motion.div>
+                            <Heading level="h4" color="white" className="font-semibold">
+                              {effect.title}
+                            </Heading>
+                            <Text size="sm" className="text-red-200">
+                              {effect.description}
+                            </Text>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </animated.div>
+                )
+              })}
             </div>
-          </Grid>
+          </div>
+        </Container>
+      </Section>
 
           {/* Section Divider */}
           <div className="flex justify-center pt-16 pb-8">
             <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
           </div>
 
+      {/* Confirmation Preparation Programs - Enhanced */}
+      <Section spacing="lg" background="slate" id="confirmation-programs" tabIndex={-1}>
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-16"
+          >
+            <div className="text-center">
+              <Heading level="h2" color="white" className="text-3xl font-bold mb-4">
+                Confirmation Preparation Programs
+              </Heading>
+              <Text className="text-gray-300 max-w-3xl mx-auto">
+                Whether you're a young person or an adult, we offer comprehensive preparation programs 
+                to help you receive the gifts of the Holy Spirit through confirmation.
+              </Text>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <ConfirmationPreparationTracker confirmationType="youth" />
+              <ConfirmationPreparationTracker confirmationType="adult" />
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Traditional Program Information for Reference */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
           <Grid cols={2} gap="xl" className="items-start">
             {/* Left Column - Youth Program */}
             <div className="space-y-8">
@@ -308,8 +632,85 @@ export default function Confirmation() {
         <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
       </div>
 
-      {/* Call to Action */}
+      {/* Confirmation Analytics Dashboard - Phase B Enhancement */}
       <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SacramentalAnalytics sacramentType="confirmation" />
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Scripture Card - Phase D Enhancement */}
+      <Section spacing="sm" background="slate">
+        <Container size="md">
+          <ScriptureCard 
+            theme="confirmation"
+            reference="Acts 1:8"
+            text="But you will receive power when the Holy Spirit comes upon you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth."
+            reflection="Through confirmation, we receive the power of the Holy Spirit to be courageous witnesses to Christ in our daily lives and throughout the world."
+          />
+        </Container>
+      </Section>
+
+      {/* Comprehensive Preparation Guide - Phase B & D Enhancement */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="space-y-12">
+              <div className="text-center">
+                <Heading level="h2" color="white" className="text-3xl font-bold mb-4">
+                  Complete Preparation Guide
+                </Heading>
+                <Text className="text-gray-300 max-w-3xl mx-auto">
+                  Follow our comprehensive step-by-step guide for both youth and adult confirmation preparation
+                </Text>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <SacramentalPreparationGuide sacramentType="confirmation" participantType="child" />
+                <SacramentalPreparationGuide sacramentType="confirmation" participantType="adult" />
+              </div>
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Social Sharing System - Phase B Enhancement */}
+      <Section spacing="md" background="slate">
+        <Container size="md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <SocialSharingSystem 
+              pageTitle="Confirmation - Strengthened by the Spirit | St Saviour's Catholic Church"
+              pageUrl="https://stsaviourlewisham.org.uk/the-sacraments/confirmation"
+              description="Learn about the sacrament of Confirmation at St Saviour's Catholic Church. Complete preparation programs for youth and adult confirmation."
+            />
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
+
+      {/* Call to Action */}
+      <Section spacing="lg" background="slate" id="confirmation-contact" tabIndex={-1}>
         <Container size="md">
           <div className="text-center text-white space-y-8">
             <div className="space-y-6">
@@ -363,6 +764,10 @@ export default function Confirmation() {
           </div>
         </Container>
       </Section>
+
+      {/* Progress Indicator - Phase C Enhancement */}
+      <ProgressIndicator />
+      </main>
     </PageLayout>
   )
 }
