@@ -341,6 +341,7 @@ export default function Baptism() {
               backgroundImage="/images/candles.jpg"
               height="large"
               overlay="medium"
+              insideLazyMotion={true}
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Baptism actions">
                   <m.div

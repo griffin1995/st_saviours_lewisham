@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import { Heading, Text } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
 import { getPageImage } from '@/lib/cms-images'
@@ -56,6 +56,11 @@ interface PageHeroProps {
    * Optional action buttons/content
    */
   actions?: React.ReactNode
+  
+  /**
+   * Whether component is rendered inside LazyMotion (uses m instead of motion)
+   */
+  insideLazyMotion?: boolean
 }
 
 /**
@@ -80,10 +85,14 @@ export default function PageHero({
   overlay = 'medium',
   textAlign = 'center',
   className,
-  actions
+  actions,
+  insideLazyMotion = false
 }: PageHeroProps) {
   const [reducedMotion, setReducedMotion] = useState(false)
   const [autoPageName, setAutoPageName] = useState<string | null>(null)
+  
+  // Select motion component type based on LazyMotion context
+  const MotionDiv = insideLazyMotion ? m.div : MotionDiv
   
   // Auto-detect page name from URL if not provided
   useEffect(() => {
@@ -160,7 +169,7 @@ export default function PageHero({
           'max-w-5xl mx-auto px-4 sm:px-6 lg:px-8',
           alignmentClasses[textAlign]
         )}>
-          <motion.div
+          <MotionDiv
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion 
@@ -171,7 +180,7 @@ export default function PageHero({
           >
             {/* Subtitle with gold accent lines */}
             {subtitle && (
-              <motion.div
+              <MotionDiv
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 transition={reducedMotion 
@@ -185,11 +194,11 @@ export default function PageHero({
                   {subtitle}
                 </span>
                 <div className="w-12 h-px bg-gold-500" />
-              </motion.div>
+              </MotionDiv>
             )}
 
             {/* Main title */}
-            <motion.div
+            <MotionDiv
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
               animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={reducedMotion 
@@ -205,11 +214,11 @@ export default function PageHero({
               >
                 {title}
               </Heading>
-            </motion.div>
+            </MotionDiv>
 
             {/* Description */}
             {description && (
-              <motion.div
+              <MotionDiv
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 transition={reducedMotion 
@@ -225,12 +234,12 @@ export default function PageHero({
                 >
                   {description}
                 </Text>
-              </motion.div>
+              </MotionDiv>
             )}
 
             {/* Action buttons */}
             {actions && (
-              <motion.div
+              <MotionDiv
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 transition={reducedMotion 
@@ -244,9 +253,9 @@ export default function PageHero({
                 )}
               >
                 {actions}
-              </motion.div>
+              </MotionDiv>
             )}
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
     </section>

@@ -366,6 +366,7 @@ export default function Confirmation() {
               backgroundImage="/images/inside-church-aisle.jpg"
               height="large"
               overlay="medium"
+              insideLazyMotion={true}
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Confirmation actions">
                   <m.div

@@ -339,6 +339,7 @@ export default function FindUs() {
               backgroundImage="/images/pexels-pixabay-218480.jpg"
               height="large"
               overlay="medium"
+              insideLazyMotion={true}
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Quick actions">
                   <m.div

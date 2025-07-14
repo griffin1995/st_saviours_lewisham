@@ -364,6 +364,7 @@ export default function Podcasts() {
               backgroundImage="/images/hero/podcast-studio.jpg"
               height="large"
               overlay="medium"
+              insideLazyMotion={true}
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Podcast actions">
                   <m.div
