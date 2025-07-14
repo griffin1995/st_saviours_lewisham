@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PieElement, ArcElement } from 'chart.js'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 import { Bar, Pie } from 'react-chartjs-2'
 import { 
   HeartIcon as Heart, 
@@ -37,14 +37,14 @@ import {
 } from '@/components/ui'
 import { DonationForm, DonationStats, type DonationFormData } from '@/components/church'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { EnhancedDonationTracker } from '@/components/enhanced/EnhancedDonationTracker'
-import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
-import { DonationImpactCalculator } from '@/components/enhanced/DonationImpactCalculator'
-import { RecurringDonationManager } from '@/components/enhanced/RecurringDonationManager'
-import { DonationTestimonials } from '@/components/enhanced/DonationTestimonials'
+// import { EnhancedDonationTracker } from '@/components/enhanced/EnhancedDonationTracker'
+// import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
+// import { DonationImpactCalculator } from '@/components/enhanced/DonationImpactCalculator'
+// import { RecurringDonationManager } from '@/components/enhanced/RecurringDonationManager'
+// import { DonationTestimonials } from '@/components/enhanced/DonationTestimonials'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -52,7 +52,7 @@ import { prefersReducedMotion } from '@/lib/utils'
 import { useUI, useActions } from '@/stores/churchStore'
 
 // Chart.js registration
-ChartJS.register(CategoryScale, LinearScale, BarElement, PieElement, ArcElement, Title, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend)
 
 export default function Donate() {
   const ui = useUI()
@@ -121,6 +121,14 @@ export default function Donate() {
       }
     ]
   }
+
+  const donationCauses = [
+    { value: 'general', label: 'General Parish Fund', description: 'Support our daily operations, utilities, and general parish needs.' },
+    { value: 'building', label: 'Building Maintenance', description: 'Help preserve our beautiful church building for future generations.' },
+    { value: 'outreach', label: 'Community Outreach', description: 'Support our work with those in need in the local community.' },
+    { value: 'youth', label: 'Youth Programs', description: 'Fund activities and resources for our children and young people.' },
+    { value: 'music', label: 'Music Ministry', description: 'Support our choir and liturgical music programs.' }
+  ]
 
   const causeFundingData = {
     labels: donationCauses.map(cause => cause.label.substring(0, 12) + '..'),
@@ -199,13 +207,6 @@ export default function Donate() {
     }
   ]
 
-  const donationCauses = [
-    { value: 'general', label: 'General Parish Fund', description: 'Support our daily operations, utilities, and general parish needs.' },
-    { value: 'building', label: 'Building Maintenance', description: 'Help preserve our beautiful church building for future generations.' },
-    { value: 'outreach', label: 'Community Outreach', description: 'Support our work with those in need in the local community.' },
-    { value: 'youth', label: 'Youth Programs', description: 'Fund activities and resources for our children and young people.' },
-    { value: 'music', label: 'Music Ministry', description: 'Support our choir and liturgical music programs.' }
-  ]
 
   return (
     <PageLayout
@@ -395,9 +396,8 @@ export default function Donate() {
                 </Card>
               </div>
             </animated.div>
-          </ScrollRevealSection>
-        </Container>
-      </Section>
+          </Container>
+        </Section>
       )}
 
       {/* Why Give Section */}
@@ -482,7 +482,7 @@ export default function Donate() {
               </p>
             </Motion.div>
             
-            <EnhancedDonationTracker
+            {/* <EnhancedDonationTracker
               totalDonated={totalRaised}
               donorCount={donorCount}
               onTrackDonation={(amount, cause) => {
@@ -493,7 +493,7 @@ export default function Donate() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -524,7 +524,7 @@ export default function Donate() {
               </p>
             </Motion.div>
             
-            <PaymentIntegrationPreview
+            {/* <PaymentIntegrationPreview
               donationCauses={donationCauses}
               onPaymentMethodSelect={(method) => {
                 actions.addNotification({
@@ -534,7 +534,7 @@ export default function Donate() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -565,11 +565,11 @@ export default function Donate() {
               </p>
             </Motion.div>
             
-            <DonationImpactCalculator
+            {/* <DonationImpactCalculator
               donationCauses={donationCauses}
               onCalculateImpact={handleImpactCalculation}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -600,7 +600,7 @@ export default function Donate() {
               </p>
             </Motion.div>
             
-            <RecurringDonationManager
+            {/* <RecurringDonationManager
               donationCauses={donationCauses}
               onSetupRecurring={(amount, frequency, cause) => {
                 actions.addNotification({
@@ -610,7 +610,7 @@ export default function Donate() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -774,7 +774,7 @@ export default function Donate() {
               </p>
             </Motion.div>
             
-            <DonationTestimonials
+            {/* <DonationTestimonials
               testimonials={[
                 {
                   name: "Sarah Collins",
@@ -796,7 +796,7 @@ export default function Donate() {
                 }
               ]}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -851,16 +851,15 @@ export default function Donate() {
 
       {/* Social Sharing Modal */}
       <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareDonationData}
-        type="donation-cause"
-        analytics={true}
-        customMessage="Support this important cause at St Saviour's Catholic Church!"
+        articleId="donations"
+        title="Support St Saviour's Catholic Church - Donate"
+        url="https://stsaviourlewisham.org.uk/donate"
+        onShare={(platform) => console.log(`Shared donation page on ${platform}`)}
+        reducedMotion={ui.reducedMotion}
       />
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName="Donations"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -869,10 +868,10 @@ export default function Donate() {
         onPerformanceData={(data) => {
           console.log('Donation performance:', data)
         }}
-      />
+      /> */}
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableTabNavigation: true,
@@ -895,7 +894,7 @@ export default function Donate() {
           enableHighContrast: ui.highContrast,
           enableFocusVisible: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }

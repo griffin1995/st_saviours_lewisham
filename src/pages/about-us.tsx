@@ -454,7 +454,7 @@ export default function AboutUs() {
             pageName="about-us"
             height="large"
             overlay="medium"
-            customContent={
+            actions={
               <animated.div style={parallaxSpring} className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-gold-400 rounded-full opacity-20 animate-pulse" />
                 <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-white rounded-full opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
@@ -517,6 +517,8 @@ export default function AboutUs() {
             />
           </Container>
         </ScrollRevealSection>
+          </animated.div>
+        </div>
       </Section>
 
       {/* Enhanced Mission Statement with Scripture Card */}
