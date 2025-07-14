@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, LazyMotion, domAnimation, useScroll, useTransform } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useScroll, useTransform, m } from 'framer-motion'
 import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
 import {
   Chart as ChartJS,
@@ -328,14 +328,14 @@ export default function TheEucharist() {
           role="banner"
           aria-labelledby="eucharist-hero-heading"
         >
-          <motion.div 
+          <m.div 
             style={{ y, opacity }}
             className="absolute inset-0 bg-gradient-to-br from-amber-900 via-slate-900 to-gold-800"
             aria-hidden="true"
           />
           
           {/* Animated Eucharistic elements */}
-          <motion.div
+          <m.div
             style={{
               transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
@@ -347,12 +347,12 @@ export default function TheEucharist() {
             <HandRaisedIcon className="absolute bottom-1/4 left-1/3 h-7 w-7 text-amber-500" />
             <SunIcon className="absolute top-1/2 right-1/4 h-5 w-5 text-gold-400" />
             <BeakerIcon className="absolute bottom-1/3 right-1/3 h-6 w-6 text-amber-300" />
-          </motion.div>
+          </m.div>
           
           {/* Eucharistic particle effects */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             {eucharisticParticles.map((particle) => (
-              <motion.div
+              <m.div
                 key={particle.id}
                 className={`absolute w-20 h-20 border-2 rounded-full ${
                   particle.type === 'host' 
@@ -381,7 +381,7 @@ export default function TheEucharist() {
               overlay="medium"
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Eucharist actions">
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -398,7 +398,7 @@ export default function TheEucharist() {
                     <span id="mass-help" className="sr-only">
                       View Mass times and join us for the celebration of the Eucharist
                     </span>
-                  </motion.div>
+                  </m.div>
                 </Flex>
               }
             />

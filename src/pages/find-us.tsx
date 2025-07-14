@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, LazyMotion, domAnimation, useScroll, useTransform } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useScroll, useTransform, m } from 'framer-motion'
 import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
 import Link from 'next/link'
 import { 

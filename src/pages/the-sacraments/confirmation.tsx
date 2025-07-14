@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, LazyMotion, domAnimation, useScroll, useTransform } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useScroll, useTransform, m } from 'framer-motion'
 import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
 import {
   Chart as ChartJS,
@@ -319,14 +319,14 @@ export default function Confirmation() {
           role="banner"
           aria-labelledby="confirmation-hero-heading"
         >
-          <motion.div 
+          <m.div 
             style={{ y, opacity }}
             className="absolute inset-0 bg-gradient-to-br from-red-900 via-slate-900 to-orange-800"
             aria-hidden="true"
           />
           
           {/* Animated confirmation elements */}
-          <motion.div
+          <m.div
             style={{
               transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
@@ -338,12 +338,12 @@ export default function Confirmation() {
             <HandRaisedIcon className="absolute bottom-1/4 left-1/3 h-7 w-7 text-red-500" />
             <SunIcon className="absolute top-1/2 right-1/4 h-5 w-5 text-gold-400" />
             <ShieldCheckIcon className="absolute bottom-1/3 right-1/3 h-6 w-6 text-red-300" />
-          </motion.div>
+          </m.div>
           
           {/* Fire/Spirit particle effects */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             {fireParticles.map((particle) => (
-              <motion.div
+              <m.div
                 key={particle.id}
                 className="absolute w-16 h-16 border-2 border-red-400/30 rounded-full"
                 style={{
@@ -368,7 +368,7 @@ export default function Confirmation() {
               overlay="medium"
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Confirmation actions">
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -385,8 +385,8 @@ export default function Confirmation() {
                     <span id="preparation-help" className="sr-only">
                       Begin the process of confirmation preparation and enrolment
                     </span>
-                  </motion.div>
-                  <motion.div
+                  </m.div>
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -403,7 +403,7 @@ export default function Confirmation() {
                     <span id="rcia-help" className="sr-only">
                       Learn about the Rite of Christian Initiation for Adults
                     </span>
-                  </motion.div>
+                  </m.div>
                 </Flex>
               }
             />
