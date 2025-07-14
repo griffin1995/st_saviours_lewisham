@@ -314,12 +314,12 @@ export default function FindUs() {
           className="relative overflow-hidden"
           role="banner"
         >
-          <motion.div 
+          <m.div 
             style={{ y, opacity }}
             className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
             aria-hidden="true"
           />
-          <motion.div
+          <m.div
             style={{
               transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
@@ -329,7 +329,7 @@ export default function FindUs() {
             <SparklesIcon className="absolute top-1/4 left-1/4 h-6 w-6 text-gold-400" aria-hidden="true" />
             <HeartIcon className="absolute top-1/3 right-1/3 h-4 w-4 text-gold-300" aria-hidden="true" />
             <GlobeAltIcon className="absolute bottom-1/4 left-1/3 h-5 w-5 text-gold-500" aria-hidden="true" />
-          </motion.div>
+          </m.div>
           
           <animated.div style={heroSpring}>
             <PageHero
@@ -341,7 +341,7 @@ export default function FindUs() {
               overlay="medium"
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Quick actions">
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -358,8 +358,8 @@ export default function FindUs() {
                     <span id="directions-help" className="sr-only">
                       Opens Google Maps with directions to St Saviour's Catholic Church
                     </span>
-                  </motion.div>
-                  <motion.div
+                  </m.div>
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -376,7 +376,7 @@ export default function FindUs() {
                     <span id="phone-help" className="sr-only">
                       Call us directly at 020 8852 7411 for assistance with directions
                     </span>
-                  </motion.div>
+                  </m.div>
                 </Flex>
               }
             />
