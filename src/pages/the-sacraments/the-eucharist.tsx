@@ -1,6 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useScroll, useTransform } from 'framer-motion'
+import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from 'chart.js'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+)
 import { 
   CircleStackIcon as Cookie, 
   CalendarDaysIcon as Calendar, 
@@ -8,7 +33,14 @@ import {
   BookOpenIcon as BookOpen, 
   UserGroupIcon as Users, 
   HeartIcon as Heart, 
-  ArrowRightIcon as ArrowRight 
+  ArrowRightIcon as ArrowRight,
+  SunIcon,
+  SparklesIcon,
+  HandRaisedIcon,
+  StarIcon,
+  GlobeAltIcon,
+  CubeIcon,
+  BeakerIcon
 } from '@heroicons/react/24/solid'
 
 // New modern component system
@@ -25,10 +57,145 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
+import {
+  ScriptureCard,
+  SocialSharingSystem,
+  ProgressIndicator,
+  SacramentalAnalytics,
+  SacramentalPreparationGuide,
+  FirstCommunionTracker,
+  MassPartsExplainer
+} from '@/components/enhanced'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function TheEucharist() {
   const reducedMotion = prefersReducedMotion()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [eucharisticParticles, setEucharisticParticles] = useState<Array<{ id: number; x: number; y: number; type: 'host' | 'chalice' }>>([])
+  const [consecrationMoments, setConsecrationMoments] = useState<Array<{ id: number; visible: boolean; element: string }>>([])
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 500], [0, 150])
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.5])
+  
+  // Mouse tracking for parallax effects with Eucharistic symbolism
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!reducedMotion) {
+        setMousePosition({
+          x: (e.clientX - window.innerWidth / 2) * 0.005,
+          y: (e.clientY - window.innerHeight / 2) * 0.005
+        })
+      }
+    }
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [reducedMotion])
+  
+  // Simulated Eucharistic particle effects (hosts and chalice symbols)
+  useEffect(() => {
+    const generateEucharisticParticle = () => {
+      const newParticle = {
+        id: Date.now(),
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        type: Math.random() > 0.5 ? 'host' : 'chalice' as 'host' | 'chalice'
+      }
+      setEucharisticParticles(prev => [...prev.slice(-5), newParticle])
+    }
+    
+    const interval = setInterval(generateEucharisticParticle, 3000)
+    return () => clearInterval(interval)
+  }, [])
+  
+  // Consecration moments animation
+  useEffect(() => {
+    const elements = ['bread', 'wine', 'host', 'chalice', 'communion']
+    const momentStates = elements.map((element, index) => ({
+      id: index,
+      element,
+      visible: false
+    }))
+    setConsecrationMoments(momentStates)
+    
+    // Gradually reveal consecration elements
+    elements.forEach((_, index) => {
+      setTimeout(() => {
+        setConsecrationMoments(prev => prev.map(m => 
+          m.id === index ? { ...m, visible: true } : m
+        ))
+      }, (index + 1) * 1500)
+    })
+  }, [])
+  
+  // Enhanced performance monitoring for Eucharistic content
+  useEffect(() => {
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'navigation') {
+          console.log('Eucharist page load time:', entry.duration)
+          if (entry.duration > 3000) {
+            console.warn('Eucharist page slow load detected:', entry.duration)
+          }
+        }
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime)
+          if (entry.startTime > 2500) {
+            console.warn('Eucharist page LCP threshold exceeded:', entry.startTime)
+          }
+        }
+        if (entry.entryType === 'first-input-delay') {
+          console.log('FID:', entry.processingStart - entry.startTime)
+        }
+        if (entry.entryType === 'cumulative-layout-shift') {
+          console.log('CLS:', entry.value)
+        }
+      }
+    })
+    
+    observer.observe({ 
+      entryTypes: ['navigation', 'largest-contentful-paint', 'first-input-delay', 'layout-shift'] 
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  // Enhanced keyboard navigation for Eucharistic sections
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Quick navigation to Mass section
+      if (e.altKey && e.key === 'm') {
+        e.preventDefault()
+        const massSection = document.getElementById('eucharist-mass')
+        if (massSection) {
+          massSection.scrollIntoView({ behavior: 'smooth' })
+          massSection.focus()
+        }
+      }
+      
+      // Quick navigation to communion preparation
+      if (e.altKey && e.key === 'c') {
+        e.preventDefault()
+        const communionSection = document.getElementById('communion-preparation')
+        if (communionSection) {
+          communionSection.scrollIntoView({ behavior: 'smooth' })
+          communionSection.focus()
+        }
+      }
+      
+      // Quick navigation to contact
+      if (e.altKey && e.key === 'j') {
+        e.preventDefault()
+        const contactSection = document.getElementById('eucharist-contact')
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' })
+          contactSection.focus()
+        }
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const eucharistContent = [
     "The Eucharist is the source and summit of the Christian life. In this most blessed sacrament, Jesus Christ is truly present—body, blood, soul, and divinity—under the appearances of bread and wine.",
@@ -103,33 +270,141 @@ export default function TheEucharist() {
     source: "Jesus at the Last Supper"
   }
 
+  // React Spring animations for Eucharistic effects
+  const [effectsRef, effectsInView] = useInView()
+  const effectsTrail = useTrail(eucharistEffects.length, {
+    opacity: effectsInView ? 1 : 0,
+    transform: effectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
+    config: { tension: 200, friction: 25 },
+    delay: (i) => i * 150
+  })
+  
+  // React Spring animations for Eucharistic effects
+  const [effectsRef, effectsInView] = useInView()
+  const effectsTrail = useTrail(eucharistEffects.length, {
+    opacity: effectsInView ? 1 : 0,
+    transform: effectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
+    config: { tension: 200, friction: 25 },
+    delay: (i) => i * 150
+  })
+  
+  // Enhanced hero animation with Eucharistic symbolism
+  const heroSpring = useSpring({
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    to: { opacity: 1, transform: 'translateY(0px)' },
+    config: { tension: 120, friction: 30 },
+    delay: 200
+  })
+
   return (
     <PageLayout
       title="The Eucharist"
       description="Learn about the Eucharist, the source and summit of Christian life at St Saviour's Catholic Church. Information on Holy Communion and Mass times."
       keywords="Catholic Eucharist, Holy Communion, Mass, Real Presence, Transubstantiation, First Communion, Body of Christ"
     >
-      {/* Hero Section */}
-      <PageHero
-        title="The Holy Eucharist"
-        subtitle="Source and Summit of Christian Life"
-        description="The Eucharist is the Body and Blood of Christ, truly present under the appearances of bread and wine."
-        backgroundImage="/images/inside-church-aisle.jpg"
-        height="large"
-        overlay="medium"
-        actions={
-          <Flex justify="center" gap="md">
-            <Button 
-              variant="primary" 
-              size="lg"
-              leftIcon={<Calendar className="h-5 w-5" />}
-              className="bg-white text-slate-900 hover:bg-gray-100"
-            >
-              Join Us for Mass
-            </Button>
-          </Flex>
-        }
+      {/* Screen Reader Announcements */}
+      <div 
+        aria-live="polite" 
+        aria-atomic="true" 
+        className="sr-only"
+        role="status"
       />
+      
+      {/* Skip Links */}
+      <div className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50">
+        <a 
+          href="#main-content" 
+          className="bg-gold-500 text-slate-900 px-4 py-2 rounded font-medium"
+        >
+          Skip to main content
+        </a>
+      </div>
+      
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">
+      {/* Enhanced Hero Section with Eucharistic Symbolism */}
+      <LazyMotion features={domAnimation}>
+        <section 
+          className="relative overflow-hidden"
+          role="banner"
+          aria-labelledby="eucharist-hero-heading"
+        >
+          <motion.div 
+            style={{ y, opacity }}
+            className="absolute inset-0 bg-gradient-to-br from-amber-900 via-slate-900 to-gold-800"
+            aria-hidden="true"
+          />
+          
+          {/* Animated Eucharistic elements */}
+          <motion.div
+            style={{
+              transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
+            }}
+            className="absolute inset-0 opacity-20"
+            aria-hidden="true"
+          >
+            <Cookie className="absolute top-1/4 left-1/4 h-8 w-8 text-amber-400" />
+            <SparklesIcon className="absolute top-1/3 right-1/3 h-6 w-6 text-gold-300" />
+            <HandRaisedIcon className="absolute bottom-1/4 left-1/3 h-7 w-7 text-amber-500" />
+            <SunIcon className="absolute top-1/2 right-1/4 h-5 w-5 text-gold-400" />
+            <BeakerIcon className="absolute bottom-1/3 right-1/3 h-6 w-6 text-amber-300" />
+          </motion.div>
+          
+          {/* Eucharistic particle effects */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            {eucharisticParticles.map((particle) => (
+              <motion.div
+                key={particle.id}
+                className={`absolute w-20 h-20 border-2 rounded-full ${
+                  particle.type === 'host' 
+                    ? 'border-amber-400/30' 
+                    : 'border-gold-400/30'
+                }`}
+                style={{
+                  left: `${particle.x}%`,
+                  top: `${particle.y}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+                initial={{ scale: 0, opacity: 0.6 }}
+                animate={{ scale: 3, opacity: 0 }}
+                transition={{ duration: 4, ease: "easeOut" }}
+              />
+            ))}
+          </div>
+          
+          <animated.div style={heroSpring}>
+            <PageHero
+              title="The Holy Eucharist"
+              subtitle="Source and Summit of Christian Life"
+              description="The Eucharist is the Body and Blood of Christ, truly present under the appearances of bread and wine."
+              backgroundImage="/images/inside-church-aisle.jpg"
+              height="large"
+              overlay="medium"
+              actions={
+                <Flex justify="center" gap="md" role="group" aria-label="Eucharist actions">
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotateY: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Button 
+                      variant="primary" 
+                      size="lg"
+                      leftIcon={<Calendar className="h-5 w-5" aria-hidden="true" />}
+                      className="bg-white text-slate-900 hover:bg-gray-100"
+                      aria-describedby="mass-help"
+                    >
+                      Join Us for Mass
+                    </Button>
+                    <span id="mass-help" className="sr-only">
+                      View Mass times and join us for the celebration of the Eucharist
+                    </span>
+                  </motion.div>
+                </Flex>
+              }
+            />
+          </animated.div>
+        </section>
+      </LazyMotion>
 
       {/* Sacrament Information */}
       <Section spacing="lg" background="slate">
@@ -148,6 +423,201 @@ export default function TheEucharist() {
         </Container>
       </Section>
 
+
+      {/* Section Divider */}
+      <div className="flex justify-center py-16 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+      </div>
+
+      {/* Interactive Mass Parts Explorer - Phase B & D Enhancement */}
+      <Section spacing="lg" background="slate" id="eucharist-mass" tabIndex={-1}>
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <MassPartsExplainer />
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Enhanced Effects Display with React Spring */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <div ref={effectsRef} className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <Heading level="h3" color="white" className="text-2xl font-bold mb-8">
+                Effects of the Eucharist
+              </Heading>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {effectsTrail.map((style, index) => {
+                const effect = eucharistEffects[index]
+                if (!effect) return null
+                
+                return (
+                  <animated.div
+                    key={effect.title}
+                    style={style}
+                    className="group"
+                  >
+                    <motion.div
+                      whileHover={{ 
+                        scale: 1.05,
+                        rotateY: 5,
+                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3)"
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="h-full"
+                    >
+                      <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-amber-600/30 hover:border-amber-400 transition-all duration-300 h-full">
+                        <CardContent>
+                          <div className="space-y-4 text-center">
+                            <motion.div
+                              className="w-12 h-12 mx-auto bg-amber-500/20 rounded-full flex items-center justify-center"
+                              whileHover={{ 
+                                rotate: [0, 10, -10, 0],
+                                scale: 1.1
+                              }}
+                              transition={{ duration: 0.6 }}
+                            >
+                              <Cookie className="h-6 w-6 text-amber-400" />
+                            </motion.div>
+                            <Heading level="h4" color="white" className="font-semibold">
+                              {effect.title}
+                            </Heading>
+                            <Text size="sm" className="text-amber-200">
+                              {effect.description}
+                            </Text>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </animated.div>
+                )
+              })}
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="flex justify-center pt-16 pb-8">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '0.5px' }}></div>
+      </div>
+
+      {/* First Communion Preparation Programs - Enhanced */}
+      <Section spacing="lg" background="slate" id="communion-preparation" tabIndex={-1}>
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-16"
+          >
+            <div className="text-center">
+              <Heading level="h2" color="white" className="text-3xl font-bold mb-4">
+                First Communion Preparation Programs
+              </Heading>
+              <Text className="text-gray-300 max-w-3xl mx-auto">
+                Whether preparing a child or an adult for First Communion, we offer comprehensive 
+                preparation programs to help understand and appreciate the beauty of the Eucharist.
+              </Text>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <FirstCommunionTracker participantType="child" />
+              <FirstCommunionTracker participantType="adult" />
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="flex justify-center py-20 bg-slate-900">
+        <div className="w-[640px] h-px" style={{ backgroundColor: '#ffffff', height: '1px', boxShadow: '0 0 1px rgba(255,255,255,0.5)' }}></div>
+      </div>
+
+      {/* Eucharistic Analytics Dashboard - Phase B Enhancement */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SacramentalAnalytics sacramentType="eucharist" />
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Scripture Card - Phase D Enhancement */}
+      <Section spacing="sm" background="slate">
+        <Container size="md">
+          <ScriptureCard 
+            theme="eucharist"
+            reference="John 6:54"
+            text="Whoever eats my flesh and drinks my blood has eternal life, and I will raise them up at the last day."
+            reflection="In the Eucharist, Jesus gives us his very self as spiritual food. This sacred meal nourishes our souls and unites us with Christ in the most intimate way possible."
+          />
+        </Container>
+      </Section>
+
+      {/* Comprehensive Preparation Guide - Phase B & D Enhancement */}
+      <Section spacing="lg" background="slate">
+        <Container size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="space-y-12">
+              <div className="text-center">
+                <Heading level="h2" color="white" className="text-3xl font-bold mb-4">
+                  Complete Preparation Guide
+                </Heading>
+                <Text className="text-gray-300 max-w-3xl mx-auto">
+                  Follow our comprehensive step-by-step guide for both child and adult First Communion preparation
+                </Text>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <SacramentalPreparationGuide sacramentType="eucharist" participantType="child" />
+                <SacramentalPreparationGuide sacramentType="eucharist" participantType="adult" />
+              </div>
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* Social Sharing System - Phase B Enhancement */}
+      <Section spacing="md" background="slate">
+        <Container size="md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <SocialSharingSystem 
+              pageTitle="The Eucharist - Source and Summit of Christian Life | St Saviour's Catholic Church"
+              pageUrl="https://stsaviourlewisham.org.uk/the-sacraments/the-eucharist"
+              description="Learn about the Holy Eucharist at St Saviour's Catholic Church. Information on First Communion preparation and the celebration of Mass."
+            />
+          </motion.div>
+        </Container>
+      </Section>
 
       {/* Section Divider */}
       <div className="flex justify-center py-20 bg-slate-900">
@@ -209,6 +679,10 @@ export default function TheEucharist() {
           </div>
         </Container>
       </Section>
+
+      {/* Progress Indicator - Phase C Enhancement */}
+      <ProgressIndicator />
+      </main>
     </PageLayout>
   )
 }
