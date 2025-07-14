@@ -134,7 +134,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
   // Gradually reveal gifts as user explores
   useEffect(() => {
     const timer = setTimeout(() => {
-      setRevealedGifts(prev => new Set([...prev, gifts[activeIndex].id]))
+      setRevealedGifts(prev => new Set([...Array.from(prev), gifts[activeIndex].id]))
     }, 1000)
     return () => clearTimeout(timer)
   }, [activeIndex, gifts])
@@ -149,7 +149,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
 
   const selectGift = (gift: Gift) => {
     setSelectedGift(selectedGift?.id === gift.id ? null : gift)
-    setRevealedGifts(prev => new Set([...prev, gift.id]))
+    setRevealedGifts(prev => new Set([...Array.from(prev), gift.id]))
   }
 
   // React Spring animation for the central gift display

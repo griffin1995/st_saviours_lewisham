@@ -18,10 +18,10 @@ import {
   ClockIcon,
   HeartIcon,
   ShareIcon,
-  TrendingUpIcon,
+  ArrowTrendingUpIcon,
   GlobeAltIcon,
   PlayIcon,
-  DownloadIcon
+  ArrowDownTrayIcon
 } from '@heroicons/react/24/solid'
 import { Card, CardContent, Heading, Text } from '@/components/ui'
 
@@ -248,7 +248,7 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
       color: 'text-purple-400',
     },
     {
-      icon: DownloadIcon,
+      icon: ArrowDownTrayIcon,
       label: 'Downloads',
       value: '1,892',
       change: '+22%',
@@ -340,7 +340,7 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
                   animate={{ rotate: isVisible ? 360 : 0 }}
                   transition={{ duration: 2, ease: "easeInOut" }}
                 >
-                  <TrendingUpIcon className="h-6 w-6 text-gold-400" />
+                  <ArrowTrendingUpIcon className="h-6 w-6 text-gold-400" />
                 </motion.div>
               </div>
 

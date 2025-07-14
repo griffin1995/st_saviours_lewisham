@@ -28,7 +28,7 @@ export const LiveOfficeHours: React.FC<LiveOfficeHoursProps> = ({
       const now = new Date()
       setCurrentTime(now)
       
-      const day = now.toLocaleLowerCase('en-US', { weekday: 'long' })
+      const day = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
       const todaySchedule = schedule[day]
       
       if (todaySchedule) {

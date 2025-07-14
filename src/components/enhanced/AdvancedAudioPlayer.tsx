@@ -47,7 +47,7 @@ export default function AdvancedAudioPlayer({
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showWaveform, setShowWaveform] = useState(true)
   const [waveformData, setWaveformData] = useState<number[]>([])
-  const playerRef = useRef<Plyr | null>(null)
+  const playerRef = useRef<any>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // Generate waveform visualization data
@@ -66,6 +66,54 @@ export default function AdvancedAudioPlayer({
     generateWaveform()
   }, [episode.id])
 
+  // Set up Plyr event listeners
+  useEffect(() => {
+    const player = playerRef.current?.plyr
+    if (!player) return
+
+    const handleReady = () => {
+      audioRef.current = player.media as HTMLAudioElement
+      setDuration(player.duration || 0)
+    }
+
+    const handlePlay = () => {
+      setIsPlaying(true)
+      onPlayStateChange?.(true)
+    }
+
+    const handlePause = () => {
+      setIsPlaying(false)
+      onPlayStateChange?.(false)
+    }
+
+    const handleTimeUpdate = () => {
+      const time = player.currentTime || 0
+      setCurrentTime(time)
+      onTimeUpdate?.(time, duration)
+    }
+
+    const handleLoadedMetadata = () => {
+      const dur = player.duration || 0
+      setDuration(dur)
+    }
+
+    // Add event listeners
+    player.on('ready', handleReady)
+    player.on('play', handlePlay)
+    player.on('pause', handlePause)
+    player.on('timeupdate', handleTimeUpdate)
+    player.on('loadedmetadata', handleLoadedMetadata)
+
+    return () => {
+      // Clean up event listeners
+      player.off('ready', handleReady)
+      player.off('play', handlePlay)
+      player.off('pause', handlePause)
+      player.off('timeupdate', handleTimeUpdate)
+      player.off('loadedmetadata', handleLoadedMetadata)
+    }
+  }, [playerRef.current, onTimeUpdate, onPlayStateChange, duration])
+
   // Plyr configuration
   const plyrOptions = {
     controls: [
@@ -78,7 +126,6 @@ export default function AdvancedAudioPlayer({
     tooltips: { controls: true, seek: true },
     captions: { active: true, update: true },
     fullscreen: { enabled: false },
-    ratio: null,
     displayDuration: true,
     invertTime: false,
     toggleInvert: true,
@@ -89,20 +136,18 @@ export default function AdvancedAudioPlayer({
   }
 
   const handlePlayPause = () => {
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.plyr) {
       const player = playerRef.current.plyr
-      if (player) {
-        if (isPlaying) {
-          player.pause()
-        } else {
-          player.play()
-        }
+      if (isPlaying) {
+        player.pause()
+      } else {
+        player.play()
       }
     }
   }
 
   const handleSkip = (seconds: number) => {
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.plyr) {
       const player = playerRef.current.plyr
       if (player) {
         player.currentTime = Math.max(0, Math.min(duration, currentTime + seconds))
@@ -112,7 +157,7 @@ export default function AdvancedAudioPlayer({
 
   const handleVolumeChange = (newVolume: number) => {
     setVolume(newVolume)
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.plyr) {
       const player = playerRef.current.plyr
       if (player) {
         player.volume = newVolume
@@ -122,7 +167,7 @@ export default function AdvancedAudioPlayer({
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted)
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.plyr) {
       const player = playerRef.current.plyr
       if (player) {
         player.muted = !isMuted
@@ -139,7 +184,7 @@ export default function AdvancedAudioPlayer({
   const handleWaveformClick = (index: number) => {
     const clickPosition = index / waveformData.length
     const newTime = clickPosition * duration
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.plyr) {
       const player = playerRef.current.plyr
       if (player) {
         player.currentTime = newTime
@@ -337,27 +382,6 @@ export default function AdvancedAudioPlayer({
                   sources: [{ src: episode.audioUrl, type: 'audio/mp3' }]
                 }}
                 options={plyrOptions}
-                onReady={(player) => {
-                  audioRef.current = player.media as HTMLAudioElement
-                  setDuration(player.duration || 0)
-                }}
-                onPlay={() => {
-                  setIsPlaying(true)
-                  onPlayStateChange?.(true)
-                }}
-                onPause={() => {
-                  setIsPlaying(false)
-                  onPlayStateChange?.(false)
-                }}
-                onTimeUpdate={(event) => {
-                  const time = (event.target as HTMLAudioElement).currentTime
-                  setCurrentTime(time)
-                  onTimeUpdate?.(time, duration)
-                }}
-                onLoadedMetadata={(event) => {
-                  const dur = (event.target as HTMLAudioElement).duration
-                  setDuration(dur)
-                }}
               />
             </div>
 
@@ -370,7 +394,7 @@ export default function AdvancedAudioPlayer({
                   onChange={(e) => {
                     const rate = parseFloat(e.target.value)
                     setPlaybackRate(rate)
-                    if (playerRef.current) {
+                    if (playerRef.current && playerRef.current.plyr) {
                       const player = playerRef.current.plyr
                       if (player) {
                         player.speed = rate

@@ -280,7 +280,7 @@ export default function ConfirmationPreparationTracker({
       case 'preparation':
         return 'Your preparation is underway - keep going!'
       case 'ready':
-        return 'Congratulations! You\\'re ready for confirmation'
+        return 'Congratulations! You\'re ready for confirmation'
       default:
         return ''
     }

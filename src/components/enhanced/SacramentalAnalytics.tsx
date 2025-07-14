@@ -17,7 +17,7 @@ import {
   BeakerIcon,
   CalendarDaysIcon,
   UsersIcon,
-  TrendingUpIcon,
+  ArrowTrendingUpIcon,
   HeartIcon,
   BookOpenIcon,
   UserGroupIcon,
@@ -196,7 +196,7 @@ export default function SacramentalAnalytics({
     {
       id: 'trends',
       label: 'Trends',
-      icon: TrendingUpIcon,
+      icon: ArrowTrendingUpIcon,
       color: 'text-blue-400',
     },
     {

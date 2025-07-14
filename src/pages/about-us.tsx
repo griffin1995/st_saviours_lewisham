@@ -33,9 +33,9 @@ import { PhotoSwipeLightbox, EnhancedImage } from '@/components/enhanced/PhotoSw
 import { AnimatedTestimonials } from '@/components/enhanced/AnimatedTestimonials'
 import { LiveOfficeHours } from '@/components/enhanced/LiveOfficeHours'
 import { PrayerRequestWidget } from '@/components/enhanced/PrayerRequestWidget'
-import { VirtualTourButton } from '@/components/enhanced/VirtualTourButton'
+// import { VirtualTourButton } from '@/components/enhanced/VirtualTourButton'
 import { ParticleBackground } from '@/components/enhanced/ParticleBackground'
-import { EnhancedTooltip } from '@/components/enhanced/EnhancedTooltip'
+// import { EnhancedTooltip } from '@/components/enhanced/EnhancedTooltip'
 import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 import { FloatingActionButton } from '@/components/enhanced/FloatingActionButton'
 
@@ -93,8 +93,7 @@ export default function AboutUs() {
       actions.addNotification({
         type: 'success',
         message: '🏛️ Welcome to our parish story',
-        dismissible: true,
-        duration: 4000
+        dismissible: true
       })
     }, 1000)
     
@@ -209,6 +208,33 @@ export default function AboutUs() {
     delay: ui.reducedMotion ? 0 : 300
   })
   
+  const values = [
+    {
+      icon: Heart,
+      title: "Love & Compassion",
+      description: "We strive to show Christ's love through our actions and care for one another.",
+      gradient: "from-navy-600 to-navy-500"
+    },
+    {
+      icon: Users,
+      title: "Community", 
+      description: "We welcome all people and build meaningful relationships across generations.",
+      gradient: "from-navy-500 to-navy-400"
+    },
+    {
+      icon: Church,
+      title: "Worship",
+      description: "We gather to celebrate the Eucharist and grow in our relationship with God.",
+      gradient: "from-navy-700 to-navy-600"
+    },
+    {
+      icon: BookOpen,
+      title: "Learning",
+      description: "We are committed to ongoing formation and deepening our understanding of faith.",
+      gradient: "from-navy-800 to-navy-700"
+    }
+  ]
+  
   const valuesTrail = useTrail(values.length, {
     ref: trailApi,
     from: { opacity: 0, transform: 'scale(0.8) translateY(40px)' },
@@ -277,32 +303,6 @@ export default function AboutUs() {
     { number: "15+", label: "Parish Groups", icon: Star }
   ]
 
-  const values = [
-    {
-      icon: Heart,
-      title: "Love & Compassion",
-      description: "We strive to show Christ's love through our actions and care for one another.",
-      gradient: "from-navy-600 to-navy-500"
-    },
-    {
-      icon: Users,
-      title: "Community", 
-      description: "We welcome all people and build meaningful relationships across generations.",
-      gradient: "from-navy-500 to-navy-400"
-    },
-    {
-      icon: Church,
-      title: "Worship",
-      description: "We gather to celebrate the Eucharist and grow in our relationship with God.",
-      gradient: "from-navy-700 to-navy-600"
-    },
-    {
-      icon: BookOpen,
-      title: "Learning",
-      description: "We are committed to ongoing formation and deepening our understanding of faith.",
-      gradient: "from-navy-800 to-navy-700"
-    }
-  ]
 
   const timelineEvents: Array<{
     year: string
