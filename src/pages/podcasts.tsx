@@ -318,14 +318,14 @@ export default function Podcasts() {
           role="banner"
           aria-labelledby="podcast-hero-heading"
         >
-          <motion.div 
+          <m.div 
             style={{ y, opacity }}
             className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
             aria-hidden="true"
           />
           
           {/* Animated background elements */}
-          <motion.div
+          <m.div
             style={{
               transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
@@ -336,12 +336,12 @@ export default function Podcasts() {
             <Mic className="absolute top-1/3 right-1/3 h-6 w-6 text-purple-300" />
             <SpeakerWaveIcon className="absolute bottom-1/4 left-1/3 h-7 w-7 text-gold-500" />
             <SparklesIcon className="absolute top-1/2 right-1/4 h-5 w-5 text-purple-400" />
-          </motion.div>
+          </m.div>
           
           {/* Audio waveform visualization */}
           <div className="absolute bottom-0 left-0 right-0 h-32 flex items-end justify-center gap-1 opacity-30" aria-hidden="true">
             {audioWaveform.map((height, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 className="bg-gradient-to-t from-gold-500 to-purple-500 w-1"
                 animate={{ height: `${height}%` }}
@@ -366,7 +366,7 @@ export default function Podcasts() {
               overlay="medium"
               actions={
                 <Flex justify="center" gap="md" role="group" aria-label="Podcast actions">
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05, rotateY: 5 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -382,9 +382,9 @@ export default function Podcasts() {
                     <span id="subscribe-help" className="sr-only">
                       Subscribe to our podcast on your favourite platform
                     </span>
-                  </motion.div>
+                  </m.div>
                   <Link href="/weekly-newsletter">
-                    <motion.div
+                    <m.div
                       whileHover={{ scale: 1.05, rotateY: -5 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -399,7 +399,7 @@ export default function Podcasts() {
                       <span id="newsletter-help" className="sr-only">
                         Subscribe to our weekly newsletter for updates
                       </span>
-                    </motion.div>
+                    </m.div>
                   </Link>
                 </Flex>
               }
