@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, LazyMotion, domAnimation, useScroll, useTransform, m } from 'framer-motion'
 import { useSpring, animated, useTrail, useInView } from '@react-spring/web'
 import Link from 'next/link'
@@ -31,14 +31,12 @@ import {
   Container
 } from '@/components/ui'
 import { LocationCard, MapEmbed, BusRoutesGrid } from '@/components/church'
-import { 
-  LocationAnalytics,
-  VirtualChurchTour,
-  LiveOfficeHours,
-  ScriptureCard,
-  SocialSharingSystem,
-  ProgressIndicator
-} from '@/components/enhanced'
+import LocationAnalytics from '@/components/enhanced/LocationAnalytics'
+import VirtualChurchTour from '@/components/enhanced/VirtualChurchTour'
+import { LiveOfficeHours } from '@/components/enhanced/LiveOfficeHours'
+import ScriptureCard from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function FindUs() {
@@ -46,6 +44,7 @@ export default function FindUs() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [announcements, setAnnouncements] = useState<string[]>([])
   const [focusedElement, setFocusedElement] = useState<string | null>(null)
+  const [activeSection, setActiveSection] = useState(0)
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 500], [0, 150])
   const opacity = useTransform(scrollY, [0, 300], [1, 0.5])
@@ -105,23 +104,6 @@ export default function FindUs() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
   
-  // React Spring animations for transport cards
-  const [transportRef, transportInView] = useInView()
-  const transportTrail = useTrail(transportMethods.length, {
-    opacity: transportInView ? 1 : 0,
-    transform: transportInView ? 'translateY(0px) scale(1)' : 'translateY(50px) scale(0.9)',
-    config: { tension: 120, friction: 20 },
-    delay: (i) => i * 200
-  })
-  
-  // Enhanced hero animation
-  const heroSpring = useSpring({
-    from: { opacity: 0, transform: 'translateY(100px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-    config: { tension: 100, friction: 25 },
-    delay: 300
-  })
-  
   // Performance monitoring with Core Web Vitals
   useEffect(() => {
     const observer = new PerformanceObserver((list) => {
@@ -133,7 +115,7 @@ export default function FindUs() {
           console.log('LCP:', entry.startTime)
         }
         if (entry.entryType === 'first-input') {
-          console.log('FID:', entry.processingStart - entry.startTime)
+          console.log('FID:', (entry as any).processingStart - entry.startTime)
         }
       }
     })
@@ -144,8 +126,8 @@ export default function FindUs() {
     let clsValue = 0
     const clsObserver = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (!entry.hadRecentInput) {
-          clsValue += entry.value
+        if (!(entry as any).hadRecentInput) {
+          clsValue += (entry as any).value
           console.log('CLS:', clsValue)
         }
       }
@@ -278,6 +260,22 @@ export default function FindUs() {
       description: "Arrive 10 minutes early for Mass. Our welcomers will be happy to help you find a seat and provide any information you need."
     }
   ]
+
+  // React Spring animations - after data definitions
+  const transportRef = useRef<HTMLDivElement>(null)
+  const heroSpring = useSpring({
+    opacity: 1,
+    transform: 'translateY(0px)',
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    config: { tension: 180, friction: 12 }
+  })
+
+  const transportTrail = useTrail(transportMethods.length, {
+    opacity: 1,
+    transform: 'translateY(0px) scale(1)',
+    from: { opacity: 0, transform: 'translateY(50px) scale(0.9)' },
+    config: { tension: 200, friction: 20 }
+  })
 
   return (
     <PageLayout
@@ -441,7 +439,17 @@ export default function FindUs() {
             </div>
             <div className="space-y-6">
               <LocationAnalytics />
-              <LiveOfficeHours />
+              <LiveOfficeHours 
+                schedule={{
+                  Monday: { open: '09:00', close: '17:00' },
+                  Tuesday: { open: '09:00', close: '17:00' },
+                  Wednesday: { open: '09:00', close: '17:00' },
+                  Thursday: { open: '09:00', close: '17:00' },
+                  Friday: { open: '09:00', close: '17:00' },
+                  Saturday: { open: '09:00', close: '12:00' },
+                  Sunday: { open: '08:00', close: '12:00' }
+                }}
+              />
             </div>
           </div>
         </Container>
@@ -699,10 +707,10 @@ export default function FindUs() {
       <Section spacing="sm" background="slate">
         <Container size="md">
           <ScriptureCard 
+            displayMode="themed"
             theme="hospitality"
-            reference="Hebrews 13:2"
-            text="Do not forget to show hospitality to strangers, for by so doing some people have shown hospitality to angels without knowing it."
-            reflection="As you journey to our church, remember that every visitor is welcomed with the love of Christ."
+            showReflection={true}
+            showAudio={true}
           />
         </Container>
       </Section>
@@ -750,9 +758,9 @@ export default function FindUs() {
             
             <div className="pt-8">
               <SocialSharingSystem 
-                pageTitle="Find St Saviour's Catholic Church Lewisham"
-                pageUrl="https://stsaviourlewisham.org.uk/find-us"
-                description="Located in the heart of Lewisham with excellent transport links. Find directions, accessibility information, and contact details."
+                articleId="find-us"
+                title="Find St Saviour's Catholic Church Lewisham"
+                url="https://stsaviourlewisham.org.uk/find-us"
               />
             </div>
           </motion.div>
@@ -760,7 +768,10 @@ export default function FindUs() {
       </Section>
 
       {/* Progress Indicator */}
-      <ProgressIndicator />
+      <ProgressIndicator 
+        sections={['Location', 'Transport', 'Accessibility', 'Contact']}
+        activeSection={activeSection}
+      />
       </main>
     </PageLayout>
   )

@@ -36,7 +36,9 @@ import { EnhancedNewsletterForm } from '@/components/enhanced/EnhancedNewsletter
 import { AdvancedSearchSystem } from '@/components/enhanced/AdvancedSearchSystem'
 import { ArticleBookmarkSystem } from '@/components/enhanced/ArticleBookmarkSystem'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { ReadingProgressIndicator } from '@/components/enhanced/ReadingProgressIndicator'\nimport { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'\nimport { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { ReadingProgressIndicator } from '@/components/enhanced/ReadingProgressIndicator'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 
 // Modern imports with Zustand integration
 import { PageLayout, PageHero } from '@/components/layout'
@@ -346,7 +348,7 @@ export default function News() {
       keywords="Parish News, Church News, Community Updates, Events, Announcements, Catholic Church Lewisham, Spiritual Reflections, Community Stories"
     >
       {/* Reading Progress Indicator */}
-      <ReadingProgressIndicator />
+      {/* <ReadingProgressIndicator /> */}
       
       {/* Hero Section */}
       <PageHero
@@ -1407,7 +1409,7 @@ export default function News() {
       )}
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName=\"Parish News\"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -1416,10 +1418,10 @@ export default function News() {
         onPerformanceData={(data) => {
           console.log('News performance:', data)
         }}
-      />
+      /> */}
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableTabNavigation: true,
@@ -1443,7 +1445,7 @@ export default function News() {
           enableHighContrast: ui.highContrast,
           enableFocusVisible: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }

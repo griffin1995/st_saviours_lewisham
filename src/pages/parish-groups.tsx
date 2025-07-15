@@ -3,7 +3,7 @@ import { m } from 'framer-motion'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PieElement, ArcElement } from 'chart.js'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 import { Bar, Pie } from 'react-chartjs-2'
 import { 
   Users, 
@@ -35,14 +35,14 @@ import {
 import { GroupCard } from '@/components/church'
 import { EnhancedGroupCard, AnimatedWeeklySchedule } from '@/components/enhanced'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { InteractiveMemberDirectory } from '@/components/enhanced/InteractiveMemberDirectory'
-import { VirtualGroupMeeting } from '@/components/enhanced/VirtualGroupMeeting'
-import { GroupRegistrationSystem } from '@/components/enhanced/GroupRegistrationSystem'
-import { GroupTestimonialsCarousel } from '@/components/enhanced/GroupTestimonialsCarousel'
-import { PrayerRequestIntegration } from '@/components/enhanced/PrayerRequestIntegration'
+// import { InteractiveMemberDirectory } from '@/components/enhanced/InteractiveMemberDirectory'
+// import { VirtualGroupMeeting } from '@/components/enhanced/VirtualGroupMeeting'
+// import { GroupRegistrationSystem } from '@/components/enhanced/GroupRegistrationSystem'
+// import { GroupTestimonialsCarousel } from '@/components/enhanced/GroupTestimonialsCarousel'
+// import { PrayerRequestIntegration } from '@/components/enhanced/PrayerRequestIntegration'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -50,7 +50,7 @@ import { prefersReducedMotion, cn } from '@/lib/utils'
 import { useUI, useActions } from '@/stores/churchStore'
 
 // Chart.js registration
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PieElement, ArcElement)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
 
 export default function ParishGroups() {
   const ui = useUI()
@@ -470,7 +470,6 @@ export default function ParishGroups() {
                 </Card>
               </div>
             </animated.div>
-          </ScrollRevealSection>
         </Container>
       </Section>
       )}

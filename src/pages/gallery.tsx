@@ -23,12 +23,12 @@ import { GalleryGrid, ImageLightbox, type GalleryImage } from '@/components/chur
 import { EnhancedGalleryGrid, EnhancedPhotoSwipeLightbox } from '@/components/enhanced'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { GalleryAnalyticsDashboard } from '@/components/enhanced/GalleryAnalyticsDashboard'
-import { VirtualTourIntegration } from '@/components/enhanced/VirtualTourIntegration'
-import { LivePhotoUpload } from '@/components/enhanced/LivePhotoUpload'
-import { PrayerfulReflectionCard } from '@/components/enhanced/PrayerfulReflectionCard'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { GalleryAnalyticsDashboard } from '@/components/enhanced/GalleryAnalyticsDashboard'
+// import { VirtualTourIntegration } from '@/components/enhanced/VirtualTourIntegration'
+// import { LivePhotoUpload } from '@/components/enhanced/LivePhotoUpload'
+// import { PrayerfulReflectionCard } from '@/components/enhanced/PrayerfulReflectionCard'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -468,7 +468,6 @@ export default function Gallery() {
                 </CardContent>
               </Card>
             </animated.div>
-          </ScrollRevealSection>
         </Container>
       </Section>
       )}
@@ -515,9 +514,6 @@ export default function Gallery() {
                 images={galleryImages}
                 categories={categories}
                 onImageClick={handleImageClick}
-                onImageLike={handleImageLike}
-                onImageShare={handleImageShare}
-                imageStats={imageStats}
                 reducedMotion={reducedMotion}
                 className="mb-16"
               />
@@ -681,10 +677,10 @@ export default function Gallery() {
               </p>
             </Motion.div>
             
-            <VirtualTourIntegration
+            {/* <VirtualTourIntegration
               galleryImages={galleryImages}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -715,7 +711,7 @@ export default function Gallery() {
               </p>
             </Motion.div>
             
-            <LivePhotoUpload
+            {/* <LivePhotoUpload
               onPhotoUploaded={(photo) => {
                 actions.addNotification({
                   type: 'success',
@@ -727,7 +723,7 @@ export default function Gallery() {
               maxFileSize={10 * 1024 * 1024} // 10MB
               supportVideo={true}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -759,14 +755,14 @@ export default function Gallery() {
             </Motion.div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {galleryImages.filter(img => img.category === 'Church Building' || img.category === 'Liturgical Celebrations').slice(0, 3).map((image, index) => (
+              {/* {galleryImages.filter(img => img.category === 'Church Building' || img.category === 'Liturgical Celebrations').slice(0, 3).map((image, index) => (
                 <PrayerfulReflectionCard
                   key={image.id}
                   image={image}
                   reflectionTheme={index === 0 ? 'architecture' : index === 1 ? 'liturgy' : 'community'}
                   reducedMotion={ui.reducedMotion}
                 />
-              ))}
+              ))} */}
             </div>
           </ScrollRevealSection>
         </Container>
@@ -784,16 +780,13 @@ export default function Gallery() {
 
       {/* Social Sharing Modal */}
       <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareImageData}
-        type="gallery-image"
-        analytics={true}
-        customMessage="Check out this beautiful moment from St Saviour's Catholic Church!"
+        articleId="gallery-image"
+        title="St Saviour's Gallery"
+        url="https://stsaviourlewisham.org.uk/gallery"
       />
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName="Gallery"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -802,10 +795,10 @@ export default function Gallery() {
           // Track gallery performance metrics
           console.log('Gallery performance:', data)
         }}
-      />
+      /> */}
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableSpaceBar: true,
@@ -829,7 +822,7 @@ export default function Gallery() {
           enableHighContrast: ui.highContrast,
           enableFocusVisible: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }
