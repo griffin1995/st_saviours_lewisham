@@ -31,11 +31,9 @@ import {
   PodcastSubscribe,
   type PodcastEpisode 
 } from '@/components/church'
-import {
-  ScriptureCard,
-  SocialSharingSystem,
-  ProgressIndicator
-} from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 import { prefersReducedMotion } from '@/lib/utils'
 
 const podcastEpisodes: PodcastEpisode[] = [
@@ -179,13 +177,21 @@ export default function Podcasts() {
     return () => clearInterval(interval)
   }, [currentlyPlaying])
   
+  // Filter episodes based on search and category
+  const filteredEpisodes = podcastEpisodes.filter(episode => {
+    const matchesSearch = episode.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         episode.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         episode.host.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCategory = selectedCategory === "All" || episode.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
+
   // React Spring animations for episode cards
   const [episodesRef, episodesInView] = useInView()
   const episodeTrail = useTrail(filteredEpisodes.length, {
     opacity: episodesInView ? 1 : 0,
     transform: episodesInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
-    config: { tension: 180, friction: 25 },
-    delay: (i) => i * 100
+    config: { tension: 180, friction: 25 }
   })
   
   // Enhanced hero animation with audio visualization
@@ -243,14 +249,6 @@ export default function Podcasts() {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [currentlyPlaying, filteredEpisodes])
-
-  const filteredEpisodes = podcastEpisodes.filter(episode => {
-    const matchesSearch = episode.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         episode.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         episode.host.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "All" || episode.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
 
   const featuredEpisodes = podcastEpisodes.filter(episode => episode.featured)
 
@@ -604,7 +602,7 @@ export default function Podcasts() {
       {/* Podcast Analytics Dashboard */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <PodcastAnalytics />
+          {/* <PodcastAnalytics /> */}
         </Container>
       </Section>
 
@@ -612,10 +610,10 @@ export default function Podcasts() {
       <Section spacing="sm" background="slate">
         <Container size="md">
           <ScriptureCard 
+            displayMode="themed"
             theme="wisdom"
-            reference="Proverbs 27:17"
-            text="As iron sharpens iron, so one person sharpens another."
-            reflection="Through our podcast discussions and community conversations, we grow together in faith and understanding."
+            showReflection={true}
+            showAudio={true}
           />
         </Container>
       </Section>
@@ -623,10 +621,10 @@ export default function Podcasts() {
       {/* Community Discussion */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <PodcastCommunityDiscussion 
+          {/* <PodcastCommunityDiscussion 
             episodeId={featuredEpisodes[0]?.id || 1}
             episodeTitle={featuredEpisodes[0]?.title || "Latest Episode"}
-          />
+          /> */}
         </Container>
       </Section>
 
@@ -647,9 +645,9 @@ export default function Podcasts() {
               className="text-center"
             >
               <SocialSharingSystem 
-                pageTitle="St Saviour's Podcasts - Faith On-the-Go"
-                pageUrl="https://stsaviourlewisham.org.uk/podcasts"
-                description="Listen to inspiring conversations about faith, spirituality, and Catholic living. New episodes weekly."
+                articleId="podcasts"
+                title="St Saviour's Podcasts - Faith On-the-Go"
+                url="https://stsaviourlewisham.org.uk/podcasts"
               />
             </motion.div>
           </div>
@@ -657,7 +655,10 @@ export default function Podcasts() {
       </Section>
 
       {/* Progress Indicator */}
-      <ProgressIndicator />
+      <ProgressIndicator 
+        sections={['Episodes', 'Analytics', 'Scripture', 'Community']}
+        activeSection={0}
+      />
       </main>
     </PageLayout>
   )

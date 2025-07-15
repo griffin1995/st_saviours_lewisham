@@ -500,7 +500,7 @@ export default function ParishGroups() {
               </p>
             </Motion.div>
             
-            <InteractiveMemberDirectory
+            {/* <InteractiveMemberDirectory
               groups={groups}
               onContactLeader={(group, leader) => {
                 actions.addNotification({
@@ -510,7 +510,7 @@ export default function ParishGroups() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -541,7 +541,7 @@ export default function ParishGroups() {
               </p>
             </Motion.div>
             
-            <VirtualGroupMeeting
+            {/* <VirtualGroupMeeting
               groups={groups}
               onJoinMeeting={(group, meetingId) => {
                 actions.addNotification({
@@ -551,7 +551,7 @@ export default function ParishGroups() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -582,7 +582,7 @@ export default function ParishGroups() {
               </p>
             </Motion.div>
             
-            <GroupRegistrationSystem
+            {/* <GroupRegistrationSystem
               groups={groups}
               selectedGroup={selectedGroupForReg}
               isOpen={registrationMode}
@@ -596,7 +596,7 @@ export default function ParishGroups() {
                 setRegistrationMode(false)
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -626,10 +626,6 @@ export default function ParishGroups() {
                 key={group.name}
                 group={group}
                 index={index}
-                onRegister={() => handleGroupRegistration(group.name)}
-                onShare={() => handleGroupShare(group)}
-                onPrayerRequest={() => handlePrayerRequest(group.name)}
-                groupStats={groupStats[group.name]}
                 reducedMotion={reducedMotion}
               />
             ))}
@@ -749,10 +745,10 @@ export default function ParishGroups() {
               </p>
             </Motion.div>
             
-            <GroupTestimonialsCarousel
+            {/* <GroupTestimonialsCarousel
               groups={groups}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -783,7 +779,7 @@ export default function ParishGroups() {
               </p>
             </Motion.div>
             
-            <PrayerRequestIntegration
+            {/* <PrayerRequestIntegration
               groups={groups}
               selectedGroup={selectedGroup}
               isOpen={prayerRequestsOpen}
@@ -797,7 +793,7 @@ export default function ParishGroups() {
                 setPrayerRequestsOpen(false)
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -814,16 +810,13 @@ export default function ParishGroups() {
 
       {/* Social Sharing Modal */}
       <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareGroupData}
-        type="parish-group"
-        analytics={true}
-        customMessage="Join this amazing parish group at St Saviour's Catholic Church!"
+        articleId="parish-groups"
+        title="Parish Groups at St Saviour's"
+        url="https://stsaviourlewisham.org.uk/parish-groups"
       />
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName="Parish Groups"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -831,10 +824,10 @@ export default function ParishGroups() {
         onPerformanceData={(data) => {
           console.log('Parish Groups performance:', data)
         }}
-      />
+      /> */}
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableTabNavigation: true,
@@ -854,7 +847,7 @@ export default function ParishGroups() {
           enableHighContrast: ui.highContrast,
           enableFocusVisible: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }
