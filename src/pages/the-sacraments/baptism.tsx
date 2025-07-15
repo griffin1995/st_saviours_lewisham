@@ -54,14 +54,12 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import {
-  ScriptureCard,
-  SocialSharingSystem,
-  ProgressIndicator,
-  BaptismPreparationTracker,
-  SacramentalAnalytics,
-  SacramentalPreparationGuide
-} from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
+// import { BaptismPreparationTracker } from '@/components/enhanced/BaptismPreparationTracker'
+// import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
+// import { SacramentalPreparationGuide } from '@/components/enhanced/SacramentalPreparationGuide'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Baptism() {
@@ -102,13 +100,36 @@ export default function Baptism() {
     return () => clearInterval(interval)
   }, [])
   
+  // Define baptismEffects array before using it
+  const baptismEffects = [
+    {
+      title: "Forgiveness of Sin",
+      description: "Original sin and all personal sins are completely washed away"
+    },
+    {
+      title: "Becomes Child of God",
+      description: "We are adopted as children of God and heirs to eternal life"
+    },
+    {
+      title: "Member of the Church",
+      description: "Incorporated into the Body of Christ and the Catholic Church"
+    },
+    {
+      title: "Receives Grace",
+      description: "Sanctifying grace fills the soul and makes us temples of the Holy Spirit"
+    },
+    {
+      title: "Marked Forever",
+      description: "An indelible spiritual mark is placed on the soul that lasts for eternity"
+    }
+  ]
+  
   // React Spring animations for baptism effects
   const [effectsRef, effectsInView] = useInView()
   const effectsTrail = useTrail(baptismEffects.length, {
     opacity: effectsInView ? 1 : 0,
     transform: effectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
-    config: { tension: 200, friction: 25 },
-    delay: (i) => i * 150
+    config: { tension: 200, friction: 25 }
   })
   
   // Enhanced hero animation with baptismal symbolism
@@ -138,10 +159,10 @@ export default function Baptism() {
           }
         }
         if (entry.entryType === 'first-input-delay') {
-          console.log('FID:', entry.processingStart - entry.startTime)
+          console.log('FID:', entry.startTime)
         }
         if (entry.entryType === 'cumulative-layout-shift') {
-          console.log('CLS:', entry.value)
+          console.log('CLS:', (entry as any).value)
         }
       }
     })
@@ -193,29 +214,6 @@ export default function Baptism() {
   const baptismContent = [
     "Baptism is the first and chief sacrament of forgiveness of sins because it unites us with Christ, who died for our sins and rose for our justification. Through Baptism we are freed from sin and reborn as children of God.",
     "In this sacrament, we are cleansed of original sin, become members of the Church, and are called to live as disciples of Jesus Christ. Baptism is necessary for salvation and is the foundation of our Christian life."
-  ]
-
-  const baptismEffects = [
-    {
-      title: "Forgiveness of Sin",
-      description: "Original sin and all personal sins are completely washed away"
-    },
-    {
-      title: "Becomes Child of God",
-      description: "We are adopted as children of God and heirs to eternal life"
-    },
-    {
-      title: "Member of the Church",
-      description: "Incorporated into the Body of Christ and the Catholic Church"
-    },
-    {
-      title: "Receives Grace",
-      description: "Sanctifying grace fills the soul and makes us temples of the Holy Spirit"
-    },
-    {
-      title: "Marked Forever",
-      description: "An indelible spiritual mark is placed on the soul that lasts for eternity"
-    }
   ]
 
   const baptismRequirements = [
@@ -472,8 +470,8 @@ export default function Baptism() {
             className="space-y-16"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <BaptismPreparationTracker baptismType="infant" />
-              <BaptismPreparationTracker baptismType="adult" />
+              {/* <BaptismPreparationTracker baptismType="infant" />
+              <BaptismPreparationTracker baptismType="adult" /> */}
             </div>
           </motion.div>
         </Container>
@@ -488,7 +486,7 @@ export default function Baptism() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <SacramentalAnalytics sacramentType="baptism" />
+            {/* <SacramentalAnalytics sacramentType="baptism" /> */}
           </motion.div>
         </Container>
       </Section>
@@ -497,10 +495,10 @@ export default function Baptism() {
       <Section spacing="sm" background="slate">
         <Container size="md">
           <ScriptureCard 
+            displayMode="themed"
             theme="baptism"
-            reference="Romans 6:3-4"
-            text="Do you not know that all of us who have been baptised into Christ Jesus were baptised into his death? We were buried therefore with him by baptism into death, in order that, just as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life."
-            reflection="Through baptism, we die to sin and are raised to new life in Christ, becoming children of God and members of his Church."
+            showReflection={true}
+            reducedMotion={reducedMotion}
           />
         </Container>
       </Section>
@@ -524,8 +522,8 @@ export default function Baptism() {
                 </Text>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <SacramentalPreparationGuide sacramentType="baptism" participantType="infant" />
-                <SacramentalPreparationGuide sacramentType="baptism" participantType="adult" />
+                {/* <SacramentalPreparationGuide sacramentType="baptism" participantType="infant" />
+                <SacramentalPreparationGuide sacramentType="baptism" participantType="adult" /> */}
               </div>
             </div>
           </motion.div>
@@ -543,9 +541,9 @@ export default function Baptism() {
             className="text-center"
           >
             <SocialSharingSystem 
-              pageTitle="Baptism - The Sacrament of New Life | St Saviour's Catholic Church"
-              pageUrl="https://stsaviourlewisham.org.uk/the-sacraments/baptism"
-              description="Learn about the sacrament of Baptism at St Saviour's Catholic Church. Complete preparation guides for infant and adult baptism."
+              articleId="baptism-sacrament"
+              title="Baptism - The Sacrament of New Life | St Saviour's Catholic Church"
+              url="https://stsaviourlewisham.org.uk/the-sacraments/baptism"
             />
           </motion.div>
         </Container>
@@ -615,7 +613,10 @@ export default function Baptism() {
       </Section>
 
       {/* Progress Indicator - Phase C Enhancement */}
-      <ProgressIndicator />
+      <ProgressIndicator 
+        sections={['Overview', 'Preparation', 'Community', 'Resources']}
+        activeSection={0}
+      />
       </main>
     </PageLayout>
   )

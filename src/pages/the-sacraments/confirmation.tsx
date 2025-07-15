@@ -58,15 +58,13 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import {
-  ScriptureCard,
-  SocialSharingSystem,
-  ProgressIndicator,
-  SacramentalAnalytics,
-  SacramentalPreparationGuide,
-  ConfirmationPreparationTracker,
-  SevenGiftsInteractive
-} from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
+// import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
+// import { SacramentalPreparationGuide } from '@/components/enhanced/SacramentalPreparationGuide'
+// import { ConfirmationPreparationTracker } from '@/components/enhanced/ConfirmationPreparationTracker'
+// import { SevenGiftsInteractive } from '@/components/enhanced/SevenGiftsInteractive'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function Confirmation() {

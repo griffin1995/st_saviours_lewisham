@@ -247,6 +247,7 @@ export default function TheSacraments() {
       description="Learn about the seven sacraments of the Catholic Church at St Saviour's. Discover how these sacred signs bring us closer to God."
       keywords="Catholic Sacraments, Baptism, Confirmation, Eucharist, Confession, Anointing, Holy Orders, Matrimony, Catholic Church"
     >
+      <>
       {/* Hero Section */}
       <PageHero
         title="The Seven Sacraments"
@@ -491,88 +492,6 @@ export default function TheSacraments() {
         </Container>
       </Section>
 
-      {/* Sacramental Analytics Dashboard */}
-      {analyticsInView && (
-        <Section spacing="lg" background="white">
-          <Container size="lg">
-            <animated.div ref={analyticsRef} style={analyticsSpring}>
-              <div className="text-center mb-12">
-                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
-                  Sacramental Life & Growth
-                  <Motion.div
-                    className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                    style={{ width: '180px' }}
-                  />
-                </h2>
-                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
-                  See how our parish community grows in faith through the sacraments
-                </p>
-              </div>
-              
-              <div className="grid lg:grid-cols-2 gap-8 mb-12">
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
-                  <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
-                      Sacramental Participation
-                    </h3>
-                    <div className="h-64">
-                      <Bar
-                        data={sacramentalParticipationData}
-                        options={{
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          plugins: {
-                            legend: {
-                              labels: { color: '#374151' }
-                            }
-                          },
-                          scales: {
-                            x: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
-                            },
-                            y: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
-                            }
-                          }
-                        }}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
-                  <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
-                      Categories of Grace
-                    </h3>
-                    <div className="h-64">
-                      <PolarArea
-                        data={spiritualGrowthData}
-                        options={{
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          plugins: {
-                            legend: {
-                              position: 'bottom',
-                              labels: { color: '#374151' }
-                            }
-                          }
-                        }}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </animated.div>
-        </Container>
-      </Section>
-      )}
-
       {/* Interactive Sacramental Journey */}
       <Section spacing="lg" background="white">
         <Container size="lg">
@@ -599,12 +518,12 @@ export default function TheSacraments() {
               </p>
             </Motion.div>
             
-            <InteractiveSacramentalJourney
+            {/* <InteractiveSacramentalJourney
               sacraments={sacraments}
               journeyProgress={journeyProgress}
               onProgressUpdate={handleJourneyStep}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -635,12 +554,12 @@ export default function TheSacraments() {
               </p>
             </Motion.div>
             
-            <SacramentalPreparationTracker
+            {/* <SacramentalPreparationTracker
               sacraments={sacraments}
               currentProgress={journeyProgress}
               onUpdateProgress={handleJourneyStep}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -671,7 +590,7 @@ export default function TheSacraments() {
               </p>
             </Motion.div>
             
-            <SacramentalCalendarIntegration
+            {/* <SacramentalCalendarIntegration
               sacraments={sacraments}
               onScheduleEvent={(sacrament, eventType) => {
                 actions.addNotification({
@@ -681,7 +600,7 @@ export default function TheSacraments() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -712,7 +631,7 @@ export default function TheSacraments() {
               </p>
             </Motion.div>
             
-            <SpiritualGrowthTracker
+            {/* <SpiritualGrowthTracker
               sacraments={sacraments}
               currentProgress={journeyProgress}
               onMilestoneReached={(milestone) => {
@@ -723,7 +642,7 @@ export default function TheSacraments() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -754,7 +673,7 @@ export default function TheSacraments() {
               </p>
             </Motion.div>
             
-            <SacramentalResourcesLibrary
+            {/* <SacramentalResourcesLibrary
               sacraments={sacraments}
               onResourceAccess={(resource) => {
                 actions.addNotification({
@@ -764,7 +683,7 @@ export default function TheSacraments() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -824,48 +743,13 @@ export default function TheSacraments() {
 
       {/* Social Sharing Modal */}
       <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareSacramentData}
-        type="sacrament"
-        analytics={true}
-        customMessage="Discover the beautiful sacraments at St Saviour's Catholic Church!"
+        articleId="the-sacraments"
+        title="The Seven Sacraments at St Saviour's"
+        url="https://stsaviourlewisham.org.uk/the-sacraments"
       />
 
-      {/* Performance Monitor */}
-      <PerformanceMonitor
-        pageName="The Sacraments"
-        trackLoadTimes={true}
-        trackInteractions={true}
-        trackEngagement={true}
-        onPerformanceData={(data) => {
-          console.log('Sacraments performance:', data)
-        }}
-      />
 
-      {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
-        keyboardNavigation={{
-          enableArrowKeys: true,
-          enableTabNavigation: true,
-          enableEnterKey: true,
-          onKeyPress: (key, target) => {
-            if (key === 'Enter' && target?.dataset.sacramentName) {
-              const sacrament = sacraments.find(s => s.name === target.dataset.sacramentName)
-              if (sacrament) handleSacramentShare(sacrament)
-            }
-          }
-        }}
-        screenReaderSupport={{
-          announcePageChanges: true,
-          announceProgressUpdates: true,
-          provideFocusIndicators: true
-        }}
-        contrastEnhancement={{
-          enableHighContrast: ui.highContrast,
-          enableFocusVisible: true
-        }}
-      />
+      </>
     </PageLayout>
   )
 }
