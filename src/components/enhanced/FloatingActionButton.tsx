@@ -40,7 +40,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
       {/* Action Items */}
       <div className="flex flex-col-reverse gap-3 mb-3">
         {actions.map((action, index) => (
-          <Motion.div
+          <m.div
             key={index}
             initial={{ opacity: 0, scale: 0, y: 20 }}
             animate={isOpen ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0, y: 20 }}
@@ -64,7 +64,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
             >
               {action.icon}
             </Motion.button>
-          </Motion.div>
+          </m.div>
         ))}
       </div>
 

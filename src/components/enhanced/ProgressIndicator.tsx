@@ -37,7 +37,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
       <div className="bg-black/20 backdrop-blur-sm rounded-full p-4">
         {/* Progress Bar */}
         <div className="relative w-1 h-48 bg-white/20 rounded-full mb-4">
-          <Motion.div
+          <m.div
             className="absolute top-0 left-0 w-full bg-gradient-to-b from-gold-400 to-gold-600 rounded-full"
             style={{ height: `${scrollProgress}%` }}
             initial={{ height: 0 }}
@@ -53,13 +53,13 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
             const isPassed = index < activeSection
 
             return (
-              <Motion.div
+              <m.div
                 key={index}
                 className="flex items-center gap-3"
                 whileHover={reducedMotion ? {} : { scale: 1.05 }}
               >
                 <div className="relative">
-                  <Motion.div
+                  <m.div
                     className={`w-3 h-3 rounded-full border-2 ${
                       isActive
                         ? 'bg-gold-400 border-gold-400'
@@ -75,7 +75,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                   />
                   
                   {isActive && (
-                    <Motion.div
+                    <m.div
                       className="absolute inset-0 w-3 h-3 rounded-full bg-gold-400"
                       animate={{ scale: [1, 1.5, 1] }}
                       transition={{
@@ -88,7 +88,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                 </div>
 
                 {/* Section Label (shows on hover) */}
-                <Motion.div
+                <m.div
                   className={`text-xs text-white bg-black/60 px-2 py-1 rounded whitespace-nowrap ${
                     position === 'left' ? 'ml-2' : 'mr-2'
                   }`}
@@ -97,8 +97,8 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                   transition={{ duration: reducedMotion ? 0.1 : 0.2 }}
                 >
                   {section}
-                </Motion.div>
-              </Motion.div>
+                </m.div>
+              </m.div>
             )
           })}
         </div>

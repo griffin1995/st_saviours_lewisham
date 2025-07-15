@@ -134,14 +134,14 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
   if (submitSuccess) {
     return (
       <animated.div style={successSpring} className="text-center py-12">
-        <Motion.div
+        <m.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6"
         >
           <CheckCircleIcon className="h-10 w-10 text-white" />
-        </Motion.div>
+        </m.div>
         <h3 className={`${typographyScale.h3} text-slate-900 mb-4`}>
           Message Sent Successfully!
         </h3>
@@ -190,7 +190,7 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
       <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
         {/* Step 1: Contact Information */}
         {currentStep === 1 && (
-          <Motion.div
+          <m.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -296,12 +296,12 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
                 ))}
               </div>
             </div>
-          </Motion.div>
+          </m.div>
         )}
 
         {/* Step 2: Inquiry Details */}
         {currentStep === 2 && (
-          <Motion.div
+          <m.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -379,12 +379,12 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
                 <option value="portuguese">Português (Portuguese)</option>
               </select>
             </div>
-          </Motion.div>
+          </m.div>
         )}
 
         {/* Step 3: Message */}
         {currentStep === 3 && (
-          <Motion.div
+          <m.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -468,7 +468,7 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
             {errors.consent && (
               <p className="text-red-600 text-sm">{errors.consent.message}</p>
             )}
-          </Motion.div>
+          </m.div>
         )}
 
         {/* Navigation Buttons */}

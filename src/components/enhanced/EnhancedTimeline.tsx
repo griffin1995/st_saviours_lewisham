@@ -168,7 +168,7 @@ function TimelineContent({ event, index, reducedMotion }: {
       style={contentSpring}
       className={`${event.side === 'left' ? 'lg:pr-12' : 'lg:pl-12 lg:col-start-2'}`}
     >
-      <Motion.div
+      <m.div
         ref={contentRef}
         className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-700 transition-all duration-500 group rounded-2xl overflow-hidden"
         whileHover={reducedMotion ? {} : { scale: 1.02, y: -5 }}
@@ -176,7 +176,7 @@ function TimelineContent({ event, index, reducedMotion }: {
       >
         <div className="p-8 space-y-6">
           {/* Year Badge with Gold Theme */}
-          <Motion.div
+          <m.div
             className="inline-flex items-center gap-4 mb-4"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -185,7 +185,7 @@ function TimelineContent({ event, index, reducedMotion }: {
             <span className="px-6 py-3 bg-gold-700 text-black rounded-full font-bold text-lg shadow-lg">
               {event.year}
             </span>
-          </Motion.div>
+          </m.div>
 
           {/* Title with Professional Typography */}
           <h3 className={`${typographyScale.h3} text-white mb-4 group-hover:text-gold-300 transition-colors duration-300`}>
@@ -197,7 +197,7 @@ function TimelineContent({ event, index, reducedMotion }: {
             {event.event}
           </p>
         </div>
-      </Motion.div>
+      </m.div>
     </animated.div>
   )
 }
@@ -235,7 +235,7 @@ function TimelineImage({ event, index, reducedMotion }: {
       style={imageSpring}
       className={`${event.side === 'left' ? 'lg:pl-12 lg:col-start-2 lg:row-start-1' : 'lg:pr-12 lg:col-start-1'}`}
     >
-      <Motion.div
+      <m.div
         ref={imageRef}
         className="relative h-64 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
         whileHover={reducedMotion ? {} : { scale: 1.05 }}
@@ -252,7 +252,7 @@ function TimelineImage({ event, index, reducedMotion }: {
             {event.year} - {event.title}
           </span>
         </div>
-      </Motion.div>
+      </m.div>
     </animated.div>
   )
 }
@@ -304,7 +304,7 @@ export function EnhancedTimeline({ events, reducedMotion = false }: EnhancedTime
       {/* Timeline Events */}
       <div className="space-y-12">
         {events.map((event, index) => (
-          <Motion.div
+          <m.div
             key={index}
             className={`relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${
               event.side === 'left' ? 'lg:text-right' : 'lg:text-left'
@@ -322,7 +322,7 @@ export function EnhancedTimeline({ events, reducedMotion = false }: EnhancedTime
 
             {/* Event Image */}
             <TimelineImage event={event} index={index} reducedMotion={reducedMotion} />
-          </Motion.div>
+          </m.div>
         ))}
       </div>
     </div>

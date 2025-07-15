@@ -200,7 +200,7 @@ export function InteractiveStaffDirectory({ reducedMotion = false }: Interactive
       {/* Staff Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredStaff.map((member, index) => (
-          <Motion.div
+          <m.div
             key={member.id}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -296,20 +296,20 @@ export function InteractiveStaffDirectory({ reducedMotion = false }: Interactive
                 </span>
               </div>
             </div>
-          </Motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Detailed Staff Modal */}
       {selectedStaff && (
-        <Motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
           onClick={() => setSelectedStaff(null)}
         >
-          <Motion.div
+          <m.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -483,8 +483,8 @@ export function InteractiveStaffDirectory({ reducedMotion = false }: Interactive
             >
               ×
             </button>
-          </Motion.div>
-        </Motion.div>
+          </m.div>
+        </m.div>
       )}
     </animated.div>
   )

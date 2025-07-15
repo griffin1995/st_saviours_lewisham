@@ -162,13 +162,13 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
     <animated.div ref={ref} style={guideSpring} className="space-y-6">
       {/* Guide Header */}
       <div className="text-center">
-        <Motion.div
+        <m.div
           className="w-20 h-20 bg-gold-700/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
           whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
           transition={{ duration: 0.3 }}
         >
           <currentStep.icon className="h-10 w-10 text-gold-400" />
-        </Motion.div>
+        </m.div>
         
         <h3 className={`${typographyScale.h2} text-white mb-4`}>
           Mass Participation Guide
@@ -191,7 +191,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
         </div>
         
         <div className="w-full bg-slate-700 rounded-full h-2 mb-4">
-          <Motion.div
+          <m.div
             className="bg-gradient-to-r from-gold-600 to-gold-500 h-2 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${((activeStep + 1) / guideSteps.length) * 100}%` }}
@@ -245,7 +245,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
                 {/* Step Details */}
                 <div className="space-y-3">
                   {step.details.map((detail, detailIndex) => (
-                    <Motion.div
+                    <m.div
                       key={detailIndex}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -258,7 +258,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
                       <p className={`${typographyScale.body} text-gray-100 leading-relaxed`}>
                         {detail}
                       </p>
-                    </Motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
@@ -301,7 +301,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
       </div>
 
       {/* Quick Reference Card */}
-      <Motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
@@ -347,7 +347,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
             </p>
           </div>
         </div>
-      </Motion.div>
+      </m.div>
     </animated.div>
   )
 }

@@ -201,7 +201,7 @@ export default function AdvancedAudioPlayer({
             {/* Episode Info */}
             <div className="flex items-start gap-4">
               {episode.image && (
-                <motion.div
+                <m.div
                   className="flex-shrink-0"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
@@ -213,7 +213,7 @@ export default function AdvancedAudioPlayer({
                       className="w-full h-full object-cover"
                     />
                   </div>
-                </motion.div>
+                </m.div>
               )}
               <div className="flex-1 min-w-0">
                 <Heading level="h3" color="white" className="text-lg font-semibold truncate">
@@ -263,7 +263,7 @@ export default function AdvancedAudioPlayer({
             {/* Waveform Visualization */}
             <AnimatePresence>
               {showWaveform && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
@@ -274,7 +274,7 @@ export default function AdvancedAudioPlayer({
                       const progress = currentTime / duration
                       const isPlayed = index / waveformData.length <= progress
                       return (
-                        <motion.div
+                        <m.div
                           key={index}
                           className={`w-1 rounded-full transition-colors ${
                             isPlayed 
@@ -293,7 +293,7 @@ export default function AdvancedAudioPlayer({
                       )
                     })}
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 

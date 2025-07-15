@@ -269,7 +269,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             </div>
             
             <div className="relative h-2 bg-white/20 rounded-full overflow-hidden">
-              <Motion.div
+              <m.div
                 className="h-full bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${((currentStopIndex + 1) / stops.length) * 100}%` }}
@@ -299,13 +299,13 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
 
       {/* Hotspot Detail Modal */}
       {selectedHotspot && (
-        <Motion.div
+        <m.div
           className="absolute inset-0 bg-black/80 flex items-center justify-center p-4 pointer-events-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Motion.div
+          <m.div
             className="bg-white rounded-lg p-6 max-w-md w-full"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -335,8 +335,8 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
                 Go to Next Area
               </button>
             )}
-          </Motion.div>
-        </Motion.div>
+          </m.div>
+        </m.div>
       )}
 
       {/* Audio Element */}

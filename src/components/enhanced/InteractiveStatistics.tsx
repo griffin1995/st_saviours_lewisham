@@ -73,13 +73,13 @@ function AnimatedStatistic({ number, label, icon: Icon, index, reducedMotion }: 
       onMouseLeave={() => setIsHovered(false)}
       className="text-center group cursor-pointer"
     >
-      <Motion.div 
+      <m.div 
         className="w-16 h-16 icon-container-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg"
         whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
         transition={{ duration: 0.3 }}
       >
         <Icon className="h-8 w-8 icon-theme-dark" />
-      </Motion.div>
+      </m.div>
       
       <div className={`${typographyScale.h3} text-white mb-2`}>
         <animated.span>
@@ -146,7 +146,7 @@ function StatisticsChart({ stats }: { stats: Array<{ number: string, label: stri
   }
 
   return (
-    <Motion.div
+    <m.div
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.4 }}
@@ -161,7 +161,7 @@ function StatisticsChart({ stats }: { stats: Array<{ number: string, label: stri
           <Doughnut data={chartData} options={chartOptions} />
         </div>
       </div>
-    </Motion.div>
+    </m.div>
   )
 }
 

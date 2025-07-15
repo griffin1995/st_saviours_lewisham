@@ -307,18 +307,18 @@ export default function FirstCommunionTracker({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
             <CircleStackIcon className="h-8 w-8 text-amber-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h3" color="white" className="text-xl font-bold">
             {participantType === 'child' ? 'Child' : 'Adult'} First Communion Preparation
           </Heading>
@@ -326,10 +326,10 @@ export default function FirstCommunionTracker({
         <Text className="text-gray-300 max-w-2xl mx-auto">
           Track your progress through the First Communion preparation process. Complete each step to prepare for receiving Jesus in the Eucharist.
         </Text>
-      </motion.div>
+      </m.div>
 
       {/* Progress Overview */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -359,7 +359,7 @@ export default function FirstCommunionTracker({
               </div>
               
               <div className="w-full bg-slate-700 rounded-full h-3">
-                <motion.div
+                <m.div
                   className="bg-gradient-to-r from-amber-500 to-gold-500 h-3 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${overallProgress}%` }}
@@ -373,7 +373,7 @@ export default function FirstCommunionTracker({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Steps List */}
       <div className="space-y-4">
@@ -383,7 +383,7 @@ export default function FirstCommunionTracker({
           const isExpanded = expandedSteps.has(step.id)
           
           return (
-            <motion.div
+            <m.div
               key={step.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -459,7 +459,7 @@ export default function FirstCommunionTracker({
                     {/* Expanded Details */}
                     <AnimatePresence>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -492,13 +492,13 @@ export default function FirstCommunionTracker({
                               </div>
                             )}
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           )
         })}
       </div>
@@ -506,7 +506,7 @@ export default function FirstCommunionTracker({
       {/* Completion Message */}
       <AnimatePresence>
         {currentPhase === 'ready' && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -514,12 +514,12 @@ export default function FirstCommunionTracker({
             <Card variant="default" padding="lg" className="bg-gradient-to-r from-green-500/20 to-amber-500/20 border border-green-500/50 backdrop-blur-sm text-center">
               <CardContent>
                 <div className="space-y-4">
-                  <motion.div
+                  <m.div
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     <BeakerIcon className="h-16 w-16 text-green-400 mx-auto" />
-                  </motion.div>
+                  </m.div>
                   <Heading level="h4" color="white" className="text-xl font-bold">
                     Ready for First Holy Communion!
                   </Heading>
@@ -536,7 +536,7 @@ export default function FirstCommunionTracker({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

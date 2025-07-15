@@ -203,7 +203,7 @@ export function EnhancedNewsletterForm({
         </div>
 
         {/* Submit Button */}
-        <Motion.div
+        <m.div
           whileHover={reducedMotion ? {} : { scale: 1.02 }}
           whileTap={reducedMotion ? {} : { scale: 0.98 }}
         >
@@ -223,11 +223,11 @@ export function EnhancedNewsletterForm({
               'Subscribe to Newsletter'
             )}
           </Button>
-        </Motion.div>
+        </m.div>
 
         {/* Status Messages */}
         {submitStatus === 'success' && (
-          <Motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 p-4 bg-green-600/20 border border-green-600 rounded-lg"
@@ -236,11 +236,11 @@ export function EnhancedNewsletterForm({
             <span className={`${typographyScale.body} text-green-400`}>
               Successfully subscribed! Check your email for confirmation.
             </span>
-          </Motion.div>
+          </m.div>
         )}
 
         {submitStatus === 'error' && (
-          <Motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 p-4 bg-red-600/20 border border-red-600 rounded-lg"
@@ -249,7 +249,7 @@ export function EnhancedNewsletterForm({
             <span className={`${typographyScale.body} text-red-400`}>
               Subscription failed. Please try again later.
             </span>
-          </Motion.div>
+          </m.div>
         )}
       </form>
     </div>

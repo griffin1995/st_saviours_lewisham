@@ -272,7 +272,7 @@ export default function SacramentalAnalytics({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Real-time Active Candidates */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.6 }}
@@ -281,7 +281,7 @@ export default function SacramentalAnalytics({
         <Card variant="default" padding="md" className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 backdrop-blur-sm">
           <CardContent>
             <div className="flex items-center justify-center gap-3">
-              <motion.div
+              <m.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-3 h-3 bg-blue-500 rounded-full"
@@ -292,17 +292,17 @@ export default function SacramentalAnalytics({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Quick Stats */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4"
       >
         {quickStats.map((stat, index) => (
-          <motion.div
+          <m.div
             key={stat.label}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
@@ -332,12 +332,12 @@ export default function SacramentalAnalytics({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Main Analytics Card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -350,12 +350,12 @@ export default function SacramentalAnalytics({
                 <Heading level="h3" color="white" className="text-xl font-semibold">
                   Baptism Analytics
                 </Heading>
-                <motion.div
+                <m.div
                   animate={{ rotate: isVisible ? 360 : 0 }}
                   transition={{ duration: 2, ease: "easeInOut" }}
                 >
                   <ChartBarIcon className="h-6 w-6 text-gold-400" />
-                </motion.div>
+                </m.div>
               </div>
 
               {/* Tab Navigation */}
@@ -377,7 +377,7 @@ export default function SacramentalAnalytics({
               </div>
 
               {/* Chart Content */}
-              <motion.div
+              <m.div
                 key={activeTab}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -408,14 +408,14 @@ export default function SacramentalAnalytics({
                     <Doughnut data={preparationData} options={doughnutOptions} />
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Upcoming Events */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.6, duration: 0.6 }}
@@ -429,7 +429,7 @@ export default function SacramentalAnalytics({
               
               <div className="space-y-3">
                 {upcomingEvents.map((event, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -450,16 +450,16 @@ export default function SacramentalAnalytics({
                         {event.attendees} attendees
                       </Text>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Insights */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.8, duration: 0.6 }}
@@ -498,7 +498,7 @@ export default function SacramentalAnalytics({
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

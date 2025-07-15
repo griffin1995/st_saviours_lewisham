@@ -237,19 +237,19 @@ export default function SacramentalPreparationGuide({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
             <BeakerIcon className="h-8 w-8 text-blue-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h3" color="white" className="text-xl font-bold">
             {sacramentType === 'baptism' ? 'Baptism' : 'Sacrament'} Preparation Guide
           </Heading>
@@ -258,10 +258,10 @@ export default function SacramentalPreparationGuide({
           Follow this comprehensive guide to prepare for the sacrament of {sacramentType}. 
           Each step includes requirements, resources, and estimated timeframes.
         </Text>
-      </motion.div>
+      </m.div>
 
       {/* Progress Overview */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
         transition={{ delay: 0.2, duration: 0.6 }}
@@ -314,10 +314,10 @@ export default function SacramentalPreparationGuide({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Category Filter */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.4, duration: 0.6 }}
@@ -349,7 +349,7 @@ export default function SacramentalPreparationGuide({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Steps List */}
       <div className="space-y-4">
@@ -359,7 +359,7 @@ export default function SacramentalPreparationGuide({
           const isExpanded = expandedStep === step.id
           
           return (
-            <motion.div
+            <m.div
               key={step.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -424,19 +424,19 @@ export default function SacramentalPreparationGuide({
                         className="text-gray-400 hover:text-white transition-colors"
                         aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
                       >
-                        <motion.div
+                        <m.div
                           animate={{ rotate: isExpanded ? 90 : 0 }}
                           transition={{ duration: 0.2 }}
                         >
                           <ChevronRightIcon className="h-5 w-5" />
-                        </motion.div>
+                        </m.div>
                       </motion.button>
                     </div>
 
                     {/* Expanded Details */}
                     <AnimatePresence>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -477,13 +477,13 @@ export default function SacramentalPreparationGuide({
                               </ul>
                             </div>
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           )
         })}
       </div>
@@ -491,7 +491,7 @@ export default function SacramentalPreparationGuide({
       {/* Completion Message */}
       <AnimatePresence>
         {progress === 100 && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -499,12 +499,12 @@ export default function SacramentalPreparationGuide({
             <Card variant="default" padding="lg" className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/50 backdrop-blur-sm text-center">
               <CardContent>
                 <div className="space-y-4">
-                  <motion.div
+                  <m.div
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     <CheckCircleIcon className="h-16 w-16 text-green-400 mx-auto" />
-                  </motion.div>
+                  </m.div>
                   <Heading level="h4" color="white" className="text-xl font-bold">
                     Preparation Complete!
                   </Heading>
@@ -521,7 +521,7 @@ export default function SacramentalPreparationGuide({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

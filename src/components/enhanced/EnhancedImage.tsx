@@ -79,7 +79,7 @@ export function EnhancedImage({
         </div>
       )}
       
-      <Motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.3 }}
@@ -97,7 +97,7 @@ export function EnhancedImage({
           onError={handleError}
           className="w-full h-full object-cover"
         />
-      </Motion.div>
+      </m.div>
     </div>
   )
 }

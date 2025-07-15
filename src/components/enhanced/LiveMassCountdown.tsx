@@ -174,7 +174,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
     <animated.div ref={ref} style={countdownSpring} className="space-y-6">
       {/* Live Mass Indicator */}
       {isLive && (
-        <Motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-gradient-to-r from-red-600 to-red-500 rounded-2xl p-6 text-center"
@@ -197,7 +197,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
             <PlayIcon className="h-5 w-5 inline mr-2" />
             Watch Live Stream
           </Motion.button>
-        </Motion.div>
+        </m.div>
       )}
 
       {/* Next Mass Countdown */}
@@ -205,13 +205,13 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
         <div className="bg-white/10 backdrop-blur-sm border border-slate-600 rounded-2xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <Motion.div
+            <m.div
               className="w-20 h-20 bg-gold-700/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
               whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
               transition={{ duration: 0.3 }}
             >
               <ClockIcon className="h-10 w-10 text-gold-400" />
-            </Motion.div>
+            </m.div>
             
             <h3 className={`${typographyScale.h2} text-white mb-4`}>
               Next Mass
@@ -236,7 +236,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
               { value: timeRemaining.minutes, label: 'Minutes' },
               { value: timeRemaining.seconds, label: 'Seconds' }
             ].map((item, index) => (
-              <Motion.div
+              <m.div
                 key={item.label}
                 className="text-center"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -257,7 +257,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
                     {getTimeUnit(item.value, item.label.slice(0, -1))}
                   </span>
                 </div>
-              </Motion.div>
+              </m.div>
             ))}
           </div>
 
@@ -285,7 +285,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
       )}
 
       {/* Today's Schedule Preview */}
-      <Motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -320,7 +320,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
               const isCurrent = massTime <= now && massTime > new Date(now.getTime() - 60 * 60 * 1000) // Within last hour
               
               return (
-                <Motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -371,12 +371,12 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
                       Completed
                     </span>
                   )}
-                </Motion.div>
+                </m.div>
               )
             })
           })()}
         </div>
-      </Motion.div>
+      </m.div>
     </animated.div>
   )
 }

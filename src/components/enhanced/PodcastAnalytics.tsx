@@ -259,7 +259,7 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Real-time Listeners */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.6 }}
@@ -268,7 +268,7 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
         <Card variant="default" padding="md" className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 backdrop-blur-sm">
           <CardContent>
             <div className="flex items-center justify-center gap-3">
-              <motion.div
+              <m.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="w-3 h-3 bg-red-500 rounded-full"
@@ -279,17 +279,17 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Quick Stats */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4"
       >
         {quickStats.map((stat, index) => (
-          <motion.div
+          <m.div
             key={stat.label}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
@@ -318,12 +318,12 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Main Analytics Card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -336,12 +336,12 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
                 <Heading level="h3" color="white" className="text-xl font-semibold">
                   Podcast Analytics
                 </Heading>
-                <motion.div
+                <m.div
                   animate={{ rotate: isVisible ? 360 : 0 }}
                   transition={{ duration: 2, ease: "easeInOut" }}
                 >
                   <ArrowTrendingUpIcon className="h-6 w-6 text-gold-400" />
-                </motion.div>
+                </m.div>
               </div>
 
               {/* Tab Navigation */}
@@ -363,7 +363,7 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
               </div>
 
               {/* Chart Content */}
-              <motion.div
+              <m.div
                 key={activeTab}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -394,10 +394,10 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
                     <Doughnut data={contentData} options={doughnutOptions} />
                   </div>
                 )}
-              </motion.div>
+              </m.div>
 
               {/* Insights */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
@@ -436,11 +436,11 @@ export default function PodcastAnalytics({ className = '' }: PodcastAnalyticsPro
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

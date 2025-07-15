@@ -66,7 +66,7 @@ export const PrayerRequestWidget: React.FC<PrayerRequestWidgetProps> = ({
 
   return (
     <div className={containerClass}>
-      <Motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
@@ -187,7 +187,7 @@ export const PrayerRequestWidget: React.FC<PrayerRequestWidgetProps> = ({
             </p>
           </CardContent>
         </Card>
-      </Motion.div>
+      </m.div>
     </div>
   )
 }

@@ -181,7 +181,7 @@ export function EmergencyContactSystem({ reducedMotion = false }: EmergencyConta
         
         <div className="space-y-3">
           {emergencyContacts.map((contact, index) => (
-            <Motion.div
+            <m.div
               key={contact.type}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -246,7 +246,7 @@ export function EmergencyContactSystem({ reducedMotion = false }: EmergencyConta
                     
                     {/* Expandable Details */}
                     {selectedEmergency === contact.type && (
-                      <Motion.div
+                      <m.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -315,12 +315,12 @@ export function EmergencyContactSystem({ reducedMotion = false }: EmergencyConta
                             Call Now: {contact.phone}
                           </Motion.a>
                         </div>
-                      </Motion.div>
+                      </m.div>
                     )}
                   </div>
                 </div>
               </div>
-            </Motion.div>
+            </m.div>
           ))}
         </div>
       </div>

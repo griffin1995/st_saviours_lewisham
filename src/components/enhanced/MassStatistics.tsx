@@ -189,13 +189,13 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
     <animated.div ref={ref} style={statsSpring} className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <Motion.div
+        <m.div
           className="w-20 h-20 bg-gold-700/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
           whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
           transition={{ duration: 0.3 }}
         >
           <ChartBarIcon className="h-10 w-10 text-gold-400" />
-        </Motion.div>
+        </m.div>
         
         <h3 className={`${typographyScale.h2} text-white mb-4`}>
           Mass Attendance & Participation
@@ -209,7 +209,7 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <Motion.div
+          <m.div
             key={index}
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -222,13 +222,13 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
               <div className="space-y-4">
                 {/* Icon and Trend */}
                 <div className="flex items-center justify-between">
-                  <Motion.div 
+                  <m.div 
                     className={`w-14 h-14 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center shadow-lg`}
                     whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.3 }}
                   >
                     <stat.icon className="h-7 w-7 text-white" />
-                  </Motion.div>
+                  </m.div>
                   
                   <div className="text-right">
                     <ArrowTrendingUpIcon className="h-5 w-5 text-green-400 inline-block" />
@@ -255,12 +255,12 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
                 </div>
               </div>
             </div>
-          </Motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Chart Section */}
-      <Motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
@@ -270,10 +270,10 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
         <div className="h-96 w-full">
           <canvas ref={chartRef} className="w-full h-full"></canvas>
         </div>
-      </Motion.div>
+      </m.div>
 
       {/* Additional Insights */}
-      <Motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
@@ -329,7 +329,7 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
             </p>
           </div>
         </div>
-      </Motion.div>
+      </m.div>
     </animated.div>
   )
 }

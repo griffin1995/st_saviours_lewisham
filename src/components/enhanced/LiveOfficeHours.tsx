@@ -73,7 +73,7 @@ export const LiveOfficeHours: React.FC<LiveOfficeHoursProps> = ({
   }
 
   return (
-    <Motion.div
+    <m.div
       className={`fixed ${positionClasses[position]} z-50 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 shadow-lg`}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -99,6 +99,6 @@ export const LiveOfficeHours: React.FC<LiveOfficeHoursProps> = ({
           </div>
         </div>
       </div>
-    </Motion.div>
+    </m.div>
   )
 }

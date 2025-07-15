@@ -255,7 +255,7 @@ export const PhotoSwipeLightbox: React.FC<PhotoSwipeLightboxProps> = ({
 
       {/* Fallback modal */}
       {fallbackModal.isOpen && fallbackModal.currentImage && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -292,7 +292,7 @@ export const PhotoSwipeLightbox: React.FC<PhotoSwipeLightboxProps> = ({
               </div>
             )}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </>
   )
@@ -343,7 +343,7 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
   }, [])
 
   return (
-    <motion.div
+    <m.div
       className={`relative overflow-hidden rounded-lg ${className}`}
       initial={reducedMotion ? {} : { opacity: 0, scale: 0.95 }}
       whileInView={reducedMotion ? {} : { opacity: 1, scale: 1 }}
@@ -376,7 +376,7 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
           <p className="text-white text-sm">{caption}</p>
         </div>
       )}
-    </motion.div>
+    </m.div>
   )
 }
 

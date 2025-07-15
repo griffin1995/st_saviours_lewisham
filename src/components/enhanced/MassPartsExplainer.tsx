@@ -275,33 +275,33 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
   return (
     <div className={`space-y-8 ${className}`}>
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: autoPlayEnabled && isPlaying ? [0, 360] : 0 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           >
             <CircleStackIcon className="h-10 w-10 text-amber-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h3" color="white" className="text-2xl font-bold">
             Understanding the Mass
           </Heading>
-          <motion.div
+          <m.div
             animate={{ scale: autoPlayEnabled && isPlaying ? [1, 1.2, 1] : 1 }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <SparklesIcon className="h-10 w-10 text-gold-400" />
-          </motion.div>
+          </m.div>
         </div>
         <Text className="text-gray-300 max-w-3xl mx-auto">
           Explore the different parts of the Catholic Mass and understand their meaning and significance. 
           Click on any part to learn more, or use auto-play to follow the flow of the Mass.
         </Text>
-      </motion.div>
+      </m.div>
 
       {/* Auto-play Controls */}
       <div className="flex justify-center gap-4">
@@ -372,7 +372,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
             const isSelected = selectedPart?.id === part.id
             
             return (
-              <motion.div
+              <m.div
                 key={part.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -417,7 +417,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
                     </CardContent>
                   </Card>
                 </motion.button>
-              </motion.div>
+              </m.div>
             )
           })}
         </div>
@@ -426,7 +426,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
       {/* Selected Part Details */}
       <AnimatePresence>
         {selectedPart && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
@@ -513,12 +513,12 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Educational Note */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
@@ -535,7 +535,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

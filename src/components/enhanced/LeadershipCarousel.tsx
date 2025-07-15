@@ -66,7 +66,7 @@ function LeaderCard({ leader, index, reducedMotion }: {
       onMouseLeave={() => setIsHovered(false)}
       className="embla__slide flex-shrink-0 w-full"
     >
-      <Motion.div
+      <m.div
         className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-500 rounded-2xl p-8 text-center h-full group"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -107,14 +107,14 @@ function LeaderCard({ leader, index, reducedMotion }: {
         </div>
 
         {/* Decorative icon */}
-        <Motion.div
+        <m.div
           className="w-12 h-12 bg-gold-700/20 rounded-xl flex items-center justify-center mx-auto mt-6"
           whileHover={reducedMotion ? {} : { scale: 1.1, rotate: 10 }}
           transition={{ duration: 0.3 }}
         >
           <leader.icon className="h-6 w-6 text-gold-400" />
-        </Motion.div>
-      </Motion.div>
+        </m.div>
+      </m.div>
     </animated.div>
   )
 }
@@ -269,7 +269,7 @@ export function LeadershipCarousel({
           </Motion.h3>
 
           {priestBiographies.map((priest, index) => (
-            <Motion.div
+            <m.div
               key={priest.id}
               className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-500 rounded-2xl p-8 group"
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -325,7 +325,7 @@ export function LeadershipCarousel({
                   </div>
                 </div>
               </div>
-            </Motion.div>
+            </m.div>
           ))}
         </div>
       )}

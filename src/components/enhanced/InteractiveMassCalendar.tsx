@@ -244,7 +244,7 @@ export function InteractiveMassCalendar({
 
       {/* Selected Date Details */}
       {selectedDate && (
-        <Motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white/10 backdrop-blur-sm border border-slate-600 rounded-2xl p-6"
@@ -272,7 +272,7 @@ export function InteractiveMassCalendar({
             {calendarDays
               .find(day => day.date.toDateString() === selectedDate.toDateString())
               ?.services.map((service, index) => (
-                <Motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -299,10 +299,10 @@ export function InteractiveMassCalendar({
                       Main Church
                     </span>
                   </div>
-                </Motion.div>
+                </m.div>
               ))}
           </div>
-        </Motion.div>
+        </m.div>
       )}
     </animated.div>
   )

@@ -212,18 +212,18 @@ export default function PodcastCommunityDiscussion({
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
             <ChatBubbleLeftRightIcon className="h-8 w-8 text-gold-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h3" color="white" className="text-xl font-bold">
             Community Discussion
           </Heading>
@@ -231,10 +231,10 @@ export default function PodcastCommunityDiscussion({
         <Text className="text-gray-300 max-w-2xl mx-auto">
           Share your thoughts, prayer requests, and reflections about "{episodeTitle}"
         </Text>
-      </motion.div>
+      </m.div>
 
       {/* Controls */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -255,7 +255,7 @@ export default function PodcastCommunityDiscussion({
                 </select>
               </div>
               
-              <motion.div
+              <m.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -268,16 +268,16 @@ export default function PodcastCommunityDiscussion({
                 >
                   Add Comment
                 </Button>
-              </motion.div>
+              </m.div>
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
 
       {/* Comment Input */}
       <AnimatePresence>
         {showCommentBox && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -340,14 +340,14 @@ export default function PodcastCommunityDiscussion({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Comments List */}
       <div className="space-y-4">
         {sortedComments.map((comment, index) => (
-          <motion.div
+          <m.div
             key={comment.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -429,7 +429,7 @@ export default function PodcastCommunityDiscussion({
                   {/* Replies */}
                   <AnimatePresence>
                     {expandedComments.has(comment.id) && comment.replies && (
-                      <motion.div
+                      <m.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
@@ -462,18 +462,18 @@ export default function PodcastCommunityDiscussion({
                             </div>
                           ))}
                         </div>
-                      </motion.div>
+                      </m.div>
                     )}
                   </AnimatePresence>
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Community Guidelines */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
@@ -490,7 +490,7 @@ export default function PodcastCommunityDiscussion({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   )
 }

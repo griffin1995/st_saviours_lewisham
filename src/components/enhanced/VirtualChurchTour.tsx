@@ -188,18 +188,18 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Tour Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: tourStarted ? 360 : 0 }}
             transition={{ duration: 2, repeat: tourStarted ? Infinity : 0, ease: "linear" }}
           >
             <MapIcon className="h-8 w-8 text-gold-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h2" color="white" className="text-2xl font-bold">
             Virtual Church Tour
           </Heading>
@@ -208,11 +208,11 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
           Experience the sacred beauty of St Saviour's from wherever you are. 
           Follow our guided tour to explore the spiritual and historical significance of our church.
         </Text>
-      </motion.div>
+      </m.div>
 
       {!tourStarted ? (
         /* Start Tour Interface */
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center space-y-6"
@@ -222,7 +222,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
               <div className="space-y-6">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {tourStops.map((stop, index) => (
-                    <motion.div
+                    <m.div
                       key={stop.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -233,11 +233,11 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                         <Text className="text-gold-400 font-bold">{index + 1}</Text>
                       </div>
                       <Text size="sm" className="text-gray-300">{stop.title}</Text>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
                 
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -250,32 +250,32 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                   >
                     Begin Virtual Tour
                   </Button>
-                </motion.div>
+                </m.div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       ) : (
         /* Active Tour Interface */
         <div className="space-y-6">
           {/* Progress Bar */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="w-full bg-slate-700 rounded-full h-2"
           >
-            <motion.div
+            <m.div
               className="bg-gold-500 h-2 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${((currentStop * 100) + progress) / tourStops.length}%` }}
               transition={{ duration: 0.3 }}
             />
-          </motion.div>
+          </m.div>
 
           {/* Main Tour Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Image and Controls */}
-            <motion.div
+            <m.div
               key={currentStop}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -309,7 +309,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                     transform: 'translate(-50%, -50%)'
                   }}
                 >
-                  <motion.div
+                  <m.div
                     className="w-full h-full bg-gold-500 rounded-full"
                     animate={{ scale: [1, 1.5, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -357,10 +357,10 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Content */}
-            <motion.div
+            <m.div
               key={currentStop}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -406,7 +406,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
 
                     <AnimatePresence>
                       {showReflection && currentStopData.spiritualReflection && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -420,7 +420,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                               </Text>
                             </div>
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -444,7 +444,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                   />
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       )}

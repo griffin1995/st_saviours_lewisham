@@ -161,37 +161,37 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
   return (
     <div className={`space-y-8 ${className}`}>
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6 }}
         className="text-center space-y-4"
       >
         <div className="flex items-center justify-center gap-3">
-          <motion.div
+          <m.div
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             <FireIcon className="h-10 w-10 text-red-400" />
-          </motion.div>
+          </m.div>
           <Heading level="h3" color="white" className="text-2xl font-bold">
             The Seven Gifts of the Holy Spirit
           </Heading>
-          <motion.div
+          <m.div
             animate={{ rotate: [360, 0] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             <SparklesIcon className="h-10 w-10 text-gold-400" />
-          </motion.div>
+          </m.div>
         </div>
         <Text className="text-gray-300 max-w-3xl mx-auto">
           Explore each of the seven gifts that the Holy Spirit bestows upon us in Confirmation. 
           Click on any gift to discover its meaning, biblical foundation, and practical application.
         </Text>
-      </motion.div>
+      </m.div>
 
       {/* Interactive Gifts Circle */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
         transition={{ delay: 0.3, duration: 0.8 }}
@@ -202,13 +202,13 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
             {/* Central Fire Symbol */}
             <div className="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
               <animated.div style={centralGiftSpring}>
-                <motion.div
+                <m.div
                   className="w-16 h-16 bg-gradient-to-r from-red-500 to-gold-500 rounded-full flex items-center justify-center shadow-lg"
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
                   <FireIcon className="h-8 w-8 text-white" />
-                </motion.div>
+                </m.div>
               </animated.div>
             </div>
 
@@ -223,7 +223,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
               const isSelected = selectedGift?.id === gift.id
 
               return (
-                <motion.div
+                <m.div
                   key={gift.id}
                   className="absolute"
                   style={{
@@ -250,7 +250,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
                   </motion.button>
                   
                   {/* Gift Name Label */}
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isRevealed ? 1 : 0 }}
                     className="absolute top-16 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
@@ -258,13 +258,13 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
                     <Text size="xs" className="text-white font-medium bg-slate-800/80 px-2 py-1 rounded">
                       {gift.name}
                     </Text>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
               )
             })}
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Navigation Controls */}
       <div className="flex justify-center gap-4">
@@ -291,7 +291,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
       {/* Selected Gift Details */}
       <AnimatePresence>
         {selectedGift && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
@@ -360,7 +360,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -383,7 +383,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
 
       {/* Call to Action */}
       {revealedGifts.size === gifts.length && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
@@ -406,7 +406,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       )}
     </div>
   )

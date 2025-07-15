@@ -30,7 +30,7 @@ export function ReadingProgressIndicator({ className = '' }: ReadingProgressIndi
   if (!isVisible) return null
 
   return (
-    <Motion.div
+    <m.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -42,7 +42,7 @@ export function ReadingProgressIndicator({ className = '' }: ReadingProgressIndi
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
-    </Motion.div>
+    </m.div>
   )
 }
 
