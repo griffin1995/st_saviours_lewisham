@@ -370,7 +370,7 @@ export default function Baptism() {
       {/* Enhanced Sacrament Information with Animations */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -387,11 +387,11 @@ export default function Baptism() {
               effectsColor="blue"
               theme="dark"
             />
-          </motion.div>
+          </m.div>
           
           {/* Enhanced Effects Display with React Spring */}
           <div ref={effectsRef} className="mt-16 space-y-8">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -401,7 +401,7 @@ export default function Baptism() {
               <Heading level="h3" color="white" className="text-2xl font-bold mb-8">
                 Effects of Baptism
               </Heading>
-            </motion.div>
+            </m.div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {effectsTrail.map((style, index) => {
@@ -414,7 +414,7 @@ export default function Baptism() {
                     style={style}
                     className="group"
                   >
-                    <motion.div
+                    <m.div
                       whileHover={{ 
                         scale: 1.05,
                         rotateY: 5,
@@ -426,7 +426,7 @@ export default function Baptism() {
                       <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-blue-600/30 hover:border-blue-400 transition-all duration-300 h-full">
                         <CardContent>
                           <div className="space-y-4 text-center">
-                            <motion.div
+                            <m.div
                               className="w-12 h-12 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center"
                               whileHover={{ 
                                 rotate: [0, 10, -10, 0],
@@ -435,7 +435,7 @@ export default function Baptism() {
                               transition={{ duration: 0.6 }}
                             >
                               <Droplets className="h-6 w-6 text-blue-400" />
-                            </motion.div>
+                            </m.div>
                             <Heading level="h4" color="white" className="font-semibold">
                               {effect.title}
                             </Heading>
@@ -445,7 +445,7 @@ export default function Baptism() {
                           </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </m.div>
                   </animated.div>
                 )
               })}
@@ -462,7 +462,7 @@ export default function Baptism() {
       {/* Baptism Preparation Tracker - Phase B & D Enhancement */}
       <Section spacing="lg" background="slate" id="baptism-preparation" tabIndex={-1}>
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -473,21 +473,21 @@ export default function Baptism() {
               {/* <BaptismPreparationTracker baptismType="infant" />
               <BaptismPreparationTracker baptismType="adult" /> */}
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
       {/* Sacramental Analytics Dashboard - Phase B Enhancement */}
       <Section spacing="lg" background="slate" id="baptism-analytics" tabIndex={-1}>
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             {/* <SacramentalAnalytics sacramentType="baptism" /> */}
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -506,7 +506,7 @@ export default function Baptism() {
       {/* Comprehensive Preparation Guide - Phase B & D Enhancement */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -526,14 +526,14 @@ export default function Baptism() {
                 <SacramentalPreparationGuide sacramentType="baptism" participantType="adult" /> */}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
       {/* Social Sharing System - Phase B Enhancement */}
       <Section spacing="md" background="slate">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -545,7 +545,7 @@ export default function Baptism() {
               title="Baptism - The Sacrament of New Life | St Saviour's Catholic Church"
               url="https://stsaviourlewisham.org.uk/the-sacraments/baptism"
             />
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -564,7 +564,7 @@ export default function Baptism() {
                   Begin Your Journey of Faith
                 </Heading>
                 <div className="flex justify-center">
-                  <motion.div
+                  <m.div
                     className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
                     initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
                     whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}

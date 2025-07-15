@@ -434,14 +434,14 @@ export default function Confirmation() {
       {/* Enhanced Seven Gifts Interactive Experience - Phase B & D */}
       <Section spacing="lg" background="slate" id="confirmation-gifts" tabIndex={-1}>
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             {/* <SevenGiftsInteractive /> */}
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -449,7 +449,7 @@ export default function Confirmation() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <div ref={giftsRef} className="space-y-8">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -459,7 +459,7 @@ export default function Confirmation() {
               <Heading level="h3" color="white" className="text-2xl font-bold mb-8">
                 Effects of Confirmation
               </Heading>
-            </motion.div>
+            </m.div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {giftsTrail.map((style, index) => {
@@ -472,7 +472,7 @@ export default function Confirmation() {
                     style={style}
                     className="group"
                   >
-                    <motion.div
+                    <m.div
                       whileHover={{ 
                         scale: 1.05,
                         rotateY: 5,
@@ -484,7 +484,7 @@ export default function Confirmation() {
                       <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-red-600/30 hover:border-red-400 transition-all duration-300 h-full">
                         <CardContent>
                           <div className="space-y-4 text-center">
-                            <motion.div
+                            <m.div
                               className="w-12 h-12 mx-auto bg-red-500/20 rounded-full flex items-center justify-center"
                               whileHover={{ 
                                 rotate: [0, 10, -10, 0],
@@ -493,7 +493,7 @@ export default function Confirmation() {
                               transition={{ duration: 0.6 }}
                             >
                               <FireIcon className="h-6 w-6 text-red-400" />
-                            </motion.div>
+                            </m.div>
                             <Heading level="h4" color="white" className="font-semibold">
                               {effect.title}
                             </Heading>
@@ -503,7 +503,7 @@ export default function Confirmation() {
                           </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </m.div>
                   </animated.div>
                 )
               })}
@@ -520,7 +520,7 @@ export default function Confirmation() {
       {/* Confirmation Preparation Programs - Enhanced */}
       <Section spacing="lg" background="slate" id="confirmation-programs" tabIndex={-1}>
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -540,7 +540,7 @@ export default function Confirmation() {
               {/* <ConfirmationPreparationTracker confirmationType="youth" />
               <ConfirmationPreparationTracker confirmationType="adult" /> */}
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -633,14 +633,14 @@ export default function Confirmation() {
       {/* Confirmation Analytics Dashboard - Phase B Enhancement */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             {/* <SacramentalAnalytics sacramentType="confirmation" /> */}
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -659,7 +659,7 @@ export default function Confirmation() {
       {/* Comprehensive Preparation Guide - Phase B & D Enhancement */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -679,14 +679,14 @@ export default function Confirmation() {
                 <SacramentalPreparationGuide sacramentType="confirmation" participantType="adult" /> */}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
       {/* Social Sharing System - Phase B Enhancement */}
       <Section spacing="md" background="slate">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -698,7 +698,7 @@ export default function Confirmation() {
               title="Confirmation - Strengthened by the Spirit | St Saviour's Catholic Church"
               url="https://stsaviourlewisham.org.uk/the-sacraments/confirmation"
             />
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -717,7 +717,7 @@ export default function Confirmation() {
                   Come, Holy Spirit
                 </Heading>
                 <div className="flex justify-center">
-                  <motion.div
+                  <m.div
                     className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
                     initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
                     whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}
