@@ -100,7 +100,7 @@ export default function CommunityNews() {
         <Container>
           <div className="space-y-12">
             {filteredArticles.map((article, index) => (
-              <motion.div
+              <m.div
                 key={article.id}
                 initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export default function CommunityNews() {
                     </div>
                   </div>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </Container>

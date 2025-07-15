@@ -46,7 +46,7 @@ export default function StBakhitaGroupPage() {
       <Section background="slate" className="py-16">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -86,7 +86,7 @@ export default function StBakhitaGroupPage() {
                   </Text>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           </div>
         </Container>
       </Section>
@@ -96,7 +96,7 @@ export default function StBakhitaGroupPage() {
         <Container>
           <Grid cols={2} className="gap-12 mb-16">
             {/* Group Activities */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -160,10 +160,10 @@ export default function StBakhitaGroupPage() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Saint's Story */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -221,7 +221,7 @@ export default function StBakhitaGroupPage() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </Grid>
         </Container>
       </Section>
@@ -230,7 +230,7 @@ export default function StBakhitaGroupPage() {
       <Section background="slate" className="py-16">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -256,7 +256,7 @@ export default function StBakhitaGroupPage() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </Container>
       </Section>

@@ -330,7 +330,7 @@ export default function GalleryManagement() {
             </div>
           ) : (
             filteredAlbums.map((album) => (
-              <motion.div
+              <m.div
                 key={album.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -434,7 +434,7 @@ export default function GalleryManagement() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))
           )}
         </div>

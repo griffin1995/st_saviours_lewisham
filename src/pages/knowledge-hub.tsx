@@ -105,7 +105,7 @@ export default function KnowledgeHub() {
           
           
           {featuredArticles.map((article) => (
-            <motion.div
+            <m.div
               key={article.id}
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -154,7 +154,7 @@ export default function KnowledgeHub() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </m.div>
           ))}
         </Container>
       </Section>
@@ -170,7 +170,7 @@ export default function KnowledgeHub() {
             {knowledgeHubCategories.map((category, index) => {
               const IconComponent = iconMap[category.icon as keyof typeof iconMap] || BookOpen
               return (
-                <motion.div
+                <m.div
                   key={category.id}
                   initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -201,7 +201,7 @@ export default function KnowledgeHub() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               )
             })}
           </Grid>
@@ -258,7 +258,7 @@ export default function KnowledgeHub() {
               )
 
               return (
-                <motion.div
+                <m.div
                   key={article.id}
                   initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -275,7 +275,7 @@ export default function KnowledgeHub() {
                       {cardContent}
                     </Card>
                   )}
-                </motion.div>
+                </m.div>
               )
             })}
           </Grid>

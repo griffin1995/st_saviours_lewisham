@@ -148,7 +148,7 @@ export default function StSavioursPrimarySchool() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {schoolStats.map((stat, index) => (
-            <motion.div
+            <m.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ export default function StSavioursPrimarySchool() {
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
               <div className="text-sm text-gray-600">{stat.label}</div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </ContentSection>
@@ -178,7 +178,7 @@ export default function StSavioursPrimarySchool() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {values.map((value, index) => (
-            <motion.div
+            <m.div
               key={value.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -190,7 +190,7 @@ export default function StSavioursPrimarySchool() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
               <p className="text-gray-600 leading-relaxed">{value.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </ContentSection>
@@ -208,7 +208,7 @@ export default function StSavioursPrimarySchool() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {keyStages.map((stage, index) => (
-            <motion.div
+            <m.div
               key={stage.stage}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -231,7 +231,7 @@ export default function StSavioursPrimarySchool() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </ContentSection>

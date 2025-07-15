@@ -148,7 +148,7 @@ export default function StSavioursTalks() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {featuredTalks.map((talk) => (
-              <motion.div
+              <m.div
                 key={talk.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -213,7 +213,7 @@ export default function StSavioursTalks() {
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </ContentSection>
@@ -270,7 +270,7 @@ export default function StSavioursTalks() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTalks.map((talk, index) => (
-              <motion.div
+              <m.div
                 key={talk.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -360,7 +360,7 @@ export default function StSavioursTalks() {
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         )}

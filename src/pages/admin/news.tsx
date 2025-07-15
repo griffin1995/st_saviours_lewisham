@@ -216,7 +216,7 @@ export default function NewsManagement() {
           ) : (
             <div className="divide-y divide-gray-200">
               {filteredArticles.map((article, index) => (
-                <motion.div
+                <m.div
                   key={article.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -303,7 +303,7 @@ export default function NewsManagement() {
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           )}
@@ -313,7 +313,7 @@ export default function NewsManagement() {
       {/* Delete Confirmation Modal */}
       {deleteModal.show && deleteModal.article && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6"
@@ -346,7 +346,7 @@ export default function NewsManagement() {
                 Delete
               </button>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </div>

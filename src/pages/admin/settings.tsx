@@ -262,7 +262,7 @@ export default function SettingsManagement() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Message */}
         {message && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`mb-6 p-4 rounded-lg ${
@@ -279,7 +279,7 @@ export default function SettingsManagement() {
               )}
               {message.text}
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

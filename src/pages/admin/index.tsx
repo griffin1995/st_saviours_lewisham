@@ -291,7 +291,7 @@ export default function AdminDashboard() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statCards.map((stat, index) => (
-            <motion.div
+            <m.div
               key={stat.title}
               variants={scaleVariants}
               initial="hidden"
@@ -301,27 +301,27 @@ export default function AdminDashboard() {
               whileHover={ui.reducedMotion ? {} : { y: -4, scale: 1.02 }}
             >
               <div className="flex items-center">
-                <motion.div 
+                <m.div 
                   className={`${stat.color} p-3 rounded-lg`}
                   whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
                 >
                   <stat.icon className="h-6 w-6 text-white" />
-                </motion.div>
+                </m.div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">{stat.title}</p>
                   <p className="text-2xl font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{stat.value}</p>
                   <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">{stat.subtitle}</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* Management Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuItems.map((item, index) => (
-            <motion.div
+            <m.div
               key={item.title}
               variants={itemVariants}
               initial="hidden"
@@ -332,13 +332,13 @@ export default function AdminDashboard() {
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <motion.div 
+                  <m.div 
                     className={`${item.color} p-3 rounded-lg`}
                     whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.3 }}
                   >
                     <item.icon className="h-6 w-6 text-white" />
-                  </motion.div>
+                  </m.div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{item.title}</h3>
                     <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">{item.description}</p>
@@ -347,7 +347,7 @@ export default function AdminDashboard() {
                 
                 <div className="flex flex-wrap gap-2">
                   {item.actions.map((action, actionIndex) => (
-                    <motion.div
+                    <m.div
                       key={actionIndex}
                       whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                       whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -359,16 +359,16 @@ export default function AdminDashboard() {
                         <action.icon className="h-4 w-4 mr-1" />
                         {action.label}
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* Quick Actions */}
-        <motion.div 
+        <m.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -381,7 +381,7 @@ export default function AdminDashboard() {
             Quick Actions
           </motion.h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <motion.div
+            <m.div
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -393,8 +393,8 @@ export default function AdminDashboard() {
                 <Plus className="h-5 w-5 mr-2" />
                 Add News Article
               </Link>
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -406,8 +406,8 @@ export default function AdminDashboard() {
                 <Plus className="h-5 w-5 mr-2" />
                 Add Event
               </Link>
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -419,8 +419,8 @@ export default function AdminDashboard() {
                 <Edit className="h-5 w-5 mr-2" />
                 Update Mass Times
               </Link>
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -432,9 +432,9 @@ export default function AdminDashboard() {
                 <Settings className="h-5 w-5 mr-2" />
                 Site Settings
               </Link>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </main>
     </div>
   );

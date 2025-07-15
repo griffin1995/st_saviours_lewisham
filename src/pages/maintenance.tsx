@@ -15,7 +15,7 @@ export default function MaintenancePage() {
       <div className="min-h-screen bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 flex items-center justify-center p-4">
         <div className="max-w-2xl mx-auto text-center">
           {/* Logo/Header */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -28,10 +28,10 @@ export default function MaintenancePage() {
               St Saviour's Catholic Church
             </h1>
             <p className="text-gold-400 text-lg">Lewisham</p>
-          </motion.div>
+          </m.div>
 
           {/* Maintenance Message */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -54,10 +54,10 @@ export default function MaintenancePage() {
                 <div className="w-2 h-2 bg-gold-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Contact Information */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -104,10 +104,10 @@ export default function MaintenancePage() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Emergency Information */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
@@ -122,7 +122,7 @@ export default function MaintenancePage() {
             <p className="text-gray-500 text-xs mt-4">
               Thank you for your patience
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </>

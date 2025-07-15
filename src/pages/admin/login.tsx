@@ -55,7 +55,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 flex items-center justify-center px-4">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -81,13 +81,13 @@ export default function AdminLogin() {
           </h2>
 
           {error && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6"
             >
               {error}
-            </motion.div>
+            </m.div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -185,7 +185,7 @@ export default function AdminLogin() {
             Having trouble logging in? Contact the web administrator.
           </p>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

@@ -297,7 +297,7 @@ export default function GroupsManagement() {
             </div>
           ) : (
             filteredGroups.map((group) => (
-              <motion.div
+              <m.div
                 key={group.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -399,7 +399,7 @@ export default function GroupsManagement() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))
           )}
         </div>

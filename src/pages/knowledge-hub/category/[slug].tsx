@@ -91,7 +91,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
       {/* Category Hero */}
       <Section background="slate" className="py-24">
         <Container>
-          <motion.div
+          <m.div
             initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -115,7 +115,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
                 {articles.length} {articles.length === 1 ? 'Article' : 'Articles'}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -136,7 +136,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
           </div>
 
           {articles.length === 0 ? (
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -151,11 +151,11 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
               <Text size="lg" color="gray-100" className="mb-8">
                 Articles in this category are currently being prepared. Check back soon for new content!
               </Text>
-            </motion.div>
+            </m.div>
           ) : (
             <Grid cols={articles.length === 1 ? 1 : 2} className="gap-8">
               {articles.map((article, index) => (
-                <motion.div
+                <m.div
                   key={article.id}
                   initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -236,7 +236,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </Grid>
           )}
@@ -256,7 +256,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
               .map((otherCategory, index) => {
                 const OtherIconComponent = iconMap[otherCategory.icon as keyof typeof iconMap] || BookOpen
                 return (
-                  <motion.div
+                  <m.div
                     key={otherCategory.id}
                     initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -280,7 +280,7 @@ export default function CategoryPage({ category, articles }: CategoryPageProps) 
                         </CardContent>
                       </Card>
                     </Link>
-                  </motion.div>
+                  </m.div>
                 )
               })}
           </Grid>

@@ -93,7 +93,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
         <Container>
           <div className="max-w-4xl mx-auto">
             {/* Article Meta */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -133,10 +133,10 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Article Body */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -197,11 +197,11 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Quotes Section */}
             {article.quotes && article.quotes.length > 0 && (
-              <motion.div
+              <m.div
                 initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -227,12 +227,12 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                     </Card>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Bibliography */}
             {article.bibliography && article.bibliography.length > 0 && (
-              <motion.div
+              <m.div
                 initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -254,11 +254,11 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                     </ul>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Navigation */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -275,7 +275,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                 <Share className="h-4 w-4 mr-2" />
                 Share Article
               </Button>
-            </motion.div>
+            </m.div>
           </div>
         </Container>
       </Section>
@@ -290,7 +290,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
             
             <Grid cols={relatedArticles.length === 1 ? 1 : 2} className="gap-8">
               {relatedArticles.map((relatedArticle, index) => (
-                <motion.div
+                <m.div
                   key={relatedArticle.id}
                   initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -331,7 +331,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </Grid>
           </Container>

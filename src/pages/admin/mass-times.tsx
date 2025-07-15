@@ -172,7 +172,7 @@ export default function MassTimesManagement() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Message */}
         {message && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`mb-6 p-4 rounded-lg ${
@@ -189,7 +189,7 @@ export default function MassTimesManagement() {
               )}
               {message.text}
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Instructions */}
@@ -212,7 +212,7 @@ export default function MassTimesManagement() {
         {/* Mass Times by Day */}
         <div className="space-y-6">
           {massTimes.map((daySchedule, dayIndex) => (
-            <motion.div
+            <m.div
               key={daySchedule.day}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -310,7 +310,7 @@ export default function MassTimesManagement() {
                   </div>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

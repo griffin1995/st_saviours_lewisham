@@ -325,7 +325,7 @@ export default function Safeguarding() {
 
           <Grid cols={2} gap="lg" className="grid-cols-1 lg:grid-cols-2">
             {diocesanContacts.map((contact, index) => (
-              <motion.div
+              <m.div
                 key={contact.role}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -360,7 +360,7 @@ export default function Safeguarding() {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -380,7 +380,7 @@ export default function Safeguarding() {
 
           <Grid cols={3} gap="lg" className="grid-cols-1 md:grid-cols-3">
             {policies.map((policy, index) => (
-              <motion.div
+              <m.div
                 key={policy.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -402,7 +402,7 @@ export default function Safeguarding() {
                   <FileText className="h-4 w-4 mr-2" />
                   Download PDF
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
