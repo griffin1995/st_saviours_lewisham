@@ -327,7 +327,7 @@ export default function Gallery() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -336,7 +336,7 @@ export default function Gallery() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Witnessing God's Love
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -347,7 +347,7 @@ export default function Gallery() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Every image tells a story of faith, community, and God's presence among us
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -385,7 +385,7 @@ export default function Gallery() {
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                   Community Engagement
-                  <Motion.div
+                  <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -486,7 +486,7 @@ export default function Gallery() {
               }}
             />
             
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -495,7 +495,7 @@ export default function Gallery() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Parish Photo Gallery
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -506,7 +506,7 @@ export default function Gallery() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Explore our community through these cherished moments and sacred celebrations
               </p>
-            </Motion.div>
+            </m.div>
 
             {/* Enhanced Gallery with interactive features */}
             <div className="relative">
@@ -519,7 +519,7 @@ export default function Gallery() {
               />
               
               {/* Interactive stats overlay */}
-              <Motion.div
+              <m.div
                 className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -536,7 +536,7 @@ export default function Gallery() {
                     <span className="text-gray-700">Live Stats</span>
                   </div>
                 </div>
-              </Motion.div>
+              </m.div>
             </div>
           </div>
         </Container>
@@ -655,7 +655,7 @@ export default function Gallery() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -664,7 +664,7 @@ export default function Gallery() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Explore Our Sacred Spaces
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -675,7 +675,7 @@ export default function Gallery() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Take a virtual journey through our beautiful church and discover the sacred artistry
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <VirtualTourIntegration
               galleryImages={galleryImages}
@@ -689,7 +689,7 @@ export default function Gallery() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -698,7 +698,7 @@ export default function Gallery() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Share Your Parish Moments
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -709,7 +709,7 @@ export default function Gallery() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Contribute to our community gallery by sharing your photos from parish events
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <LivePhotoUpload
               onPhotoUploaded={(photo) => {
@@ -732,7 +732,7 @@ export default function Gallery() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -741,7 +741,7 @@ export default function Gallery() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Sacred Reflections
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -752,7 +752,7 @@ export default function Gallery() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Pause and reflect on the sacred beauty captured in our parish life
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* {galleryImages.filter(img => img.category === 'Church Building' || img.category === 'Liturgical Celebrations').slice(0, 3).map((image, index) => (

@@ -265,7 +265,7 @@ export default function TheSacraments() {
             {/* Left Column - Content */}
             <div className="space-y-8">
               <div className="relative">
-                <motion.div
+                <m.div
                   className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
                   initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
                   whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
@@ -355,7 +355,7 @@ export default function TheSacraments() {
                   The Seven Sacraments
                 </Heading>
                 <div className="flex justify-center">
-                  <motion.div
+                  <m.div
                     className="w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
                     initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
                     whileInView={reducedMotion ? { opacity: 1 } : { width: 96 }}
@@ -424,7 +424,7 @@ export default function TheSacraments() {
             {/* Right Column - Content */}
             <div className="space-y-8 text-right">
               <div className="relative flex justify-end">
-                <motion.div
+                <m.div
                   className="absolute -right-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
                   initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
                   whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
@@ -458,7 +458,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -467,7 +467,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Sacred Signs of Grace
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -478,7 +478,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Discover how Christ meets us through these sacred encounters
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -496,7 +496,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -505,7 +505,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Your Sacramental Journey
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -516,7 +516,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Track your spiritual growth and preparation for each sacrament
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <InteractiveSacramentalJourney
               sacraments={sacraments}
@@ -532,7 +532,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -541,7 +541,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Preparation & Formation
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -552,7 +552,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Get guided support and track your preparation for receiving the sacraments
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <SacramentalPreparationTracker
               sacraments={sacraments}
@@ -568,7 +568,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -577,7 +577,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Sacramental Calendar
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -588,7 +588,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Schedule sacramental preparation and celebrations throughout the liturgical year
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <SacramentalCalendarIntegration
               sacraments={sacraments}
@@ -609,7 +609,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -618,7 +618,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Track Your Spiritual Growth
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -629,7 +629,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Monitor your faith journey and celebrate milestones in your sacramental life
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <SpiritualGrowthTracker
               sacraments={sacraments}
@@ -651,7 +651,7 @@ export default function TheSacraments() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -660,7 +660,7 @@ export default function TheSacraments() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Resources & Formation Materials
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -671,7 +671,7 @@ export default function TheSacraments() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Access comprehensive resources for sacramental preparation and ongoing formation
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <SacramentalResourcesLibrary
               sacraments={sacraments}
@@ -698,7 +698,7 @@ export default function TheSacraments() {
                   Begin Your Sacramental Journey
                 </Heading>
                 <div className="flex justify-center">
-                  <motion.div
+                  <m.div
                     className="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"
                     initial={reducedMotion ? { opacity: 0 } : { width: 0 }}
                     whileInView={reducedMotion ? { opacity: 1 } : { width: 128 }}

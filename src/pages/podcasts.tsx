@@ -410,14 +410,14 @@ export default function Podcasts() {
       {/* Enhanced Podcast Info with Animations */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-center space-y-8"
           >
-            <motion.div
+            <m.div
               className="inline-flex items-center justify-center w-20 h-20 bg-gold-100 rounded-full"
               whileHover={{ 
                 scale: 1.1,
@@ -427,10 +427,10 @@ export default function Podcasts() {
               transition={{ duration: 0.6 }}
             >
               <Mic className="h-10 w-10 text-gold-600" />
-            </motion.div>
+            </m.div>
             
             <div className="space-y-6">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -439,8 +439,8 @@ export default function Podcasts() {
                 <Heading level="h2" align="center" className="text-3xl lg:text-4xl font-light">
                   Faith Conversations
                 </Heading>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
@@ -450,17 +450,17 @@ export default function Podcasts() {
                   Our weekly podcast features discussions on Catholic teaching, spiritual formation, and practical faith living. 
                   Each episode offers insights to help you grow closer to God and live out your Catholic faith with joy and purpose.
                 </Text>
-              </motion.div>
+              </m.div>
             </div>
             
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
               viewport={{ once: true }}
             >
               <Flex justify="center" gap="md" wrap>
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -471,9 +471,9 @@ export default function Podcasts() {
                   >
                     Subscribe
                   </Button>
-                </motion.div>
+                </m.div>
                 <Link href="/weekly-newsletter">
-                  <motion.div
+                  <m.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -483,11 +483,11 @@ export default function Podcasts() {
                     >
                       Get Newsletter
                     </Button>
-                  </motion.div>
+                  </m.div>
                 </Link>
               </Flex>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -537,7 +537,7 @@ export default function Podcasts() {
       {/* Enhanced All Episodes with React Spring */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -550,10 +550,10 @@ export default function Podcasts() {
             <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
               Browse our complete collection of faith conversations and spiritual content
             </Text>
-          </motion.div>
+          </m.div>
 
           {filteredEpisodes.length === 0 ? (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
@@ -563,7 +563,7 @@ export default function Podcasts() {
               <Text size="xl" color="muted">
                 No episodes found matching your search criteria.
               </Text>
-            </motion.div>
+            </m.div>
           ) : (
             <div ref={episodesRef} className="space-y-6">
               {episodeTrail.map((style, index) => {
@@ -576,7 +576,7 @@ export default function Podcasts() {
                     style={style}
                     className="group"
                   >
-                    <motion.div
+                    <m.div
                       whileHover={{ 
                         scale: 1.02,
                         boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
@@ -590,7 +590,7 @@ export default function Podcasts() {
                         onTogglePlay={togglePlay}
                         delay={index * 0.1}
                       />
-                    </motion.div>
+                    </m.div>
                   </animated.div>
                 )
               })}
@@ -637,7 +637,7 @@ export default function Podcasts() {
               contactUrl="/contact-us"
             />
             
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -649,7 +649,7 @@ export default function Podcasts() {
                 title="St Saviour's Podcasts - Faith On-the-Go"
                 url="https://stsaviourlewisham.org.uk/podcasts"
               />
-            </motion.div>
+            </m.div>
           </div>
         </Container>
       </Section>

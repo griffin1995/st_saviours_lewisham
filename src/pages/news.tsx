@@ -800,7 +800,7 @@ export default function News() {
                 {viewMode === 'grid' && (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayedArticles.slice(1).map((article, index) => (
-                      <Motion.div
+                      <m.div
                         key={article.id}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -910,7 +910,7 @@ export default function News() {
                             </div>
                           </CardContent>
                         </Card>
-                      </Motion.div>
+                      </m.div>
                     ))}
                   </div>
                 )}
@@ -918,7 +918,7 @@ export default function News() {
                 {viewMode === 'list' && (
                   <div className="space-y-4">
                     {displayedArticles.slice(1).map((article, index) => (
-                      <Motion.div
+                      <m.div
                         key={article.id}
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -1011,7 +1011,7 @@ export default function News() {
                             </div>
                           </CardContent>
                         </Card>
-                      </Motion.div>
+                      </m.div>
                     ))}
                   </div>
                 )}
@@ -1021,7 +1021,7 @@ export default function News() {
                     <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gold-600"></div>
                     <div className="space-y-8">
                       {displayedArticles.slice(1).map((article, index) => (
-                        <Motion.div
+                        <m.div
                           key={article.id}
                           initial={{ opacity: 0, x: -50 }}
                           whileInView={{ opacity: 1, x: 0 }}
@@ -1082,7 +1082,7 @@ export default function News() {
                               </div>
                             </CardContent>
                           </Card>
-                        </Motion.div>
+                        </m.div>
                       ))}
                     </div>
                   </div>
@@ -1091,7 +1091,7 @@ export default function News() {
                 {/* Infinite Scroll Trigger */}
                 {isInfiniteScrollEnabled && currentPage * articlesPerPage < sortedArticles.length && (
                   <div ref={observerRef} className="flex justify-center py-8">
-                    <Motion.div
+                    <m.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       className="w-8 h-8 border-2 border-gold-600 border-t-transparent rounded-full"
@@ -1208,7 +1208,7 @@ export default function News() {
                       { icon: BookmarkIcon, title: 'Spiritual Reflections', description: 'Weekly thoughts and prayers' },
                       { icon: HeartIcon, title: 'Community Stories', description: 'Inspiring tales from our parish family' }
                     ].map((benefit, index) => (
-                      <Motion.div
+                      <m.div
                         key={benefit.title}
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -1227,7 +1227,7 @@ export default function News() {
                             {benefit.description}
                           </p>
                         </div>
-                      </Motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
@@ -1301,7 +1301,7 @@ export default function News() {
                   color: 'bg-gold-600'
                 }
               ].map((feature, index) => (
-                <Motion.div
+                <m.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -1324,7 +1324,7 @@ export default function News() {
                       </p>
                     </CardContent>
                   </Card>
-                </Motion.div>
+                </m.div>
               ))}
             </div>
           </ScrollRevealSection>
@@ -1333,14 +1333,14 @@ export default function News() {
       
       {/* Print Preview Modal */}
       {showPrintPreview && (
-        <Motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
           onClick={() => setShowPrintPreview(false)}
         >
-          <Motion.div
+          <m.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -1404,8 +1404,8 @@ export default function News() {
                 </Button>
               </div>
             </div>
-          </Motion.div>
-        </Motion.div>
+          </m.div>
+        </m.div>
       )}
 
       {/* Performance Monitor */}

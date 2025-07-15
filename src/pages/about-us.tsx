@@ -487,7 +487,7 @@ export default function AboutUs() {
           <animated.div style={statsSpring}>
             <ScrollRevealSection>
               <Container>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -497,7 +497,7 @@ export default function AboutUs() {
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Our Parish by the Numbers
                 {/* Gold accent underline */}
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -508,7 +508,7 @@ export default function AboutUs() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 These numbers represent the vibrant community that makes St Saviour's a beacon of faith in Lewisham.
               </p>
-            </Motion.div>
+            </m.div>
             
             <InteractiveStatistics 
               stats={stats} 
@@ -526,17 +526,17 @@ export default function AboutUs() {
         <Container size="md">
           <ScrollRevealSection variant="reverent">
             <div className="text-center space-y-12">
-              <Motion.div
+              <m.div
                 className="w-20 h-20 icon-container-white rounded-full flex items-center justify-center mx-auto shadow-lg"
                 whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 10 }}
                 transition={{ duration: 0.4 }}
               >
                 <Church className="h-10 w-10 icon-theme-dark" />
-              </Motion.div>
+              </m.div>
               
               <h2 className={`${typographyScale.h1} text-white mb-8 relative`}>
                 Our Mission
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -553,7 +553,7 @@ export default function AboutUs() {
               />
 
               {/* Mission highlights with enhanced animations */}
-              <Motion.div 
+              <m.div 
                 className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
                 variants={staggerChildren}
                 initial="initial"
@@ -565,7 +565,7 @@ export default function AboutUs() {
                   { icon: Users, text: "Build Community", desc: "Strengthen bonds of faith" },
                   { icon: Star, text: "Share Faith", desc: "Spread God's love" }
                 ].map((item, index) => (
-                  <Motion.div
+                  <m.div
                     key={index}
                     className="flex flex-col items-center space-y-4 group"
                     variants={fadeInUp}
@@ -583,9 +583,9 @@ export default function AboutUs() {
                         {item.desc}
                       </p>
                     </div>
-                  </Motion.div>
+                  </m.div>
                 ))}
-              </Motion.div>
+              </m.div>
             </div>
           </ScrollRevealSection>
         </Container>
@@ -594,7 +594,7 @@ export default function AboutUs() {
       {/* Enhanced Values Section with React Spring */}
       <Section spacing="lg" background="slate">
         <ScrollRevealSection>
-          <Motion.div
+          <m.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -603,7 +603,7 @@ export default function AboutUs() {
           >
             <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
               Our Core Values
-              <Motion.div
+              <m.div
                 className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -614,11 +614,11 @@ export default function AboutUs() {
             <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
               These core values guide everything we do as a parish community, shaping our mission and ministry.
             </p>
-          </Motion.div>
+          </m.div>
 
           <Grid cols={4} gap="lg">
             {values.map((value, index) => (
-              <Motion.div
+              <m.div
                 key={index}
                 className="group h-full"
                 initial={{ opacity: 0, y: 50 }}
@@ -626,20 +626,20 @@ export default function AboutUs() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Motion.div
+                <m.div
                   className="h-full bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-500 rounded-2xl p-8 group-hover:bg-white/15"
                   whileHover={ui.reducedMotion ? {} : { y: -10, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="text-center space-y-6 h-full flex flex-col justify-between">
                     <div>
-                      <Motion.div 
+                      <m.div 
                         className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
                         whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.3 }}
                       >
                         <value.icon className="h-10 w-10 icon-theme-dark" />
-                      </Motion.div>
+                      </m.div>
                       <h3 className={`${typographyScale.h3} text-white mb-4 group-hover:text-gold-300 transition-colors duration-300`}>
                         {value.title}
                       </h3>
@@ -648,8 +648,8 @@ export default function AboutUs() {
                       {value.description}
                     </p>
                   </div>
-                </Motion.div>
-              </Motion.div>
+                </m.div>
+              </m.div>
             ))}
           </Grid>
         </ScrollRevealSection>
@@ -659,7 +659,7 @@ export default function AboutUs() {
       <Section spacing="lg" background="slate">
         <Container>
           <ScrollRevealSection variant="reverent">
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -668,7 +668,7 @@ export default function AboutUs() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Our Sacred History
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -679,7 +679,7 @@ export default function AboutUs() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-4xl mx-auto leading-relaxed`}>
                 From medieval origins to modern sanctuary, discover the remarkable journey of St Saviour's Catholic Church through the centuries of faith and service.
               </p>
-            </Motion.div>
+            </m.div>
 
             {/* Enhanced Timeline with PhotoSwipe Integration */}
             <PhotoSwipeLightbox 
@@ -704,7 +704,7 @@ export default function AboutUs() {
       {/* Enhanced Leadership Section with Embla Carousel */}
       <Section spacing="lg" background="slate">
         <ScrollRevealSection>
-          <Motion.div
+          <m.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -713,7 +713,7 @@ export default function AboutUs() {
           >
             <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
               Our Spiritual Leadership
-              <Motion.div
+              <m.div
                 className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -724,7 +724,7 @@ export default function AboutUs() {
             <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
               Meet the dedicated priests and pastoral team who guide our parish community with wisdom, compassion, and faith.
             </p>
-          </Motion.div>
+          </m.div>
 
           <LeadershipCarousel
             leaders={leadership}
@@ -741,7 +741,7 @@ export default function AboutUs() {
           <ScrollRevealSection>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column - CTA Content */}
-              <Motion.div
+              <m.div
                 className="space-y-8"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -751,7 +751,7 @@ export default function AboutUs() {
                 <div>
                   <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                     Join Our Faith Community
-                    <Motion.div
+                    <m.div
                       className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
@@ -766,7 +766,7 @@ export default function AboutUs() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Motion.div
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -779,9 +779,9 @@ export default function AboutUs() {
                     >
                       Get in Touch
                     </Button>
-                  </Motion.div>
+                  </m.div>
                   
-                  <Motion.div
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -793,7 +793,7 @@ export default function AboutUs() {
                     >
                       Mass Times
                     </Button>
-                  </Motion.div>
+                  </m.div>
                 </div>
 
                 {/* Enhanced contact info */}
@@ -817,10 +817,10 @@ export default function AboutUs() {
                     </div>
                   </div>
                 </div>
-              </Motion.div>
+              </m.div>
 
               {/* Right Column - Interactive Google Map */}
-              <Motion.div
+              <m.div
                 className="relative"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -841,7 +841,7 @@ export default function AboutUs() {
                     </p>
                   </div>
                 </div>
-              </Motion.div>
+              </m.div>
             </div>
           </ScrollRevealSection>
         </Container>

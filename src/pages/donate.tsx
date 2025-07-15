@@ -246,7 +246,7 @@ export default function Donate() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Called to Generous Giving
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -266,7 +266,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Discover the joy of giving as Christ taught us - generous hearts building God's kingdom
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -288,7 +288,7 @@ export default function Donate() {
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                   Donation Impact & Transparency
-                  <Motion.div
+                  <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -416,7 +416,7 @@ export default function Donate() {
 
           <Grid cols={3} gap="lg">
             {benefits.map((benefit, index) => (
-              <Motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -427,12 +427,12 @@ export default function Donate() {
                 <Card variant="default" padding="lg" className="text-center h-full bg-white shadow-lg hover:shadow-xl transition-shadow">
                   <CardContent>
                     <div className="space-y-4">
-                      <Motion.div 
+                      <m.div 
                         className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center mx-auto"
                         whileHover={!reducedMotion ? { scale: 1.1, rotate: 5 } : {}}
                       >
                         <benefit.icon className="h-6 w-6 text-white" />
-                      </Motion.div>
+                      </m.div>
                       <Heading level="h3" align="center" className="font-semibold">
                         {benefit.title}
                       </Heading>
@@ -450,7 +450,7 @@ export default function Donate() {
                     </div>
                   </CardContent>
                 </Card>
-              </Motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -460,7 +460,7 @@ export default function Donate() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -469,7 +469,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Smart Donation Tracking
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -480,7 +480,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Track your giving history and see the real-time impact of your donations
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <EnhancedDonationTracker
               totalDonated={totalRaised}
@@ -502,7 +502,7 @@ export default function Donate() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -511,7 +511,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Secure Payment Options
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -522,7 +522,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Choose from multiple secure payment methods including cards, bank transfer, and digital wallets
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <PaymentIntegrationPreview
               donationCauses={donationCauses}
@@ -543,7 +543,7 @@ export default function Donate() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -552,7 +552,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Calculate Your Impact
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -563,7 +563,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 See exactly how your donation will be used and the difference it will make
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <DonationImpactCalculator
               donationCauses={donationCauses}
@@ -578,7 +578,7 @@ export default function Donate() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -587,7 +587,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Set Up Regular Giving
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -598,7 +598,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Create and manage recurring donations to support our mission consistently
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <RecurringDonationManager
               donationCauses={donationCauses}
@@ -627,7 +627,7 @@ export default function Donate() {
             />
 
             {/* What Your Donation Supports */}
-            <Motion.div
+            <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
               whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -640,7 +640,7 @@ export default function Donate() {
               
               <div className="space-y-4">
                 {donationCauses.map((cause, index) => (
-                  <Motion.div
+                  <m.div
                     key={cause.value}
                     initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
                     whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -665,7 +665,7 @@ export default function Donate() {
                         </Flex>
                       </CardContent>
                     </Card>
-                  </Motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -683,7 +683,7 @@ export default function Donate() {
                   </div>
                 </CardContent>
               </Card>
-            </Motion.div>
+            </m.div>
           </Grid>
         </Container>
       </Section>
@@ -691,7 +691,7 @@ export default function Donate() {
       {/* Other Ways to Give */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -704,11 +704,11 @@ export default function Donate() {
             <Text size="xl" align="center" color="muted">
               Choose the giving method that works best for you
             </Text>
-          </motion.div>
+          </m.div>
 
           <Grid cols={4} gap="lg">
             {givingMethods.map((method, index) => (
-              <Motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -719,12 +719,12 @@ export default function Donate() {
                 <Card variant="default" padding="lg" className="text-center space-y-4 bg-gray-50 h-full shadow-lg hover:shadow-xl transition-shadow">
                   <CardContent>
                     <div className="space-y-4">
-                      <Motion.div 
+                      <m.div 
                         className={`w-16 h-16 ${method.color} rounded-full flex items-center justify-center mx-auto`}
                         whileHover={!reducedMotion ? { scale: 1.1, rotate: 5 } : {}}
                       >
                         <method.icon className="h-8 w-8 text-white" />
-                      </Motion.div>
+                      </m.div>
                       <Heading level="h3" align="center" className="font-semibold">
                         {method.title}
                       </Heading>
@@ -742,7 +742,7 @@ export default function Donate() {
                     </div>
                   </CardContent>
                 </Card>
-              </Motion.div>
+              </m.div>
             ))}
           </Grid>
         </Container>
@@ -752,7 +752,7 @@ export default function Donate() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -761,7 +761,7 @@ export default function Donate() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Stories of Generosity
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -772,7 +772,7 @@ export default function Donate() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Hear from fellow parishioners about the joy and impact of giving
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <DonationTestimonials
               testimonials={[
@@ -807,7 +807,7 @@ export default function Donate() {
       {/* Contact for Questions */}
       <Section spacing="lg" background="white">
         <Container size="md">
-          <Motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -845,7 +845,7 @@ export default function Donate() {
                 </Button>
               </a>
             </Flex>
-          </Motion.div>
+          </m.div>
         </Container>
       </Section>
 

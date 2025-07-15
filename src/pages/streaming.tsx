@@ -262,7 +262,7 @@ export default function Streaming() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -271,7 +271,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Worship Together in Spirit
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -282,7 +282,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Though we may be apart, we are united in prayer and praise through our live streams
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -320,7 +320,7 @@ export default function Streaming() {
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                   Streaming Insights & Engagement
-                  <Motion.div
+                  <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -407,7 +407,7 @@ export default function Streaming() {
       <Section spacing="lg" background="white" id="schedule">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -416,7 +416,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Interactive Streaming Schedule
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -427,7 +427,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Plan your virtual worship with our enhanced scheduling system
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <InteractiveStreamingSchedule
               streams={upcomingStreams}
@@ -445,7 +445,7 @@ export default function Streaming() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -454,7 +454,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Spiritual Communion
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -465,7 +465,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Join in spiritual communion during our live streams when you cannot physically receive
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <VirtualCommunionIntegration
               isLive={isLive}
@@ -487,7 +487,7 @@ export default function Streaming() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -496,7 +496,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Community Chat
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -507,7 +507,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Connect with fellow worshippers during live streams
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <LiveChatSystem
               isLive={isLive}
@@ -525,7 +525,7 @@ export default function Streaming() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -534,7 +534,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Share Your Prayer Intentions
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -545,7 +545,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Submit prayer intentions to be included in our live stream intercessions
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <PrayerIntentionSubmission
               isOpen={prayerIntentionsOpen}
@@ -562,7 +562,7 @@ export default function Streaming() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -571,7 +571,7 @@ export default function Streaming() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Optimize Your Viewing Experience
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -582,7 +582,7 @@ export default function Streaming() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Adjust streaming quality and accessibility settings for the best worship experience
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <StreamingQualityControls
               isOpen={qualitySettingsOpen}

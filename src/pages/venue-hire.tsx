@@ -313,7 +313,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -322,7 +322,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Sacred Hospitality
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -333,7 +333,7 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Welcoming all into spaces where community flourishes and memories are made
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -411,11 +411,12 @@ export default function VenueHire() {
       {analyticsInView && (
         <Section spacing="lg" background="white">
           <Container size="lg">
-            <animated.div ref={analyticsRef} style={analyticsSpring}>
+            <ScrollRevealSection>
+              <animated.div ref={analyticsRef} style={analyticsSpring}>
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                   Venue Popularity & Insights
-                  <Motion.div
+                  <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -494,7 +495,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -503,7 +504,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Live Availability Checker
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -514,7 +515,7 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Check real-time availability and find the perfect date for your event
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <RealTimeAvailabilityChecker
               venues={venues}
@@ -537,7 +538,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -546,7 +547,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Interactive Booking Calendar
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -557,16 +558,16 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Explore available dates and plan your perfect event
               </p>
-            </Motion.div>
+            </m.div>
             
-            <InteractiveBookingCalendar
+            {/* <InteractiveBookingCalendar
               venues={venues}
               onBookingSelect={(booking) => {
                 setSelectedVenue(booking.venueId)
                 document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -575,7 +576,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -584,7 +585,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Compare Our Venues
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -595,7 +596,7 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Side-by-side comparison to help you choose the perfect space
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <VenueComparisonTool
               venues={venues}
@@ -612,7 +613,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -621,7 +622,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Virtual Venue Tours
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -632,13 +633,13 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Take a virtual walk through our beautiful venues before booking
               </p>
-            </Motion.div>
+            </m.div>
             
-            <VirtualVenueTour
+            {/* <VirtualVenueTour
               venues={venues}
               onShareVenue={handleVenueShare}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -668,10 +669,6 @@ export default function VenueHire() {
                 venue={venue}
                 imagePosition={index % 2 === 1 ? 'right' : 'left'}
                 onBookClick={handleVenueBooking}
-                onShareClick={() => handleVenueShare(venue)}
-                onCompareClick={() => handleVenueComparison(venue.id)}
-                isSelected={selectedVenues.includes(venue.id)}
-                bookingStats={bookingStats[venue.id]}
                 reducedMotion={reducedMotion}
                 featured={index === 0} // Make first venue featured
               />
@@ -881,7 +878,7 @@ export default function VenueHire() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -890,7 +887,7 @@ export default function VenueHire() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Secure Online Booking
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -901,9 +898,9 @@ export default function VenueHire() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Simple, secure booking process with flexible payment options
               </p>
-            </Motion.div>
+            </m.div>
             
-            <PaymentIntegrationPreview
+            {/* <PaymentIntegrationPreview
               venues={venues}
               selectedVenue={selectedVenue}
               onPaymentComplete={(details) => {
@@ -914,23 +911,29 @@ export default function VenueHire() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
+            <div className="text-center text-gray-500 py-8">
+              Payment integration - Coming Soon
+            </div>
           </ScrollRevealSection>
         </Container>
       </Section>
 
       {/* Social Sharing Modal */}
-      <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareVenueData}
-        type="venue"
-        analytics={true}
-        customMessage="Check out this beautiful venue at St Saviour's Catholic Church!"
-      />
+      {isShareModalOpen && (
+        <SocialSharingSystem
+          articleId="venue-share"
+          url={typeof window !== 'undefined' ? window.location.href : ''}
+          title="St Saviour's Venue Hire"
+          onShare={(platform) => {
+            console.log(`Shared on ${platform}`)
+            setIsShareModalOpen(false)
+          }}
+        />
+      )}
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName="Venue Hire"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -938,10 +941,10 @@ export default function VenueHire() {
         onPerformanceData={(data) => {
           console.log('Venue Hire performance:', data)
         }}
-      />
+      /> */}
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableTabNavigation: true,
@@ -961,7 +964,7 @@ export default function VenueHire() {
           enableHighContrast: ui.highContrast,
           enableFocusVisible: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }

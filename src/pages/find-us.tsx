@@ -388,7 +388,7 @@ export default function FindUs() {
       {/* Address & Quick Info */}
       <Section spacing="lg" background="slate">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -420,7 +420,7 @@ export default function FindUs() {
                 <Text className="text-white">020 8852 7411</Text>
               </Flex>
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 
@@ -458,7 +458,7 @@ export default function FindUs() {
       {/* Enhanced Transport Options with React Spring */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -471,7 +471,7 @@ export default function FindUs() {
             <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
               We're conveniently located in central Lewisham with excellent transport links.
             </Text>
-          </motion.div>
+          </m.div>
 
           <div ref={transportRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {transportTrail.map((style, index) => {
@@ -482,7 +482,7 @@ export default function FindUs() {
                   style={style}
                   className="group relative"
                 >
-                  <motion.div
+                  <m.div
                     whileHover={{ 
                       scale: 1.05,
                       rotateY: 8,
@@ -504,7 +504,7 @@ export default function FindUs() {
                     />
                     
                     {/* Floating icon animation */}
-                    <motion.div
+                    <m.div
                       className="absolute -top-2 -right-2 w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100"
                       initial={{ scale: 0, rotate: -180 }}
                       whileHover={{ 
@@ -518,8 +518,8 @@ export default function FindUs() {
                       }}
                     >
                       <SparklesIcon className="h-4 w-4 text-slate-900" />
-                    </motion.div>
-                  </motion.div>
+                    </m.div>
+                  </m.div>
                 </animated.div>
               )
             })}
@@ -532,18 +532,18 @@ export default function FindUs() {
         <Container size="lg">
           <Grid cols={2} gap="xl">
             {/* Accessibility */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
               whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <motion.div
+              <m.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-4"
               >
-                <motion.div
+                <m.div
                   whileHover={{ 
                     rotate: [0, 10, -10, 0],
                     scale: 1.1
@@ -551,15 +551,15 @@ export default function FindUs() {
                   transition={{ duration: 0.5 }}
                 >
                   <Accessibility className="h-6 w-6 text-white" />
-                </motion.div>
+                </m.div>
                 <Heading level="h3" color="white" className="text-2xl font-semibold">
                   Accessibility
                 </Heading>
-              </motion.div>
+              </m.div>
               
               <div className="space-y-4">
                 {accessibilityFeatures.map((feature, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -590,7 +590,7 @@ export default function FindUs() {
                           {feature.items && (
                             <div className="space-y-1">
                               {feature.items.map((item, idx) => (
-                                <motion.div
+                                <m.div
                                   key={idx}
                                   initial={{ opacity: 0, x: -10 }}
                                   whileInView={{ opacity: 1, x: 0 }}
@@ -600,31 +600,31 @@ export default function FindUs() {
                                   <Text size="sm" className="text-gray-200">
                                     • {item}
                                   </Text>
-                                </motion.div>
+                                </m.div>
                               ))}
                             </div>
                           )}
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Facilities */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
               whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <motion.div
+              <m.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-4"
               >
-                <motion.div
+                <m.div
                   whileHover={{ 
                     rotate: [0, -10, 10, 0],
                     scale: 1.1
@@ -632,15 +632,15 @@ export default function FindUs() {
                   transition={{ duration: 0.5 }}
                 >
                   <Clock className="h-6 w-6 text-white" />
-                </motion.div>
+                </m.div>
                 <Heading level="h3" color="white" className="text-2xl font-semibold">
                   Facilities & Information
                 </Heading>
-              </motion.div>
+              </m.div>
               
               <div className="space-y-4">
                 {facilityInfo.map((facility, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -671,7 +671,7 @@ export default function FindUs() {
                           {facility.items && (
                             <div className="space-y-1">
                               {facility.items.map((item, idx) => (
-                                <motion.div
+                                <m.div
                                   key={idx}
                                   initial={{ opacity: 0, x: 10 }}
                                   whileInView={{ opacity: 1, x: 0 }}
@@ -681,17 +681,17 @@ export default function FindUs() {
                                   <Text size="sm" className="text-gray-200">
                                     • {item}
                                   </Text>
-                                </motion.div>
+                                </m.div>
                               ))}
                             </div>
                           )}
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </Grid>
         </Container>
       </Section>
@@ -718,7 +718,7 @@ export default function FindUs() {
       {/* Contact for Directions with Social Sharing */}
       <Section spacing="lg" background="slate">
         <Container size="md">
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -763,7 +763,7 @@ export default function FindUs() {
                 url="https://stsaviourlewisham.org.uk/find-us"
               />
             </div>
-          </motion.div>
+          </m.div>
         </Container>
       </Section>
 

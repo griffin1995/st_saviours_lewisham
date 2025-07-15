@@ -314,7 +314,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -323,7 +323,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Called to Community
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -334,7 +334,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Where faith grows through fellowship and service to one another
               </p>
-            </Motion.div>
+            </m.div>
             
             <div className="max-w-4xl mx-auto">
               <ScriptureCard
@@ -400,7 +400,7 @@ export default function ParishGroups() {
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                   Community Engagement & Growth
-                  <Motion.div
+                  <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -478,7 +478,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -487,7 +487,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Connect with Group Leaders
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -498,7 +498,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Meet the dedicated volunteers who lead our vibrant parish groups
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <InteractiveMemberDirectory
               groups={groups}
@@ -519,7 +519,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -528,7 +528,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Join Virtual Gatherings
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -539,7 +539,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Can't attend in person? Join our groups online for prayer, study, and fellowship
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <VirtualGroupMeeting
               groups={groups}
@@ -560,7 +560,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -569,7 +569,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Easy Group Registration
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -580,7 +580,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Sign up for groups quickly and securely with our streamlined registration process
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <GroupRegistrationSystem
               groups={groups}
@@ -723,7 +723,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -732,7 +732,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Stories from Our Community
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -743,7 +743,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
                 Hear how parish groups have enriched the faith journeys of our community members
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <GroupTestimonialsCarousel
               groups={groups}
@@ -757,7 +757,7 @@ export default function ParishGroups() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -766,7 +766,7 @@ export default function ParishGroups() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Pray for Each Other
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -777,7 +777,7 @@ export default function ParishGroups() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Share prayer requests within your groups and lift each other up in faith
               </p>
-            </Motion.div>
+            </m.div>
             
             {/* <PrayerRequestIntegration
               groups={groups}

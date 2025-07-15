@@ -245,7 +245,7 @@ export default function MassTimes() {
         overlay="medium"
         actions={
           <Flex justify="center" gap="md">
-            <Motion.div
+            <m.div
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
@@ -258,8 +258,8 @@ export default function MassTimes() {
               >
                 Call Parish
               </Button>
-            </Motion.div>
-            <Motion.div
+            </m.div>
+            <m.div
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
@@ -271,7 +271,7 @@ export default function MassTimes() {
               >
                 Get Directions
               </Button>
-            </Motion.div>
+            </m.div>
           </Flex>
         }
       />
@@ -280,7 +280,7 @@ export default function MassTimes() {
       <Section spacing="md" background="slate">
         <Container>
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +290,7 @@ export default function MassTimes() {
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Live Service Information
                 {/* Gold accent underline */}
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -301,7 +301,7 @@ export default function MassTimes() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
                 Real-time updates on current and upcoming Mass services, with live countdown to the next celebration.
               </p>
-            </Motion.div>
+            </m.div>
             
             <LiveMassCountdown reducedMotion={ui.reducedMotion} />
           </ScrollRevealSection>
@@ -312,7 +312,7 @@ export default function MassTimes() {
       <Section spacing="lg" background="slate">
         <Container>
           <ScrollRevealSection variant="reverent">
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -321,7 +321,7 @@ export default function MassTimes() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Interactive Mass Calendar
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -332,7 +332,7 @@ export default function MassTimes() {
               <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-4xl mx-auto leading-relaxed`}>
                 Plan your attendance with our interactive calendar showing all Mass times, special services, and liturgical celebrations throughout the month.
               </p>
-            </Motion.div>
+            </m.div>
 
             <InteractiveMassCalendar reducedMotion={ui.reducedMotion} />
           </ScrollRevealSection>
@@ -343,7 +343,7 @@ export default function MassTimes() {
       <Section spacing="lg" background="slate">
         <Container>
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -352,7 +352,7 @@ export default function MassTimes() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Weekly Mass Schedule
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -364,7 +364,7 @@ export default function MassTimes() {
                 Our regular weekly Mass times, carefully arranged to serve our diverse community. 
                 Times may vary during special liturgical seasons and holidays.
               </p>
-            </Motion.div>
+            </m.div>
 
             {/* Scripture Card about the Eucharist */}
             <div className="mb-16">
@@ -389,7 +389,7 @@ export default function MassTimes() {
       <Section spacing="lg" background="slate">
         <Container>
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -398,7 +398,7 @@ export default function MassTimes() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Additional Spiritual Services
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -410,12 +410,12 @@ export default function MassTimes() {
                 Beyond our regular Mass schedule, we offer additional spiritual services to nourish 
                 your faith journey and deepen your relationship with God.
               </p>
-            </Motion.div>
+            </m.div>
 
             <PhotoSwipeLightbox galleryId="mass-services-gallery" images={massImages}>
               <Grid cols={2} gap="lg">
                 {additionalServices.map((service, index) => (
-                  <Motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -428,13 +428,13 @@ export default function MassTimes() {
                       <CardContent>
                         <div className="space-y-6">
                           <div className="text-center">
-                            <Motion.div 
+                            <m.div 
                               className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
                               whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                               transition={{ duration: 0.3 }}
                             >
                               <service.icon className="h-10 w-10 text-black" />
-                            </Motion.div>
+                            </m.div>
                             <h3 className={`${typographyScale.h3} text-white mb-2 group-hover:text-gold-300 transition-colors duration-300`}>
                               {service.title}
                             </h3>
@@ -446,7 +446,7 @@ export default function MassTimes() {
                           <div className="space-y-3">
                             {service.times && Array.isArray(service.times) ? (
                               service.times.map((time, timeIndex) => (
-                                <Motion.div 
+                                <m.div 
                                   key={timeIndex} 
                                   className="p-4 bg-white/10 rounded-xl border border-slate-600 group-hover:border-gold-500/50 transition-colors duration-300"
                                   initial={{ opacity: 0, x: -20 }}
@@ -462,7 +462,7 @@ export default function MassTimes() {
                                   <p className={`${typographyScale.caption} text-gray-200 ml-8`}>
                                     {(time as any).note || (time as any).description}
                                   </p>
-                                </Motion.div>
+                                </m.div>
                               ))
                             ) : (
                               <div className="p-4 bg-white/10 rounded-xl text-center border border-slate-600">
@@ -475,7 +475,7 @@ export default function MassTimes() {
                         </div>
                       </CardContent>
                     </Card>
-                  </Motion.div>
+                  </m.div>
                 ))}
               </Grid>
             </PhotoSwipeLightbox>
@@ -505,7 +505,7 @@ export default function MassTimes() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
@@ -517,7 +517,7 @@ export default function MassTimes() {
                   <div>
                     <h3 className={`${typographyScale.h2} text-white mb-6 relative`}>
                       Important Information
-                      <Motion.div
+                      <m.div
                         className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                         initial={{ scaleX: 0 }}
                         whileInView={{ scaleX: 1 }}
@@ -550,7 +550,7 @@ export default function MassTimes() {
                         description: "Can't attend in person? Join us online for live-streamed Sunday Masses and special celebrations through our website."
                       }
                     ].map((item, index) => (
-                      <Motion.div
+                      <m.div
                         key={index}
                         className="flex gap-4 p-6 bg-white/10 backdrop-blur-sm border border-slate-600 rounded-2xl hover:border-gold-500/50 transition-all duration-300"
                         initial={{ opacity: 0, x: -30 }}
@@ -569,7 +569,7 @@ export default function MassTimes() {
                             {item.description}
                           </p>
                         </div>
-                      </Motion.div>
+                      </m.div>
                     ))}
                   </div>
 
@@ -605,7 +605,7 @@ export default function MassTimes() {
                 </div>
 
                 {/* Right Column - Interactive Google Map */}
-                <Motion.div
+                <m.div
                   className="relative"
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -633,9 +633,9 @@ export default function MassTimes() {
                       </Motion.button>
                     </div>
                   </div>
-                </Motion.div>
+                </m.div>
               </div>
-            </Motion.div>
+            </m.div>
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -644,7 +644,7 @@ export default function MassTimes() {
       <Section spacing="lg" background="slate">
         <Container size="md">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -657,7 +657,7 @@ export default function MassTimes() {
               
               <h2 className={`${typographyScale.h1} text-white mb-6 relative`}>
                 Join Us for Worship
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -678,7 +678,7 @@ export default function MassTimes() {
                   { icon: PlayIcon, text: "Watch Live Stream", desc: "Join us online" },
                   { icon: MapPin, text: "Get Directions", desc: "Find us easily" }
                 ].map((item, index) => (
-                  <Motion.div
+                  <m.div
                     key={index}
                     className="flex flex-col items-center space-y-4 group"
                     initial={{ opacity: 0, y: 30 }}
@@ -697,13 +697,13 @@ export default function MassTimes() {
                         {item.desc}
                       </p>
                     </div>
-                  </Motion.div>
+                  </m.div>
                 ))}
               </div>
               
               <div className="pt-8">
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Motion.div
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -716,8 +716,8 @@ export default function MassTimes() {
                     >
                       Get Directions
                     </Button>
-                  </Motion.div>
-                  <Motion.div
+                  </m.div>
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -729,8 +729,8 @@ export default function MassTimes() {
                     >
                       Contact Us
                     </Button>
-                  </Motion.div>
-                  <Motion.div
+                  </m.div>
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -742,10 +742,10 @@ export default function MassTimes() {
                     >
                       Live Stream
                     </Button>
-                  </Motion.div>
+                  </m.div>
                 </div>
               </div>
-            </Motion.div>
+            </m.div>
           </ScrollRevealSection>
         </Container>
       </Section>

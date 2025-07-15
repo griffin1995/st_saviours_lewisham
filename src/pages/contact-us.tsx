@@ -348,7 +348,7 @@ export default function ContactUs() {
         overlay="medium"
         actions={
           <Flex justify="center" gap="md">
-            <Motion.div
+            <m.div
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
@@ -361,8 +361,8 @@ export default function ContactUs() {
               >
                 Call Parish
               </Button>
-            </Motion.div>
-            <Motion.div
+            </m.div>
+            <m.div
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
@@ -374,8 +374,8 @@ export default function ContactUs() {
               >
                 Send Email
               </Button>
-            </Motion.div>
-            <Motion.div
+            </m.div>
+            <m.div
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
             >
@@ -387,7 +387,7 @@ export default function ContactUs() {
               >
                 Emergency
               </Button>
-            </Motion.div>
+            </m.div>
           </Flex>
         }
       />
@@ -396,7 +396,7 @@ export default function ContactUs() {
       <Section spacing="md" background="slate">
         <Container>
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -406,7 +406,7 @@ export default function ContactUs() {
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Multiple Ways to Connect
                 {/* Gold accent underline */}
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -418,7 +418,7 @@ export default function ContactUs() {
                 From everyday questions to urgent pastoral needs, we're here to serve our community 
                 with multiple contact options and dedicated staff.
               </p>
-            </Motion.div>
+            </m.div>
 
             {/* Scripture Card about Community */}
             <div className="mb-16">
@@ -458,7 +458,7 @@ export default function ContactUs() {
                   color: "from-purple-600 to-purple-500"
                 }
               ].map((method, index) => (
-                <Motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -468,13 +468,13 @@ export default function ContactUs() {
                   className="group"
                 >
                   <div className="bg-white/10 backdrop-blur-sm border border-slate-600 hover:border-gold-500 transition-all duration-500 rounded-2xl p-8 text-center h-full">
-                    <Motion.div 
+                    <m.div 
                       className={`w-20 h-20 bg-gradient-to-br ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg`}
                       whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                       transition={{ duration: 0.3 }}
                     >
                       <method.icon className="h-10 w-10 text-white" />
-                    </Motion.div>
+                    </m.div>
                     <h3 className={`${typographyScale.h3} text-white mb-3 group-hover:text-gold-300 transition-colors duration-300`}>
                       {method.title}
                     </h3>
@@ -494,7 +494,7 @@ export default function ContactUs() {
                       <ArrowRightIcon className="h-4 w-4" />
                     </Motion.a>
                   </div>
-                </Motion.div>
+                </m.div>
               ))}
             </div>
           </ScrollRevealSection>
@@ -505,7 +505,7 @@ export default function ContactUs() {
       <Section spacing="lg" background="white">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -514,7 +514,7 @@ export default function ContactUs() {
             >
               <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
                 Send Us a Message
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -526,7 +526,7 @@ export default function ContactUs() {
                 Our enhanced contact form allows you to specify your needs and urgency level, 
                 ensuring you receive the most appropriate and timely response.
               </p>
-            </Motion.div>
+            </m.div>
 
             <div className="max-w-4xl mx-auto">
               <EnhancedContactForm 
@@ -560,7 +560,7 @@ export default function ContactUs() {
       <Section spacing="lg" background="slate">
         <Container size="lg">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -569,7 +569,7 @@ export default function ContactUs() {
             >
               <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
                 Find Us & Virtual Tour
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -581,12 +581,12 @@ export default function ContactUs() {
                 Explore our location with interactive maps, Street View, and virtual tours. 
                 Located in the heart of Lewisham with excellent transport links.
               </p>
-            </Motion.div>
+            </m.div>
 
             <PhotoSwipeLightbox galleryId="contact-gallery" images={contactImages}>
               <div className="grid lg:grid-cols-2 gap-8">
                 {/* Interactive Google Map */}
-                <Motion.div
+                <m.div
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
@@ -623,10 +623,10 @@ export default function ContactUs() {
                       </Motion.button>
                     </div>
                   </div>
-                </Motion.div>
+                </m.div>
 
                 {/* Virtual Tour & Contact Gallery */}
-                <Motion.div
+                <m.div
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
@@ -674,12 +674,12 @@ export default function ContactUs() {
                       ))}
                     </div>
                   </div>
-                </Motion.div>
+                </m.div>
               </div>
             </PhotoSwipeLightbox>
 
             {/* Transportation & Accessibility Info */}
-            <Motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -715,7 +715,7 @@ export default function ContactUs() {
                   </div>
                 </div>
               ))}
-            </Motion.div>
+            </m.div>
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -724,7 +724,7 @@ export default function ContactUs() {
       <Section spacing="lg" background="white">
         <Container size="md">
           <ScrollRevealSection>
-            <Motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -737,7 +737,7 @@ export default function ContactUs() {
               
               <h2 className={`${typographyScale.h1} text-slate-900 mb-6 relative`}>
                 We're Here to Help
-                <Motion.div
+                <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -777,7 +777,7 @@ export default function ContactUs() {
                   { icon: Mail, text: "Email Us", desc: "Detailed inquiries" },
                   { icon: BuildingOfficeIcon, text: "Visit Office", desc: "In-person assistance" }
                 ].map((item, index) => (
-                  <Motion.div
+                  <m.div
                     key={index}
                     className="flex flex-col items-center space-y-4 group"
                     initial={{ opacity: 0, y: 30 }}
@@ -796,13 +796,13 @@ export default function ContactUs() {
                         {item.desc}
                       </p>
                     </div>
-                  </Motion.div>
+                  </m.div>
                 ))}
               </div>
               
               <div className="pt-8">
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Motion.div
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -815,8 +815,8 @@ export default function ContactUs() {
                     >
                       Call Us Today
                     </Button>
-                  </Motion.div>
-                  <Motion.div
+                  </m.div>
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -828,8 +828,8 @@ export default function ContactUs() {
                     >
                       Visit Our Church
                     </Button>
-                  </Motion.div>
-                  <Motion.div
+                  </m.div>
+                  <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
@@ -841,10 +841,10 @@ export default function ContactUs() {
                     >
                       Emergency Contact
                     </Button>
-                  </Motion.div>
+                  </m.div>
                 </div>
               </div>
-            </Motion.div>
+            </m.div>
           </ScrollRevealSection>
         </Container>
       </Section>

@@ -88,7 +88,7 @@ export default function AboutUs() {
         
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="max-w-5xl mx-auto px-6 text-center">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
               animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -107,7 +107,7 @@ export default function AboutUs() {
               <p className="text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
                 A vibrant Catholic community in the heart of Lewisham, welcoming all to experience God's love and grace.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -117,7 +117,7 @@ export default function AboutUs() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
                 whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
@@ -130,7 +130,7 @@ export default function AboutUs() {
                 </div>
                 <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -139,7 +139,7 @@ export default function AboutUs() {
       {/* Mission Statement */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -159,14 +159,14 @@ export default function AboutUs() {
               where all people can encounter the transforming love of Jesus Christ and grow 
               together as a community of believers.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Values Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -179,11 +179,11 @@ export default function AboutUs() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               These core values guide everything we do as a parish community.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
                 whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -198,7 +198,7 @@ export default function AboutUs() {
                   <h3 className="text-xl font-bold text-slate-900 mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function AboutUs() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -235,9 +235,9 @@ export default function AboutUs() {
                   continuing our mission to serve God and our local community with dedication and love.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -252,7 +252,7 @@ export default function AboutUs() {
                 
                 <div className="space-y-6">
                   {milestones.map((milestone, index) => (
-                    <motion.div
+                    <m.div
                       key={index}
                       initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
                       whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -267,11 +267,11 @@ export default function AboutUs() {
                         <div className="font-bold text-slate-900 text-lg">{milestone.year}</div>
                         <div className="text-gray-600">{milestone.event}</div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -279,7 +279,7 @@ export default function AboutUs() {
       {/* Leadership Section */}
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -292,7 +292,7 @@ export default function AboutUs() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Meet the dedicated team who guide our parish community.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {[
@@ -309,7 +309,7 @@ export default function AboutUs() {
                 icon: BookOpen
               }
             ].map((leader, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
                 whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -325,7 +325,7 @@ export default function AboutUs() {
                   <p className="text-gold-600 font-semibold mb-6 text-lg">{leader.role}</p>
                   <p className="text-gray-600 leading-relaxed">{leader.description}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -334,7 +334,7 @@ export default function AboutUs() {
       {/* Contact CTA */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -370,7 +370,7 @@ export default function AboutUs() {
                 Mass Times
               </motion.a>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </PageLayout>
