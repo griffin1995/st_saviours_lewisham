@@ -33,14 +33,14 @@ import {
 import { VenueCard, VenueEnquiryForm, type Venue, type VenueEnquiryData } from '@/components/church'
 import { EnhancedVenueCard, AnimatedTestimonials } from '@/components/enhanced'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { InteractiveBookingCalendar } from '@/components/enhanced/InteractiveBookingCalendar'
-import { VirtualVenueTour } from '@/components/enhanced/VirtualVenueTour'
-import { RealTimeAvailabilityChecker } from '@/components/enhanced/RealTimeAvailabilityChecker'
-import { VenueComparisonTool } from '@/components/enhanced/VenueComparisonTool'
-import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
+// import { InteractiveBookingCalendar } from '@/components/enhanced/InteractiveBookingCalendar'
+// import { VirtualVenueTour } from '@/components/enhanced/VirtualVenueTour'
+// import { RealTimeAvailabilityChecker } from '@/components/enhanced/RealTimeAvailabilityChecker'
+// import { VenueComparisonTool } from '@/components/enhanced/VenueComparisonTool'
+// import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -516,7 +516,7 @@ export default function VenueHire() {
               </p>
             </Motion.div>
             
-            <RealTimeAvailabilityChecker
+            {/* <RealTimeAvailabilityChecker
               venues={venues}
               availabilityData={availabilityData}
               onDateSelect={(venue, date) => {
@@ -528,7 +528,7 @@ export default function VenueHire() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -597,13 +597,13 @@ export default function VenueHire() {
               </p>
             </Motion.div>
             
-            <VenueComparisonTool
+            {/* <VenueComparisonTool
               venues={venues}
               selectedVenues={selectedVenues}
               onVenueSelect={handleVenueComparison}
               onBookVenue={handleVenueBooking}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
