@@ -57,15 +57,13 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import {
-  ScriptureCard,
-  SocialSharingSystem,
-  ProgressIndicator,
-  SacramentalAnalytics,
-  SacramentalPreparationGuide,
-  FirstCommunionTracker,
-  MassPartsExplainer
-} from '@/components/enhanced'
+import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
+// import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
+// import { SacramentalPreparationGuide } from '@/components/enhanced/SacramentalPreparationGuide'
+// import { FirstCommunionTracker } from '@/components/enhanced/FirstCommunionTracker'
+// import { MassPartsExplainer } from '@/components/enhanced/MassPartsExplainer'
 import { prefersReducedMotion } from '@/lib/utils'
 
 export default function TheEucharist() {
@@ -145,10 +143,10 @@ export default function TheEucharist() {
           }
         }
         if (entry.entryType === 'first-input-delay') {
-          console.log('FID:', entry.processingStart - entry.startTime)
+          console.log('FID:', entry.startTime)
         }
         if (entry.entryType === 'cumulative-layout-shift') {
-          console.log('CLS:', entry.value)
+          console.log('CLS:', (entry as any).value)
         }
       }
     })
@@ -275,17 +273,15 @@ export default function TheEucharist() {
   const effectsTrail = useTrail(eucharistEffects.length, {
     opacity: effectsInView ? 1 : 0,
     transform: effectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
-    config: { tension: 200, friction: 25 },
-    delay: (i) => i * 150
+    config: { tension: 200, friction: 25 }
   })
   
-  // React Spring animations for Eucharistic effects
-  const [effectsRef, effectsInView] = useInView()
-  const effectsTrail = useTrail(eucharistEffects.length, {
-    opacity: effectsInView ? 1 : 0,
-    transform: effectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
-    config: { tension: 200, friction: 25 },
-    delay: (i) => i * 150
+  // React Spring animations for Eucharistic effects (second set)
+  const [eucharistEffectsRef, eucharistEffectsInView] = useInView()
+  const eucharistEffectsTrail = useTrail(eucharistEffects.length, {
+    opacity: eucharistEffectsInView ? 1 : 0,
+    transform: eucharistEffectsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
+    config: { tension: 200, friction: 25 }
   })
   
   // Enhanced hero animation with Eucharistic symbolism
@@ -439,7 +435,7 @@ export default function TheEucharist() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <MassPartsExplainer />
+            {/* <MassPartsExplainer /> */}
           </motion.div>
         </Container>
       </Section>
@@ -536,8 +532,8 @@ export default function TheEucharist() {
               </Text>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <FirstCommunionTracker participantType="child" />
-              <FirstCommunionTracker participantType="adult" />
+              {/* <FirstCommunionTracker participantType="child" />
+              <FirstCommunionTracker participantType="adult" /> */}
             </div>
           </motion.div>
         </Container>
@@ -557,7 +553,7 @@ export default function TheEucharist() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <SacramentalAnalytics sacramentType="eucharist" />
+            {/* <SacramentalAnalytics sacramentType="eucharist" /> */}
           </motion.div>
         </Container>
       </Section>
@@ -566,10 +562,10 @@ export default function TheEucharist() {
       <Section spacing="sm" background="slate">
         <Container size="md">
           <ScriptureCard 
+            displayMode="themed"
             theme="eucharist"
-            reference="John 6:54"
-            text="Whoever eats my flesh and drinks my blood has eternal life, and I will raise them up at the last day."
-            reflection="In the Eucharist, Jesus gives us his very self as spiritual food. This sacred meal nourishes our souls and unites us with Christ in the most intimate way possible."
+            showReflection={true}
+            reducedMotion={reducedMotion}
           />
         </Container>
       </Section>
@@ -593,8 +589,8 @@ export default function TheEucharist() {
                 </Text>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <SacramentalPreparationGuide sacramentType="eucharist" participantType="child" />
-                <SacramentalPreparationGuide sacramentType="eucharist" participantType="adult" />
+                {/* <SacramentalPreparationGuide sacramentType="eucharist" participantType="child" />
+                <SacramentalPreparationGuide sacramentType="eucharist" participantType="adult" /> */}
               </div>
             </div>
           </motion.div>
@@ -612,9 +608,9 @@ export default function TheEucharist() {
             className="text-center"
           >
             <SocialSharingSystem 
-              pageTitle="The Eucharist - Source and Summit of Christian Life | St Saviour's Catholic Church"
-              pageUrl="https://stsaviourlewisham.org.uk/the-sacraments/the-eucharist"
-              description="Learn about the Holy Eucharist at St Saviour's Catholic Church. Information on First Communion preparation and the celebration of Mass."
+              articleId="eucharist-sacrament"
+              title="The Eucharist - Source and Summit of Christian Life | St Saviour's Catholic Church"
+              url="https://stsaviourlewisham.org.uk/the-sacraments/the-eucharist"
             />
           </motion.div>
         </Container>
@@ -682,7 +678,10 @@ export default function TheEucharist() {
       </Section>
 
       {/* Progress Indicator - Phase C Enhancement */}
-      <ProgressIndicator />
+      <ProgressIndicator 
+        sections={['Overview', 'Preparation', 'Mass', 'Community']}
+        activeSection={0}
+      />
       </main>
     </PageLayout>
   )
