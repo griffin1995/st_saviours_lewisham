@@ -145,7 +145,7 @@ export default function SacramentInfo({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -157,7 +157,7 @@ export default function SacramentInfo({
         <div className="space-y-6">
           <div className="relative">
             {theme === 'dark' && (
-              <motion.div
+              <m.div
                 className="absolute -left-4 top-0 w-1 h-12 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
                 initial={reducedMotion ? { opacity: 0 } : { height: 0 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { height: 48 }}
@@ -291,7 +291,7 @@ export default function SacramentInfo({
           </Heading>
           <Grid cols={3} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {requirements.map((requirement, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -336,7 +336,7 @@ export default function SacramentInfo({
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </div>
@@ -375,7 +375,7 @@ export default function SacramentInfo({
           </Card>
         </div>
       )}
-    </motion.div>
+    </m.div>
   )
 }
 

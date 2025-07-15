@@ -131,7 +131,7 @@ export default function ContactInfo({
     const value = Array.isArray(contact.value) ? contact.value : [contact.value]
     
     return (
-      <motion.div
+      <m.div
         key={index}
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -163,7 +163,7 @@ export default function ContactInfo({
             </Text>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -171,7 +171,7 @@ export default function ContactInfo({
     <div className={cn('space-y-8', className)}>
       {/* Primary Contact Methods */}
       {primaryContacts.length > 0 && (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -184,7 +184,7 @@ export default function ContactInfo({
           ) : (
             <div className="space-y-6">
               {primaryContacts.map((contact, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -213,16 +213,16 @@ export default function ContactInfo({
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           )}
-        </motion.div>
+        </m.div>
       )}
 
       {/* Emergency Contact */}
       {emergencyContact && (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -256,12 +256,12 @@ export default function ContactInfo({
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Staff Contact */}
       {staff && staff.length > 0 && (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -276,7 +276,7 @@ export default function ContactInfo({
                 
                 <div className="space-y-4">
                   {staff.map((member, index) => (
-                    <motion.div
+                    <m.div
                       key={index}
                       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
                       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -323,13 +323,13 @@ export default function ContactInfo({
                           </Text>
                         )}
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Additional Sections */}
@@ -342,7 +342,7 @@ export default function ContactInfo({
         }
         
         return (
-          <motion.div
+          <m.div
             key={index}
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -366,7 +366,7 @@ export default function ContactInfo({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         )
       })}
     </div>

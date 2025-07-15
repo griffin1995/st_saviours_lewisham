@@ -129,7 +129,7 @@ export default function ContactForm({
   const labelClasses = "block text-sm font-semibold text-gray-700 mb-2"
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -153,7 +153,7 @@ export default function ContactForm({
 
             {/* Success Message */}
             {submitStatus === 'success' && (
-              <motion.div
+              <m.div
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                 transition={reducedMotion ? { duration: 0.3 } : { duration: 0.5 }}
@@ -165,12 +165,12 @@ export default function ContactForm({
                     {successMessage}
                   </Text>
                 </Flex>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Error Message */}
             {submitStatus === 'error' && (
-              <motion.div
+              <m.div
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                 transition={reducedMotion ? { duration: 0.3 } : { duration: 0.5 }}
@@ -182,7 +182,7 @@ export default function ContactForm({
                     {errorMessage}
                   </Text>
                 </Flex>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Form */}
@@ -295,7 +295,7 @@ export default function ContactForm({
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }
 

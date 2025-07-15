@@ -88,7 +88,7 @@ export default function ServiceTimes({
     const isToday = highlightToday && dayData.day === currentDay
     
     return (
-      <motion.div
+      <m.div
         key={dayData.day}
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ export default function ServiceTimes({
               <div className="space-y-3">
                 {dayData.services.length > 0 ? (
                   dayData.services.map((service, serviceIndex) => (
-                    <motion.div
+                    <m.div
                       key={serviceIndex}
                       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
                       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -188,7 +188,7 @@ export default function ServiceTimes({
                           )}
                         </div>
                       </Flex>
-                    </motion.div>
+                    </m.div>
                   ))
                 ) : (
                   <div className="p-4 text-center">
@@ -201,7 +201,7 @@ export default function ServiceTimes({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     )
   }
 

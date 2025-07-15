@@ -177,7 +177,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
         <AnimatePresence mode="wait">
           {submitStatus === 'success' ? (
-            <motion.div
+            <m.div
               key="success"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               <p className="text-gray-600">
                 You'll receive a confirmation email shortly. Welcome to our community!
               </p>
-            </motion.div>
+            </m.div>
           ) : (
             <motion.form
               key="form"
@@ -272,7 +272,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               </div>
 
               {submitStatus === 'error' && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="rounded-md bg-red-50 p-4 border border-red-200"
@@ -288,7 +288,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
 
               <Button

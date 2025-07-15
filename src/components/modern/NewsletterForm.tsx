@@ -127,7 +127,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
 
   if (submitStatus === 'success') {
     return (
-      <motion.div
+      <m.div
         variants={successVariants}
         initial="hidden"
         animate="visible"
@@ -152,7 +152,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
         >
           Subscribe Another Email
         </Button>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -364,7 +364,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
         {/* Error Message */}
         <AnimatePresence>
           {submitStatus === 'error' && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -376,7 +376,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
                   Something went wrong. Please try again later.
                 </Text>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </motion.form>

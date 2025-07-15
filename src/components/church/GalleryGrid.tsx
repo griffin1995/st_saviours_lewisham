@@ -96,7 +96,7 @@ export default function GalleryGrid({
     <div className={className}>
       {/* Category Filter */}
       {showFilter && categories.length > 1 && (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -129,12 +129,12 @@ export default function GalleryGrid({
               }
             </Text>
           </div>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Empty State */}
       {filteredImages.length === 0 ? (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -148,12 +148,12 @@ export default function GalleryGrid({
           <Text color="muted">
             No photos available in this category at the moment.
           </Text>
-        </motion.div>
+        </m.div>
       ) : (
         /* Gallery Grid */
         <div className={cn('grid gap-6', gridColsClass[columns])}>
           {filteredImages.map((image, index) => (
-            <motion.div
+            <m.div
               key={image.id}
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
               whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
@@ -191,7 +191,7 @@ export default function GalleryGrid({
                   </Flex>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       )}

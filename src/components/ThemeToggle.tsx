@@ -107,7 +107,7 @@ export default function ThemeToggle() {
       {/* Icon container */}
       <div className="relative z-10 overflow-hidden">
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={theme}
             variants={iconVariants}
             initial="initial"
@@ -116,13 +116,13 @@ export default function ThemeToggle() {
             className="flex items-center justify-center"
           >
             {getThemeIcon()}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
       {/* Indicator dot for auto mode */}
       {theme === 'auto' && (
-        <motion.div
+        <m.div
           className={`
             absolute -top-1 -right-1 w-3 h-3 rounded-full border-2
             ${resolvedTheme === 'dark'

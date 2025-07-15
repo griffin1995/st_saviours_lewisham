@@ -64,7 +64,7 @@ export default function ContentSection({
       className={`${backgroundClasses[background]} ${paddingClasses[padding]} ${className}`}
     >
       <div className={`${maxWidthClasses[maxWidth]} mx-auto px-4 sm:px-6 lg:px-8`}>
-        <motion.div
+        <m.div
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={prefersReducedMotion 
@@ -74,7 +74,7 @@ export default function ContentSection({
           viewport={{ once: true }}
         >
           {children}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

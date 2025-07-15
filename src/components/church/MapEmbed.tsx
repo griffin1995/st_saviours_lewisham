@@ -75,7 +75,7 @@ export default function MapEmbed({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -194,7 +194,7 @@ export default function MapEmbed({
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }
 

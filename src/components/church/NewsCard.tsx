@@ -183,7 +183,7 @@ export default function NewsCard({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.5 }}
@@ -334,7 +334,7 @@ export default function NewsCard({
           </CardContent>
         </Card>
       </CardWrapper>
-    </motion.div>
+    </m.div>
   )
 }
 

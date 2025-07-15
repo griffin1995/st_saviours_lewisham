@@ -155,7 +155,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
               className="flex items-center space-x-3 group"
               onClick={handleLinkClick}
             >
-              <motion.div 
+              <m.div 
                 className="relative w-16 h-16 flex-shrink-0"
                 whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                 transition={{ duration: 0.2 }}
@@ -167,7 +167,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                   className="object-contain"
                   priority
                 />
-              </motion.div>
+              </m.div>
               <div className="hidden sm:flex flex-col">
                 <span className="text-lg font-semibold font-serif text-white transition-colors duration-200 group-hover:text-gold-300">
                   {getParishName().replace(' Catholic Church', '')}
@@ -199,14 +199,14 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                     whileTap={ui.reducedMotion ? {} : { scale: 0.98 }}
                   >
                     {item.name}
-                    <motion.div
+                    <m.div
                       animate={{ 
                         rotate: navigation.activeDropdown === item.name ? 180 : 0 
                       }}
                       transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                     >
                       <ChevronDownIcon className="ml-1 h-4 w-4" />
-                    </motion.div>
+                    </m.div>
                   </motion.button>
                 </div>
               ))}
@@ -223,14 +223,14 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                 </motion.button>
                 
                 <Link href="/donate" onClick={handleLinkClick}>
-                  <motion.div
+                  <m.div
                     className="inline-flex items-center gap-2 px-4 py-2 bg-white text-slate-900 hover:bg-gray-100 font-semibold rounded-lg transition-colors duration-200 shadow-lg"
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -1 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
                     <HeartIcon className="h-4 w-4" />
                     <span className="hidden xl:inline">Donate</span>
-                  </motion.div>
+                  </m.div>
                 </Link>
               </div>
             </div>
@@ -244,7 +244,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
             >
               <AnimatePresence mode="wait">
                 {navigation.isOpen ? (
-                  <motion.div
+                  <m.div
                     key="close"
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
@@ -252,9 +252,9 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                     transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                   >
                     <XMarkIcon className="h-6 w-6" />
-                  </motion.div>
+                  </m.div>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="menu"
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
@@ -262,7 +262,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                     transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                   >
                     <Bars3Icon className="h-6 w-6" />
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </motion.button>
@@ -272,7 +272,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
         {/* Mobile Menu */}
         <AnimatePresence>
           {navigation.isOpen && (
-            <motion.div
+            <m.div
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
@@ -288,19 +288,19 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                       whileTap={ui.reducedMotion ? {} : { scale: 0.98 }}
                     >
                       {item.name}
-                      <motion.div
+                      <m.div
                         animate={{ 
                           rotate: navigation.activeDropdown === item.name ? 180 : 0 
                         }}
                         transition={{ duration: ui.reducedMotion ? 0.1 : 0.2 }}
                       >
                         <ChevronDownIcon className="h-4 w-4" />
-                      </motion.div>
+                      </m.div>
                     </motion.button>
                     
                     <AnimatePresence>
                       {navigation.activeDropdown === item.name && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -308,7 +308,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                           className="ml-4 mt-2 space-y-1 overflow-hidden"
                         >
                           {item.dropdown.map((subItem, index) => (
-                            <motion.div
+                            <m.div
                               key={subItem.name}
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -324,9 +324,9 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                               >
                                 {subItem.name}
                               </Link>
-                            </motion.div>
+                            </m.div>
                           ))}
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -344,7 +344,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </motion.nav>
@@ -352,7 +352,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
         {navigation.activeDropdown && (
-          <motion.div
+          <m.div
             variants={dropdownVariants}
             initial="hidden"
             animate="visible"
@@ -366,7 +366,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                 {navigationMenu
                   .find(item => item.name === navigation.activeDropdown)
                   ?.dropdown.map((subItem, index) => (
-                    <motion.div
+                    <m.div
                       key={subItem.name}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -390,21 +390,21 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                               Learn more about {subItem.name.toLowerCase()}
                             </p>
                           </div>
-                          <motion.div
+                          <m.div
                             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             animate={{ x: 0 }}
                             whileHover={{ x: 4 }}
                           >
                             <ChevronDownIcon className="h-5 w-5 text-gold-300 -rotate-90" />
-                          </motion.div>
+                          </m.div>
                         </div>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
               </div>
               
               {/* Call to Action */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: ui.reducedMotion ? 0.1 : 0.4, delay: 0.2 }}
@@ -424,16 +424,16 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                     <ChevronDownIcon className="ml-2 h-4 w-4 -rotate-90" />
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Backdrop Overlay */}
       <AnimatePresence>
         {(navigation.activeDropdown || navigation.isOpen) && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -143,7 +143,7 @@ export default function PrayerRequestSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 relative z-10">
         
         {/* Section Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -179,12 +179,12 @@ export default function PrayerRequestSection() {
           }`}>
             Share your intentions with our parish family. Together we lift each other up in prayer and faith.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           
           {/* Prayer Request Form */}
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={prefersReducedMotion 
@@ -206,13 +206,13 @@ export default function PrayerRequestSection() {
 
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
-                  <motion.div
+                  <m.div
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
                     animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                     exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
                     className="text-center py-12"
                   >
-                    <motion.div
+                    <m.div
                       className={`w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center ${
                         resolvedTheme === 'dark' ? 'bg-green-600' : 'bg-green-500'
                       }`}
@@ -226,7 +226,7 @@ export default function PrayerRequestSection() {
                       }}
                     >
                       <Check className="h-8 w-8 text-white" />
-                    </motion.div>
+                    </m.div>
                     <h4 className={`text-xl font-semibold mb-4 ${
                       resolvedTheme === 'dark' ? 'text-cream-100' : 'text-charcoal-800'
                     }`}>
@@ -237,7 +237,7 @@ export default function PrayerRequestSection() {
                     }`}>
                       Thank you for sharing your intention. Our parish community will pray for you.
                     </p>
-                  </motion.div>
+                  </m.div>
                 ) : (
                   <motion.form
                     onSubmit={handleSubmit}
@@ -429,10 +429,10 @@ export default function PrayerRequestSection() {
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Recent Prayer Requests */}
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={prefersReducedMotion 
@@ -453,7 +453,7 @@ export default function PrayerRequestSection() {
                 const categoryColor = getCategoryColor(request.category);
                 
                 return (
-                  <motion.div
+                  <m.div
                     key={request.id}
                     className={`rounded-2xl p-6 border ${
                       resolvedTheme === 'dark'
@@ -512,13 +512,13 @@ export default function PrayerRequestSection() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
 
             {/* Privacy Notice */}
-            <motion.div
+            <m.div
               className={`mt-8 p-6 rounded-2xl border ${
                 resolvedTheme === 'dark'
                   ? 'bg-charcoal-800/50 border-charcoal-700'
@@ -550,8 +550,8 @@ export default function PrayerRequestSection() {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

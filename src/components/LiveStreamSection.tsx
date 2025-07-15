@@ -99,7 +99,7 @@ export default function LiveStreamSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 relative z-10">
         
         {/* Section Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -136,11 +136,11 @@ export default function LiveStreamSection() {
             Experience our liturgies and prayer services from anywhere. 
             Join our parish family in worship, even when you can't be with us in person.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Live Stream */}
         {currentStream ? (
-          <motion.div
+          <m.div
             className="mb-16"
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -164,7 +164,7 @@ export default function LiveStreamSection() {
               }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <motion.div
+                    <m.div
                       className="flex items-center space-x-2"
                       animate={prefersReducedMotion ? {} : {
                         scale: [1, 1.05, 1],
@@ -181,7 +181,7 @@ export default function LiveStreamSection() {
                       }`}>
                         Live Now
                       </span>
-                    </motion.div>
+                    </m.div>
                     
                     <div className="flex items-center space-x-2">
                       {getStreamIcon(currentStream.type)}
@@ -253,10 +253,10 @@ export default function LiveStreamSection() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ) : (
           /* No live stream */
-          <motion.div
+          <m.div
             className="mb-16 text-center"
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -285,12 +285,12 @@ export default function LiveStreamSection() {
                 We're not currently streaming. Check our upcoming services below or visit our YouTube channel for recorded Masses.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Upcoming Streams */}
         {upcomingStreams.length > 0 && (
-          <motion.div
+          <m.div
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
             whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion 
@@ -307,7 +307,7 @@ export default function LiveStreamSection() {
             
             <div className="grid md:grid-cols-2 gap-6">
               {upcomingStreams.map((stream, index) => (
-                <motion.div
+                <m.div
                   key={stream.id}
                   className={`rounded-2xl p-6 border transition-all duration-300 ${
                     resolvedTheme === 'dark'
@@ -361,14 +361,14 @@ export default function LiveStreamSection() {
                   }`}>
                     Set Reminder
                   </button>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Call to Action */}
-        <motion.div
+        <m.div
           className="text-center mt-16"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -390,7 +390,7 @@ export default function LiveStreamSection() {
             <Video className="h-5 w-5 mr-3" />
             Visit Our YouTube Channel
           </motion.button>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

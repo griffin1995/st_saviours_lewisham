@@ -62,7 +62,7 @@ export default function DonationStats({
   return (
     <Section spacing="lg" background="slate" className={className}>
       <Container size="lg">
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -79,7 +79,7 @@ export default function DonationStats({
           
           <Grid cols={3} gap="lg" className="mb-12">
             {stats.map((stat, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -96,11 +96,11 @@ export default function DonationStats({
                 <Text size="sm" className="text-gray-300">
                   {stat.description}
                 </Text>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
 
-          <motion.div
+          <m.div
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8, delay: 0.6 }}
@@ -127,8 +127,8 @@ export default function DonationStats({
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </Container>
     </Section>
   )

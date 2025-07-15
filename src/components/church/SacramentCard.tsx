@@ -70,7 +70,7 @@ export default function SacramentCard({
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay }}
@@ -124,7 +124,7 @@ export default function SacramentCard({
           </CardContent>
         </Card>
       </Link>
-    </motion.div>
+    </m.div>
   )
 }
 

@@ -74,7 +74,7 @@ export default function VenueCard({
 
   if (variant === 'compact') {
     return (
-      <motion.div
+      <m.div
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
         transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -124,12 +124,12 @@ export default function VenueCard({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     )
   }
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -255,7 +255,7 @@ export default function VenueCard({
           </div>
         </div>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }
 

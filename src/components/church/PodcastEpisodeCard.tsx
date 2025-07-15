@@ -95,7 +95,7 @@ export default function PodcastEpisodeCard({
 
   if (variant === 'featured') {
     return (
-      <motion.div
+      <m.div
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
         transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay }}
@@ -205,13 +205,13 @@ export default function PodcastEpisodeCard({
             </div>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     )
   }
 
   // Horizontal layout for episode list
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay }}
@@ -317,7 +317,7 @@ export default function PodcastEpisodeCard({
           </div>
         </div>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }
 

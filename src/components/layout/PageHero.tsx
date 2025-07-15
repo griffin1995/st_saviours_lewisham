@@ -92,7 +92,7 @@ export default function PageHero({
   const [autoPageName, setAutoPageName] = useState<string | null>(null)
   
   // Select motion component type based on LazyMotion context
-  const MotionDiv = insideLazyMotion ? m.div : motion.div
+  const MotionDiv = insideLazyMotion ? m.div : m.div
   
   // Auto-detect page name from URL if not provided
   useEffect(() => {

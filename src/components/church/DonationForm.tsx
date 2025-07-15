@@ -122,7 +122,7 @@ export default function DonationForm({
   const secondRow = presetAmounts.slice(3, 6)
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
@@ -256,7 +256,7 @@ export default function DonationForm({
 
             {/* Additional Details Form */}
             {showDetails && (
-              <motion.div
+              <m.div
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, height: 'auto' }}
                 transition={reducedMotion ? { duration: 0.2 } : { duration: 0.3 }}
@@ -307,7 +307,7 @@ export default function DonationForm({
                     </Text>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Submit Button */}
@@ -334,6 +334,6 @@ export default function DonationForm({
           </form>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }

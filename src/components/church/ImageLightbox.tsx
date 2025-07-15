@@ -102,7 +102,7 @@ export default function ImageLightbox({
   return (
     <AnimatePresence>
       {image && (
-        <motion.div
+        <m.div
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0 }}
           animate={reducedMotion ? { opacity: 1 } : { opacity: 1 }}
           exit={reducedMotion ? { opacity: 0 } : { opacity: 0 }}
@@ -153,7 +153,7 @@ export default function ImageLightbox({
             )}
 
             {/* Image Container */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
               animate={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
               exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
@@ -174,7 +174,7 @@ export default function ImageLightbox({
               </div>
 
               {/* Image Details */}
-              <motion.div
+              <m.div
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 transition={reducedMotion ? { duration: 0.2 } : { duration: 0.4, delay: 0.1 }}
@@ -213,10 +213,10 @@ export default function ImageLightbox({
                     </Text>
                   )}
                 </Flex>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

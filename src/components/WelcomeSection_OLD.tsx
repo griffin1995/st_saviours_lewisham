@@ -41,7 +41,7 @@ export default function WelcomeSection() {
         <div className="grid lg:grid-cols-3 gap-16">
           {/* Left 2/3 - Welcome content with enhanced typography */}
           <div className="lg:col-span-2 space-y-12">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={prefersReducedMotion 
@@ -53,7 +53,7 @@ export default function WelcomeSection() {
             >
               {/* Enhanced section heading with subtle animation */}
               <div className="relative">
-                <motion.div
+                <m.div
                   className="absolute -left-4 top-0 w-1 h-16 bg-gradient-to-b from-gold-500 to-gold-600 rounded-full"
                   initial={prefersReducedMotion ? { opacity: 0 } : { height: 0 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { height: 64 }}
@@ -126,7 +126,7 @@ export default function WelcomeSection() {
               </div>
 
               {/* Enhanced CTA with modern button design */}
-              <motion.div
+              <m.div
                 className="flex flex-col sm:flex-row gap-4 pt-4"
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ export default function WelcomeSection() {
                 }
                 viewport={{ once: true }}
               >
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -1 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -148,9 +148,9 @@ export default function WelcomeSection() {
                     Learn More About Us
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </Link>
-                </motion.div>
+                </m.div>
                 
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -1 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   transition={prefersReducedMotion ? {} : { type: "spring", stiffness: 300, damping: 20 }}
@@ -162,14 +162,14 @@ export default function WelcomeSection() {
                     Get in Touch
                     <Phone className="ml-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
                   </Link>
-                </motion.div>
-              </motion.div>
-            </motion.div>
+                </m.div>
+              </m.div>
+            </m.div>
           </div>
 
           {/* Right 1/3 - Today's Services - Clean Modern Design */}
           <div className="lg:col-span-1">
-            <motion.div
+            <m.div
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
               whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
               transition={prefersReducedMotion 
@@ -199,7 +199,7 @@ export default function WelcomeSection() {
                 <div className="p-6 !bg-white">
                   <div className="space-y-4">
                     {todaysServices.map((service, index) => (
-                      <motion.div
+                      <m.div
                         key={index}
                         className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0"
                         initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
@@ -224,14 +224,14 @@ export default function WelcomeSection() {
                           )}
                         </div>
                         <div className="w-2 h-2 bg-gold-600 rounded-full flex-shrink-0"></div>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
 
                 {/* View All Services Button */}
                 <div className="p-6 pt-0 !bg-white">
-                  <motion.div
+                  <m.div
                     whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                     whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   >
@@ -240,7 +240,7 @@ export default function WelcomeSection() {
                       <span>View Complete Schedule</span>
                       <ArrowRight className="h-4 w-4" />
                     </button>
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
@@ -274,7 +274,7 @@ export default function WelcomeSection() {
                 <p className="text-sm text-gray-600 mb-4">
                   Our parish office is here to help with any questions about services or parish life.
                 </p>
-                <motion.div
+                <m.div
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                 >
@@ -285,9 +285,9 @@ export default function WelcomeSection() {
                     <Phone className="h-4 w-4" />
                     <span>Contact Parish Office</span>
                   </Link>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>

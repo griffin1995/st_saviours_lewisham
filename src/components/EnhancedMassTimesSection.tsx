@@ -212,7 +212,7 @@ export default function EnhancedMassTimesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 relative z-10">
         
         {/* Section Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -242,11 +242,11 @@ export default function EnhancedMassTimesSection() {
               Sacred Services
             </span>
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Next Mass Alert */}
         {nextMass && (
-          <motion.div
+          <m.div
             className={`mb-12 rounded-2xl p-6 border-2 ${
               resolvedTheme === 'dark'
                 ? 'bg-gradient-to-r from-gold-900/30 to-gold-800/30 border-gold-600/50'
@@ -262,7 +262,7 @@ export default function EnhancedMassTimesSection() {
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <motion.div
+                <m.div
                   className={`p-3 rounded-xl ${
                     resolvedTheme === 'dark' ? 'bg-gold-600' : 'bg-gold-500'
                   }`}
@@ -276,7 +276,7 @@ export default function EnhancedMassTimesSection() {
                   }}
                 >
                   <Bell className="h-6 w-6 text-white" />
-                </motion.div>
+                </m.div>
                 <div>
                   <h3 className={`text-xl font-semibold ${
                     resolvedTheme === 'dark' ? 'text-cream-100' : 'text-charcoal-800'
@@ -303,11 +303,11 @@ export default function EnhancedMassTimesSection() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Day Selector */}
-        <motion.div
+        <m.div
           className="mb-12"
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -341,11 +341,11 @@ export default function EnhancedMassTimesSection() {
               </motion.button>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Mass Schedule */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={selectedDay}
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
             animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
@@ -357,7 +357,7 @@ export default function EnhancedMassTimesSection() {
           >
             <div className="grid gap-6">
               {currentSchedule.masses.map((mass, index) => (
-                <motion.div
+                <m.div
                   key={mass.id}
                   className={`rounded-2xl p-6 border transition-all duration-300 ${
                     mass.isNext
@@ -478,13 +478,13 @@ export default function EnhancedMassTimesSection() {
                       Add to Calendar
                     </button>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
             {/* Special Events */}
             {currentSchedule.specialEvents && currentSchedule.specialEvents.length > 0 && (
-              <motion.div
+              <m.div
                 className={`mt-8 rounded-2xl p-6 border ${
                   resolvedTheme === 'dark'
                     ? 'bg-primary-900/30 border-primary-700'
@@ -512,9 +512,9 @@ export default function EnhancedMassTimesSection() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </m.div>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </section>

@@ -55,7 +55,7 @@ export default function PodcastSubscribe({
   const reducedMotion = prefersReducedMotion()
 
   return (
-    <motion.div
+    <m.div
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={reducedMotion ? { duration: 0.3 } : { duration: 0.8 }}
@@ -84,7 +84,7 @@ export default function PodcastSubscribe({
         <div className="max-w-2xl mx-auto">
           <Grid cols={4} gap="md" className="grid-cols-2 md:grid-cols-4">
             {platforms.map((platform, index) => (
-              <motion.div
+              <m.div
                 key={platform.name}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export default function PodcastSubscribe({
                     {platform.name}
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </Grid>
         </div>
@@ -182,7 +182,7 @@ export default function PodcastSubscribe({
           </Grid>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 

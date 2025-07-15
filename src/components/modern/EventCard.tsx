@@ -199,7 +199,7 @@ const EventCard: React.FC<EventCardProps> = ({
   // Render variants
   if (variant === 'compact') {
     return (
-      <motion.div
+      <m.div
         variants={cardVariants}
         initial="hidden"
         whileInView="visible"
@@ -229,13 +229,13 @@ const EventCard: React.FC<EventCardProps> = ({
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
   if (variant === 'list') {
     return (
-      <motion.div
+      <m.div
         variants={cardVariants}
         initial="hidden"
         whileInView="visible"
@@ -308,13 +308,13 @@ const EventCard: React.FC<EventCardProps> = ({
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
   // Default variant
   return (
-    <motion.div
+    <m.div
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
@@ -362,7 +362,7 @@ const EventCard: React.FC<EventCardProps> = ({
               
               <AnimatePresence>
                 {showShareMenu && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, scale: 0.8, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: -10 }}
@@ -375,7 +375,7 @@ const EventCard: React.FC<EventCardProps> = ({
                       <ArrowTopRightOnSquareIcon className="h-4 w-4" />
                       Copy Link
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -513,7 +513,7 @@ const EventCard: React.FC<EventCardProps> = ({
           </div>
         )}
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 
