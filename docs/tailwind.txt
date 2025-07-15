@@ -205,9 +205,9 @@ CODE:
 import { motion } from "framer-motion";
 
 export const MyComponent = () => (
-  <motion.div initial={{ y: "var(--spacing-8)" }} animate={{ y: 0 }} exit={{ y: "var(--spacing-8)" }}>
+  <m.div initial={{ y: "var(--spacing-8)" }} animate={{ y: 0 }} exit={{ y: "var(--spacing-8)" }}>
     {children}
-  </motion.div>
+  </m.div>
 );
 ```
 
@@ -930,7 +930,7 @@ SOURCE: https://github.com/tailwindlabs/tailwindcss.com/blob/main/src/docs/upgra
 LANGUAGE: JSX
 CODE:
 ```
-<motion.div animate={{ backgroundColor: "var(--color-blue-500)" }} />
+<m.div animate={{ backgroundColor: "var(--color-blue-500)" }} />
 ```
 
 ----------------------------------------

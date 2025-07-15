@@ -3683,7 +3683,7 @@ export default function TicketsPage({ tickets }) {
             index >= PAGE_COUNT * 2 ? (index - PAGE_COUNT * (offset - 1)) / 15 : index / 15
 
           return (
-            <motion.div
+            <m.div
               key={ticket.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -3694,7 +3694,7 @@ export default function TicketsPage({ tickets }) {
               }}
             >
               {/* Actual ticket component */}
-            </motion.div>
+            </m.div>
           )
         })
       }
