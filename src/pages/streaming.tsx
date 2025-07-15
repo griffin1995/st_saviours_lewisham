@@ -677,7 +677,7 @@ export default function Streaming() {
         onPerformanceData={(data) => {
           console.log('Streaming performance:', data)
         }}
-      /> */
+      /> */}
 
       {/* Accessibility Enhancer */}
       {/* <AccessibilityEnhancer

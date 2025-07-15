@@ -31,14 +31,14 @@ import {
 } from '@/components/ui'
 import { SacramentCard, type Sacrament } from '@/components/church'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { InteractiveSacramentalJourney } from '@/components/enhanced/InteractiveSacramentalJourney'
-import { SacramentalPreparationTracker } from '@/components/enhanced/SacramentalPreparationTracker'
-import { SacramentalCalendarIntegration } from '@/components/enhanced/SacramentalCalendarIntegration'
-import { SpiritualGrowthTracker } from '@/components/enhanced/SpiritualGrowthTracker'
-import { SacramentalResourcesLibrary } from '@/components/enhanced/SacramentalResourcesLibrary'
+// import { InteractiveSacramentalJourney } from '@/components/enhanced/InteractiveSacramentalJourney'
+// import { SacramentalPreparationTracker } from '@/components/enhanced/SacramentalPreparationTracker'
+// import { SacramentalCalendarIntegration } from '@/components/enhanced/SacramentalCalendarIntegration'
+// import { SpiritualGrowthTracker } from '@/components/enhanced/SpiritualGrowthTracker'
+// import { SacramentalResourcesLibrary } from '@/components/enhanced/SacramentalResourcesLibrary'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -569,7 +569,6 @@ export default function TheSacraments() {
                 </Card>
               </div>
             </animated.div>
-          </ScrollRevealSection>
         </Container>
       </Section>
       )}
