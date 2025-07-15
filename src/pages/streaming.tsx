@@ -10,6 +10,8 @@ import { Bar, Line } from 'react-chartjs-2'
 import { PageLayout, PageHero } from '@/components/layout'
 import { 
   Button, 
+  Card,
+  CardContent,
   Heading, 
   Text, 
   Section,
@@ -25,14 +27,14 @@ import {
 } from '@/components/church'
 import { LiveStreamingDashboard, StreamingAnalytics } from '@/components/enhanced'
 import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { InteractiveStreamingSchedule } from '@/components/enhanced/InteractiveStreamingSchedule'
-import { VirtualCommunionIntegration } from '@/components/enhanced/VirtualCommunionIntegration'
-import { LiveChatSystem } from '@/components/enhanced/LiveChatSystem'
-import { PrayerIntentionSubmission } from '@/components/enhanced/PrayerIntentionSubmission'
-import { StreamingQualityControls } from '@/components/enhanced/StreamingQualityControls'
+// import { InteractiveStreamingSchedule } from '@/components/enhanced/InteractiveStreamingSchedule'
+// import { VirtualCommunionIntegration } from '@/components/enhanced/VirtualCommunionIntegration'
+// import { LiveChatSystem } from '@/components/enhanced/LiveChatSystem'
+// import { PrayerIntentionSubmission } from '@/components/enhanced/PrayerIntentionSubmission'
+// import { StreamingQualityControls } from '@/components/enhanced/StreamingQualityControls'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
-import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
 import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
 import { typographyScale } from '@/lib/fonts'
 import ScrollRevealSection from '@/components/ScrollRevealSection'
@@ -304,13 +306,6 @@ export default function Streaming() {
               streamTitle="Sunday Mass - 11:30 AM"
               streamDescription="Join our parish community for the celebration of the Eucharist with hymns, prayers, and fellowship."
               nextStreamTime="Tomorrow at 11:30 AM"
-              onShareStream={() => handleStreamShare({
-                title: 'Sunday Mass - 11:30 AM',
-                description: 'Join our parish community for worship',
-                url: window.location.href
-              })}
-              onOpenChat={() => {/* Chat integration handled below */}}
-              onOpenPrayer={() => setPrayerIntentionsOpen(true)}
               reducedMotion={ui.reducedMotion}
             />
           </animated.div>
@@ -404,7 +399,6 @@ export default function Streaming() {
                 </Card>
               </div>
             </animated.div>
-          </ScrollRevealSection>
         </Container>
       </Section>
       )}
@@ -435,14 +429,14 @@ export default function Streaming() {
               </p>
             </Motion.div>
             
-            <InteractiveStreamingSchedule
+            {/* <InteractiveStreamingSchedule
               streams={upcomingStreams}
               onSetReminder={handleReminderSignup}
               onWatchStream={handleWatchStream}
               onShareStream={handleStreamShare}
               currentViewerCount={viewerCount}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -473,7 +467,7 @@ export default function Streaming() {
               </p>
             </Motion.div>
             
-            <VirtualCommunionIntegration
+            {/* <VirtualCommunionIntegration
               isLive={isLive}
               streamType="mass"
               onSpiritualCommunion={() => {
@@ -484,7 +478,7 @@ export default function Streaming() {
                 })
               }}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -515,14 +509,14 @@ export default function Streaming() {
               </p>
             </Motion.div>
             
-            <LiveChatSystem
+            {/* <LiveChatSystem
               isLive={isLive}
               messages={chatMessages}
               onSendMessage={handleChatMessage}
               viewerCount={viewerCount}
               moderationEnabled={true}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -553,13 +547,13 @@ export default function Streaming() {
               </p>
             </Motion.div>
             
-            <PrayerIntentionSubmission
+            {/* <PrayerIntentionSubmission
               isOpen={prayerIntentionsOpen}
               onClose={() => setPrayerIntentionsOpen(false)}
               onSubmit={handlePrayerIntention}
               streamingService="Live Mass"
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -590,7 +584,7 @@ export default function Streaming() {
               </p>
             </Motion.div>
             
-            <StreamingQualityControls
+            {/* <StreamingQualityControls
               isOpen={qualitySettingsOpen}
               onClose={() => setQualitySettingsOpen(false)}
               onQualityChange={(quality) => {
@@ -603,7 +597,7 @@ export default function Streaming() {
               currentQuality="HD"
               availableQualities={['4K', 'HD', 'SD', 'Audio Only']}
               reducedMotion={ui.reducedMotion}
-            />
+            /> */}
           </ScrollRevealSection>
         </Container>
       </Section>
@@ -668,16 +662,13 @@ export default function Streaming() {
 
       {/* Social Sharing Modal */}
       <SocialSharingSystem
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareData={shareStreamData}
-        type="live-stream"
-        analytics={true}
-        customMessage="Join us for live worship at St Saviour's Catholic Church!"
+        articleId="live-stream"
+        title="Live Streaming at St Saviour's"
+        url="https://stsaviourlewisham.org.uk/streaming"
       />
 
       {/* Performance Monitor */}
-      <PerformanceMonitor
+      {/* <PerformanceMonitor
         pageName="Live Streaming"
         trackLoadTimes={true}
         trackInteractions={true}
@@ -686,10 +677,10 @@ export default function Streaming() {
         onPerformanceData={(data) => {
           console.log('Streaming performance:', data)
         }}
-      />
+      /> */
 
       {/* Accessibility Enhancer */}
-      <AccessibilityEnhancer
+      {/* <AccessibilityEnhancer
         keyboardNavigation={{
           enableArrowKeys: true,
           enableSpaceBar: true,
@@ -713,7 +704,7 @@ export default function Streaming() {
           enableFocusVisible: true,
           enableCaptionsSupport: true
         }}
-      />
+      /> */}
     </PageLayout>
   )
 }
