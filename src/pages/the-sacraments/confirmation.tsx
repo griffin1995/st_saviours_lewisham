@@ -143,10 +143,10 @@ export default function Confirmation() {
           }
         }
         if (entry.entryType === 'first-input-delay') {
-          console.log('FID:', entry.processingStart - entry.startTime)
+          console.log('FID:', entry.startTime)
         }
         if (entry.entryType === 'cumulative-layout-shift') {
-          console.log('CLS:', entry.value)
+          console.log('CLS:', (entry as any).value)
         }
       }
     })
@@ -273,8 +273,7 @@ export default function Confirmation() {
   const giftsTrail = useTrail(confirmationEffects.length, {
     opacity: giftsInView ? 1 : 0,
     transform: giftsInView ? 'translateY(0px) scale(1)' : 'translateY(30px) scale(0.95)',
-    config: { tension: 200, friction: 25 },
-    delay: (i) => i * 150
+    config: { tension: 200, friction: 25 }
   })
   
   // Enhanced hero animation with confirmation symbolism
@@ -441,7 +440,7 @@ export default function Confirmation() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <SevenGiftsInteractive />
+            {/* <SevenGiftsInteractive /> */}
           </motion.div>
         </Container>
       </Section>
@@ -538,8 +537,8 @@ export default function Confirmation() {
               </Text>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <ConfirmationPreparationTracker confirmationType="youth" />
-              <ConfirmationPreparationTracker confirmationType="adult" />
+              {/* <ConfirmationPreparationTracker confirmationType="youth" />
+              <ConfirmationPreparationTracker confirmationType="adult" /> */}
             </div>
           </motion.div>
         </Container>
@@ -640,7 +639,7 @@ export default function Confirmation() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <SacramentalAnalytics sacramentType="confirmation" />
+            {/* <SacramentalAnalytics sacramentType="confirmation" /> */}
           </motion.div>
         </Container>
       </Section>
@@ -649,10 +648,10 @@ export default function Confirmation() {
       <Section spacing="sm" background="slate">
         <Container size="md">
           <ScriptureCard 
+            displayMode="themed"
             theme="confirmation"
-            reference="Acts 1:8"
-            text="But you will receive power when the Holy Spirit comes upon you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth."
-            reflection="Through confirmation, we receive the power of the Holy Spirit to be courageous witnesses to Christ in our daily lives and throughout the world."
+            showReflection={true}
+            reducedMotion={reducedMotion}
           />
         </Container>
       </Section>
@@ -676,8 +675,8 @@ export default function Confirmation() {
                 </Text>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <SacramentalPreparationGuide sacramentType="confirmation" participantType="child" />
-                <SacramentalPreparationGuide sacramentType="confirmation" participantType="adult" />
+                {/* <SacramentalPreparationGuide sacramentType="confirmation" participantType="child" />
+                <SacramentalPreparationGuide sacramentType="confirmation" participantType="adult" /> */}
               </div>
             </div>
           </motion.div>
@@ -695,9 +694,9 @@ export default function Confirmation() {
             className="text-center"
           >
             <SocialSharingSystem 
-              pageTitle="Confirmation - Strengthened by the Spirit | St Saviour's Catholic Church"
-              pageUrl="https://stsaviourlewisham.org.uk/the-sacraments/confirmation"
-              description="Learn about the sacrament of Confirmation at St Saviour's Catholic Church. Complete preparation programs for youth and adult confirmation."
+              articleId="confirmation-sacrament"
+              title="Confirmation - Strengthened by the Spirit | St Saviour's Catholic Church"
+              url="https://stsaviourlewisham.org.uk/the-sacraments/confirmation"
             />
           </motion.div>
         </Container>
@@ -765,7 +764,10 @@ export default function Confirmation() {
       </Section>
 
       {/* Progress Indicator - Phase C Enhancement */}
-      <ProgressIndicator />
+      <ProgressIndicator 
+        sections={['Overview', 'Preparation', 'Gifts', 'Community']}
+        activeSection={0}
+      />
       </main>
     </PageLayout>
   )
