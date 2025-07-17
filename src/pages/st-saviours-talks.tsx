@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, m } from "framer-motion";
 import { PageLayout } from "@/components/layout";
 import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";

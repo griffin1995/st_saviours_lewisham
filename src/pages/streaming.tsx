@@ -3,6 +3,7 @@ import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
 import { Play, Calendar, ExternalLink, Heart, MessageCircle, Users, Settings } from 'lucide-react'
+import { m } from 'framer-motion'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement, PointElement } from 'chart.js'
 import { Bar, Line } from 'react-chartjs-2'
 
