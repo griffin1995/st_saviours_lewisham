@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, m } from 'framer-motion';
 import { Play, Users, Calendar, Clock, Radio, Video } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 

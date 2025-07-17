@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, m } from "framer-motion";
 import { ArrowRight, Phone, Calendar, Clock } from "lucide-react";
 import { getTodaysServices } from "@/lib/data";
 import { staggerContainer, staggerItem } from "@/lib/animations";

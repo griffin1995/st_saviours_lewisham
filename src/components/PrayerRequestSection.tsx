@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, m } from 'framer-motion';
 import { Heart, Send, Lock, Check, User, MessageCircle, Calendar } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
