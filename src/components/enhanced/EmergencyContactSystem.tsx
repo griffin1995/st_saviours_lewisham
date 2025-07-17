@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
 import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   ExclamationTriangleIcon,
