@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import { Clock, MapPin, Users, Mail, Phone, ExternalLink } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Flex } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'

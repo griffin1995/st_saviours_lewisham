@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import Image from 'next/image'
 import { Camera, Calendar, Filter } from 'lucide-react'
 import { Button, Card, CardContent, Heading, Text, Grid, Flex } from '@/components/ui'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import { Mail, Calendar, Users, ChevronDown } from 'lucide-react'
 import { Card, CardContent, Button, Text, Heading } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'

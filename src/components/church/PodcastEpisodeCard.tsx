@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Play, Pause, Download, Calendar, Clock, User } from 'lucide-react'

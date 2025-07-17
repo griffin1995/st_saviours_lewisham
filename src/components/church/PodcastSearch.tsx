@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import { Search, Filter } from 'lucide-react'
 import { Card, CardContent, Text, Flex } from '@/components/ui'
 import { prefersReducedMotion } from '@/lib/utils'

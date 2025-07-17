@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, m } from 'framer-motion'
 import Image from 'next/image'
 import { Users, Building, CheckCircle, Calendar } from 'lucide-react'
 import { Card, CardContent, Button, Heading, Text, Flex, Grid } from '@/components/ui'

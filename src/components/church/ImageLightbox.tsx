@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
 import { Button, Heading, Text, Flex } from '@/components/ui'
