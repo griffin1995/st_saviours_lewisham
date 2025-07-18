@@ -134,14 +134,14 @@ export function EnhancedContactForm({ onSubmit, reducedMotion = false }: Enhance
   if (submitSuccess) {
     return (
       <animated.div style={successSpring} className="text-center py-12">
-        <m.div
+        <Motion
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6"
         >
           <CheckCircleIcon className="h-10 w-10 text-white" />
-        </m.div>
+        </Motion>
         <h3 className={`${typographyScale.h3} text-slate-900 mb-4`}>
           Message Sent Successfully!
         </h3>
