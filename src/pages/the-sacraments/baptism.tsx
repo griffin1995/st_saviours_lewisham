@@ -54,17 +54,26 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SacramentalScriptureSection } from '@/components/shared/content'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
 import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 // import { BaptismPreparationTracker } from '@/components/enhanced/BaptismPreparationTracker'
 // import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
 // import { SacramentalPreparationGuide } from '@/components/enhanced/SacramentalPreparationGuide'
 import { prefersReducedMotion } from '@/lib/utils'
+// CMS DATA SOURCE: Import sacrament image functions
+import { getSacramentImage } from '@/lib/cms-images'
+// CMS DATA SOURCE: Import contact information functions
+import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 export default function Baptism() {
   const reducedMotion = prefersReducedMotion()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  // CMS DATA SOURCE: Get baptism sacrament image
+  const baptismImage = getSacramentImage('baptism')
   const [waterRipples, setWaterRipples] = useState<Array<{ id: number; x: number; y: number }>>([]) 
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 500], [0, 150])
@@ -249,11 +258,12 @@ export default function Baptism() {
     }
   ]
 
+  // CMS DATA SOURCE: Contact information using CMS functions
   const contactInfo = {
     title: "Ready to Begin?",
     description: "Contact us to start your baptism preparation or to schedule an infant baptism. We're here to guide you through this sacred journey.",
-    phone: "020 8852 7411",
-    email: "info@stsaviourslewisham.org.uk"
+    phone: getContactPhone(),
+    email: getContactEmail()
   }
 
   const quote = {
@@ -287,7 +297,7 @@ export default function Baptism() {
       
       <main id="main-content" tabIndex={-1} className="focus:outline-none">
       {/* Enhanced Hero Section with Water Symbolism */}
-      <LazyMotion features={domAnimation}>
+      
         <section 
           className="relative overflow-hidden"
           role="banner"
@@ -336,7 +346,7 @@ export default function Baptism() {
               title="Baptism"
               subtitle="The Sacrament of New Life"
               description="The gateway to life in the Spirit and the door which gives access to the other sacraments."
-              backgroundImage="/images/candles.jpg"
+              backgroundImage={baptismImage?.url}
               height="large"
               overlay="medium"
               insideLazyMotion={true}
@@ -365,7 +375,7 @@ export default function Baptism() {
             />
           </animated.div>
         </section>
-      </LazyMotion>
+      
 
       {/* Enhanced Sacrament Information with Animations */}
       <Section spacing="lg" background="slate">
@@ -494,10 +504,8 @@ export default function Baptism() {
       {/* Scripture Card - Phase D Enhancement */}
       <Section spacing="sm" background="slate">
         <Container size="md">
-          <ScriptureCard 
-            displayMode="themed"
-            theme="baptism"
-            showReflection={true}
+          <SacramentalScriptureSection
+            pageTheme="baptism"
             reducedMotion={reducedMotion}
           />
         </Container>

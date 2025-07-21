@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, LazyMotion, domAnimation, useInView } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useInView, m } from 'framer-motion'
 import { useSpring as useReactSpring, animated, useTrail as useReactTrail } from '@react-spring/web'
 import { 
   HeartIcon as Heart, 
@@ -44,9 +44,15 @@ import {
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
 import { prefersReducedMotion } from '@/lib/utils'
+// CMS DATA SOURCE: Import sacrament image functions
+import { getSacramentImage } from '@/lib/cms-images'
+// CMS DATA SOURCE: Import contact information functions
+import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 // Enhanced Components
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SacramentalScriptureSection } from '@/components/shared/content'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
 import SacramentalAnalytics from '@/components/enhanced/SacramentalAnalytics'
 
@@ -255,7 +261,7 @@ const ExaminationOfConscienceGuide = () => {
             </Text>
             <ul className="space-y-2">
               {examineSteps[currentStep].questions.map((question, qIndex) => (
-                <motion.li
+                <m.li
                   key={qIndex}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -264,7 +270,7 @@ const ExaminationOfConscienceGuide = () => {
                 >
                   <div className="w-2 h-2 bg-gold-500 rounded-full mt-2 flex-shrink-0" />
                   <Text className="text-sm">{question}</Text>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
           </div>
@@ -299,6 +305,9 @@ const ExaminationOfConscienceGuide = () => {
 
 export default function Confession() {
   const reducedMotion = prefersReducedMotion()
+  
+  // CMS DATA SOURCE: Get confession sacrament image
+  const confessionImage = getSacramentImage('confession')
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
 
@@ -387,8 +396,8 @@ export default function Confession() {
   const contactInfo = {
     title: "Ready to Experience God's Mercy?",
     description: "Don't let fear or shame keep you from God's infinite mercy. Take the first step toward reconciliation and peace.",
-    phone: "020 8852 7411",
-    email: "info@stsaviourslewisham.org.uk"
+    phone: getContactPhone(),
+    email: getContactEmail()
   }
 
   const quote = {
@@ -461,7 +470,7 @@ export default function Confession() {
   })
 
   return (
-    <LazyMotion features={domAnimation}>
+    
       <PageLayout
         title="Confession"
         description="Learn about the Sacrament of Confession at St Saviour's Catholic Church. Information on confession times, how to confess, and God's mercy."
@@ -479,7 +488,7 @@ export default function Confession() {
             title="Sacrament of Confession"
             subtitle="God's Gift of Forgiveness"
             description="Experience God's infinite mercy and forgiveness through the sacrament of confession and reconciliation."
-            backgroundImage="/images/inside-church-aisle.jpg"
+            backgroundImage={confessionImage?.url}
             height="large"
             overlay="medium"
             actions={
@@ -536,10 +545,9 @@ export default function Confession() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <ScriptureCard
-                displayMode="themed"
-                theme={confessionScripture.theme}
-                showAudio={true}
+              <SacramentalScriptureSection
+                pageTheme="confession"
+                reducedMotion={reducedMotion}
                 className="max-w-4xl mx-auto"
               />
             </m.div>
@@ -659,7 +667,7 @@ export default function Confession() {
                     and joy that comes from knowing you are completely forgiven and loved.
                   </Text>
                   <Flex justify="center" gap="lg" wrap>
-                    <motion.a 
+                    <m.a 
                       href="tel:020 8852 7411"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -667,8 +675,8 @@ export default function Confession() {
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
                         📞 020 8852 7411
                       </Text>
-                    </motion.a>
-                    <motion.a 
+                    </m.a>
+                    <m.a 
                       href="mailto:info@stsaviourslewisham.org.uk"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -676,7 +684,7 @@ export default function Confession() {
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
                         ✉️ info@stsaviourslewisham.org.uk
                       </Text>
-                    </motion.a>
+                    </m.a>
                   </Flex>
                 </div>
               </div>
@@ -717,7 +725,7 @@ export default function Confession() {
           </div>
         </div>
       </PageLayout>
-    </LazyMotion>
+    
   )
 }
 

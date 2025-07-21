@@ -57,7 +57,9 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SacramentalScriptureSection } from '@/components/shared/content'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
 import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 // import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
@@ -65,10 +67,17 @@ import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 // import { FirstCommunionTracker } from '@/components/enhanced/FirstCommunionTracker'
 // import { MassPartsExplainer } from '@/components/enhanced/MassPartsExplainer'
 import { prefersReducedMotion } from '@/lib/utils'
+// CMS DATA SOURCE: Import sacrament image functions
+import { getSacramentImage } from '@/lib/cms-images'
+// CMS DATA SOURCE: Import contact information functions
+import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 export default function TheEucharist() {
   const reducedMotion = prefersReducedMotion()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  // CMS DATA SOURCE: Get eucharist sacrament image
+  const eucharistImage = getSacramentImage('eucharist')
   const [eucharisticParticles, setEucharisticParticles] = useState<Array<{ id: number; x: number; y: number; type: 'host' | 'chalice' }>>([])
   const [consecrationMoments, setConsecrationMoments] = useState<Array<{ id: number; visible: boolean; element: string }>>([])
   const { scrollY } = useScroll()
@@ -259,8 +268,8 @@ export default function TheEucharist() {
   const contactInfo = {
     title: "Join Us for Mass",
     description: "Experience the beauty and mystery of the Eucharist at St Saviour's. All are welcome to join us for Mass and encounter Christ in the Blessed Sacrament.",
-    phone: "020 8852 7411",
-    email: "info@stsaviourslewisham.org.uk"
+    phone: getContactPhone(),
+    email: getContactEmail()
   }
 
   const quote = {
@@ -318,7 +327,6 @@ export default function TheEucharist() {
       
       <main id="main-content" tabIndex={-1} className="focus:outline-none">
       {/* Enhanced Hero Section with Eucharistic Symbolism */}
-      <LazyMotion features={domAnimation}>
         <section 
           className="relative overflow-hidden"
           role="banner"
@@ -372,7 +380,7 @@ export default function TheEucharist() {
               title="The Holy Eucharist"
               subtitle="Source and Summit of Christian Life"
               description="The Eucharist is the Body and Blood of Christ, truly present under the appearances of bread and wine."
-              backgroundImage="/images/inside-church-aisle.jpg"
+              backgroundImage={eucharistImage?.url}
               height="large"
               overlay="medium"
               insideLazyMotion={true}
@@ -401,7 +409,7 @@ export default function TheEucharist() {
             />
           </animated.div>
         </section>
-      </LazyMotion>
+      
 
       {/* Sacrament Information */}
       <Section spacing="lg" background="slate">
@@ -561,10 +569,8 @@ export default function TheEucharist() {
       {/* Scripture Card - Phase D Enhancement */}
       <Section spacing="sm" background="slate">
         <Container size="md">
-          <ScriptureCard 
-            displayMode="themed"
-            theme="eucharist"
-            showReflection={true}
+          <SacramentalScriptureSection
+            pageTheme="eucharist"
             reducedMotion={reducedMotion}
           />
         </Container>

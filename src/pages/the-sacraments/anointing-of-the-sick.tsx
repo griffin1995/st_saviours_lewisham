@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, LazyMotion, domAnimation, useInView } from 'framer-motion'
+import { motion, LazyMotion, domAnimation, useInView, m } from 'framer-motion'
 import { useSpring as useReactSpring, animated, useTrail as useReactTrail } from '@react-spring/web'
 import { 
   PlusIcon as Plus, 
@@ -45,9 +45,15 @@ import {
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
 import { prefersReducedMotion } from '@/lib/utils'
+// CMS DATA SOURCE: Import sacrament image functions
+import { getSacramentImage } from '@/lib/cms-images'
+// CMS DATA SOURCE: Import contact information functions
+import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 // Enhanced Components
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SacramentalScriptureSection } from '@/components/shared/content'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
 import SacramentalAnalytics from '@/components/enhanced/SacramentalAnalytics'
 
@@ -404,6 +410,9 @@ const AnointingPreparationGuide = () => {
 
 export default function AnointingOfTheSick() {
   const reducedMotion = prefersReducedMotion()
+  
+  // CMS DATA SOURCE: Get anointing sacrament image
+  const anointingImage = getSacramentImage('anointing')
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
 
@@ -492,7 +501,7 @@ export default function AnointingOfTheSick() {
   const emergencyContacts: EmergencyContact[] = [
     {
       name: "Fr. Parish Priest",
-      phone: "020 8852 7411",
+      phone: getContactPhone(),
       role: "Parish Priest",
       availability: "24/7 Emergency",
       urgent: true
@@ -513,7 +522,7 @@ export default function AnointingOfTheSick() {
     },
     {
       name: "Emergency Line",
-      phone: "020 8852 7411",
+      phone: getContactPhone(),
       role: "Parish Emergency",
       availability: "After Hours",
       urgent: true
@@ -583,7 +592,7 @@ export default function AnointingOfTheSick() {
   })
 
   return (
-    <LazyMotion features={domAnimation}>
+    
       <PageLayout
         title="Anointing of the Sick"
         description="Learn about the Sacrament of Anointing of the Sick at St Saviour's Catholic Church. Information on spiritual healing, comfort, and last rites."
@@ -601,7 +610,7 @@ export default function AnointingOfTheSick() {
             title="Anointing of the Sick"
             subtitle="Sacrament of Healing and Comfort"
             description="Christ's healing touch continues through this sacrament of spiritual and physical restoration."
-            backgroundImage="/images/inside-church-aisle.jpg"
+            backgroundImage={anointingImage?.url}
             height="large"
             overlay="medium"
             actions={
@@ -658,10 +667,9 @@ export default function AnointingOfTheSick() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <ScriptureCard
-                displayMode="themed"
-                theme={anointingScripture.theme}
-                showAudio={true}
+              <SacramentalScriptureSection
+                pageTheme="anointing-of-the-sick"
+                reducedMotion={reducedMotion}
                 className="max-w-4xl mx-auto"
               />
             </m.div>
@@ -781,7 +789,7 @@ export default function AnointingOfTheSick() {
                     comfort and healing through this beautiful sacrament of God's love and mercy.
                   </Text>
                   <Flex justify="center" gap="lg" wrap>
-                    <motion.a 
+                    <m.a 
                       href="tel:020 8852 7411"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -789,8 +797,8 @@ export default function AnointingOfTheSick() {
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
                         📞 020 8852 7411
                       </Text>
-                    </motion.a>
-                    <motion.a 
+                    </m.a>
+                    <m.a 
                       href="mailto:info@stsaviourslewisham.org.uk"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -798,7 +806,7 @@ export default function AnointingOfTheSick() {
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
                         ✉️ info@stsaviourslewisham.org.uk
                       </Text>
-                    </motion.a>
+                    </m.a>
                   </Flex>
                 </div>
               </div>
@@ -839,7 +847,7 @@ export default function AnointingOfTheSick() {
           </div>
         </div>
       </PageLayout>
-    </LazyMotion>
+    
   )
 }
 

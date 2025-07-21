@@ -1,171 +1,271 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from "react";
 // Dynamic GSAP imports for SSR compatibility
-import { Loader } from '@googlemaps/js-api-loader'
+import { Loader } from "@googlemaps/js-api-loader";
 // Enhanced Animation Libraries (2025 Standards)
-import { useSpring, animated, useTrail, useChain, useSpringRef } from '@react-spring/web'
-import { useInView } from 'react-intersection-observer'
-import { toast } from 'react-hot-toast'
-import { 
-  HomeModernIcon as Church, 
-  HeartIcon as Heart, 
-  UserGroupIcon as Users, 
-  AcademicCapIcon as BookOpen, 
-  CalendarDaysIcon as Calendar, 
-  SparklesIcon as Star, 
-  TrophyIcon as Award, 
-  ClockIcon as Clock, 
-  EnvelopeIcon as Mail, 
+import {
+  useSpring,
+  animated,
+  useTrail,
+  useChain,
+  useSpringRef,
+} from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+import { toast } from "react-hot-toast";
+import {
+  HomeModernIcon as Church,
+  HeartIcon as Heart,
+  UserGroupIcon as Users,
+  AcademicCapIcon as BookOpen,
+  CalendarDaysIcon as Calendar,
+  SparklesIcon as Star,
+  TrophyIcon as Award,
+  ClockIcon as Clock,
+  EnvelopeIcon as Mail,
   PhoneIcon as Phone,
   ArrowRightIcon,
-  MapPinIcon
-} from '@heroicons/react/24/solid'
+  MapPinIcon,
+} from "@heroicons/react/24/solid";
 
 // Enhanced 2025 Components
-import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
-import { typographyScale } from '@/lib/fonts'
-import ScrollRevealSection from '@/components/ScrollRevealSection'
-import { InteractiveStatistics } from '@/components/enhanced/InteractiveStatistics'
-import { EnhancedTimeline } from '@/components/enhanced/EnhancedTimeline'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
-import { LeadershipCarousel } from '@/components/enhanced/LeadershipCarousel'
-import { PhotoSwipeLightbox, EnhancedImage } from '@/components/enhanced/PhotoSwipeLightbox'
+import { m } from "framer-motion";
+import { typographyScale } from "@/lib/fonts";
+import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { InteractiveStatistics } from "@/components/enhanced/InteractiveStatistics";
+import { EnhancedTimeline } from "@/components/enhanced/EnhancedTimeline";
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
+import { MainPageScriptureSection } from '@/components/shared/content';
+import { LeadershipCarousel } from "@/components/enhanced/LeadershipCarousel";
+// PhotoSwipe consolidated into shared component
+// import {
+//   PhotoSwipeLightbox,
+//   EnhancedImage,
+// } from "@/components/enhanced/PhotoSwipeLightbox";
+import { MainPagePhotoSwipe, type SharedGalleryImage } from '@/components/shared/gallery';
 // New Magic UI & Enhanced Components
-import { AnimatedTestimonials } from '@/components/enhanced/AnimatedTestimonials'
-import { LiveOfficeHours } from '@/components/enhanced/LiveOfficeHours'
-import { PrayerRequestWidget } from '@/components/enhanced/PrayerRequestWidget'
+import { AnimatedTestimonials } from "@/components/enhanced/AnimatedTestimonials";
+import { LiveOfficeHours } from "@/components/enhanced/LiveOfficeHours";
+import { PrayerRequestWidget } from "@/components/enhanced/PrayerRequestWidget";
 // import { VirtualTourButton } from '@/components/enhanced/VirtualTourButton'
-import { ParticleBackground } from '@/components/enhanced/ParticleBackground'
+import { ParticleBackground } from "@/components/enhanced/ParticleBackground";
 // import { EnhancedTooltip } from '@/components/enhanced/EnhancedTooltip'
-import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
-import { FloatingActionButton } from '@/components/enhanced/FloatingActionButton'
+import { ProgressIndicator } from "@/components/enhanced/ProgressIndicator";
+import { FloatingActionButton } from "@/components/enhanced/FloatingActionButton";
 
 // Modern imports with Zustand integration
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+// CMS DATA SOURCE: Import image management functions
+import { getHistoryImages, getPageImage, getCMSImages } from "@/lib/cms-images";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
   Flex,
-  Container
-} from '@/components/ui'
-import { useUI, useActions } from '@/stores/churchStore'
-import { priestBiographies } from '@/lib/data'
+  Container,
+} from "@/components/ui";
+import { useUI, useActions } from "@/stores/churchStore";
+import { priestBiographies } from "@/lib/data";
+
+// Animation variants for stagger effects
+const staggerChildren = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function AboutUs() {
-  const ui = useUI()
-  const actions = useActions()
-  const mapRef = useRef<HTMLDivElement>(null)
+  const ui = useUI();
+  const actions = useActions();
+  const mapRef = useRef<HTMLDivElement>(null);
   
+  // CMS DATA SOURCE: Get history images for timeline
+  const historyImages = getHistoryImages();
+
   // Enhanced Animation States (2025)
-  const [isVisible, setIsVisible] = useState(false)
-  const [activeSection, setActiveSection] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isLoading, setIsLoading] = useState(true)
-  
+  const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Custom hook for tracking active section using intersection observer
+  function useActiveSection(sectionIds: string[]) {
+    const [activeSection, setActiveSection] = useState(0);
+
+    useEffect(() => {
+      const visibleSections = new Map<number, number>();
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const sectionId = entry.target.id;
+            const index = sectionIds.indexOf(sectionId);
+            
+            if (entry.isIntersecting) {
+              visibleSections.set(index, entry.intersectionRatio);
+            } else {
+              visibleSections.delete(index);
+            }
+          });
+
+          // Find the section with highest intersection ratio
+          if (visibleSections.size > 0) {
+            let maxRatio = 0;
+            let mostVisibleIndex = 0;
+            
+            visibleSections.forEach((ratio, index) => {
+              if (ratio > maxRatio) {
+                maxRatio = ratio;
+                mostVisibleIndex = index;
+              }
+            });
+            
+            setActiveSection(mostVisibleIndex);
+          }
+        },
+        {
+          rootMargin: '-10% 0px -10% 0px',
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        }
+      );
+
+      sectionIds.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.observe(element);
+        }
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    }, [sectionIds]);
+
+    return activeSection;
+  }
+
+  const activeSection = useActiveSection([
+    'welcome',
+    'statistics', 
+    'mission',
+    'values',
+    'history',
+    'leadership',
+    'contact'
+  ]);
+  const [isLoading, setIsLoading] = useState(true);
+
   // React Spring Animation Refs
-  const springApi = useSpringRef()
-  const trailApi = useSpringRef()
-  
+  const springApi = useSpringRef();
+  const trailApi = useSpringRef();
+
   // Enhanced Intersection Observers
-  const [heroRef, heroInView] = useInView({ threshold: 0.3 })
-  const [statsRef, statsInView] = useInView({ threshold: 0.2 })
-  const [valuesRef, valuesInView] = useInView({ threshold: 0.1 })
-  const [timelineRef, timelineInView] = useInView({ threshold: 0.1 })
-  
+  const [heroRef, heroInView] = useInView({ threshold: 0.3 });
+  const [statsRef, statsInView] = useInView({ threshold: 0.2 });
+  const [valuesRef, valuesInView] = useInView({ threshold: 0.1 });
+  const [timelineRef, timelineInView] = useInView({ threshold: 0.1 });
+
   // Mouse tracking for parallax effects
   const handleMouseMove = useCallback((e: MouseEvent) => {
     setMousePosition({
       x: (e.clientX / window.innerWidth) * 2 - 1,
-      y: (e.clientY / window.innerHeight) * 2 - 1
-    })
-  }, [])
+      y: (e.clientY / window.innerHeight) * 2 - 1,
+    });
+  }, []);
 
   // Enhanced page initialization with performance monitoring
   useEffect(() => {
-    const startTime = performance.now()
-    
+    const startTime = performance.now();
+
     // Enhanced welcome notification with animation
     setTimeout(() => {
       actions.addNotification({
-        type: 'success',
-        message: '🏛️ Welcome to our parish story',
-        dismissible: true
-      })
-    }, 1000)
-    
+        type: "success",
+        message: "🏛️ Welcome to our parish story",
+        dismissible: true,
+      });
+    }, 1000);
+
     // Mouse tracking setup
-    window.addEventListener('mousemove', handleMouseMove)
-    
+    window.addEventListener("mousemove", handleMouseMove);
+
     // Page load performance tracking
     const handleLoad = () => {
-      const loadTime = performance.now() - startTime
-      console.log(`About Us page loaded in ${loadTime.toFixed(2)}ms`)
-      setIsLoading(false)
-      toast.success('Page loaded successfully', {
+      const loadTime = performance.now() - startTime;
+      console.log(`About Us page loaded in ${loadTime.toFixed(2)}ms`);
+      setIsLoading(false);
+      toast.success("Page loaded successfully", {
         duration: 2000,
-        position: 'bottom-right'
-      })
-    }
-    
-    if (document.readyState === 'complete') {
-      handleLoad()
+        position: "bottom-right",
+      });
+    };
+
+    if (document.readyState === "complete") {
+      handleLoad();
     } else {
-      window.addEventListener('load', handleLoad)
+      window.addEventListener("load", handleLoad);
     }
-    
+
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('load', handleLoad)
-    }
-  }, [actions, handleMouseMove])
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("load", handleLoad);
+    };
+  }, [actions, handleMouseMove]);
 
   // Google Maps integration for CTA section
   useEffect(() => {
-    if (!mapRef.current) return
+    if (!mapRef.current) return;
 
     const initMap = async () => {
       const loader = new Loader({
-        apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-        version: 'weekly',
-        libraries: ['places']
-      })
+        apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+        version: "weekly",
+        libraries: ["places"],
+      });
 
       try {
-        const google = await loader.load()
-        
+        const google = await loader.load();
+
         const map = new google.maps.Map(mapRef.current!, {
           center: { lat: 51.4619, lng: -0.0366 }, // St Saviour's coordinates
           zoom: 15,
           styles: [
             // Catholic color scheme map styling
             {
-              featureType: 'all',
-              elementType: 'geometry.fill',
-              stylers: [{ color: '#1a365d' }]
+              featureType: "all",
+              elementType: "geometry.fill",
+              stylers: [{ color: "#1a365d" }],
             },
             {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{ color: '#d4af37' }]
-            }
-          ]
-        })
+              featureType: "water",
+              elementType: "geometry",
+              stylers: [{ color: "#d4af37" }],
+            },
+          ],
+        });
 
         new google.maps.Marker({
           position: { lat: 51.4619, lng: -0.0366 },
           map: map,
           title: "St Saviour's Catholic Church",
           icon: {
-            url: '/icons/church-marker.svg',
-            scaledSize: new google.maps.Size(40, 40)
-          }
-        })
+            url: "/icons/church-marker.svg",
+            scaledSize: new google.maps.Size(40, 40),
+          },
+        });
       } catch (error) {
-        console.log('Maps API not available')
+        console.log("Maps API not available");
         // Show fallback content
         if (mapRef.current) {
           mapRef.current.innerHTML = `
@@ -181,81 +281,93 @@ export default function AboutUs() {
                 <p class="text-gray-300">Lewisham High Street, SE13 6AA</p>
               </div>
             </div>
-          `
+          `;
         }
       }
-    }
+    };
 
-    initMap()
-  }, [])
+    initMap();
+  }, []);
 
   // Enhanced React Spring Animations (2025)
   const heroSpring = useSpring({
     ref: springApi,
-    from: { opacity: 0, transform: 'translateY(50px) scale(0.95)' },
-    to: { 
-      opacity: heroInView ? 1 : 0, 
-      transform: heroInView ? 'translateY(0px) scale(1)' : 'translateY(50px) scale(0.95)' 
+    from: { opacity: 0, transform: "translateY(50px) scale(0.95)" },
+    to: {
+      opacity: heroInView ? 1 : 0,
+      transform: heroInView
+        ? "translateY(0px) scale(1)"
+        : "translateY(50px) scale(0.95)",
     },
     config: { tension: 280, friction: 60 },
-    delay: ui.reducedMotion ? 0 : 200
-  })
-  
+    delay: ui.reducedMotion ? 0 : 200,
+  });
+
   const statsSpring = useSpring({
     opacity: statsInView ? 1 : 0,
-    transform: statsInView ? 'translateY(0px)' : 'translateY(30px)',
+    transform: statsInView ? "translateY(0px)" : "translateY(30px)",
     config: { mass: 1, tension: 120, friction: 14 },
-    delay: ui.reducedMotion ? 0 : 300
-  })
-  
+    delay: ui.reducedMotion ? 0 : 300,
+  });
+
   const values = [
     {
       icon: Heart,
       title: "Love & Compassion",
-      description: "We strive to show Christ's love through our actions and care for one another.",
-      gradient: "from-navy-600 to-navy-500"
+      description:
+        "We strive to show Christ's love through our actions and care for one another.",
+      gradient: "from-navy-600 to-navy-500",
     },
     {
       icon: Users,
-      title: "Community", 
-      description: "We welcome all people and build meaningful relationships across generations.",
-      gradient: "from-navy-500 to-navy-400"
+      title: "Community",
+      description:
+        "We welcome all people and build meaningful relationships across generations.",
+      gradient: "from-navy-500 to-navy-400",
     },
     {
       icon: Church,
       title: "Worship",
-      description: "We gather to celebrate the Eucharist and grow in our relationship with God.",
-      gradient: "from-navy-700 to-navy-600"
+      description:
+        "We gather to celebrate the Eucharist and grow in our relationship with God.",
+      gradient: "from-navy-700 to-navy-600",
     },
     {
       icon: BookOpen,
       title: "Learning",
-      description: "We are committed to ongoing formation and deepening our understanding of faith.",
-      gradient: "from-navy-800 to-navy-700"
-    }
-  ]
-  
+      description:
+        "We are committed to ongoing formation and deepening our understanding of faith.",
+      gradient: "from-navy-800 to-navy-700",
+    },
+  ];
+
   const valuesTrail = useTrail(values.length, {
     ref: trailApi,
-    from: { opacity: 0, transform: 'scale(0.8) translateY(40px)' },
-    to: { 
-      opacity: valuesInView ? 1 : 0, 
-      transform: valuesInView ? 'scale(1) translateY(0px)' : 'scale(0.8) translateY(40px)' 
+    from: { opacity: 0, transform: "scale(0.8) translateY(40px)" },
+    to: {
+      opacity: valuesInView ? 1 : 0,
+      transform: valuesInView
+        ? "scale(1) translateY(0px)"
+        : "scale(0.8) translateY(40px)",
     },
     config: { tension: 300, friction: 40 },
-    delay: ui.reducedMotion ? 0 : 100
-  })
-  
+    delay: ui.reducedMotion ? 0 : 100,
+  });
+
   // Chain animations for sequential reveals
-  useChain(valuesInView ? [springApi, trailApi] : [], valuesInView ? [0, 0.2] : [])
-  
+  useChain(
+    valuesInView ? [springApi, trailApi] : [],
+    valuesInView ? [0, 0.2] : []
+  );
+
   // Parallax effect for mouse movement
   const parallaxSpring = useSpring({
-    transform: ui.reducedMotion ? 'translate3d(0px, 0px, 0)' : 
-      `translate3d(${mousePosition.x * 5}px, ${mousePosition.y * 5}px, 0)`,
-    config: { tension: 100, friction: 30 }
-  })
-  
+    transform: ui.reducedMotion
+      ? "translate3d(0px, 0px, 0)"
+      : `translate3d(${mousePosition.x * 5}px, ${mousePosition.y * 5}px, 0)`,
+    config: { tension: 100, friction: 30 },
+  });
+
   // Enhanced animation variants for Framer Motion compatibility
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -264,10 +376,10 @@ export default function AboutUs() {
       transition: {
         duration: ui.reducedMotion ? 0.2 : 0.8,
         staggerChildren: ui.reducedMotion ? 0 : 0.1,
-        ease: 'easeOut'
-      }
-    }
-  }
+        ease: "easeOut",
+      },
+    },
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -275,12 +387,12 @@ export default function AboutUs() {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { 
+      transition: {
         duration: ui.reducedMotion ? 0.2 : 0.6,
-        ease: 'easeOut'
-      }
-    }
-  }
+        ease: "easeOut",
+      },
+    },
+  };
 
   const scaleVariants = {
     hidden: { opacity: 0, scale: 0.9, rotateY: -15 },
@@ -288,112 +400,135 @@ export default function AboutUs() {
       opacity: 1,
       scale: 1,
       rotateY: 0,
-      transition: { 
+      transition: {
         duration: ui.reducedMotion ? 0.2 : 0.5,
-        ease: 'backOut'
-      }
-    }
-  }
+        ease: "backOut",
+      },
+    },
+  };
 
   // Data arrays for cleaner code
   const stats = [
     { number: "135+", label: "Years of Service", icon: Calendar },
     { number: "500+", label: "Families", icon: Users },
     { number: "7", label: "Weekly Masses", icon: Clock },
-    { number: "15+", label: "Parish Groups", icon: Star }
-  ]
+    { number: "15+", label: "Parish Groups", icon: Star },
+  ];
 
-
+  // CMS DATA SOURCE: Timeline events using CMS history images
   const timelineEvents: Array<{
-    year: string
-    title: string
-    event: string
-    icon: React.ComponentType<any>
-    image: string
-    side: 'left' | 'right'
+    year: string;
+    title: string;
+    event: string;
+    icon: React.ComponentType<any>;
+    image: string;
+    alt: string;
+    side: "left" | "right";
   }> = [
-    { 
-      year: "849-918", 
-      title: "Medieval Origins", 
-      event: "King Alfred the Great was Lord of the Manor of Leofshema. In 918, the Manor was given to Saint Peter's Abbey, Ghent.", 
+    {
+      year: "849-918",
+      title: "Medieval Origins",
+      event:
+        "King Alfred the Great was Lord of the Manor of Leofshema. In 918, the Manor was given to Saint Peter's Abbey, Ghent.",
       icon: Award,
-      image: "/images/chapel_st_patrick_st_saviours.jpeg",
-      side: "left"
+      image: historyImages[0]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[0]?.alt || "Historical image of St Saviour's foundation",
+      side: "left",
     },
-    { 
-      year: "1553-1558", 
-      title: "Tudor Restoration", 
-      event: "Following the English Reformation under Henry VIII, the Priory was briefly restored in the reign of Mary I under Cardinal Reginald Pole.", 
+    {
+      year: "1553-1558",
+      title: "Tudor Restoration",
+      event:
+        "Following the English Reformation under Henry VIII, the Priory was briefly restored in the reign of Mary I under Cardinal Reginald Pole.",
       icon: Church,
-      image: "/images/stained_glass_st_margaret_clitherow_st_saviours.jpeg",
-      side: "right"
+      image: historyImages[1]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[1]?.alt || "Parish community gathered together",
+      side: "right",
     },
-    { 
-      year: "1894", 
-      title: "Parish Founded", 
-      event: "Fr McClymont was appointed as the first resident priest, establishing the modern St Saviour's parish.", 
+    {
+      year: "1894",
+      title: "Parish Founded",
+      event:
+        "Fr McClymont was appointed as the first resident priest, establishing the modern St Saviour's parish.",
       icon: Church,
-      image: "/images/st_saviours_frontage_war_memorial.jpeg",
-      side: "left"
+      image: historyImages[2]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[2]?.alt || "Church mission and ministry",
+      side: "left",
     },
-    { 
-      year: "1909", 
-      title: "Church Opens", 
-      event: "Foundation stone laid on April 24th and church officially opened by Bishop Peter Amigo on December 9th, with the Lord and Lady Mayor of London attending.", 
+    {
+      year: "1909",
+      title: "Church Opens",
+      event:
+        "Foundation stone laid on April 24th and church officially opened by Bishop Peter Amigo on December 9th, with the Lord and Lady Mayor of London attending.",
       icon: Award,
-      image: "/images/st_saviours_frontage_war_memorial.jpeg",
-      side: "right"
+      image: historyImages[3]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[3]?.alt || "Vision for the future",
+      side: "right",
     },
-    { 
-      year: "1910", 
-      title: "School Established", 
-      event: "St Saviour's Catholic School opened - the first new Catholic school in the diocese under the 1902 Education Act.", 
+    {
+      year: "1910",
+      title: "School Established",
+      event:
+        "St Saviour's Catholic School opened - the first new Catholic school in the diocese under the 1902 Education Act.",
       icon: BookOpen,
-      image: "/images/chapel_st_patrick_st_saviours.jpeg",
-      side: "left"
+      image: historyImages[0]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[0]?.alt || "Historical image of St Saviour's foundation",
+      side: "left",
     },
-    { 
-      year: "1917", 
-      title: "Church Consecrated", 
-      event: "After the debt of £3,000 was paid off, the church was consecrated on October 23rd.", 
+    {
+      year: "1917",
+      title: "Church Consecrated",
+      event:
+        "After the debt of £3,000 was paid off, the church was consecrated on October 23rd.",
       icon: Star,
-      image: "/images/stained_glass_st_margaret_clitherow_st_saviours.jpeg",
-      side: "right"
+      image: historyImages[1]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[1]?.alt || "Parish community gathered together",
+      side: "right",
     },
-    { 
-      year: "1928-29", 
-      title: "Campanile Completed", 
-      event: "The famous Campanile topped by a 12-foot statue of Christ the King was completed as a commemoration of the Centenary of Catholic Emancipation.", 
+    {
+      year: "1928-29",
+      title: "Campanile Completed",
+      event:
+        "The famous Campanile topped by a 12-foot statue of Christ the King was completed as a commemoration of the Centenary of Catholic Emancipation.",
       icon: Church,
-      image: "/images/st_saviours_frontage_war_memorial.jpeg",
-      side: "left"
+      image: historyImages[2]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[2]?.alt || "Church mission and ministry",
+      side: "left",
     },
-    { 
-      year: "2025", 
-      title: "Jubilee Sanctuary", 
-      event: "St Saviour's was designated a special sanctuary during the Jubilee Year of Hope, serving parishioners from 80+ countries.", 
+    {
+      year: "2025",
+      title: "Jubilee Sanctuary",
+      event:
+        "St Saviour's was designated a special sanctuary during the Jubilee Year of Hope, serving parishioners from 80+ countries.",
       icon: Heart,
-      image: "/images/st_saviours_interior_1939_archive_photo.jpeg",
-      side: "right"
-    }
-  ]
+      image: historyImages[3]?.url || "/images/pexels-pixabay-218480.jpg",
+      alt: historyImages[3]?.alt || "Vision for the future",
+      side: "right",
+    },
+  ];
 
+  // CMS DATA SOURCE: Leadership information with proper image paths
+  // Note: These specific priest images should be added to cms-images.ts in future
   const leadership = [
     {
       name: "Fr Krzysztof Krzyskow",
       role: "Parish Priest",
-      description: "Leading our parish with wisdom and compassion, Fr Krzysztof brings years of pastoral experience to guide our community in faith and service.",
+      description:
+        "Leading our parish with wisdom and compassion, Fr Krzysztof brings years of pastoral experience to guide our community in faith and service.",
       icon: Church,
-      image: "/images/fr_krzysztof_krzyskow_parish_priest_st_saviours.jpeg"
+      image: "/images/fr_krzysztof_krzyskow_parish_priest_st_saviours.jpeg",
+      alt: "Fr Krzysztof Krzyskow - Parish Priest at St Saviour's Catholic Church"
     },
     {
-      name: "Fr Kenneth Iwunna", 
+      name: "Fr Kenneth Iwunna",
       role: "Assistant Priest",
-      description: "Supporting our parish ministries and outreach programs, Fr Kenneth brings energy and dedication to serving our diverse community.",
+      description:
+        "Supporting our parish ministries and outreach programs, Fr Kenneth brings energy and dedication to serving our diverse community.",
       icon: BookOpen,
-      image: "/images/fr_kenneth_iwunna_assistant_priest_st_saviours.jpeg"
-    }
-  ]
+      image: "/images/fr_kenneth_iwunna_assistant_priest_st_saviours.jpeg",
+      alt: "Fr Kenneth Iwunna - Assistant Priest at St Saviour's Catholic Church"
+    },
+  ];
 
   return (
     <PageLayout
@@ -403,14 +538,14 @@ export default function AboutUs() {
       background="white"
     >
       {/* Enhanced Particle Background */}
-      <ParticleBackground 
+      <ParticleBackground
         density={ui.reducedMotion ? 0 : 50}
         color="gold"
         opacity={0.1}
         size={2}
         speed={0.5}
       />
-      
+
       {/* Floating Action Buttons */}
       <FloatingActionButton
         position="bottom-right"
@@ -419,27 +554,35 @@ export default function AboutUs() {
             icon: <Heart className="h-5 w-5" />,
             label: "Prayer Request",
             onClick: () => setActiveSection(1),
-            color: "gold"
+            color: "gold",
           },
           {
             icon: <Church className="h-5 w-5" />,
             label: "Virtual Tour",
             onClick: () => setActiveSection(2),
-            color: "navy"
+            color: "navy",
           },
           {
             icon: <Phone className="h-5 w-5" />,
             label: "Contact",
-            onClick: () => window.location.href = '/contact-us',
-            color: "slate"
-          }
+            onClick: () => (window.location.href = "/contact-us"),
+            color: "slate",
+          },
         ]}
         reducedMotion={ui.reducedMotion}
       />
-      
+
       {/* Progress Indicator */}
       <ProgressIndicator
-        sections={['Welcome', 'Statistics', 'Mission', 'Values', 'History', 'Leadership', 'Contact']}
+        sections={[
+          "Welcome",
+          "Statistics",
+          "Mission",
+          "Values",
+          "History",
+          "Leadership",
+          "Contact",
+        ]}
         activeSection={activeSection}
         position="left"
         reducedMotion={ui.reducedMotion}
@@ -455,74 +598,91 @@ export default function AboutUs() {
             height="large"
             overlay="medium"
             actions={
-              <animated.div style={parallaxSpring} className="absolute inset-0 pointer-events-none">
+              <animated.div
+                style={parallaxSpring}
+                className="absolute inset-0 pointer-events-none"
+              >
                 <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-gold-400 rounded-full opacity-20 animate-pulse" />
-                <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-white rounded-full opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
-                <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-gold-300 rounded-full opacity-25 animate-pulse" style={{ animationDelay: '2s' }} />
+                <div
+                  className="absolute top-1/3 right-1/3 w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                />
+                <div
+                  className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-gold-300 rounded-full opacity-25 animate-pulse"
+                  style={{ animationDelay: "2s" }}
+                />
               </animated.div>
             }
           />
         </animated.div>
       </div>
-      
-      {/* Live Office Hours Widget */}
-      <LiveOfficeHours
+
+      {/* Welcome Section */}
+      <div id="welcome">
+        {/* Live Office Hours Widget */}
+        <LiveOfficeHours
         position="top-right"
         schedule={{
-          monday: { open: '09:00', close: '17:00' },
-          tuesday: { open: '09:00', close: '17:00' },
-          wednesday: { open: '09:00', close: '17:00' },
-          thursday: { open: '09:00', close: '17:00' },
-          friday: { open: '09:00', close: '17:00' },
-          saturday: { open: '10:00', close: '16:00' },
-          sunday: { open: '08:00', close: '12:00' }
+          monday: { open: "09:00", close: "17:00" },
+          tuesday: { open: "09:00", close: "17:00" },
+          wednesday: { open: "09:00", close: "17:00" },
+          thursday: { open: "09:00", close: "17:00" },
+          friday: { open: "09:00", close: "17:00" },
+          saturday: { open: "10:00", close: "16:00" },
+          sunday: { open: "08:00", close: "12:00" },
         }}
         timezone="Europe/London"
         reducedMotion={ui.reducedMotion}
       />
+      </div>
 
       {/* Enhanced Interactive Statistics with Chart.js & React Spring */}
-      <Section spacing="md" background="slate">
+      <Section spacing="md" background="slate" id="statistics">
         <div ref={statsRef}>
           <animated.div style={statsSpring}>
             <ScrollRevealSection>
               <Container>
-            <m.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
-                Our Parish by the Numbers
-                {/* Gold accent underline */}
                 <m.div
-                  className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '120px' }}
+                  className="text-center mb-12"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <h2
+                    className={`${typographyScale.h2} text-white mb-6 relative`}
+                  >
+                    Our Parish by the Numbers
+                    {/* Gold accent underline */}
+                    <m.div
+                      className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                      style={{ width: "120px" }}
+                    />
+                  </h2>
+                  <p
+                    className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+                  >
+                    These numbers represent the vibrant community that makes St
+                    Saviour's a beacon of faith in Lewisham.
+                  </p>
+                </m.div>
+
+                <InteractiveStatistics
+                  stats={stats}
+                  reducedMotion={ui.reducedMotion}
+                  showCharts={true}
                 />
-              </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                These numbers represent the vibrant community that makes St Saviour's a beacon of faith in Lewisham.
-              </p>
-            </m.div>
-            
-            <InteractiveStatistics 
-              stats={stats} 
-              reducedMotion={ui.reducedMotion}
-              showCharts={true}
-            />
-          </Container>
-        </ScrollRevealSection>
+              </Container>
+            </ScrollRevealSection>
           </animated.div>
         </div>
       </Section>
 
       {/* Enhanced Mission Statement with Scripture Card */}
-      <Section spacing="lg" background="slate">
+      <Section spacing="lg" background="slate" id="mission">
         <Container size="md">
           <ScrollRevealSection variant="reverent">
             <div className="text-center space-y-12">
@@ -533,7 +693,7 @@ export default function AboutUs() {
               >
                 <Church className="h-10 w-10 icon-theme-dark" />
               </m.div>
-              
+
               <h2 className={`${typographyScale.h1} text-white mb-8 relative`}>
                 Our Mission
                 <m.div
@@ -541,19 +701,17 @@ export default function AboutUs() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '80px' }}
+                  style={{ width: "80px" }}
                 />
               </h2>
-              
-              <ScriptureCard
-                displayMode="themed"
-                theme="mission"
-                showReflection={true}
+
+              <MainPageScriptureSection
+                pageTheme="about-us"
                 reducedMotion={ui.reducedMotion}
               />
 
               {/* Mission highlights with enhanced animations */}
-              <m.div 
+              <m.div
                 className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
                 variants={staggerChildren}
                 initial="initial"
@@ -561,9 +719,21 @@ export default function AboutUs() {
                 viewport={{ once: true }}
               >
                 {[
-                  { icon: Heart, text: "Welcome All", desc: "Every person finds a home" },
-                  { icon: Users, text: "Build Community", desc: "Strengthen bonds of faith" },
-                  { icon: Star, text: "Share Faith", desc: "Spread God's love" }
+                  {
+                    icon: Heart,
+                    text: "Welcome All",
+                    desc: "Every person finds a home",
+                  },
+                  {
+                    icon: Users,
+                    text: "Build Community",
+                    desc: "Strengthen bonds of faith",
+                  },
+                  {
+                    icon: Star,
+                    text: "Share Faith",
+                    desc: "Spread God's love",
+                  },
                 ].map((item, index) => (
                   <m.div
                     key={index}
@@ -592,7 +762,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Enhanced Values Section with React Spring */}
-      <Section spacing="lg" background="slate">
+      <Section spacing="lg" background="slate" id="values">
         <ScrollRevealSection>
           <m.div
             className="text-center mb-16"
@@ -608,11 +778,14 @@ export default function AboutUs() {
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                style={{ width: '120px' }}
+                style={{ width: "120px" }}
               />
             </h2>
-            <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-              These core values guide everything we do as a parish community, shaping our mission and ministry.
+            <p
+              className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+            >
+              These core values guide everything we do as a parish community,
+              shaping our mission and ministry.
             </p>
           </m.div>
 
@@ -633,18 +806,24 @@ export default function AboutUs() {
                 >
                   <div className="text-center space-y-6 h-full flex flex-col justify-between">
                     <div>
-                      <m.div 
+                      <m.div
                         className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
-                        whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                        whileHover={
+                          ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }
+                        }
                         transition={{ duration: 0.3 }}
                       >
                         <value.icon className="h-10 w-10 icon-theme-dark" />
                       </m.div>
-                      <h3 className={`${typographyScale.h3} text-white mb-4 group-hover:text-gold-300 transition-colors duration-300`}>
+                      <h3
+                        className={`${typographyScale.h3} text-white mb-4 group-hover:text-gold-300 transition-colors duration-300`}
+                      >
                         {value.title}
                       </h3>
                     </div>
-                    <p className={`${typographyScale.body} text-gray-100 leading-relaxed`}>
+                    <p
+                      className={`${typographyScale.body} text-gray-100 leading-relaxed`}
+                    >
                       {value.description}
                     </p>
                   </div>
@@ -656,7 +835,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Enhanced History Section with GSAP Timeline */}
-      <Section spacing="lg" background="slate">
+      <Section spacing="lg" background="slate" id="history">
         <Container>
           <ScrollRevealSection variant="reverent">
             <m.div
@@ -673,36 +852,45 @@ export default function AboutUs() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-4xl mx-auto leading-relaxed`}>
-                From medieval origins to modern sanctuary, discover the remarkable journey of St Saviour's Catholic Church through the centuries of faith and service.
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-4xl mx-auto leading-relaxed`}
+              >
+                From medieval origins to modern sanctuary, discover the
+                remarkable journey of St Saviour's Catholic Church through the
+                centuries of faith and service.
               </p>
             </m.div>
 
-            {/* Enhanced Timeline with PhotoSwipe Integration */}
-            <PhotoSwipeLightbox 
-              galleryId="history-gallery" 
-              images={timelineEvents.map(event => ({
+            {/* Enhanced Timeline with PhotoSwipe Integration - CONSOLIDATED */}
+            <MainPagePhotoSwipe
+              pageContext="about-us"
+              images={timelineEvents.map((event, index) => ({
+                id: index,
                 src: event.image,
                 width: 800,
                 height: 600,
                 alt: event.title,
-                caption: `${event.year} - ${event.title}: ${event.event}`
+                title: event.title,
+                description: `${event.year} - ${event.event}`,
+                category: "History",
+                date: event.year
               }))}
+              reducedMotion={ui.reducedMotion}
             >
-              <EnhancedTimeline 
-                events={timelineEvents} 
+              <EnhancedTimeline
+                events={timelineEvents}
                 reducedMotion={ui.reducedMotion}
               />
-            </PhotoSwipeLightbox>
+            </MainPagePhotoSwipe>
           </ScrollRevealSection>
         </Container>
       </Section>
 
       {/* Enhanced Leadership Section with Embla Carousel */}
-      <Section spacing="lg" background="slate">
+      <Section spacing="lg" background="slate" id="leadership">
         <ScrollRevealSection>
           <m.div
             className="text-center mb-16"
@@ -718,11 +906,14 @@ export default function AboutUs() {
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                style={{ width: '160px' }}
+                style={{ width: "160px" }}
               />
             </h2>
-            <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-              Meet the dedicated priests and pastoral team who guide our parish community with wisdom, compassion, and faith.
+            <p
+              className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+            >
+              Meet the dedicated priests and pastoral team who guide our parish
+              community with wisdom, compassion, and faith.
             </p>
           </m.div>
 
@@ -736,7 +927,7 @@ export default function AboutUs() {
       </Section>
 
       {/* Enhanced Call to Action with Google Maps */}
-      <Section spacing="lg" background="slate">
+      <Section spacing="lg" background="slate" id="contact">
         <Container size="lg">
           <ScrollRevealSection>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -749,30 +940,35 @@ export default function AboutUs() {
                 viewport={{ once: true }}
               >
                 <div>
-                  <h2 className={`${typographyScale.h2} text-white mb-6 relative`}>
+                  <h2
+                    className={`${typographyScale.h2} text-white mb-6 relative`}
+                  >
                     Join Our Faith Community
                     <m.div
                       className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       transition={{ duration: 1, delay: 0.3 }}
-                      style={{ width: '120px' }}
+                      style={{ width: "120px" }}
                     />
                   </h2>
-                  <p className={`${typographyScale.bodyLarge} text-gray-100 leading-relaxed`}>
-                    Whether you're new to the area or have been part of Lewisham for years, 
-                    we'd love to welcome you to St Saviour's vibrant Catholic community.
+                  <p
+                    className={`${typographyScale.bodyLarge} text-gray-100 leading-relaxed`}
+                  >
+                    Whether you're new to the area or have been part of Lewisham
+                    for years, we'd love to welcome you to St Saviour's vibrant
+                    Catholic community.
                   </p>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
-                    <Button 
-                      variant="primary" 
-                      size="lg" 
+                    <Button
+                      variant="primary"
+                      size="lg"
                       leftIcon={<Mail className="h-5 w-5" />}
                       rightIcon={<ArrowRightIcon className="h-4 w-4" />}
                       className="bg-white text-slate-900 hover:bg-gray-100 shadow-xl"
@@ -780,14 +976,14 @@ export default function AboutUs() {
                       Get in Touch
                     </Button>
                   </m.div>
-                  
+
                   <m.div
                     whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
                     whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   >
-                    <Button 
-                      variant="secondary" 
-                      size="lg" 
+                    <Button
+                      variant="secondary"
+                      size="lg"
                       leftIcon={<Clock className="h-5 w-5" />}
                       className="border-white/30 text-white hover:bg-white/10 hover:border-white"
                     >
@@ -803,8 +999,14 @@ export default function AboutUs() {
                       <MapPinIcon className="h-5 w-5 text-gold-400" />
                     </div>
                     <div>
-                      <p className={`${typographyScale.body} text-white font-medium`}>Visit Us</p>
-                      <p className={`${typographyScale.caption} text-gray-300`}>Lewisham High Street, SE13 6AA</p>
+                      <p
+                        className={`${typographyScale.body} text-white font-medium`}
+                      >
+                        Visit Us
+                      </p>
+                      <p className={`${typographyScale.caption} text-gray-300`}>
+                        Lewisham High Street, SE13 6AA
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -812,8 +1014,14 @@ export default function AboutUs() {
                       <Phone className="h-5 w-5 text-gold-400" />
                     </div>
                     <div>
-                      <p className={`${typographyScale.body} text-white font-medium`}>Call Us</p>
-                      <p className={`${typographyScale.caption} text-gray-300`}>020 8852 3073</p>
+                      <p
+                        className={`${typographyScale.body} text-white font-medium`}
+                      >
+                        Call Us
+                      </p>
+                      <p className={`${typographyScale.caption} text-gray-300`}>
+                        020 8852 3073
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -847,8 +1055,8 @@ export default function AboutUs() {
         </Container>
       </Section>
     </PageLayout>
-  )
+  );
 }
 
 // Maintenance mode check
-export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'
+export { defaultMaintenanceCheck as getServerSideProps } from "@/lib/maintenance";

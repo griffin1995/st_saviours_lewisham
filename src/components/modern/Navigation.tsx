@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   Bars3Icon,
   XMarkIcon,
@@ -58,6 +58,21 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
     actions.setActiveDropdown(
       navigation.activeDropdown === itemName ? null : itemName
     )
+  }
+
+  const handleMouseEnter = (itemName: string) => {
+    actions.setActiveDropdown(itemName)
+  }
+
+  const handleMouseLeave = () => {
+    // Add a small delay to allow mouse to move to dropdown
+    setTimeout(() => {
+      // Only close if mouse is not over navigation area
+      const navElement = document.querySelector('[data-navigation]')
+      if (navElement && !navElement.matches(':hover')) {
+        actions.setActiveDropdown(null)
+      }
+    }, 100)
   }
 
   const handleMobileMenuToggle = () => {
@@ -133,7 +148,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
 
   return (
     <>
-      <motion.nav
+      <m.nav
         variants={navVariants}
         initial="hidden"
         animate="visible"
@@ -184,10 +199,10 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => actions.setActiveDropdown(item.name)}
-                  onMouseLeave={() => actions.setActiveDropdown(null)}
+                  onMouseEnter={() => handleMouseEnter(item.name)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <motion.button
+                  <m.button
                     className={`
                       flex items-center px-4 py-2 text-base font-medium rounded-lg transition-all duration-200
                       ${navigation.activeDropdown === item.name
@@ -207,20 +222,20 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                     >
                       <ChevronDownIcon className="ml-1 h-4 w-4" />
                     </m.div>
-                  </motion.button>
+                  </m.button>
                 </div>
               ))}
 
               {/* Action Buttons */}
               <div className="flex items-center space-x-3 ml-6">
-                <motion.button
+                <m.button
                   className="p-2 rounded-lg transition-colors duration-200 text-white hover:text-white hover:bg-white/10"
                   whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                   whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
                   onClick={() => {/* Handle search */}}
                 >
                   <MagnifyingGlassIcon className="h-5 w-5" />
-                </motion.button>
+                </m.button>
                 
                 <Link href="/donate" onClick={handleLinkClick}>
                   <m.div
@@ -236,7 +251,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <m.button
               onClick={handleMobileMenuToggle}
               className="lg:hidden p-2 rounded-lg transition-colors duration-200 text-white hover:bg-white/10"
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -265,7 +280,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                   </m.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </m.button>
           </div>
         </div>
 
@@ -282,7 +297,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
               <div className="px-4 py-6 space-y-2">
                 {navigationMenu.map((item) => (
                   <div key={item.name}>
-                    <motion.button
+                    <m.button
                       onClick={() => handleDropdownToggle(item.name)}
                       className="flex items-center justify-between w-full px-3 py-3 text-white hover:text-white hover:bg-white/10 rounded-lg font-medium text-base transition-colors duration-200"
                       whileTap={ui.reducedMotion ? {} : { scale: 0.98 }}
@@ -296,7 +311,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
                       >
                         <ChevronDownIcon className="h-4 w-4" />
                       </m.div>
-                    </motion.button>
+                    </m.button>
                     
                     <AnimatePresence>
                       {navigation.activeDropdown === item.name && (
@@ -347,7 +362,7 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
             </m.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </m.nav>
 
       {/* Desktop Dropdown Menu */}
       <AnimatePresence>
@@ -360,6 +375,13 @@ export const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
             className="fixed left-0 right-0 bg-slate-900/95 backdrop-blur-xl shadow-xl border-b border-slate-700/50 z-[9998]"
             style={{ top: '80px' }}
             data-navigation
+            onMouseEnter={() => {
+              // Keep dropdown open when mouse enters dropdown area
+              if (navigation.activeDropdown) {
+                actions.setActiveDropdown(navigation.activeDropdown)
+              }
+            }}
+            onMouseLeave={handleMouseLeave}
           >
             <div className="max-w-7xl mx-auto px-6 py-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

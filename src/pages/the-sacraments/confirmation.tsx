@@ -58,7 +58,9 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+import { SacramentalScriptureSection } from '@/components/shared/content'
 import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
 import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 // import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
@@ -66,10 +68,17 @@ import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
 // import { ConfirmationPreparationTracker } from '@/components/enhanced/ConfirmationPreparationTracker'
 // import { SevenGiftsInteractive } from '@/components/enhanced/SevenGiftsInteractive'
 import { prefersReducedMotion } from '@/lib/utils'
+// CMS DATA SOURCE: Import sacrament image functions
+import { getSacramentImage } from '@/lib/cms-images'
+// CMS DATA SOURCE: Import contact information functions
+import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 export default function Confirmation() {
   const reducedMotion = prefersReducedMotion()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  // CMS DATA SOURCE: Get confirmation sacrament image
+  const confirmationImage = getSacramentImage('confirmation')
   const [fireParticles, setFireParticles] = useState<Array<{ id: number; x: number; y: number }>>([])
   const [spiritualGifts, setSpiritualGifts] = useState<Array<{ id: number; gift: string; visible: boolean }>>([])
   const { scrollY } = useScroll()
@@ -259,8 +268,8 @@ export default function Confirmation() {
   const contactInfo = {
     title: "Ready to be Confirmed?",
     description: "Contact us to begin Confirmation preparation or learn more about this beautiful sacrament. We're here to guide you on your journey of faith.",
-    phone: "020 8852 7411",
-    email: "info@stsaviourslewisham.org.uk"
+    phone: getContactPhone(),
+    email: getContactEmail()
   }
 
   const quote = {
@@ -310,7 +319,7 @@ export default function Confirmation() {
       
       <main id="main-content" tabIndex={-1} className="focus:outline-none">
       {/* Enhanced Hero Section with Confirmation Symbolism */}
-      <LazyMotion features={domAnimation}>
+      
         <section 
           className="relative overflow-hidden"
           role="banner"
@@ -360,7 +369,7 @@ export default function Confirmation() {
               title="Confirmation"
               subtitle="Strengthened by the Spirit"
               description="Confirmation completes Christian initiation and strengthens us with the gifts of the Holy Spirit."
-              backgroundImage="/images/inside-church-aisle.jpg"
+              backgroundImage={confirmationImage?.url}
               height="large"
               overlay="medium"
               insideLazyMotion={true}
@@ -407,7 +416,7 @@ export default function Confirmation() {
             />
           </animated.div>
         </section>
-      </LazyMotion>
+      
 
       {/* Sacrament Information */}
       <Section spacing="lg" background="slate">
@@ -647,10 +656,8 @@ export default function Confirmation() {
       {/* Scripture Card - Phase D Enhancement */}
       <Section spacing="sm" background="slate">
         <Container size="md">
-          <ScriptureCard 
-            displayMode="themed"
-            theme="confirmation"
-            showReflection={true}
+          <SacramentalScriptureSection
+            pageTheme="confirmation"
             reducedMotion={reducedMotion}
           />
         </Container>

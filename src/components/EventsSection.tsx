@@ -16,7 +16,7 @@ export default function EventsSection() {
   const { data: events, isLoading, error } = useEventsQuery();
 
   // Use fetched data or fallback to static data
-  const displayEvents = events?.slice(0, 3) || upcomingEvents.slice(0, 3);
+  const displayEvents = (Array.isArray(events) ? events.slice(0, 3) : null) || upcomingEvents.slice(0, 3);
 
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
