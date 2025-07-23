@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, m } from 'framer-motion'
+import { m} from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRightIcon as ArrowRight } from '@heroicons/react/24/solid'
 import type { ComponentType } from 'react'

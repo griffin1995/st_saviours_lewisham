@@ -1,55 +1,54 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { 
-  BookOpenIcon as BookOpen, 
-  AcademicCapIcon as AcademicCap, 
-  HeartIcon as Heart, 
-  SparklesIcon as Sparkles, 
-  ClockIcon as Clock, 
+import React from "react";
+import { motion, m } from "framer-motion";
+import Link from "next/link";
+import {
+  BookOpenIcon as BookOpen,
+  AcademicCapIcon as AcademicCap,
+  HeartIcon as Heart,
+  SparklesIcon as Sparkles,
+  ClockIcon as Clock,
   UserIcon as User,
   CalendarDaysIcon as Calendar,
-  ArrowRightIcon as ArrowRight
-} from '@heroicons/react/24/solid'
+  ArrowRightIcon as ArrowRight,
+} from "@heroicons/react/24/solid";
 
 // New modern component system
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
   Flex,
-  Container
-} from '@/components/ui'
-import { prefersReducedMotion } from '@/lib/utils'
-import { 
+  Container,
+} from "@/components/ui";
+import { prefersReducedMotion } from "@/lib/utils";
+import {
   getFeaturedArticles,
   getPublishedArticles,
-  knowledgeHubCategories
-} from '@/lib/cms-knowledge-hub'
+  knowledgeHubCategories,
+} from "@/lib/cms-knowledge-hub";
 
 const iconMap = {
   BookOpen: BookOpen,
   AcademicCap: AcademicCap,
   Heart: Heart,
-  Sparkles: Sparkles
-}
+  Sparkles: Sparkles,
+};
 
 export default function KnowledgeHub() {
-  const reducedMotion = prefersReducedMotion()
-  
+  const reducedMotion = prefersReducedMotion();
+
   // Get articles from CMS
-  const featuredArticles = getFeaturedArticles()
-  const allArticles = getPublishedArticles()
-  const upcomingArticles = allArticles.filter(article => !article.featured)
-  
+  const featuredArticles = getFeaturedArticles();
+  const allArticles = getPublishedArticles();
+  const upcomingArticles = allArticles.filter((article) => !article.featured);
 
   return (
-    <PageLayout 
+    <PageLayout
       title="Knowledge Hub"
       description="Deepen your understanding of Catholic theology through the wisdom of saints, mystics, and theologians at St Saviour's Catholic Church, Lewisham."
       keywords="Catholic theology, saints, mystics, theologians, Peter Abelard, St Augustine, Julian of Norwich, faith formation"
@@ -70,8 +69,10 @@ export default function KnowledgeHub() {
               A Journey Through Catholic Wisdom
             </Heading>
             <Text size="lg" color="gray-100" className="mb-8">
-              Rather than lectures on theology, we invite you to let the mystics and theologians speak for themselves. 
-              Each week, we explore the profound insights of those who have shaped our understanding of the Catholic faith.
+              Rather than lectures on theology, we invite you to let the mystics
+              and theologians speak for themselves. Each week, we explore the
+              profound insights of those who have shaped our understanding of
+              the Catholic faith.
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {featuredArticles.length > 0 ? (
@@ -87,7 +88,11 @@ export default function KnowledgeHub() {
                   Start Reading
                 </Button>
               )}
-              <Button variant="secondary" size="lg" className="border-white text-white hover:bg-white hover:text-slate-900">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-slate-900"
+              >
                 <Calendar className="h-5 w-5 mr-2" />
                 Weekly Schedule
               </Button>
@@ -102,8 +107,7 @@ export default function KnowledgeHub() {
           <Heading level="h2" color="white" className="text-center mb-12">
             Featured This Week
           </Heading>
-          
-          
+
           {featuredArticles.map((article) => (
             <m.div
               key={article.id}
@@ -165,10 +169,11 @@ export default function KnowledgeHub() {
           <Heading level="h2" color="white" className="text-center mb-12">
             Explore by Category
           </Heading>
-          
+
           <Grid cols={2} className="gap-8">
             {knowledgeHubCategories.map((category, index) => {
-              const IconComponent = iconMap[category.icon as keyof typeof iconMap] || BookOpen
+              const IconComponent =
+                iconMap[category.icon as keyof typeof iconMap] || BookOpen;
               return (
                 <m.div
                   key={category.id}
@@ -180,11 +185,17 @@ export default function KnowledgeHub() {
                     <Card className="bg-white/10 backdrop-blur-sm border-slate-600 hover:border-white hover:scale-105 transition-all duration-300 group cursor-pointer">
                       <CardContent className="p-8">
                         <div className="flex items-start gap-4">
-                          <div className={`p-4 rounded-xl bg-gradient-to-r ${category.color} shadow-lg`}>
+                          <div
+                            className={`p-4 rounded-xl bg-gradient-to-r ${category.color} shadow-lg`}
+                          >
                             <IconComponent className="h-8 w-8 text-white" />
                           </div>
                           <div className="flex-1">
-                            <Heading level="h3" color="white" className="mb-2 group-hover:text-gold-300 transition-colors">
+                            <Heading
+                              level="h3"
+                              color="white"
+                              className="mb-2 group-hover:text-gold-300 transition-colors"
+                            >
                               {category.title}
                             </Heading>
                             <Text size="base" color="gray-100" className="mb-4">
@@ -202,7 +213,7 @@ export default function KnowledgeHub() {
                     </Card>
                   </Link>
                 </m.div>
-              )
+              );
             })}
           </Grid>
         </Container>
@@ -214,7 +225,7 @@ export default function KnowledgeHub() {
           <Heading level="h2" color="white" className="text-center mb-12">
             More Articles
           </Heading>
-          
+
           <Grid cols={2} className="gap-8">
             {upcomingArticles.slice(0, 4).map((article, index) => {
               const cardContent = (
@@ -236,7 +247,11 @@ export default function KnowledgeHub() {
                       {article.readTime}
                     </div>
                   </div>
-                  <Heading level="h4" color="white" className="mb-2 group-hover:text-gold-300 transition-colors">
+                  <Heading
+                    level="h4"
+                    color="white"
+                    className="mb-2 group-hover:text-gold-300 transition-colors"
+                  >
                     {article.title}
                   </Heading>
                   <Text size="sm" color="gray-100" className="mb-4">
@@ -246,16 +261,20 @@ export default function KnowledgeHub() {
                     <Text size="sm" color="gray-300">
                       {article.publishedDate}
                     </Text>
-                    {article.status === 'published' ? (
+                    {article.status === "published" ? (
                       <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gold-300 group-hover:translate-x-1 transition-all" />
                     ) : (
-                      <Button variant="secondary" size="sm" className="border-white text-white hover:bg-white hover:text-slate-900">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="border-white text-white hover:bg-white hover:text-slate-900"
+                      >
                         Notify Me
                       </Button>
                     )}
                   </div>
                 </CardContent>
-              )
+              );
 
               return (
                 <m.div
@@ -264,7 +283,7 @@ export default function KnowledgeHub() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  {article.status === 'published' ? (
+                  {article.status === "published" ? (
                     <Link href={`/knowledge-hub/${article.slug}`}>
                       <Card className="bg-white/10 backdrop-blur-sm border-slate-600 hover:border-white group cursor-pointer">
                         {cardContent}
@@ -276,7 +295,7 @@ export default function KnowledgeHub() {
                     </Card>
                   )}
                 </m.div>
-              )
+              );
             })}
           </Grid>
         </Container>
@@ -290,7 +309,8 @@ export default function KnowledgeHub() {
               Never Miss an Article
             </Heading>
             <Text size="lg" color="gray-100" className="mb-8">
-              Subscribe to our Knowledge Hub newsletter and receive weekly articles directly in your inbox.
+              Subscribe to our Knowledge Hub newsletter and receive weekly
+              articles directly in your inbox.
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
@@ -298,13 +318,11 @@ export default function KnowledgeHub() {
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 rounded-lg border-0 bg-slate-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
-              <Button variant="primary">
-                Subscribe
-              </Button>
+              <Button variant="primary">Subscribe</Button>
             </div>
           </div>
         </Container>
       </Section>
     </PageLayout>
-  )
+  );
 }

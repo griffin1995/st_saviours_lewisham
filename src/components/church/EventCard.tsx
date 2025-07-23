@@ -1,6 +1,5 @@
 import React from 'react'
-import { motion, m } from 'framer-motion'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { Calendar, Clock, MapPin, Users, ExternalLink, Phone, Mail } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Flex } from '@/components/ui'
 import { cn, formatDate, formatTime, prefersReducedMotion } from '@/lib/utils'

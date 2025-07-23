@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { motion, m } from "framer-motion";
 import {
   ArrowLeft,
   Save,
@@ -10,19 +10,28 @@ import {
   Clock,
   Calendar,
   CheckCircle,
-  AlertCircle
-} from 'lucide-react';
-import { MassTime } from '@/lib/cms-data';
+  AlertCircle,
+} from "lucide-react";
+import { MassTime } from "@/lib/cms-data";
 
 export default function MassTimesManagement() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [massTimes, setMassTimes] = useState<MassTime[]>([]);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const daysOfWeek = [
-    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
 
   useEffect(() => {
@@ -32,46 +41,49 @@ export default function MassTimesManagement() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth');
+      const response = await fetch("/api/admin/auth");
       const data = await response.json();
-      
+
       if (!data.success) {
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     } catch (error) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     }
   };
 
   const loadMassTimes = async () => {
     try {
-      const response = await fetch('/api/admin/mass-times');
+      const response = await fetch("/api/admin/mass-times");
       let data = await response.json();
-      
+
       // If no data exists, initialize with default structure
       if (!data || data.length === 0) {
-        data = daysOfWeek.map(day => ({
+        data = daysOfWeek.map((day) => ({
           day,
-          services: []
+          services: [],
         }));
       } else {
         // Ensure all days are present
         const existingDays = data.map((mt: MassTime) => mt.day);
-        const missingDays = daysOfWeek.filter(day => !existingDays.includes(day));
-        missingDays.forEach(day => {
+        const missingDays = daysOfWeek.filter(
+          (day) => !existingDays.includes(day)
+        );
+        missingDays.forEach((day) => {
           data.push({ day, services: [] });
         });
-        
+
         // Sort by day of week
-        data.sort((a: MassTime, b: MassTime) => 
-          daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day)
+        data.sort(
+          (a: MassTime, b: MassTime) =>
+            daysOfWeek.indexOf(a.day) - daysOfWeek.indexOf(b.day)
         );
       }
-      
+
       setMassTimes(data);
     } catch (error) {
-      console.error('Error loading mass times:', error);
-      setMessage({ type: 'error', text: 'Failed to load mass times' });
+      console.error("Error loading mass times:", error);
+      setMessage({ type: "error", text: "Failed to load mass times" });
     } finally {
       setLoading(false);
     }
@@ -82,24 +94,30 @@ export default function MassTimesManagement() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/admin/mass-times', {
-        method: 'PUT',
+      const response = await fetch("/api/admin/mass-times", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(massTimes),
       });
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Mass times updated successfully!' });
+        setMessage({
+          type: "success",
+          text: "Mass times updated successfully!",
+        });
         setTimeout(() => setMessage(null), 3000);
       } else {
         const error = await response.json();
-        setMessage({ type: 'error', text: error.error || 'Failed to save mass times' });
+        setMessage({
+          type: "error",
+          text: error.error || "Failed to save mass times",
+        });
       }
     } catch (error) {
-      console.error('Error saving mass times:', error);
-      setMessage({ type: 'error', text: 'Error saving mass times' });
+      console.error("Error saving mass times:", error);
+      setMessage({ type: "error", text: "Error saving mass times" });
     } finally {
       setSaving(false);
     }
@@ -108,9 +126,9 @@ export default function MassTimesManagement() {
   const addService = (dayIndex: number) => {
     const newMassTimes = [...massTimes];
     newMassTimes[dayIndex].services.push({
-      time: '',
-      type: 'Mass',
-      description: ''
+      time: "",
+      type: "Mass",
+      description: "",
     });
     setMassTimes(newMassTimes);
   };
@@ -121,7 +139,12 @@ export default function MassTimesManagement() {
     setMassTimes(newMassTimes);
   };
 
-  const updateService = (dayIndex: number, serviceIndex: number, field: string, value: string) => {
+  const updateService = (
+    dayIndex: number,
+    serviceIndex: number,
+    field: string,
+    value: string
+  ) => {
     const newMassTimes = [...massTimes];
     (newMassTimes[dayIndex].services[serviceIndex] as any)[field] = value;
     setMassTimes(newMassTimes);
@@ -149,9 +172,11 @@ export default function MassTimesManagement() {
                 <ArrowLeft className="h-5 w-5 mr-1" />
                 Back to Dashboard
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">Mass Times Management</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Mass Times Management
+              </h1>
             </div>
-            
+
             <button
               onClick={handleSave}
               disabled={saving}
@@ -176,13 +201,13 @@ export default function MassTimesManagement() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`mb-6 p-4 rounded-lg ${
-              message.type === 'success' 
-                ? 'bg-green-50 border border-green-200 text-green-700' 
-                : 'bg-red-50 border border-red-200 text-red-700'
+              message.type === "success"
+                ? "bg-green-50 border border-green-200 text-green-700"
+                : "bg-red-50 border border-red-200 text-red-700"
             }`}
           >
             <div className="flex items-center">
-              {message.type === 'success' ? (
+              {message.type === "success" ? (
                 <CheckCircle className="h-5 w-5 mr-2" />
               ) : (
                 <AlertCircle className="h-5 w-5 mr-2" />
@@ -197,12 +222,20 @@ export default function MassTimesManagement() {
           <div className="flex items-start">
             <Clock className="h-6 w-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
             <div>
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">Mass Times Instructions</h3>
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">
+                Mass Times Instructions
+              </h3>
               <div className="text-blue-700 space-y-1">
                 <p>• Update the Mass times for each day of the week</p>
-                <p>• Use 24-hour format for times (e.g., "10:00 AM", "6:30 PM")</p>
-                <p>• Add multiple services per day using the "Add Service" button</p>
-                <p>• Include special Masses like Spanish Mass, Vigil Mass, etc.</p>
+                <p>
+                  • Use 24-hour format for times (e.g., "10:00 AM", "6:30 PM")
+                </p>
+                <p>
+                  • Add multiple services per day using the "Add Service" button
+                </p>
+                <p>
+                  • Include special Masses like Spanish Mass, Vigil Mass, etc.
+                </p>
                 <p>• Changes will be reflected immediately on the website</p>
               </div>
             </div>
@@ -223,7 +256,9 @@ export default function MassTimesManagement() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <Calendar className="h-5 w-5 text-gray-400 mr-2" />
-                    <h3 className="text-lg font-semibold text-gray-900">{daySchedule.day}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {daySchedule.day}
+                    </h3>
                   </div>
                   <button
                     onClick={() => addService(dayIndex)}
@@ -240,7 +275,9 @@ export default function MassTimesManagement() {
                   <div className="text-center py-8 text-gray-500">
                     <Clock className="h-12 w-12 text-gray-300 mx-auto mb-3" />
                     <p>No services scheduled for {daySchedule.day}</p>
-                    <p className="text-sm">Click "Add Service" to schedule a Mass or service</p>
+                    <p className="text-sm">
+                      Click "Add Service" to schedule a Mass or service
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -256,7 +293,14 @@ export default function MassTimesManagement() {
                           <input
                             type="text"
                             value={service.time}
-                            onChange={(e) => updateService(dayIndex, serviceIndex, 'time', e.target.value)}
+                            onChange={(e) =>
+                              updateService(
+                                dayIndex,
+                                serviceIndex,
+                                "time",
+                                e.target.value
+                              )
+                            }
                             placeholder="10:00 AM"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           />
@@ -268,18 +312,29 @@ export default function MassTimesManagement() {
                           </label>
                           <select
                             value={service.type}
-                            onChange={(e) => updateService(dayIndex, serviceIndex, 'type', e.target.value)}
+                            onChange={(e) =>
+                              updateService(
+                                dayIndex,
+                                serviceIndex,
+                                "type",
+                                e.target.value
+                              )
+                            }
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           >
                             <option value="Mass">Mass</option>
                             <option value="Sunday Mass">Sunday Mass</option>
                             <option value="Weekday Mass">Weekday Mass</option>
-                            <option value="Saturday Vigil">Saturday Vigil</option>
+                            <option value="Saturday Vigil">
+                              Saturday Vigil
+                            </option>
                             <option value="Spanish Mass">Spanish Mass</option>
                             <option value="Confession">Confession</option>
                             <option value="Adoration">Adoration</option>
                             <option value="Vespers">Vespers</option>
-                            <option value="Special Service">Special Service</option>
+                            <option value="Special Service">
+                              Special Service
+                            </option>
                           </select>
                         </div>
 
@@ -290,7 +345,14 @@ export default function MassTimesManagement() {
                           <input
                             type="text"
                             value={service.description}
-                            onChange={(e) => updateService(dayIndex, serviceIndex, 'description', e.target.value)}
+                            onChange={(e) =>
+                              updateService(
+                                dayIndex,
+                                serviceIndex,
+                                "description",
+                                e.target.value
+                              )
+                            }
                             placeholder="Family Mass"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           />
@@ -298,7 +360,9 @@ export default function MassTimesManagement() {
 
                         <div className="flex items-end">
                           <button
-                            onClick={() => removeService(dayIndex, serviceIndex)}
+                            onClick={() =>
+                              removeService(dayIndex, serviceIndex)
+                            }
                             className="w-full px-3 py-2 text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors flex items-center justify-center"
                           >
                             <Trash2 className="h-4 w-4 mr-1" />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 
 interface Schedule {

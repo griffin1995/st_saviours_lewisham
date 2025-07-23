@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   ChatBubbleLeftRightIcon,
   HeartIcon,
@@ -382,7 +382,7 @@ export default function PodcastCommunityDiscussion({
                   {/* Comment Actions */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => handleLike(comment.id)}
@@ -392,23 +392,23 @@ export default function PodcastCommunityDiscussion({
                       >
                         <HeartIcon className="h-4 w-4" />
                         <Text size="sm">{comment.likes}</Text>
-                      </motion.button>
+                      </m.button>
                       
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="text-gray-400 hover:text-blue-400 transition-colors"
                       >
                         <ShareIcon className="h-4 w-4" />
-                      </motion.button>
+                      </m.button>
                       
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="text-gray-400 hover:text-gold-400 transition-colors"
                       >
                         <BookmarkIcon className="h-4 w-4" />
-                      </motion.button>
+                      </m.button>
                     </div>
 
                     {comment.replies && comment.replies.length > 0 && (
@@ -447,7 +447,7 @@ export default function PodcastCommunityDiscussion({
                               </div>
                               <Text size="sm" className="text-gray-300">{reply.content}</Text>
                               <div className="flex items-center gap-2">
-                                <motion.button
+                                <m.button
                                   whileHover={{ scale: 1.1 }}
                                   whileTap={{ scale: 0.9 }}
                                   onClick={() => handleLike(reply.id, true, comment.id)}
@@ -457,7 +457,7 @@ export default function PodcastCommunityDiscussion({
                                 >
                                   <HeartIcon className="h-3 w-3" />
                                   <Text size="xs">{reply.likes}</Text>
-                                </motion.button>
+                                </m.button>
                               </div>
                             </div>
                           ))}

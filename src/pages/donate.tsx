@@ -1,15 +1,24 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import { useSpring, animated, config } from '@react-spring/web'
-import { useInView } from 'react-intersection-observer'
-import Link from 'next/link'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
-import { Bar, Pie } from 'react-chartjs-2'
-import { 
-  HeartIcon as Heart, 
-  BuildingOfficeIcon as Building, 
-  UsersIcon as Users, 
-  ClockIcon as Clock, 
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, m } from "framer-motion";
+import { useSpring, animated, config } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+import Link from "next/link";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Bar, Pie } from "react-chartjs-2";
+import {
+  HeartIcon as Heart,
+  BuildingOfficeIcon as Building,
+  UsersIcon as Users,
+  ClockIcon as Clock,
   BanknotesIcon as Banknote,
   QrCodeIcon as QrCode,
   ArrowRightIcon as ArrowRight,
@@ -19,194 +28,250 @@ import {
   CurrencyDollarIcon,
   HandRaisedIcon,
   SparklesIcon,
-  CheckCircleIcon
-} from '@heroicons/react/24/solid'
+  CheckCircleIcon,
+} from "@heroicons/react/24/solid";
 
 // New modern component system
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
   Flex,
-  Container
-} from '@/components/ui'
-import { DonationForm, DonationStats, type DonationFormData } from '@/components/church'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+  Container,
+} from "@/components/ui";
+import {
+  DonationForm,
+  DonationStats,
+  type DonationFormData,
+} from "@/components/church";
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
+import { MainPageScriptureSection } from '@/components/shared/content';
 // import { EnhancedDonationTracker } from '@/components/enhanced/EnhancedDonationTracker'
 // import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
 // import { DonationImpactCalculator } from '@/components/enhanced/DonationImpactCalculator'
 // import { RecurringDonationManager } from '@/components/enhanced/RecurringDonationManager'
 // import { DonationTestimonials } from '@/components/enhanced/DonationTestimonials'
-import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
 // import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
 // import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
-import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
-import { typographyScale } from '@/lib/fonts'
-import ScrollRevealSection from '@/components/ScrollRevealSection'
-import { prefersReducedMotion } from '@/lib/utils'
-import { useUI, useActions } from '@/stores/churchStore'
+import { typographyScale } from "@/lib/fonts";
+import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { prefersReducedMotion } from "@/lib/utils";
+import { useUI, useActions } from "@/stores/churchStore";
 
 // Chart.js registration
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Donate() {
-  const ui = useUI()
-  const actions = useActions()
-  const reducedMotion = prefersReducedMotion()
-  const [donationStats, setDonationStats] = useState<{[key: string]: {amount: number, donors: number, impact: number}}>({})
-  const [selectedCause, setSelectedCause] = useState<string | null>(null)
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
-  const [shareDonationData, setShareDonationData] = useState<any>(null)
-  const [totalRaised, setTotalRaised] = useState(125000)
-  const [donorCount, setDonorCount] = useState(287)
-  const { ref: analyticsRef, inView: analyticsInView } = useInView({ threshold: 0.3, triggerOnce: true })
+  const ui = useUI();
+  const actions = useActions();
+  const reducedMotion = prefersReducedMotion();
+  const [donationStats, setDonationStats] = useState<{
+    [key: string]: { amount: number; donors: number; impact: number };
+  }>({});
+  const [selectedCause, setSelectedCause] = useState<string | null>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareDonationData, setShareDonationData] = useState<any>(null);
+  const [totalRaised, setTotalRaised] = useState(125000);
+  const [donorCount, setDonorCount] = useState(287);
+  const { ref: analyticsRef, inView: analyticsInView } = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
 
   // Enhanced page initialization
   useEffect(() => {
     actions.addNotification({
-      type: 'info',
-      message: 'Welcome to our Donation page - your generosity makes a difference',
-      dismissible: true
-    })
-    
+      type: "info",
+      message:
+        "Welcome to our Donation page - your generosity makes a difference",
+      dismissible: true,
+    });
+
     // Load donation statistics from localStorage
-    const savedStats = localStorage.getItem('donation-stats')
+    const savedStats = localStorage.getItem("donation-stats");
     if (savedStats) {
-      setDonationStats(JSON.parse(savedStats))
+      setDonationStats(JSON.parse(savedStats));
     }
-  }, [])
+  }, []);
 
   const handleDonationShare = useCallback((cause: any) => {
-    setShareDonationData(cause)
-    setIsShareModalOpen(true)
-  }, [])
+    setShareDonationData(cause);
+    setIsShareModalOpen(true);
+  }, []);
 
-  const handleImpactCalculation = useCallback((amount: number, cause: string) => {
-    actions.addNotification({
-      type: 'success',
-      message: `£${amount} donation to ${cause} will make a significant impact!`,
-      dismissible: true
-    })
-  }, [])
+  const handleImpactCalculation = useCallback(
+    (amount: number, cause: string) => {
+      actions.addNotification({
+        type: "success",
+        message: `£${amount} donation to ${cause} will make a significant impact!`,
+        dismissible: true,
+      });
+    },
+    []
+  );
 
   // React Spring animations
   const heroSpring = useSpring({
     opacity: 1,
-    transform: 'translateY(0px)',
-    from: { opacity: 0, transform: 'translateY(30px)' },
-    config: ui.reducedMotion ? config.default : config.gentle
-  })
+    transform: "translateY(0px)",
+    from: { opacity: 0, transform: "translateY(30px)" },
+    config: ui.reducedMotion ? config.default : config.gentle,
+  });
 
   const analyticsSpring = useSpring({
     opacity: analyticsInView ? 1 : 0,
-    transform: analyticsInView ? 'translateY(0px)' : 'translateY(50px)',
+    transform: analyticsInView ? "translateY(0px)" : "translateY(50px)",
     config: ui.reducedMotion ? config.default : config.gentle,
-    delay: 300
-  })
+    delay: 300,
+  });
 
   // Donation analytics data for Chart.js
   const donationByMethodData = {
-    labels: ['Online', 'Collection', 'Bank Transfer', 'Legacy'],
+    labels: ["Online", "Collection", "Bank Transfer", "Legacy"],
     datasets: [
       {
         data: [45, 30, 20, 5],
-        backgroundColor: ['#d4af37', '#1a365d', '#16a34a', '#dc2626'],
-        borderColor: '#ffffff',
-        borderWidth: 2
-      }
-    ]
-  }
+        backgroundColor: ["#d4af37", "#1a365d", "#16a34a", "#dc2626"],
+        borderColor: "#ffffff",
+        borderWidth: 2,
+      },
+    ],
+  };
 
   const donationCauses = [
-    { value: 'general', label: 'General Parish Fund', description: 'Support our daily operations, utilities, and general parish needs.' },
-    { value: 'building', label: 'Building Maintenance', description: 'Help preserve our beautiful church building for future generations.' },
-    { value: 'outreach', label: 'Community Outreach', description: 'Support our work with those in need in the local community.' },
-    { value: 'youth', label: 'Youth Programs', description: 'Fund activities and resources for our children and young people.' },
-    { value: 'music', label: 'Music Ministry', description: 'Support our choir and liturgical music programs.' }
-  ]
+    {
+      value: "general",
+      label: "General Parish Fund",
+      description:
+        "Support our daily operations, utilities, and general parish needs.",
+    },
+    {
+      value: "building",
+      label: "Building Maintenance",
+      description:
+        "Help preserve our beautiful church building for future generations.",
+    },
+    {
+      value: "outreach",
+      label: "Community Outreach",
+      description:
+        "Support our work with those in need in the local community.",
+    },
+    {
+      value: "youth",
+      label: "Youth Programs",
+      description:
+        "Fund activities and resources for our children and young people.",
+    },
+    {
+      value: "music",
+      label: "Music Ministry",
+      description: "Support our choir and liturgical music programs.",
+    },
+  ];
 
   const causeFundingData = {
-    labels: donationCauses.map(cause => cause.label.substring(0, 12) + '..'),
+    labels: donationCauses.map((cause) => cause.label.substring(0, 12) + ".."),
     datasets: [
       {
-        label: 'Amount Raised (£)',
-        data: donationCauses.map(cause => donationStats[cause.value]?.amount || 0),
-        backgroundColor: 'rgba(212, 175, 55, 0.6)',
-        borderColor: '#d4af37',
-        borderWidth: 1
+        label: "Amount Raised (£)",
+        data: donationCauses.map(
+          (cause) => donationStats[cause.value]?.amount || 0
+        ),
+        backgroundColor: "rgba(212, 175, 55, 0.6)",
+        borderColor: "#d4af37",
+        borderWidth: 1,
       },
       {
-        label: 'Number of Donors',
-        data: donationCauses.map(cause => donationStats[cause.value]?.donors || 0),
-        backgroundColor: 'rgba(26, 54, 93, 0.6)',
-        borderColor: '#1a365d',
-        borderWidth: 1
-      }
-    ]
-  }
+        label: "Number of Donors",
+        data: donationCauses.map(
+          (cause) => donationStats[cause.value]?.donors || 0
+        ),
+        backgroundColor: "rgba(26, 54, 93, 0.6)",
+        borderColor: "#1a365d",
+        borderWidth: 1,
+      },
+    ],
+  };
 
   const handleDonationSubmit = async (data: DonationFormData) => {
     // Handle donation submission
-    console.log('Donation submitted:', data)
+    console.log("Donation submitted:", data);
     // In a real implementation, this would integrate with Stripe or another payment processor
-  }
+  };
 
   const handleReportDownload = () => {
     // Handle annual report download
-    console.log('Downloading annual report...')
+    console.log("Downloading annual report...");
     // In a real implementation, this would download the PDF
-  }
+  };
 
   const benefits = [
     {
       icon: Building,
       title: "Maintain Our Church",
-      description: "Keep our sacred space beautiful and welcoming for worship, prayer, and community gatherings."
+      description:
+        "Keep our sacred space beautiful and welcoming for worship, prayer, and community gatherings.",
     },
     {
       icon: Users,
-      title: "Support Programs", 
-      description: "Fund youth activities, adult education, community outreach, and pastoral care programs."
+      title: "Support Programs",
+      description:
+        "Fund youth activities, adult education, community outreach, and pastoral care programs.",
     },
     {
       icon: Heart,
       title: "Serve Others",
-      description: "Enable our outreach to those in need through food banks, visiting programs, and emergency assistance."
-    }
-  ]
+      description:
+        "Enable our outreach to those in need through food banks, visiting programs, and emergency assistance.",
+    },
+  ];
 
   const givingMethods = [
     {
       icon: Banknote,
       title: "Collection Basket",
-      description: "Place your donation in the collection basket during Mass on Sundays.",
-      color: "bg-navy-600"
+      description:
+        "Place your donation in the collection basket during Mass on Sundays.",
+      color: "bg-navy-600",
     },
     {
       icon: Building,
       title: "Bank Transfer",
-      description: "Set up a standing order directly to our parish account. Contact the office for details.",
-      color: "bg-navy-700"
+      description:
+        "Set up a standing order directly to our parish account. Contact the office for details.",
+      color: "bg-navy-700",
     },
     {
       icon: QrCode,
       title: "QR Code",
-      description: "Scan the QR code in the church to make a quick donation using your mobile device.",
-      color: "bg-navy-800"
+      description:
+        "Scan the QR code in the church to make a quick donation using your mobile device.",
+      color: "bg-navy-800",
     },
     {
       icon: Gift,
       title: "Legacy Giving",
-      description: "Remember the parish in your will. Contact us to discuss legacy giving options.",
-      color: "bg-navy-500"
-    }
-  ]
-
+      description:
+        "Remember the parish in your will. Contact us to discuss legacy giving options.",
+      color: "bg-navy-500",
+    },
+  ];
 
   return (
     <PageLayout
@@ -224,15 +289,15 @@ export default function Donate() {
         overlay="medium"
         actions={
           <Flex justify="center" gap="md">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               size="lg"
               leftIcon={<Heart className="h-5 w-5" />}
             >
               Donate Now
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               size="lg"
               leftIcon={<Phone className="h-5 w-5" />}
             >
@@ -260,19 +325,20 @@ export default function Donate() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '160px' }}
+                  style={{ width: "160px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                Discover the joy of giving as Christ taught us - generous hearts building God's kingdom
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                Discover the joy of giving as Christ taught us - generous hearts
+                building God's kingdom
               </p>
             </m.div>
-            
+
             <div className="max-w-4xl mx-auto">
-              <ScriptureCard
-                displayMode="themed"
-                theme="generosity"
-                showReflection={true}
+              <MainPageScriptureSection
+                pageTheme="donate"
                 reducedMotion={ui.reducedMotion}
               />
             </div>
@@ -286,23 +352,32 @@ export default function Donate() {
           <Container size="lg">
             <animated.div ref={analyticsRef} style={analyticsSpring}>
               <div className="text-center mb-12">
-                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                <h2
+                  className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+                >
                   Donation Impact & Transparency
                   <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     transition={{ duration: 1, delay: 0.3 }}
-                    style={{ width: '200px' }}
+                    style={{ width: "200px" }}
                   />
                 </h2>
-                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
-                  See how your generous donations are making a real difference in our community
+                <p
+                  className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+                >
+                  See how your generous donations are making a real difference
+                  in our community
                 </p>
               </div>
-              
+
               <div className="grid lg:grid-cols-3 gap-8 mb-12">
-                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white text-center shadow-lg"
+                >
                   <CardContent>
                     <div className="w-16 h-16 bg-green-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
                       <CurrencyDollarIcon className="h-8 w-8 text-white" />
@@ -310,11 +385,17 @@ export default function Donate() {
                     <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
                       £{totalRaised.toLocaleString()}
                     </h3>
-                    <p className={`${typographyScale.body} text-gray-600`}>Total Raised This Year</p>
+                    <p className={`${typographyScale.body} text-gray-600`}>
+                      Total Raised This Year
+                    </p>
                   </CardContent>
                 </Card>
-                
-                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white text-center shadow-lg"
+                >
                   <CardContent>
                     <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
                       <Users className="h-8 w-8 text-white" />
@@ -322,11 +403,17 @@ export default function Donate() {
                     <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
                       {donorCount}
                     </h3>
-                    <p className={`${typographyScale.body} text-gray-600`}>Generous Donors</p>
+                    <p className={`${typographyScale.body} text-gray-600`}>
+                      Generous Donors
+                    </p>
                   </CardContent>
                 </Card>
-                
-                <Card variant="default" padding="lg" className="bg-white text-center shadow-lg">
+
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white text-center shadow-lg"
+                >
                   <CardContent>
                     <div className="w-16 h-16 bg-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
                       <Heart className="h-8 w-8 text-white" />
@@ -334,15 +421,23 @@ export default function Donate() {
                     <h3 className={`${typographyScale.h3} text-slate-900 mb-2`}>
                       5
                     </h3>
-                    <p className={`${typographyScale.body} text-gray-600`}>Active Causes</p>
+                    <p className={`${typographyScale.body} text-gray-600`}>
+                      Active Causes
+                    </p>
                   </CardContent>
                 </Card>
               </div>
-              
+
               <div className="grid lg:grid-cols-2 gap-8">
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white shadow-lg"
+                >
                   <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                    <h3
+                      className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}
+                    >
                       Donation Methods
                     </h3>
                     <div className="h-64">
@@ -353,19 +448,25 @@ export default function Donate() {
                           maintainAspectRatio: false,
                           plugins: {
                             legend: {
-                              position: 'bottom',
-                              labels: { color: '#374151' }
-                            }
-                          }
+                              position: "bottom",
+                              labels: { color: "#374151" },
+                            },
+                          },
                         }}
                       />
                     </div>
                   </CardContent>
                 </Card>
-                
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white shadow-lg"
+                >
                   <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                    <h3
+                      className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}
+                    >
                       Funding by Cause
                     </h3>
                     <div className="h-64">
@@ -376,19 +477,19 @@ export default function Donate() {
                           maintainAspectRatio: false,
                           plugins: {
                             legend: {
-                              labels: { color: '#374151' }
-                            }
+                              labels: { color: "#374151" },
+                            },
                           },
                           scales: {
                             x: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
                             },
                             y: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
-                            }
-                          }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
+                            },
+                          },
                         }}
                       />
                     </div>
@@ -403,14 +504,22 @@ export default function Donate() {
       {/* Why Give Section */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <animated.div style={heroSpring} className="text-center space-y-8 max-w-4xl mx-auto mb-16">
+          <animated.div
+            style={heroSpring}
+            className="text-center space-y-8 max-w-4xl mx-auto mb-16"
+          >
             <Heading level="h2" align="center" className="mb-6">
               Why Your Support Matters
             </Heading>
-            <Text size="xl" align="center" color="muted" className="leading-relaxed">
-              Your generous donations help us maintain our beautiful church, support 
-              our community programs, and reach out to those in need. Every gift, 
-              large or small, makes a meaningful difference.
+            <Text
+              size="xl"
+              align="center"
+              color="muted"
+              className="leading-relaxed"
+            >
+              Your generous donations help us maintain our beautiful church,
+              support our community programs, and reach out to those in need.
+              Every gift, large or small, makes a meaningful difference.
             </Text>
           </animated.div>
 
@@ -419,21 +528,39 @@ export default function Donate() {
               <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.2 }}
+                whileInView={
+                  reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                transition={
+                  reducedMotion
+                    ? { duration: 0.3 }
+                    : { duration: 0.6, delay: index * 0.2 }
+                }
                 viewport={{ once: true }}
-                whileHover={!reducedMotion ? { y: -8, transition: { duration: 0.2 } } : {}}
+                whileHover={
+                  !reducedMotion ? { y: -8, transition: { duration: 0.2 } } : {}
+                }
               >
-                <Card variant="default" padding="lg" className="text-center h-full bg-white shadow-lg hover:shadow-xl transition-shadow">
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="text-center h-full bg-white shadow-lg hover:shadow-xl transition-shadow"
+                >
                   <CardContent>
                     <div className="space-y-4">
-                      <m.div 
+                      <m.div
                         className="w-12 h-12 bg-gold-600 rounded-lg flex items-center justify-center mx-auto"
-                        whileHover={!reducedMotion ? { scale: 1.1, rotate: 5 } : {}}
+                        whileHover={
+                          !reducedMotion ? { scale: 1.1, rotate: 5 } : {}
+                        }
                       >
                         <benefit.icon className="h-6 w-6 text-white" />
                       </m.div>
-                      <Heading level="h3" align="center" className="font-semibold">
+                      <Heading
+                        level="h3"
+                        align="center"
+                        className="font-semibold"
+                      >
                         {benefit.title}
                       </Heading>
                       <Text color="muted" align="center">
@@ -474,14 +601,17 @@ export default function Donate() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '160px' }}
+                  style={{ width: "160px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                Track your giving history and see the real-time impact of your donations
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                Track your giving history and see the real-time impact of your
+                donations
               </p>
             </m.div>
-            
+
             {/* <EnhancedDonationTracker
               totalDonated={totalRaised}
               donorCount={donorCount}
@@ -509,21 +639,26 @@ export default function Donate() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+              <h2
+                className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+              >
                 Secure Payment Options
                 <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
-                Choose from multiple secure payment methods including cards, bank transfer, and digital wallets
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+              >
+                Choose from multiple secure payment methods including cards,
+                bank transfer, and digital wallets
               </p>
             </m.div>
-            
+
             {/* <PaymentIntegrationPreview
               donationCauses={donationCauses}
               onPaymentMethodSelect={(method) => {
@@ -557,14 +692,17 @@ export default function Donate() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                See exactly how your donation will be used and the difference it will make
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                See exactly how your donation will be used and the difference it
+                will make
               </p>
             </m.div>
-            
+
             {/* <DonationImpactCalculator
               donationCauses={donationCauses}
               onCalculateImpact={handleImpactCalculation}
@@ -585,21 +723,26 @@ export default function Donate() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+              <h2
+                className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+              >
                 Set Up Regular Giving
                 <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
-                Create and manage recurring donations to support our mission consistently
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+              >
+                Create and manage recurring donations to support our mission
+                consistently
               </p>
             </m.div>
-            
+
             {/* <RecurringDonationManager
               donationCauses={donationCauses}
               onSetupRecurring={(amount, frequency, cause) => {
@@ -629,7 +772,9 @@ export default function Donate() {
             {/* What Your Donation Supports */}
             <m.div
               initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
-              whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              whileInView={
+                reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+              }
               transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6 }}
               viewport={{ once: true }}
               className="space-y-6"
@@ -637,14 +782,22 @@ export default function Donate() {
               <Heading level="h3" className="text-xl font-semibold">
                 What Your Donation Supports
               </Heading>
-              
+
               <div className="space-y-4">
                 {donationCauses.map((cause, index) => (
                   <m.div
                     key={cause.value}
-                    initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-                    whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                    transition={reducedMotion ? { duration: 0.3 } : { duration: 0.4, delay: index * 0.1 }}
+                    initial={
+                      reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }
+                    }
+                    whileInView={
+                      reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                    }
+                    transition={
+                      reducedMotion
+                        ? { duration: 0.3 }
+                        : { duration: 0.4, delay: index * 0.1 }
+                    }
                     viewport={{ once: true }}
                     whileHover={!reducedMotion ? { x: 4 } : {}}
                   >
@@ -670,15 +823,20 @@ export default function Donate() {
               </div>
 
               {/* Gift Aid Information */}
-              <Card variant="outlined" padding="md" className="bg-blue-50 border-blue-200">
+              <Card
+                variant="outlined"
+                padding="md"
+                className="bg-blue-50 border-blue-200"
+              >
                 <CardContent>
                   <div className="space-y-2">
                     <Heading level="h4" className="font-semibold text-blue-900">
                       Gift Aid
                     </Heading>
                     <Text size="sm" className="text-blue-800">
-                      UK taxpayers can increase their donation by 25% at no extra cost 
-                      through Gift Aid. We'll provide the necessary forms after your donation.
+                      UK taxpayers can increase their donation by 25% at no
+                      extra cost through Gift Aid. We'll provide the necessary
+                      forms after your donation.
                     </Text>
                   </div>
                 </CardContent>
@@ -711,21 +869,39 @@ export default function Donate() {
               <m.div
                 key={index}
                 initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                whileInView={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                transition={reducedMotion ? { duration: 0.3 } : { duration: 0.6, delay: index * 0.1 }}
+                whileInView={
+                  reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                transition={
+                  reducedMotion
+                    ? { duration: 0.3 }
+                    : { duration: 0.6, delay: index * 0.1 }
+                }
                 viewport={{ once: true }}
-                whileHover={!reducedMotion ? { y: -8, transition: { duration: 0.2 } } : {}}
+                whileHover={
+                  !reducedMotion ? { y: -8, transition: { duration: 0.2 } } : {}
+                }
               >
-                <Card variant="default" padding="lg" className="text-center space-y-4 bg-gray-50 h-full shadow-lg hover:shadow-xl transition-shadow">
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="text-center space-y-4 bg-gray-50 h-full shadow-lg hover:shadow-xl transition-shadow"
+                >
                   <CardContent>
                     <div className="space-y-4">
-                      <m.div 
+                      <m.div
                         className={`w-16 h-16 ${method.color} rounded-full flex items-center justify-center mx-auto`}
-                        whileHover={!reducedMotion ? { scale: 1.1, rotate: 5 } : {}}
+                        whileHover={
+                          !reducedMotion ? { scale: 1.1, rotate: 5 } : {}
+                        }
                       >
                         <method.icon className="h-8 w-8 text-white" />
                       </m.div>
-                      <Heading level="h3" align="center" className="font-semibold">
+                      <Heading
+                        level="h3"
+                        align="center"
+                        className="font-semibold"
+                      >
                         {method.title}
                       </Heading>
                       <Text size="sm" color="muted" align="center">
@@ -766,14 +942,16 @@ export default function Donate() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
                 Hear from fellow parishioners about the joy and impact of giving
               </p>
             </m.div>
-            
+
             {/* <DonationTestimonials
               testimonials={[
                 {
@@ -818,16 +996,21 @@ export default function Donate() {
               <Heading level="h2" align="center">
                 Questions About Giving?
               </Heading>
-              <Text size="xl" align="center" color="muted" className="max-w-2xl mx-auto">
-                We're happy to discuss donation options, Gift Aid, legacy giving, 
-                or answer any questions about supporting our parish.
+              <Text
+                size="xl"
+                align="center"
+                color="muted"
+                className="max-w-2xl mx-auto"
+              >
+                We're happy to discuss donation options, Gift Aid, legacy
+                giving, or answer any questions about supporting our parish.
               </Text>
             </div>
-            
+
             <Flex justify="center" gap="md" wrap>
               <Link href="/contact-us">
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="lg"
                   rightIcon={<ArrowRight className="h-5 w-5" />}
                   className="bg-white text-slate-900 hover:bg-gray-100"
@@ -836,8 +1019,8 @@ export default function Donate() {
                 </Button>
               </Link>
               <a href="tel:+442088527411">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="lg"
                   leftIcon={<Phone className="h-5 w-5" />}
                 >
@@ -854,7 +1037,9 @@ export default function Donate() {
         articleId="donations"
         title="Support St Saviour's Catholic Church - Donate"
         url="https://stsaviourlewisham.org.uk/donate"
-        onShare={(platform) => console.log(`Shared donation page on ${platform}`)}
+        onShare={(platform) =>
+          console.log(`Shared donation page on ${platform}`)
+        }
         reducedMotion={ui.reducedMotion}
       />
 
@@ -896,8 +1081,8 @@ export default function Donate() {
         }}
       /> */}
     </PageLayout>
-  )
+  );
 }
 
 // Maintenance mode check
-export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'
+export { defaultMaintenanceCheck as getServerSideProps } from "@/lib/maintenance";

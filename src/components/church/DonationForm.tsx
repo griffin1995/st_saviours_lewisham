@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, m } from 'framer-motion'
+import { m} from 'framer-motion'
 import { CreditCard, Shield, ChevronDown } from 'lucide-react'
 import { Card, CardContent, Button, Text, Heading, Flex, Grid } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'

@@ -1,35 +1,35 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { 
-  UsersIcon as Users, 
-  HeartIcon as Heart, 
+import React from "react";
+import { motion, m } from "framer-motion";
+import {
+  UsersIcon as Users,
+  HeartIcon as Heart,
   CalendarDaysIcon as Calendar,
   ClockIcon as Clock,
   ArrowLeftIcon as ArrowLeft,
   MapPinIcon as MapPin,
-  BookOpenIcon as BookOpen
-} from '@heroicons/react/24/solid'
-import Link from 'next/link'
+  BookOpenIcon as BookOpen,
+} from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 // Components
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
-  Container
-} from '@/components/ui'
-import { prefersReducedMotion } from '@/lib/utils'
+  Container,
+} from "@/components/ui";
+import { prefersReducedMotion } from "@/lib/utils";
 
 export default function StBakhitaGroupPage() {
-  const reducedMotion = prefersReducedMotion()
+  const reducedMotion = prefersReducedMotion();
 
   return (
-    <PageLayout 
+    <PageLayout
       title="The St Bakhita Group | Community News | St Saviour's Catholic Church"
       description="Learn about the St Bakhita Group at St Saviour's - a welcoming community for migrants and parishioners, rooted in prayer and fellowship."
       keywords="St Bakhita Group, migrants, community, prayer, fellowship, St Josephine Bakhita, Catholic social teaching"
@@ -58,31 +58,46 @@ export default function StBakhitaGroupPage() {
                     <div className="flex items-center gap-3">
                       <Calendar className="h-5 w-5 text-gold-300" />
                       <div>
-                        <Text size="sm" color="gold" className="font-medium">When</Text>
-                        <Text size="sm" color="white">First Wednesday of each month</Text>
+                        <Text size="sm" color="gold" className="font-medium">
+                          When
+                        </Text>
+                        <Text size="sm" color="white">
+                          First Wednesday of each month
+                        </Text>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <Clock className="h-5 w-5 text-gold-300" />
                       <div>
-                        <Text size="sm" color="gold" className="font-medium">Time</Text>
-                        <Text size="sm" color="white">After Mass (approx. 1 hour)</Text>
+                        <Text size="sm" color="gold" className="font-medium">
+                          Time
+                        </Text>
+                        <Text size="sm" color="white">
+                          After Mass (approx. 1 hour)
+                        </Text>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <MapPin className="h-5 w-5 text-gold-300" />
                       <div>
-                        <Text size="sm" color="gold" className="font-medium">Where</Text>
-                        <Text size="sm" color="white">Main body of the church</Text>
+                        <Text size="sm" color="gold" className="font-medium">
+                          Where
+                        </Text>
+                        <Text size="sm" color="white">
+                          Main body of the church
+                        </Text>
                       </div>
                     </div>
                   </div>
-                  
+
                   <Text size="lg" color="gray-100" className="leading-relaxed">
-                    A welcoming place for migrants and parishioners, the St Bakhita Group launched in April 2024, 
-                    following the formal installation of a specially commissioned statue of the Saint in February. 
-                    With prayers led by Fr Kenneth Iwunna, the group offers a regular space for prayer, reflection, 
-                    and community-building, with a focus on the experiences and concerns of migrants.
+                    A welcoming place for migrants and parishioners, the St
+                    Bakhita Group launched in April 2024, following the formal
+                    installation of a specially commissioned statue of the Saint
+                    in February. With prayers led by Fr Kenneth Iwunna, the
+                    group offers a regular space for prayer, reflection, and
+                    community-building, with a focus on the experiences and
+                    concerns of migrants.
                   </Text>
                 </CardContent>
               </Card>
@@ -104,7 +119,7 @@ export default function StBakhitaGroupPage() {
               <Heading level="h2" color="white" className="mb-6">
                 What We Do
               </Heading>
-              
+
               <div className="space-y-6">
                 <Card className="bg-white/10 backdrop-blur-sm border-slate-600">
                   <CardContent className="p-6">
@@ -117,7 +132,8 @@ export default function StBakhitaGroupPage() {
                           Scripture & Prayer
                         </Heading>
                         <Text color="gray-100">
-                          Each session includes prayer, a Scripture reading, and time for reflection.
+                          Each session includes prayer, a Scripture reading, and
+                          time for reflection.
                         </Text>
                       </div>
                     </div>
@@ -135,7 +151,8 @@ export default function StBakhitaGroupPage() {
                           Community Building
                         </Heading>
                         <Text color="gray-100">
-                          Intercessions focus on key themes: family life, dignity of work, belonging, and community.
+                          Intercessions focus on key themes: family life,
+                          dignity of work, belonging, and community.
                         </Text>
                       </div>
                     </div>
@@ -153,7 +170,8 @@ export default function StBakhitaGroupPage() {
                           Open to All
                         </Heading>
                         <Text color="gray-100">
-                          While rooted in migrant issues, the group welcomes everyone on their journey of faith.
+                          While rooted in migrant issues, the group welcomes
+                          everyone on their journey of faith.
                         </Text>
                       </div>
                     </div>
@@ -171,7 +189,7 @@ export default function StBakhitaGroupPage() {
               <Heading level="h2" color="white" className="mb-6">
                 About St Josephine Bakhita
               </Heading>
-              
+
               <Card className="bg-white/10 backdrop-blur-sm border-slate-600 mb-6">
                 <CardContent className="p-0">
                   <div className="relative h-64 overflow-hidden">
@@ -183,8 +201,9 @@ export default function StBakhitaGroupPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <Text size="sm" color="white" className="text-center">
-                        Statue erected in St Peter's Square in 2022 to commemorate St Bakhita 
-                        and highlight the Church's commitment to human dignity
+                        Statue erected in St Peter's Square in 2022 to
+                        commemorate St Bakhita and highlight the Church's
+                        commitment to human dignity
                       </Text>
                     </div>
                   </div>
@@ -193,19 +212,25 @@ export default function StBakhitaGroupPage() {
 
               <div className="space-y-4">
                 <Text color="gray-100" className="leading-relaxed">
-                  <strong className="text-white">St Josephine Bakhita (1869-1947)</strong> was born in the Darfur region of Sudan. 
-                  At age seven, she was kidnapped by slave traders and sold multiple times before being brought to Italy.
+                  <strong className="text-white">
+                    St Josephine Bakhita (1869-1947)
+                  </strong>{" "}
+                  was born in the Darfur region of Sudan. At age seven, she was
+                  kidnapped by slave traders and sold multiple times before
+                  being brought to Italy.
                 </Text>
-                
+
                 <Text color="gray-100" className="leading-relaxed">
-                  In Italy, she encountered the Cannossian Daughters of Charity, who welcomed her with compassion. 
-                  She embraced Christianity and was baptized on January 9th, 1890, choosing the name Josephine 
-                  in tribute to St Joseph.
+                  In Italy, she encountered the Cannossian Daughters of Charity,
+                  who welcomed her with compassion. She embraced Christianity
+                  and was baptized on January 9th, 1890, choosing the name
+                  Josephine in tribute to St Joseph.
                 </Text>
-                
+
                 <Text color="gray-100" className="leading-relaxed">
-                  Her journey from slavery to sainthood is a powerful testament to God's transformative grace. 
-                  She died peacefully in 1947, maintaining a joyful demeanor and unwavering faith to the end.
+                  Her journey from slavery to sainthood is a powerful testament
+                  to God's transformative grace. She died peacefully in 1947,
+                  maintaining a joyful demeanor and unwavering faith to the end.
                 </Text>
 
                 <Card className="bg-gold-500/10 border-gold-500/30 mt-6">
@@ -214,9 +239,10 @@ export default function StBakhitaGroupPage() {
                       A Lesson of Hope
                     </Heading>
                     <Text color="white" className="italic">
-                      "St Bakhita's story offers a poignant lens through which we view contemporary issues 
-                      of migration, freedom, and resilience. Her life reminds us that hope can thrive 
-                      even in the darkest circumstances."
+                      "St Bakhita's story offers a poignant lens through which
+                      we view contemporary issues of migration, freedom, and
+                      resilience. Her life reminds us that hope can thrive even
+                      in the darkest circumstances."
                     </Text>
                   </CardContent>
                 </Card>
@@ -239,18 +265,27 @@ export default function StBakhitaGroupPage() {
                 Join Our Community
               </Heading>
               <Text size="lg" color="gray-100" className="mb-8">
-                Everyone is welcome to join the St Bakhita Group. Whether you're a migrant, long-time parishioner, 
-                or simply seeking a space of prayer and fellowship, you'll find a warm welcome.
+                Everyone is welcome to join the St Bakhita Group. Whether you're
+                a migrant, long-time parishioner, or simply seeking a space of
+                prayer and fellowship, you'll find a warm welcome.
               </Text>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/contact-us">
-                  <Button variant="primary" size="lg" className="bg-white text-slate-900 hover:bg-gray-100">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="bg-white text-slate-900 hover:bg-gray-100"
+                  >
                     <Heart className="h-5 w-5 mr-2" />
                     Get Involved
                   </Button>
                 </Link>
                 <Link href="/community-news">
-                  <Button variant="secondary" size="lg" className="border-white text-white hover:bg-white hover:text-slate-900">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="border-white text-white hover:bg-white hover:text-slate-900"
+                  >
                     <ArrowLeft className="h-5 w-5 mr-2" />
                     Back to Community News
                   </Button>
@@ -261,5 +296,5 @@ export default function StBakhitaGroupPage() {
         </Container>
       </Section>
     </PageLayout>
-  )
+  );
 }

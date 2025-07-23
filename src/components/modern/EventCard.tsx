@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { 
   CalendarDaysIcon,
   ClockIcon,
@@ -325,7 +325,7 @@ const EventCard: React.FC<EventCardProps> = ({
       {/* Event Image */}
       {event.image && (
         <div className="relative h-48 overflow-hidden">
-          <motion.img
+          <m.img
             src={event.image}
             alt={event.title}
             variants={imageVariants}
@@ -335,7 +335,7 @@ const EventCard: React.FC<EventCardProps> = ({
           
           {/* Overlay Actions */}
           <div className="absolute top-4 right-4 flex gap-2">
-            <motion.button
+            <m.button
               variants={actionVariants}
               initial="hidden"
               whileInView="visible"
@@ -347,10 +347,10 @@ const EventCard: React.FC<EventCardProps> = ({
               ) : (
                 <HeartOutline className="h-4 w-4 text-gray-600" />
               )}
-            </motion.button>
+            </m.button>
             
             <div className="relative">
-              <motion.button
+              <m.button
                 variants={actionVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -358,7 +358,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors"
               >
                 <ShareIcon className="h-4 w-4 text-gray-600" />
-              </motion.button>
+              </m.button>
               
               <AnimatePresence>
                 {showShareMenu && (

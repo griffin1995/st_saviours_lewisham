@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, m } from "framer-motion";
+import { m } from "framer-motion";
 
 interface ContentSectionProps {
   children: React.ReactNode;

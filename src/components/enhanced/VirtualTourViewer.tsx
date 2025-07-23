@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { 
   PlayIcon, 
   PauseIcon, 
@@ -129,7 +129,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
     >
       {/* Main Panorama View */}
       <div className="relative w-full h-full overflow-hidden">
-        <Motion.img
+        <m.img
           ref={imageRef}
           src={currentStop.imageUrl}
           alt={currentStop.title}
@@ -145,7 +145,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
 
         {/* Hotspots */}
         {showHotspots && currentStop.hotspots?.map((hotspot, index) => (
-          <Motion.button
+          <m.button
             key={index}
             className="absolute w-8 h-8 bg-gold-500 rounded-full border-4 border-white shadow-lg hover:scale-110 transition-transform"
             style={{
@@ -166,7 +166,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             transition={{ duration: 2, repeat: Infinity }}
           >
             <div className="absolute inset-0 bg-gold-400 rounded-full animate-ping opacity-75" />
-          </Motion.button>
+          </m.button>
         ))}
 
         {/* Gradient Overlays */}

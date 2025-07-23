@@ -7,9 +7,9 @@ import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
 // Dynamic GSAP import for SSR compatibility
 //
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
-import { PhotoSwipeLightbox } from '@/components/enhanced/PhotoSwipeLightbox'
+// PhotoSwipe dependency removed - handled by parent wrapper component
 
 // GSAP will be loaded dynamically in useEffect
 

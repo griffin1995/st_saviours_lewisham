@@ -1,41 +1,46 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { 
-  Shield, 
-  Phone, 
-  Mail, 
-  AlertTriangle, 
-  FileText, 
-  Users, 
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion, m } from "framer-motion";
+import {
+  Shield,
+  Phone,
+  Mail,
+  AlertTriangle,
+  FileText,
+  Users,
   Heart,
   Clock,
   Book,
   UserCheck,
   MapPin,
   Download,
-  ExternalLink
-} from 'lucide-react'
+  ExternalLink,
+} from "lucide-react";
 
 // New modern component system
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
   Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Container,
   Grid,
-  Flex
-} from '@/components/ui'
-import { SafeguardingContactCard } from '@/components/church'
-import { prefersReducedMotion } from '@/lib/utils'
+  Flex,
+} from "@/components/ui";
+import { SafeguardingContactCard } from "@/components/church";
+import { prefersReducedMotion } from "@/lib/utils";
 
 // CMS integration
-import { getSafeguardingPhone, getContactPhone, getContactEmail, getParishPriest } from '@/lib/cms-content'
+import {
+  getSafeguardingPhone,
+  getContactPhone,
+  getContactEmail,
+  getParishPriest,
+} from "@/lib/cms-content";
 
 const emergencyContacts = [
   {
@@ -44,7 +49,7 @@ const emergencyContacts = [
     description: "Emergency Services",
     available: "24/7",
     icon: AlertTriangle,
-    urgent: true
+    urgent: true,
   },
   {
     situation: "Police Non-Emergency",
@@ -52,7 +57,7 @@ const emergencyContacts = [
     description: "For non-urgent police matters",
     available: "24/7",
     icon: Phone,
-    urgent: false
+    urgent: false,
   },
   {
     situation: "NSPCC Helpline",
@@ -60,7 +65,7 @@ const emergencyContacts = [
     description: "For concerns about a child",
     available: "24/7",
     icon: Heart,
-    urgent: false
+    urgent: false,
   },
   {
     situation: "Childline",
@@ -68,8 +73,8 @@ const emergencyContacts = [
     description: "For children and young people",
     available: "24/7",
     icon: Users,
-    urgent: false
-  }
+    urgent: false,
+  },
 ];
 
 const parishContacts = [
@@ -78,15 +83,15 @@ const parishContacts = [
     name: "Sarah Mitchell",
     phone: getSafeguardingPhone(),
     email: "safeguarding@saintsaviours.org.uk",
-    availability: "Monday-Friday, 9:00 AM - 5:00 PM"
+    availability: "Monday-Friday, 9:00 AM - 5:00 PM",
   },
   {
     role: "Parish Priest",
     name: getParishPriest(),
     phone: getContactPhone(),
     email: getContactEmail(),
-    availability: "By appointment"
-  }
+    availability: "By appointment",
+  },
 ];
 
 const diocesanContacts = [
@@ -95,40 +100,43 @@ const diocesanContacts = [
     name: "Helen Sheppard",
     phone: "020 8688 2181",
     email: "helen.sheppard@rcaos.org.uk",
-    office: "Archdiocese of Southwark"
+    office: "Archdiocese of Southwark",
   },
   {
     role: "Assistant Safeguarding Coordinator",
     name: "Jeanette Donnelly",
-    phone: "020 8688 2181", 
+    phone: "020 8688 2181",
     email: "jeanette.donnelly@rcaos.org.uk",
-    office: "Archdiocese of Southwark"
-  }
+    office: "Archdiocese of Southwark",
+  },
 ];
 
 const policies = [
   {
     title: "Safeguarding Policy",
-    description: "Our comprehensive safeguarding policy following national and diocesan guidelines",
+    description:
+      "Our comprehensive safeguarding policy following national and diocesan guidelines",
     downloadUrl: "/documents/safeguarding-policy.pdf",
-    lastUpdated: "January 2025"
+    lastUpdated: "January 2025",
   },
   {
     title: "Code of Conduct",
-    description: "Guidelines for all volunteers, staff, and clergy working with children and vulnerable adults",
+    description:
+      "Guidelines for all volunteers, staff, and clergy working with children and vulnerable adults",
     downloadUrl: "/documents/code-of-conduct.pdf",
-    lastUpdated: "January 2025"
+    lastUpdated: "January 2025",
   },
   {
     title: "Safeguarding Procedures",
-    description: "Step-by-step procedures for reporting and responding to safeguarding concerns",
+    description:
+      "Step-by-step procedures for reporting and responding to safeguarding concerns",
     downloadUrl: "/documents/safeguarding-procedures.pdf",
-    lastUpdated: "January 2025"
-  }
+    lastUpdated: "January 2025",
+  },
 ];
 
 export default function Safeguarding() {
-  const reducedMotion = prefersReducedMotion()
+  const reducedMotion = prefersReducedMotion();
 
   return (
     <PageLayout
@@ -145,15 +153,15 @@ export default function Safeguarding() {
         overlay="medium"
         actions={
           <Flex justify="center" gap="md">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               size="lg"
               leftIcon={<Phone className="h-5 w-5" />}
             >
               Emergency: 999
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               size="lg"
               leftIcon={<Shield className="h-5 w-5" />}
             >
@@ -174,11 +182,12 @@ export default function Safeguarding() {
               Emergency Situations
             </Heading>
             <Text size="xl" className="text-red-100 mb-8 max-w-3xl mx-auto">
-              If a child or adult is in immediate danger of significant or serious harm
+              If a child or adult is in immediate danger of significant or
+              serious harm
             </Text>
             <Link href="tel:999">
-              <Button 
-                variant="secondary" 
+              <Button
+                variant="secondary"
                 size="xl"
                 leftIcon={<Phone className="h-6 w-6" />}
                 className="bg-white text-red-600 hover:bg-red-50 font-bold text-xl px-8 py-4"
@@ -193,48 +202,70 @@ export default function Safeguarding() {
       {/* Our Commitment */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <Grid cols={2} gap="xl" className="grid-cols-1 lg:grid-cols-2 items-center">
+          <Grid
+            cols={2}
+            gap="xl"
+            className="grid-cols-1 lg:grid-cols-2 items-center"
+          >
             <div>
               <Heading level="h2" className="mb-6">
                 Our Commitment to Safeguarding
               </Heading>
               <Text size="xl" color="muted" className="mb-6 leading-relaxed">
-                St Saviour's Catholic Church is committed to safeguarding the welfare of all children, 
-                young people, and vulnerable adults. We follow the safeguarding policies of the Catholic 
-                Church in England & Wales and the Archdiocese of Southwark.
+                St Saviour's Catholic Church is committed to safeguarding the
+                welfare of all children, young people, and vulnerable adults. We
+                follow the safeguarding policies of the Catholic Church in
+                England & Wales and the Archdiocese of Southwark.
               </Text>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Safeguarding is embedded in everything we do. All clergy, religious, volunteers, 
-              parishioners, and staff follow national and diocesan safeguarding policies and receive 
-              appropriate training to ensure our parish remains a safe place for everyone.
-            </p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                Safeguarding is embedded in everything we do. All clergy,
+                religious, volunteers, parishioners, and staff follow national
+                and diocesan safeguarding policies and receive appropriate
+                training to ensure our parish remains a safe place for everyone.
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start">
                   <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Safe Environment</h4>
-                    <p className="text-gray-600 text-sm">Creating secure spaces for worship and community</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Safe Environment
+                    </h4>
+                    <p className="text-gray-600 text-sm">
+                      Creating secure spaces for worship and community
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Safer Recruitment</h4>
-                    <p className="text-gray-600 text-sm">Thorough vetting of all staff and volunteers</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Safer Recruitment
+                    </h4>
+                    <p className="text-gray-600 text-sm">
+                      Thorough vetting of all staff and volunteers
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Regular Training</h4>
-                    <p className="text-gray-600 text-sm">Ongoing safeguarding education for all</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Regular Training
+                    </h4>
+                    <p className="text-gray-600 text-sm">
+                      Ongoing safeguarding education for all
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Support for Survivors</h4>
-                    <p className="text-gray-600 text-sm">Care and assistance for those harmed by abuse</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Support for Survivors
+                    </h4>
+                    <p className="text-gray-600 text-sm">
+                      Care and assistance for those harmed by abuse
+                    </p>
                   </div>
                 </div>
               </div>
@@ -260,12 +291,21 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="mb-6">
               Emergency Contacts
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+            <Text
+              size="xl"
+              align="center"
+              color="muted"
+              className="max-w-3xl mx-auto"
+            >
               Important numbers for safeguarding emergencies and concerns
             </Text>
           </div>
 
-          <Grid cols={4} gap="lg" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <Grid
+            cols={4}
+            gap="lg"
+            className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          >
             {emergencyContacts.map((contact, index) => (
               <SafeguardingContactCard
                 key={contact.situation}
@@ -285,8 +325,14 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="mb-6">
               Parish Safeguarding Team
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
-              Our trained safeguarding representatives are here to help and support you
+            <Text
+              size="xl"
+              align="center"
+              color="muted"
+              className="max-w-3xl mx-auto"
+            >
+              Our trained safeguarding representatives are here to help and
+              support you
             </Text>
           </div>
 
@@ -301,7 +347,7 @@ export default function Safeguarding() {
                   description: `Contact for safeguarding concerns and support`,
                   available: contact.availability,
                   email: contact.email,
-                  icon: Users
+                  icon: Users,
                 }}
                 variant="parish"
                 size="lg"
@@ -318,7 +364,11 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="text-white mb-6">
               Diocesan Safeguarding Team
             </Heading>
-            <Text size="xl" align="center" className="text-gray-200 max-w-3xl mx-auto">
+            <Text
+              size="xl"
+              align="center"
+              className="text-gray-200 max-w-3xl mx-auto"
+            >
               Archdiocese of Southwark safeguarding coordinators
             </Text>
           </div>
@@ -336,15 +386,19 @@ export default function Safeguarding() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-4">
                     <Shield className="h-8 w-8 text-gold-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{contact.role}</h3>
-                  <p className="text-lg text-gold-600 font-medium">{contact.name}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    {contact.role}
+                  </h3>
+                  <p className="text-lg text-gold-600 font-medium">
+                    {contact.name}
+                  </p>
                   <p className="text-sm text-gray-500">{contact.office}</p>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center justify-center">
                     <Phone className="h-5 w-5 text-gray-400 mr-3" />
                     <Link
-                      href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                      href={`tel:${contact.phone.replace(/\s/g, "")}`}
                       className="text-gray-700 hover:text-gold-600 transition-colors"
                     >
                       {contact.phone}
@@ -373,7 +427,12 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="mb-6">
               Safeguarding Policies
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+            <Text
+              size="xl"
+              align="center"
+              color="muted"
+              className="max-w-3xl mx-auto"
+            >
               Download our safeguarding policies and procedures
             </Text>
           </div>
@@ -391,9 +450,15 @@ export default function Safeguarding() {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-100 rounded-full mb-4">
                     <FileText className="h-6 w-6 text-gold-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{policy.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{policy.description}</p>
-                  <p className="text-xs text-gray-500 mb-4">Last updated: {policy.lastUpdated}</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {policy.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {policy.description}
+                  </p>
+                  <p className="text-xs text-gray-500 mb-4">
+                    Last updated: {policy.lastUpdated}
+                  </p>
                 </div>
                 <Link
                   href={policy.downloadUrl}
@@ -415,50 +480,81 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="mb-6">
               Safeguarding Training
             </Heading>
-            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+            <Text
+              size="xl"
+              align="center"
+              color="muted"
+              className="max-w-3xl mx-auto"
+            >
               All volunteers and staff receive appropriate safeguarding training
             </Text>
           </div>
 
-          <Grid cols={2} gap="xl" className="grid-cols-1 lg:grid-cols-2 items-center">
+          <Grid
+            cols={2}
+            gap="xl"
+            className="grid-cols-1 lg:grid-cols-2 items-center"
+          >
             <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Training Requirements</h3>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+                Training Requirements
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <UserCheck className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">All Volunteers</h4>
-                    <p className="text-gray-600">Basic safeguarding awareness training required</p>
+                    <h4 className="font-semibold text-gray-900">
+                      All Volunteers
+                    </h4>
+                    <p className="text-gray-600">
+                      Basic safeguarding awareness training required
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Book className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Regular Updates</h4>
-                    <p className="text-gray-600">Training updated every three years minimum</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Regular Updates
+                    </h4>
+                    <p className="text-gray-600">
+                      Training updated every three years minimum
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Shield className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Enhanced Training</h4>
-                    <p className="text-gray-600">Additional training for those working closely with children</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Enhanced Training
+                    </h4>
+                    <p className="text-gray-600">
+                      Additional training for those working closely with
+                      children
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Support Available</h4>
-                    <p className="text-gray-600">Ongoing guidance and support from our safeguarding team</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Support Available
+                    </h4>
+                    <p className="text-gray-600">
+                      Ongoing guidance and support from our safeguarding team
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bg-gold-50 rounded-xl p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Want to Volunteer?</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Want to Volunteer?
+              </h3>
               <p className="text-gray-600 mb-6">
-                If you're interested in volunteering with children, young people, or vulnerable adults, 
-                we'll provide you with all the necessary training and support.
+                If you're interested in volunteering with children, young
+                people, or vulnerable adults, we'll provide you with all the
+                necessary training and support.
               </p>
               <Link
                 href="/contact-us"
@@ -479,7 +575,11 @@ export default function Safeguarding() {
             <Heading level="h2" align="center" className="text-white mb-6">
               Additional Resources
             </Heading>
-            <Text size="xl" align="center" className="text-gray-200 mb-8 max-w-3xl mx-auto">
+            <Text
+              size="xl"
+              align="center"
+              className="text-gray-200 mb-8 max-w-3xl mx-auto"
+            >
               Useful links and resources for safeguarding information
             </Text>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">

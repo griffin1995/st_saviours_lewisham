@@ -5,7 +5,15 @@ import { motion, m } from "framer-motion";
 import { PageLayout } from "@/components/layout";
 import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
-import { Play, Calendar, Clock, User, Download, Search, Filter } from "lucide-react";
+import {
+  Play,
+  Calendar,
+  Clock,
+  User,
+  Download,
+  Search,
+  Filter,
+} from "lucide-react";
 
 interface Talk {
   id: number;
@@ -27,7 +35,8 @@ const talks: Talk[] = [
     id: 1,
     title: "The Call to Holiness in Everyday Life",
     speaker: "Fr Krisz",
-    description: "Discover how to live a holy life in the midst of daily challenges and responsibilities. This talk explores practical ways to grow closer to God through ordinary moments.",
+    description:
+      "Discover how to live a holy life in the midst of daily challenges and responsibilities. This talk explores practical ways to grow closer to God through ordinary moments.",
     date: "2025-01-15",
     duration: "45 minutes",
     category: "Spiritual Formation",
@@ -35,88 +44,103 @@ const talks: Talk[] = [
     videoUrl: "#",
     audioUrl: "#",
     downloadUrl: "#",
-    featured: true
+    featured: true,
   },
   {
     id: 2,
     title: "Understanding the Mass: Heaven on Earth",
     speaker: "Fr Krisz",
-    description: "Deepen your appreciation of the Holy Mass by understanding its rich symbolism, structure, and spiritual significance in our Catholic faith.",
+    description:
+      "Deepen your appreciation of the Holy Mass by understanding its rich symbolism, structure, and spiritual significance in our Catholic faith.",
     date: "2024-12-10",
     duration: "50 minutes",
     category: "Liturgy",
     image: "/images/church/altar-mass.jpg",
     videoUrl: "#",
     audioUrl: "#",
-    downloadUrl: "#"
+    downloadUrl: "#",
   },
   {
     id: 3,
     title: "Mary, Our Mother and Model",
     speaker: "Fr Krisz",
-    description: "Explore the role of Our Lady in salvation history and how her example of faith, hope, and love guides us on our spiritual journey.",
+    description:
+      "Explore the role of Our Lady in salvation history and how her example of faith, hope, and love guides us on our spiritual journey.",
     date: "2024-11-20",
     duration: "40 minutes",
     category: "Marian Devotion",
     image: "/images/church/mary-statue.jpg",
     videoUrl: "#",
     audioUrl: "#",
-    downloadUrl: "#"
+    downloadUrl: "#",
   },
   {
     id: 4,
     title: "Living the Beatitudes Today",
     speaker: "Deacon Michael",
-    description: "A practical guide to implementing Christ's teachings from the Sermon on the Mount in our modern world.",
+    description:
+      "A practical guide to implementing Christ's teachings from the Sermon on the Mount in our modern world.",
     date: "2024-10-15",
     duration: "35 minutes",
     category: "Scripture",
     image: "/images/church/gospel-book.jpg",
     audioUrl: "#",
-    downloadUrl: "#"
+    downloadUrl: "#",
   },
   {
     id: 5,
     title: "The Saints: Our Companions on the Journey",
     speaker: "Sr Catherine",
-    description: "Learn about the communion of saints and how these holy men and women can inspire and intercede for us in our daily lives.",
+    description:
+      "Learn about the communion of saints and how these holy men and women can inspire and intercede for us in our daily lives.",
     date: "2024-09-25",
     duration: "42 minutes",
     category: "Saints",
     image: "/images/church/saints-window.jpg",
     audioUrl: "#",
-    downloadUrl: "#"
+    downloadUrl: "#",
   },
   {
     id: 6,
     title: "Prayer: The Heart of Christian Life",
     speaker: "Fr Krisz",
-    description: "Discover different forms of prayer and how to develop a deeper, more meaningful relationship with God through regular prayer practice.",
+    description:
+      "Discover different forms of prayer and how to develop a deeper, more meaningful relationship with God through regular prayer practice.",
     date: "2024-08-30",
     duration: "48 minutes",
     category: "Prayer",
     image: "/images/church/prayer-candles.jpg",
     videoUrl: "#",
     audioUrl: "#",
-    downloadUrl: "#"
-  }
+    downloadUrl: "#",
+  },
 ];
 
-const categories = ["All", "Spiritual Formation", "Liturgy", "Scripture", "Prayer", "Saints", "Marian Devotion"];
+const categories = [
+  "All",
+  "Spiritual Formation",
+  "Liturgy",
+  "Scripture",
+  "Prayer",
+  "Saints",
+  "Marian Devotion",
+];
 
 export default function StSavioursTalks() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredTalks = talks.filter(talk => {
-    const matchesSearch = talk.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         talk.speaker.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         talk.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || talk.category === selectedCategory;
+  const filteredTalks = talks.filter((talk) => {
+    const matchesSearch =
+      talk.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      talk.speaker.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      talk.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || talk.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const featuredTalks = talks.filter(talk => talk.featured);
+  const featuredTalks = talks.filter((talk) => talk.featured);
 
   return (
     <PageLayout
@@ -183,10 +207,10 @@ export default function StSavioursTalks() {
                   <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                     <span className="inline-flex items-center">
                       <Calendar className="h-4 w-4 mr-1" />
-                      {new Date(talk.date).toLocaleDateString('en-GB', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
+                      {new Date(talk.date).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
                       })}
                     </span>
                     <span className="inline-flex items-center">
@@ -194,15 +218,15 @@ export default function StSavioursTalks() {
                       {talk.duration}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-gold-600 transition-colors">
                     {talk.title}
                   </h3>
-                  
+
                   <p className="text-gray-600 mb-3 line-clamp-3">
                     {talk.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="inline-flex items-center text-sm text-gray-700">
                       <User className="h-4 w-4 mr-1" />
@@ -305,10 +329,10 @@ export default function StSavioursTalks() {
                   <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
                     <span className="inline-flex items-center">
                       <Calendar className="h-3 w-3 mr-1" />
-                      {new Date(talk.date).toLocaleDateString('en-GB', { 
-                        day: 'numeric', 
-                        month: 'short', 
-                        year: 'numeric' 
+                      {new Date(talk.date).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
                       })}
                     </span>
                     <span className="inline-flex items-center">
@@ -316,15 +340,15 @@ export default function StSavioursTalks() {
                       {talk.duration}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-gold-600 transition-colors">
                     {talk.title}
                   </h3>
-                  
+
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                     {talk.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between mb-4">
                     <span className="inline-flex items-center text-sm text-gray-700">
                       <User className="h-3 w-3 mr-1" />
@@ -373,7 +397,8 @@ export default function StSavioursTalks() {
             Join Our Learning Community
           </h2>
           <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Subscribe to our newsletter to be notified when new talks are available and stay connected with our parish educational offerings.
+            Subscribe to our newsletter to be notified when new talks are
+            available and stay connected with our parish educational offerings.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

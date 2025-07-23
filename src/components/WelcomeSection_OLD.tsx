@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, m } from "framer-motion";
+import { m, m } from "framer-motion";
 import { ArrowRight, Phone, Calendar, Clock } from "lucide-react";
 import { getTodaysServices } from "@/lib/data";
 import { staggerContainer, staggerItem } from "@/lib/animations";
@@ -73,7 +73,7 @@ export default function WelcomeSection() {
 
               {/* Enhanced prose with better readability and spacing */}
               <div className="prose prose-xl text-gray-100 space-y-8 leading-relaxed">
-                <motion.p
+                <m.p
                   className="text-xl lg:text-2xl font-light text-gray-100 leading-relaxed"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -88,9 +88,9 @@ export default function WelcomeSection() {
                   faith, hope, and love. Our beautiful Victorian church
                   building houses a vibrant parish family that welcomes all
                   who seek to grow in their relationship with God.
-                </motion.p>
+                </m.p>
                 
-                <motion.p
+                <m.p
                   className="text-lg leading-relaxed text-gray-200"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -105,9 +105,9 @@ export default function WelcomeSection() {
                   you can belong, we invite you to join us. Our parish offers
                   regular worship, sacramental preparation, pastoral care, and
                   numerous opportunities for fellowship and service to others.
-                </motion.p>
+                </m.p>
                 
-                <motion.p
+                <m.p
                   className="text-lg leading-relaxed text-gray-200"
                   initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
                   whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ export default function WelcomeSection() {
                   to love one another as He has loved us. Through our
                   liturgies, educational programs, and community outreach, we
                   seek to be the hands and feet of Jesus in South East London.
-                </motion.p>
+                </m.p>
               </div>
 
               {/* Enhanced CTA with modern button design */}

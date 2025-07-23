@@ -5,7 +5,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
 import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
@@ -303,7 +302,7 @@ export function EmergencyContactSystem({ reducedMotion = false }: EmergencyConta
                           </div>
                           
                           {/* Emergency Call Button */}
-                          <Motion.a
+                          <m.a
                             href={`tel:${contact.phone.replace(/\s/g, '')}`}
                             className={`
                               inline-flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all duration-300
@@ -314,7 +313,7 @@ export function EmergencyContactSystem({ reducedMotion = false }: EmergencyConta
                           >
                             <PhoneIcon className="h-5 w-5" />
                             Call Now: {contact.phone}
-                          </Motion.a>
+                          </m.a>
                         </div>
                       </m.div>
                     )}

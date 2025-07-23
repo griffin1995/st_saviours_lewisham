@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { useSpring, animated, config } from '@react-spring/web'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import { PhotoSwipeLightbox, EnhancedImage } from './PhotoSwipeLightbox'
@@ -133,7 +133,7 @@ function CarouselButton({
   const Icon = direction === 'prev' ? ChevronLeftIcon : ChevronRightIcon
 
   return (
-    <Motion.button
+    <m.button
       onClick={onClick}
       disabled={disabled}
       className={`
@@ -147,7 +147,7 @@ function CarouselButton({
       whileTap={reducedMotion ? {} : { scale: 0.9 }}
     >
       <Icon className="h-6 w-6" />
-    </Motion.button>
+    </m.button>
   )
 }
 
@@ -239,7 +239,7 @@ export function LeadershipCarousel({
       {/* Carousel Indicators */}
       <div className="flex justify-center space-x-2">
         {leaders.map((_, index) => (
-          <Motion.button
+          <m.button
             key={index}
             onClick={() => emblaApi?.scrollTo(index)}
             className={`
@@ -258,7 +258,7 @@ export function LeadershipCarousel({
       {/* Detailed Priest Biographies */}
       {priestBiographies.length > 0 && (
         <div className="mt-16 space-y-8">
-          <Motion.h3
+          <m.h3
             className={`${typographyScale.h2} text-white text-center mb-12`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -266,7 +266,7 @@ export function LeadershipCarousel({
             viewport={{ once: true }}
           >
             Detailed Biographies
-          </Motion.h3>
+          </m.h3>
 
           {priestBiographies.map((priest, index) => (
             <m.div

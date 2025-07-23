@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { HeartIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardContent } from '@/components/ui'
 

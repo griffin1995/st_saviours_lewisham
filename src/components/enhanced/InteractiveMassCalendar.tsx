@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   ChevronLeftIcon, 
@@ -138,14 +138,14 @@ export function InteractiveMassCalendar({
     <animated.div ref={ref} style={calendarSpring} className="space-y-6">
       {/* Calendar Header */}
       <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm border border-slate-600 rounded-2xl p-6">
-        <Motion.button
+        <m.button
           onClick={goToPreviousMonth}
           className="w-10 h-10 bg-gold-700 hover:bg-gold-600 text-black rounded-full flex items-center justify-center transition-all duration-300"
           whileHover={reducedMotion ? {} : { scale: 1.1 }}
           whileTap={reducedMotion ? {} : { scale: 0.9 }}
         >
           <ChevronLeftIcon className="h-5 w-5" />
-        </Motion.button>
+        </m.button>
 
         <div className="text-center">
           <h3 className={`${typographyScale.h3} text-white mb-2`}>
@@ -156,14 +156,14 @@ export function InteractiveMassCalendar({
           </p>
         </div>
 
-        <Motion.button
+        <m.button
           onClick={goToNextMonth}
           className="w-10 h-10 bg-gold-700 hover:bg-gold-600 text-black rounded-full flex items-center justify-center transition-all duration-300"
           whileHover={reducedMotion ? {} : { scale: 1.1 }}
           whileTap={reducedMotion ? {} : { scale: 0.9 }}
         >
           <ChevronRightIcon className="h-5 w-5" />
-        </Motion.button>
+        </m.button>
       </div>
 
       {/* Calendar Grid */}
@@ -182,7 +182,7 @@ export function InteractiveMassCalendar({
         {/* Calendar Days */}
         <div className="grid grid-cols-7 gap-2">
           {calendarDays.map((day, index) => (
-            <Motion.button
+            <m.button
               key={index}
               onClick={() => setSelectedDate(day.date)}
               className={`
@@ -237,7 +237,7 @@ export function InteractiveMassCalendar({
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-gold-500 rounded-full animate-pulse" />
                 )}
               </div>
-            </Motion.button>
+            </m.button>
           ))}
         </div>
       </div>

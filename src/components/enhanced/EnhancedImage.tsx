@@ -4,7 +4,7 @@
  */
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 
 interface EnhancedImageProps {
   src: string

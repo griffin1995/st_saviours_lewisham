@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { m} from "framer-motion";
 import {
   ArrowLeft,
   Plus,
@@ -18,8 +18,8 @@ import {
   CheckCircle,
   Save,
   X,
-  UserPlus
-} from 'lucide-react';
+  UserPlus,
+} from "lucide-react";
 
 interface ParishGroup {
   id: string;
@@ -41,31 +41,44 @@ export default function GroupsManagement() {
   const router = useRouter();
   const [groups, setGroups] = useState<ParishGroup[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [filterStatus, setFilterStatus] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
   const [showForm, setShowForm] = useState(false);
   const [editingGroup, setEditingGroup] = useState<ParishGroup | null>(null);
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    category: 'Devotional',
-    meetingTime: '',
-    location: '',
-    contact: '',
-    contactPhone: '',
-    email: '',
+    name: "",
+    description: "",
+    category: "Devotional",
+    meetingTime: "",
+    location: "",
+    contact: "",
+    contactPhone: "",
+    email: "",
     active: true,
     newMembersWelcome: true,
-    ageRange: '',
-    note: ''
+    ageRange: "",
+    note: "",
   });
-  const [deleteModal, setDeleteModal] = useState<{ show: boolean; group: ParishGroup | null }>({
+  const [deleteModal, setDeleteModal] = useState<{
+    show: boolean;
+    group: ParishGroup | null;
+  }>({
     show: false,
-    group: null
+    group: null,
   });
 
-  const categories = ['Devotional', 'Charitable', 'Social', 'Music', 'Practical', 'Children', 'Youth', 'Adult', 'Other'];
+  const categories = [
+    "Devotional",
+    "Charitable",
+    "Social",
+    "Music",
+    "Practical",
+    "Children",
+    "Youth",
+    "Adult",
+    "Other",
+  ];
 
   useEffect(() => {
     checkAuth();
@@ -74,24 +87,24 @@ export default function GroupsManagement() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth');
+      const response = await fetch("/api/admin/auth");
       const data = await response.json();
-      
+
       if (!data.success) {
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     } catch (error) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     }
   };
 
   const loadGroups = async () => {
     try {
-      const response = await fetch('/api/admin/groups');
+      const response = await fetch("/api/admin/groups");
       const data = await response.json();
       setGroups(data || []);
     } catch (error) {
-      console.error('Error loading groups:', error);
+      console.error("Error loading groups:", error);
     } finally {
       setLoading(false);
     }
@@ -99,18 +112,18 @@ export default function GroupsManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const url = editingGroup 
+      const url = editingGroup
         ? `/api/admin/groups?id=${editingGroup.id}`
-        : '/api/admin/groups';
-      
-      const method = editingGroup ? 'PUT' : 'POST';
-      
+        : "/api/admin/groups";
+
+      const method = editingGroup ? "PUT" : "POST";
+
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -121,10 +134,10 @@ export default function GroupsManagement() {
         resetForm();
         loadGroups();
       } else {
-        console.error('Failed to save group');
+        console.error("Failed to save group");
       }
     } catch (error) {
-      console.error('Error saving group:', error);
+      console.error("Error saving group:", error);
     }
   };
 
@@ -137,12 +150,12 @@ export default function GroupsManagement() {
       meetingTime: group.meetingTime,
       location: group.location,
       contact: group.contact,
-      contactPhone: group.contactPhone || '',
-      email: group.email || '',
+      contactPhone: group.contactPhone || "",
+      email: group.email || "",
       active: group.active,
       newMembersWelcome: group.newMembersWelcome,
-      ageRange: group.ageRange || '',
-      note: group.note || ''
+      ageRange: group.ageRange || "",
+      note: group.note || "",
     });
     setShowForm(true);
   };
@@ -150,7 +163,7 @@ export default function GroupsManagement() {
   const handleDelete = async (group: ParishGroup) => {
     try {
       const response = await fetch(`/api/admin/groups?id=${group.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
@@ -158,16 +171,16 @@ export default function GroupsManagement() {
         loadGroups();
       }
     } catch (error) {
-      console.error('Error deleting group:', error);
+      console.error("Error deleting group:", error);
     }
   };
 
   const toggleActive = async (group: ParishGroup) => {
     try {
       const response = await fetch(`/api/admin/groups?id=${group.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...group, active: !group.active }),
       });
@@ -176,35 +189,38 @@ export default function GroupsManagement() {
         loadGroups();
       }
     } catch (error) {
-      console.error('Error updating group:', error);
+      console.error("Error updating group:", error);
     }
   };
 
   const resetForm = () => {
     setFormData({
-      name: '',
-      description: '',
-      category: 'Devotional',
-      meetingTime: '',
-      location: '',
-      contact: '',
-      contactPhone: '',
-      email: '',
+      name: "",
+      description: "",
+      category: "Devotional",
+      meetingTime: "",
+      location: "",
+      contact: "",
+      contactPhone: "",
+      email: "",
       active: true,
       newMembersWelcome: true,
-      ageRange: '',
-      note: ''
+      ageRange: "",
+      note: "",
     });
   };
 
-  const filteredGroups = groups.filter(group => {
-    const matchesSearch = group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         group.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = filterCategory === 'All' || group.category === filterCategory;
-    const matchesStatus = filterStatus === 'All' || 
-                         (filterStatus === 'Active' && group.active) ||
-                         (filterStatus === 'Inactive' && !group.active);
-    
+  const filteredGroups = groups.filter((group) => {
+    const matchesSearch =
+      group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      group.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      filterCategory === "All" || group.category === filterCategory;
+    const matchesStatus =
+      filterStatus === "All" ||
+      (filterStatus === "Active" && group.active) ||
+      (filterStatus === "Inactive" && !group.active);
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
@@ -230,9 +246,11 @@ export default function GroupsManagement() {
                 <ArrowLeft className="h-5 w-5 mr-1" />
                 Back to Dashboard
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">Parish Groups Management</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Parish Groups Management
+              </h1>
             </div>
-            
+
             <button
               onClick={() => {
                 setEditingGroup(null);
@@ -263,18 +281,20 @@ export default function GroupsManagement() {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
               />
             </div>
-            
+
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
             >
               <option value="All">All Categories</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
-            
+
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
@@ -306,9 +326,13 @@ export default function GroupsManagement() {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{group.name}</h3>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">{group.description}</p>
-                      
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {group.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                        {group.description}
+                      </p>
+
                       <div className="space-y-2">
                         <div className="flex items-center text-sm text-gray-500">
                           <Clock className="h-4 w-4 mr-2" />
@@ -355,13 +379,13 @@ export default function GroupsManagement() {
                         </span>
                       )}
                     </div>
-                    
+
                     <button
                       onClick={() => toggleActive(group)}
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium transition-colors ${
                         group.active
-                          ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                          : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                          ? "bg-green-100 text-green-800 hover:bg-green-200"
+                          : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                       }`}
                     >
                       {group.active ? (
@@ -412,7 +436,7 @@ export default function GroupsManagement() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  {editingGroup ? 'Edit Parish Group' : 'Add New Parish Group'}
+                  {editingGroup ? "Edit Parish Group" : "Add New Parish Group"}
                 </h3>
                 <button
                   onClick={() => setShowForm(false)}
@@ -432,7 +456,9 @@ export default function GroupsManagement() {
                       type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -445,7 +471,12 @@ export default function GroupsManagement() {
                       required
                       rows={3}
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -456,11 +487,15 @@ export default function GroupsManagement() {
                     </label>
                     <select
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, category: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     >
-                      {categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
+                      {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -474,7 +509,12 @@ export default function GroupsManagement() {
                       required
                       placeholder="e.g., Wednesdays, 7:00 PM"
                       value={formData.meetingTime}
-                      onChange={(e) => setFormData({ ...formData, meetingTime: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          meetingTime: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -487,7 +527,9 @@ export default function GroupsManagement() {
                       type="text"
                       required
                       value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, location: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -500,7 +542,9 @@ export default function GroupsManagement() {
                       type="text"
                       required
                       value={formData.contact}
-                      onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, contact: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -512,7 +556,12 @@ export default function GroupsManagement() {
                     <input
                       type="tel"
                       value={formData.contactPhone}
-                      onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          contactPhone: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -524,7 +573,9 @@ export default function GroupsManagement() {
                     <input
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -537,7 +588,9 @@ export default function GroupsManagement() {
                       type="text"
                       placeholder="e.g., 4-11 years"
                       value={formData.ageRange}
-                      onChange={(e) => setFormData({ ...formData, ageRange: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, ageRange: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -549,7 +602,9 @@ export default function GroupsManagement() {
                     <textarea
                       rows={2}
                       value={formData.note}
-                      onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, note: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -560,20 +615,34 @@ export default function GroupsManagement() {
                         <input
                           type="checkbox"
                           checked={formData.active}
-                          onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              active: e.target.checked,
+                            })
+                          }
                           className="rounded border-gray-300 text-gold-600 focus:ring-gold-500"
                         />
-                        <span className="ml-2 text-sm text-gray-700">Active Group</span>
+                        <span className="ml-2 text-sm text-gray-700">
+                          Active Group
+                        </span>
                       </label>
 
                       <label className="flex items-center">
                         <input
                           type="checkbox"
                           checked={formData.newMembersWelcome}
-                          onChange={(e) => setFormData({ ...formData, newMembersWelcome: e.target.checked })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              newMembersWelcome: e.target.checked,
+                            })
+                          }
                           className="rounded border-gray-300 text-gold-600 focus:ring-gold-500"
                         />
-                        <span className="ml-2 text-sm text-gray-700">New Members Welcome</span>
+                        <span className="ml-2 text-sm text-gray-700">
+                          New Members Welcome
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -592,7 +661,7 @@ export default function GroupsManagement() {
                     className="inline-flex items-center px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700 transition-colors"
                   >
                     <Save className="h-4 w-4 mr-2" />
-                    {editingGroup ? 'Update Group' : 'Create Group'}
+                    {editingGroup ? "Update Group" : "Create Group"}
                   </button>
                 </div>
               </form>
@@ -611,14 +680,17 @@ export default function GroupsManagement() {
                   <AlertCircle className="h-6 w-6 text-red-600" />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-lg font-medium text-gray-900">Delete Parish Group</h3>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Delete Parish Group
+                  </h3>
                 </div>
               </div>
-              
+
               <p className="text-sm text-gray-500 mb-6">
-                Are you sure you want to delete "{deleteModal.group.name}"? This action cannot be undone.
+                Are you sure you want to delete "{deleteModal.group.name}"? This
+                action cannot be undone.
               </p>
-              
+
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={() => setDeleteModal({ show: false, group: null })}

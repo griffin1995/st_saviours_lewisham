@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import { useInView } from 'react-intersection-observer'
-import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
+import { m } from 'framer-motion'
 
 interface ScrollRevealSectionProps {
   children: React.ReactNode
@@ -14,6 +14,28 @@ interface ScrollRevealSectionProps {
   threshold?: number
   triggerOnce?: boolean
   delay?: number
+}
+
+// Animation variants for Catholic church design
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 }
+}
+
+const reverentReveal = {
+  initial: { opacity: 0, y: 20, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 }
+}
+
+const staggerChildren = {
+  initial: { opacity: 0 },
+  animate: { 
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
 }
 
 export function ScrollRevealSection({
@@ -57,13 +79,13 @@ export function ScrollRevealSection({
   const animationProps = getAnimationVariants()
 
   return (
-    <Motion.div
+    <m.div
       ref={ref}
       className={`relative ${className}`}
       {...animationProps}
     >
       {children}
-    </Motion.div>
+    </m.div>
   )
 }
 

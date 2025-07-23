@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, m } from 'framer-motion'
+import { m} from 'framer-motion'
 import { MapPinIcon as MapPin, ArrowTopRightOnSquareIcon as ExternalLink, ArrowTopRightOnSquareIcon as Navigation } from '@heroicons/react/24/solid'
 import { Card, CardContent, Button, Text, Heading, Flex } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'

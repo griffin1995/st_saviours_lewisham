@@ -1,3 +1,12 @@
+/**
+ * OFFICIAL PATTERNS USED:
+ * - Embla Carousel React Hook: embla-carousel.com/get-started/react/
+ * - Autoplay Plugin: embla-carousel.com/plugins/autoplay/
+ * - Fade Plugin: embla-carousel.com/plugins/fade/
+ * - Navigation Controls: embla-carousel.com/guides/prev-next-buttons/
+ * - Event Handling: embla-carousel.com/api/events/
+ * - Plugin Control: embla-carousel.com/plugins/autoplay/#methods
+ */
 import React, { useCallback, useEffect, useState } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -32,7 +41,7 @@ interface EmblaHeroCarouselProps {
 const defaultSlides: HeroSlide[] = [
   {
     id: '1',
-    image: '/images/pexels-pixabay-208216.jpg',
+    image: '/images/outside-church-flowers-foreground.jpg',
     title: 'Welcome to St Saviour\'s',
     subtitle: 'A Place of Faith, Hope & Community',
     description: 'Join our vibrant Catholic community where faith meets fellowship. All are welcome in God\'s house.',
@@ -40,7 +49,7 @@ const defaultSlides: HeroSlide[] = [
   },
   {
     id: '2',
-    image: '/images/pexels-jibarofoto-2014775.jpg',
+    image: '/images/inside-church-aisle.jpg',
     title: 'Sunday Mass',
     subtitle: 'Worship with Us',
     description: 'Experience the beauty of the Mass in our historic church. Multiple service times available.',

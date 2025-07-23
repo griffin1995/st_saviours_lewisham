@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 interface FloatingAction {
@@ -56,20 +56,20 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
             </div>
             
             {/* Action Button */}
-            <Motion.button
+            <m.button
               onClick={action.onClick}
               className={`w-12 h-12 rounded-full ${colorClasses[action.color || 'gold']} text-white shadow-lg flex items-center justify-center`}
               whileHover={reducedMotion ? {} : { scale: 1.1 }}
               whileTap={reducedMotion ? {} : { scale: 0.95 }}
             >
               {action.icon}
-            </Motion.button>
+            </m.button>
           </m.div>
         ))}
       </div>
 
       {/* Main FAB */}
-      <Motion.button
+      <m.button
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-gold-600 hover:bg-gold-700 text-white rounded-full shadow-lg flex items-center justify-center"
         whileHover={reducedMotion ? {} : { scale: 1.1 }}
@@ -78,7 +78,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
         transition={{ duration: reducedMotion ? 0.1 : 0.2 }}
       >
         <PlusIcon className="h-6 w-6" />
-      </Motion.button>
+      </m.button>
     </div>
   )
 }

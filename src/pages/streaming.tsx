@@ -1,65 +1,101 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useSpring, animated, config } from '@react-spring/web'
-import { useInView } from 'react-intersection-observer'
-import Link from 'next/link'
-import { Play, Calendar, ExternalLink, Heart, MessageCircle, Users, Settings } from 'lucide-react'
-import { m } from 'framer-motion'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement, PointElement } from 'chart.js'
-import { Bar, Line } from 'react-chartjs-2'
+import React, { useState, useEffect, useCallback } from "react";
+import { useSpring, animated, config } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+import Link from "next/link";
+import {
+  Play,
+  Calendar,
+  ExternalLink,
+  Heart,
+  MessageCircle,
+  Users,
+  Settings,
+} from "lucide-react";
+import { motion, m } from "framer-motion";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  PointElement,
+} from "chart.js";
+import { Bar, Line } from "react-chartjs-2";
 
 // New modern component system
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
   Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Container,
-  Flex
-} from '@/components/ui'
-import { 
-  StreamingStatus, 
-  StreamingSchedule, 
-  WatchingOptions, 
-  TechnicalRequirements, 
-  OnlineCommunity 
-} from '@/components/church'
-import { LiveStreamingDashboard, StreamingAnalytics } from '@/components/enhanced'
-import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
+  Flex,
+} from "@/components/ui";
+import {
+  StreamingStatus,
+  StreamingSchedule,
+  WatchingOptions,
+  TechnicalRequirements,
+  OnlineCommunity,
+} from "@/components/church";
+import {
+  LiveStreamingDashboard,
+  StreamingAnalytics,
+} from "@/components/enhanced";
+// ScriptureCard consolidated into shared component
+// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
+import { MainPageScriptureSection } from '@/components/shared/content';
 // import { InteractiveStreamingSchedule } from '@/components/enhanced/InteractiveStreamingSchedule'
 // import { VirtualCommunionIntegration } from '@/components/enhanced/VirtualCommunionIntegration'
 // import { LiveChatSystem } from '@/components/enhanced/LiveChatSystem'
 // import { PrayerIntentionSubmission } from '@/components/enhanced/PrayerIntentionSubmission'
 // import { StreamingQualityControls } from '@/components/enhanced/StreamingQualityControls'
-import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
 // import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
 // import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
-import { Motion, fadeInUp, reverentReveal, staggerChildren } from '@/lib/motion'
-import { typographyScale } from '@/lib/fonts'
-import ScrollRevealSection from '@/components/ScrollRevealSection'
-import { prefersReducedMotion } from '@/lib/utils'
-import { useUI, useActions } from '@/stores/churchStore'
+import { typographyScale } from "@/lib/fonts";
+import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { prefersReducedMotion } from "@/lib/utils";
+import { useUI, useActions } from "@/stores/churchStore";
 
 // Chart.js registration
-ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Streaming() {
-  const ui = useUI()
-  const actions = useActions()
-  const reducedMotion = prefersReducedMotion()
-  const [reminderEmail, setReminderEmail] = useState("")
-  const [reminderSet, setReminderSet] = useState(false)
-  const [streamingStats, setStreamingStats] = useState<{[key: string]: {viewers: number, engagement: number, duration: number}}>({})
-  const [isLive, setIsLive] = useState(false)
-  const [viewerCount, setViewerCount] = useState(247)
-  const [chatMessages, setChatMessages] = useState<any[]>([])
-  const [prayerIntentionsOpen, setPrayerIntentionsOpen] = useState(false)
-  const [qualitySettingsOpen, setQualitySettingsOpen] = useState(false)
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
-  const [shareStreamData, setShareStreamData] = useState<any>(null)
-  const { ref: analyticsRef, inView: analyticsInView } = useInView({ threshold: 0.3, triggerOnce: true })
+  const ui = useUI();
+  const actions = useActions();
+  const reducedMotion = prefersReducedMotion();
+  const [reminderEmail, setReminderEmail] = useState("");
+  const [reminderSet, setReminderSet] = useState(false);
+  const [streamingStats, setStreamingStats] = useState<{
+    [key: string]: { viewers: number; engagement: number; duration: number };
+  }>({});
+  const [isLive, setIsLive] = useState(false);
+  const [viewerCount, setViewerCount] = useState(247);
+  const [chatMessages, setChatMessages] = useState<any[]>([]);
+  const [prayerIntentionsOpen, setPrayerIntentionsOpen] = useState(false);
+  const [qualitySettingsOpen, setQualitySettingsOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareStreamData, setShareStreamData] = useState<any>(null);
+  const { ref: analyticsRef, inView: analyticsInView } = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
 
   const upcomingStreams = [
     {
@@ -67,20 +103,21 @@ export default function Streaming() {
       title: "Sunday Mass",
       time: "11:30 AM",
       date: "Every Sunday",
-      description: "Join us for our principal Sunday Mass with full participation from our community.",
+      description:
+        "Join us for our principal Sunday Mass with full participation from our community.",
       isLive: false,
       nextStream: "2025-01-26T11:30:00",
-      featured: true
+      featured: true,
     },
     {
       id: "weekday-mass",
       title: "Weekday Mass",
-      time: "12:15 PM", 
+      time: "12:15 PM",
       date: "Monday - Friday",
       description: "Daily Mass for those who cannot attend in person.",
       isLive: false,
       nextStream: "2025-01-27T12:15:00",
-      featured: false
+      featured: false,
     },
     {
       id: "evening-prayer",
@@ -90,139 +127,155 @@ export default function Streaming() {
       description: "Midweek prayer and reflection to center our hearts on God.",
       isLive: false,
       nextStream: "2025-01-29T18:00:00",
-      featured: false
+      featured: false,
     },
     {
       id: "special-celebrations",
       title: "Special Celebrations",
       time: "Various",
       date: "Holy Days & Seasons",
-      description: "Christmas, Easter, Ash Wednesday, and other important liturgical celebrations.",
+      description:
+        "Christmas, Easter, Ash Wednesday, and other important liturgical celebrations.",
       isLive: false,
       nextStream: null,
-      featured: false
-    }
-  ]
+      featured: false,
+    },
+  ];
 
   // Enhanced page initialization
   useEffect(() => {
     actions.addNotification({
-      type: 'info',
-      message: 'Welcome to Live Streaming - join our virtual worship community',
-      dismissible: true
-    })
-    
+      type: "info",
+      message: "Welcome to Live Streaming - join our virtual worship community",
+      dismissible: true,
+    });
+
     // Load streaming statistics from localStorage
-    const savedStats = localStorage.getItem('streaming-stats')
+    const savedStats = localStorage.getItem("streaming-stats");
     if (savedStats) {
-      setStreamingStats(JSON.parse(savedStats))
+      setStreamingStats(JSON.parse(savedStats));
     }
-    
+
     // Simulate live status updates
     const liveStatusInterval = setInterval(() => {
-      const now = new Date()
-      const hour = now.getHours()
-      const minute = now.getMinutes()
-      const isSundayMass = now.getDay() === 0 && hour === 11 && minute >= 30 && minute <= 60
-      const isWeekdayMass = now.getDay() >= 1 && now.getDay() <= 5 && hour === 12 && minute >= 15 && minute <= 45
-      
-      setIsLive(isSundayMass || isWeekdayMass)
-      setViewerCount(prev => prev + Math.floor(Math.random() * 10) - 5)
-    }, 30000)
-    
-    return () => clearInterval(liveStatusInterval)
-  }, [])
+      const now = new Date();
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+      const isSundayMass =
+        now.getDay() === 0 && hour === 11 && minute >= 30 && minute <= 60;
+      const isWeekdayMass =
+        now.getDay() >= 1 &&
+        now.getDay() <= 5 &&
+        hour === 12 &&
+        minute >= 15 &&
+        minute <= 45;
+
+      setIsLive(isSundayMass || isWeekdayMass);
+      setViewerCount((prev) => prev + Math.floor(Math.random() * 10) - 5);
+    }, 30000);
+
+    return () => clearInterval(liveStatusInterval);
+  }, []);
 
   const handleReminderSignup = (streamId: string) => {
-    console.log(`Setting reminder for stream: ${streamId}`)
-    setReminderSet(true)
+    console.log(`Setting reminder for stream: ${streamId}`);
+    setReminderSet(true);
     actions.addNotification({
-      type: 'success',
-      message: 'Reminder set! You\'ll be notified before the stream starts.',
-      dismissible: true
-    })
-  }
+      type: "success",
+      message: "Reminder set! You'll be notified before the stream starts.",
+      dismissible: true,
+    });
+  };
 
   const handleStreamShare = useCallback((streamData: any) => {
-    setShareStreamData(streamData)
-    setIsShareModalOpen(true)
-  }, [])
+    setShareStreamData(streamData);
+    setIsShareModalOpen(true);
+  }, []);
 
   const handleChatMessage = useCallback((message: string, author: string) => {
-    setChatMessages(prev => [...prev, {
-      id: Date.now(),
-      message,
-      author,
-      timestamp: new Date().toLocaleTimeString()
-    }])
-  }, [])
+    setChatMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        message,
+        author,
+        timestamp: new Date().toLocaleTimeString(),
+      },
+    ]);
+  }, []);
 
   const handlePrayerIntention = useCallback((intention: string) => {
     actions.addNotification({
-      type: 'success',
-      message: 'Prayer intention submitted. Our community will pray for you.',
-      dismissible: true
-    })
-    setPrayerIntentionsOpen(false)
-  }, [])
+      type: "success",
+      message: "Prayer intention submitted. Our community will pray for you.",
+      dismissible: true,
+    });
+    setPrayerIntentionsOpen(false);
+  }, []);
 
   const handleWatchStream = (streamId: string) => {
-    console.log(`Watching stream: ${streamId}`)
-  }
+    console.log(`Watching stream: ${streamId}`);
+  };
 
   const handleViewSchedule = () => {
-    document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' })
-  }
+    document.getElementById("schedule")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // React Spring animations
   const heroSpring = useSpring({
     opacity: 1,
-    transform: 'translateY(0px)',
-    from: { opacity: 0, transform: 'translateY(30px)' },
-    config: ui.reducedMotion ? config.default : config.gentle
-  })
+    transform: "translateY(0px)",
+    from: { opacity: 0, transform: "translateY(30px)" },
+    config: ui.reducedMotion ? config.default : config.gentle,
+  });
 
   const analyticsSpring = useSpring({
     opacity: analyticsInView ? 1 : 0,
-    transform: analyticsInView ? 'translateY(0px)' : 'translateY(50px)',
+    transform: analyticsInView ? "translateY(0px)" : "translateY(50px)",
     config: ui.reducedMotion ? config.default : config.gentle,
-    delay: 300
-  })
+    delay: 300,
+  });
 
   // Streaming analytics data for Chart.js
   const viewerEngagementData = {
-    labels: ['6 AM', '9 AM', '12 PM', '3 PM', '6 PM', '9 PM'],
+    labels: ["6 AM", "9 AM", "12 PM", "3 PM", "6 PM", "9 PM"],
     datasets: [
       {
-        label: 'Live Viewers',
+        label: "Live Viewers",
         data: [45, 89, 167, 134, 198, 156],
-        backgroundColor: 'rgba(212, 175, 55, 0.6)',
-        borderColor: '#d4af37',
+        backgroundColor: "rgba(212, 175, 55, 0.6)",
+        borderColor: "#d4af37",
         borderWidth: 2,
-        fill: true
-      }
-    ]
-  }
+        fill: true,
+      },
+    ],
+  };
 
   const streamingStatsData = {
-    labels: upcomingStreams.map(stream => stream.title.substring(0, 10) + '..'),
+    labels: upcomingStreams.map(
+      (stream) => stream.title.substring(0, 10) + ".."
+    ),
     datasets: [
       {
-        label: 'Average Viewers',
-        data: upcomingStreams.map(stream => streamingStats[stream.id]?.viewers || 0),
-        backgroundColor: 'rgba(26, 54, 93, 0.6)',
-        borderColor: '#1a365d',
-        borderWidth: 1
+        label: "Average Viewers",
+        data: upcomingStreams.map(
+          (stream) => streamingStats[stream.id]?.viewers || 0
+        ),
+        backgroundColor: "rgba(26, 54, 93, 0.6)",
+        borderColor: "#1a365d",
+        borderWidth: 1,
       },
       {
-        label: 'Engagement Score',
-        data: upcomingStreams.map(stream => streamingStats[stream.id]?.engagement || 0),
-        backgroundColor: 'rgba(34, 197, 94, 0.6)',
-        borderColor: '#16a34a',
-        borderWidth: 1
-      }
-    ]
-  }
+        label: "Engagement Score",
+        data: upcomingStreams.map(
+          (stream) => streamingStats[stream.id]?.engagement || 0
+        ),
+        backgroundColor: "rgba(34, 197, 94, 0.6)",
+        borderColor: "#16a34a",
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
     <PageLayout
@@ -240,15 +293,15 @@ export default function Streaming() {
         overlay="medium"
         actions={
           <Flex justify="center" gap="md">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               size="lg"
               leftIcon={<Play className="h-5 w-5" />}
             >
               Watch Live
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               size="lg"
               leftIcon={<Calendar className="h-5 w-5" />}
               onClick={handleViewSchedule}
@@ -277,19 +330,20 @@ export default function Streaming() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '180px' }}
+                  style={{ width: "180px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                Though we may be apart, we are united in prayer and praise through our live streams
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                Though we may be apart, we are united in prayer and praise
+                through our live streams
               </p>
             </m.div>
-            
+
             <div className="max-w-4xl mx-auto">
-              <ScriptureCard
-                displayMode="themed"
-                theme="worship"
-                showReflection={true}
+              <MainPageScriptureSection
+                pageTheme="streaming"
                 reducedMotion={ui.reducedMotion}
               />
             </div>
@@ -301,14 +355,29 @@ export default function Streaming() {
       <Section spacing="lg" background="white">
         <Container size="xl">
           <animated.div style={heroSpring}>
-            <LiveStreamingDashboard
-              isLive={isLive}
-              viewerCount={viewerCount}
-              streamTitle="Sunday Mass - 11:30 AM"
-              streamDescription="Join our parish community for the celebration of the Eucharist with hymns, prayers, and fellowship."
-              nextStreamTime="Tomorrow at 11:30 AM"
-              reducedMotion={ui.reducedMotion}
-            />
+{/* Simple Live Stream Embed - Video Only */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+              <div className="relative aspect-video bg-slate-900">
+                {/* Live Badge */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className="flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    LIVE
+                  </div>
+                </div>
+
+                {/* Clean Video Embed */}
+                <iframe
+                  src="https://mcn.live/Camera/st-saviour%E2%80%99s-church-london"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay; encrypted-media; camera; microphone"
+                  title="St Saviour's Church Live Stream"
+                  style={{ border: 'none' }}
+                />
+              </div>
+            </div>
           </animated.div>
         </Container>
       </Section>
@@ -319,25 +388,35 @@ export default function Streaming() {
           <Container size="lg">
             <animated.div ref={analyticsRef} style={analyticsSpring}>
               <div className="text-center mb-12">
-                <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+                <h2
+                  className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+                >
                   Streaming Insights & Engagement
                   <m.div
                     className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     transition={{ duration: 1, delay: 0.3 }}
-                    style={{ width: '220px' }}
+                    style={{ width: "220px" }}
                   />
                 </h2>
-                <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+                <p
+                  className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+                >
                   See how our virtual worship community is growing and engaging
                 </p>
               </div>
-              
+
               <div className="grid lg:grid-cols-2 gap-8 mb-12">
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white shadow-lg"
+                >
                   <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                    <h3
+                      className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}
+                    >
                       Daily Viewer Activity
                     </h3>
                     <div className="h-64">
@@ -348,28 +427,34 @@ export default function Streaming() {
                           maintainAspectRatio: false,
                           plugins: {
                             legend: {
-                              labels: { color: '#374151' }
-                            }
+                              labels: { color: "#374151" },
+                            },
                           },
                           scales: {
                             x: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
                             },
                             y: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
-                            }
-                          }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
+                            },
+                          },
                         }}
                       />
                     </div>
                   </CardContent>
                 </Card>
-                
-                <Card variant="default" padding="lg" className="bg-white shadow-lg">
+
+                <Card
+                  variant="default"
+                  padding="lg"
+                  className="bg-white shadow-lg"
+                >
                   <CardContent>
-                    <h3 className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}>
+                    <h3
+                      className={`${typographyScale.h3} text-slate-900 mb-6 text-center`}
+                    >
                       Service Engagement
                     </h3>
                     <div className="h-64">
@@ -380,19 +465,19 @@ export default function Streaming() {
                           maintainAspectRatio: false,
                           plugins: {
                             legend: {
-                              labels: { color: '#374151' }
-                            }
+                              labels: { color: "#374151" },
+                            },
                           },
                           scales: {
                             x: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
                             },
                             y: {
-                              ticks: { color: '#374151' },
-                              grid: { color: 'rgba(55, 65, 81, 0.1)' }
-                            }
-                          }
+                              ticks: { color: "#374151" },
+                              grid: { color: "rgba(55, 65, 81, 0.1)" },
+                            },
+                          },
                         }}
                       />
                     </div>
@@ -400,8 +485,8 @@ export default function Streaming() {
                 </Card>
               </div>
             </animated.div>
-        </Container>
-      </Section>
+          </Container>
+        </Section>
       )}
 
       {/* Interactive Streaming Schedule */}
@@ -415,21 +500,25 @@ export default function Streaming() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+              <h2
+                className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+              >
                 Interactive Streaming Schedule
                 <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '200px' }}
+                  style={{ width: "200px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+              >
                 Plan your virtual worship with our enhanced scheduling system
               </p>
             </m.div>
-            
+
             {/* <InteractiveStreamingSchedule
               streams={upcomingStreams}
               onSetReminder={handleReminderSignup}
@@ -460,14 +549,17 @@ export default function Streaming() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '140px' }}
+                  style={{ width: "140px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                Join in spiritual communion during our live streams when you cannot physically receive
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                Join in spiritual communion during our live streams when you
+                cannot physically receive
               </p>
             </m.div>
-            
+
             {/* <VirtualCommunionIntegration
               isLive={isLive}
               streamType="mass"
@@ -495,21 +587,25 @@ export default function Streaming() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+              <h2
+                className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+              >
                 Community Chat
                 <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '120px' }}
+                  style={{ width: "120px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+              >
                 Connect with fellow worshippers during live streams
               </p>
             </m.div>
-            
+
             {/* <LiveChatSystem
               isLive={isLive}
               messages={chatMessages}
@@ -540,14 +636,17 @@ export default function Streaming() {
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '180px' }}
+                  style={{ width: "180px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}>
-                Submit prayer intentions to be included in our live stream intercessions
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+              >
+                Submit prayer intentions to be included in our live stream
+                intercessions
               </p>
             </m.div>
-            
+
             {/* <PrayerIntentionSubmission
               isOpen={prayerIntentionsOpen}
               onClose={() => setPrayerIntentionsOpen(false)}
@@ -570,21 +669,26 @@ export default function Streaming() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className={`${typographyScale.h2} text-slate-900 mb-6 relative`}>
+              <h2
+                className={`${typographyScale.h2} text-slate-900 mb-6 relative`}
+              >
                 Optimize Your Viewing Experience
                 <m.div
                   className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gold-700 to-gold-600 rounded-full"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
-                  style={{ width: '220px' }}
+                  style={{ width: "220px" }}
                 />
               </h2>
-              <p className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}>
-                Adjust streaming quality and accessibility settings for the best worship experience
+              <p
+                className={`${typographyScale.bodyLarge} text-gray-600 max-w-3xl mx-auto`}
+              >
+                Adjust streaming quality and accessibility settings for the best
+                worship experience
               </p>
             </m.div>
-            
+
             {/* <StreamingQualityControls
               isOpen={qualitySettingsOpen}
               onClose={() => setQualitySettingsOpen(false)}
@@ -633,23 +737,23 @@ export default function Streaming() {
                 Can't Attend in Person?
               </Heading>
               <Text size="xl" color="muted" className="max-w-2xl mx-auto">
-                Whether you're traveling, unwell, or unable to visit our church, 
-                you're always welcome to join our worship online. We're here to 
+                Whether you're traveling, unwell, or unable to visit our church,
+                you're always welcome to join our worship online. We're here to
                 serve our extended parish community wherever you are.
               </Text>
             </div>
-            
+
             <Flex justify="center" gap="md" wrap>
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 size="lg"
                 leftIcon={<Play className="h-5 w-5" />}
               >
                 Join Next Stream
               </Button>
               <Link href="/mass">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="lg"
                   leftIcon={<Calendar className="h-5 w-5" />}
                 >
@@ -707,8 +811,8 @@ export default function Streaming() {
         }}
       /> */}
     </PageLayout>
-  )
+  );
 }
 
 // Maintenance mode check
-export { defaultMaintenanceCheck as getServerSideProps } from '@/lib/maintenance'
+export { defaultMaintenanceCheck as getServerSideProps } from "@/lib/maintenance";

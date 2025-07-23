@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useSpring, animated } from '@react-spring/web'
 import {
   BookOpenIcon,
@@ -305,7 +305,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
 
       {/* Auto-play Controls */}
       <div className="flex justify-center gap-4">
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleAutoPlay}
@@ -321,26 +321,26 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
             <PlayIcon className="h-5 w-5" />
           )}
           {autoPlayEnabled && isPlaying ? 'Pause Tour' : 'Auto-Play Tour'}
-        </motion.button>
+        </m.button>
         
         {selectedPart && (
           <div className="flex gap-2">
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => navigateParts('prev')}
               className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center transition-all"
             >
               <ChevronLeftIcon className="h-5 w-5 text-white" />
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => navigateParts('next')}
               className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center transition-all"
             >
               <ChevronRightIcon className="h-5 w-5 text-white" />
-            </motion.button>
+            </m.button>
           </div>
         )}
       </div>
@@ -348,7 +348,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
       {/* Section Navigation */}
       <div className="flex flex-wrap justify-center gap-2">
         {sections.map((section) => (
-          <motion.button
+          <m.button
             key={section.id}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -360,7 +360,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
             }`}
           >
             {section.label}
-          </motion.button>
+          </m.button>
         ))}
       </div>
 
@@ -378,7 +378,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.03, rotateY: 2 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => selectPart(part)}
@@ -416,7 +416,7 @@ export default function MassPartsExplainer({ className = '' }: MassPartsExplaine
                       </div>
                     </CardContent>
                   </Card>
-                </motion.button>
+                </m.button>
               </m.div>
             )
           })}

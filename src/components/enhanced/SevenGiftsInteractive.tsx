@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useSpring, animated } from '@react-spring/web'
 import {
   GiftIcon,
@@ -235,7 +235,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
                   animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0.6, scale: 0.8 }}
                   transition={{ delay: index * 0.2, duration: 0.6 }}
                 >
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.2, rotateZ: 5 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => selectGift(gift)}
@@ -247,7 +247,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
                     aria-label={`Learn about ${gift.name}`}
                   >
                     <Icon className={`h-7 w-7 ${isSelected ? 'text-white' : gift.color}`} />
-                  </motion.button>
+                  </m.button>
                   
                   {/* Gift Name Label */}
                   <m.div
@@ -268,7 +268,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
 
       {/* Navigation Controls */}
       <div className="flex justify-center gap-4">
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={prevGift}
@@ -276,8 +276,8 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
           aria-label="Previous gift"
         >
           <ChevronLeftIcon className="h-6 w-6 text-white" />
-        </motion.button>
-        <motion.button
+        </m.button>
+        <m.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={nextGift}
@@ -285,7 +285,7 @@ export default function SevenGiftsInteractive({ className = '' }: SevenGiftsInte
           aria-label="Next gift"
         >
           <ChevronRightIcon className="h-6 w-6 text-white" />
-        </motion.button>
+        </m.button>
       </div>
 
       {/* Selected Gift Details */}

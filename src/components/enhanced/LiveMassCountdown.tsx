@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   ClockIcon,
@@ -189,14 +189,14 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
           <p className={`${typographyScale.bodyLarge} text-white mb-4`}>
             Mass is currently being celebrated
           </p>
-          <Motion.button
+          <m.button
             className="bg-white text-red-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-300"
             whileHover={reducedMotion ? {} : { scale: 1.05 }}
             whileTap={reducedMotion ? {} : { scale: 0.95 }}
           >
             <PlayIcon className="h-5 w-5 inline mr-2" />
             Watch Live Stream
-          </Motion.button>
+          </m.button>
         </m.div>
       )}
 
@@ -244,7 +244,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
                 transition={{ delay: index * 0.1 }}
               >
                 <div className="bg-white/10 rounded-2xl p-4 border border-slate-600">
-                  <Motion.span
+                  <m.span
                     className={`${typographyScale.h1} text-gold-400 font-bold block`}
                     key={item.value} // Re-animate on value change
                     initial={{ scale: 1.2, opacity: 0 }}
@@ -252,7 +252,7 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
                     transition={{ duration: 0.3 }}
                   >
                     {formatTime(item.value)}
-                  </Motion.span>
+                  </m.span>
                   <span className={`${typographyScale.caption} text-gray-300 uppercase tracking-wider`}>
                     {getTimeUnit(item.value, item.label.slice(0, -1))}
                   </span>
@@ -263,23 +263,23 @@ export function LiveMassCountdown({ reducedMotion = false }: LiveMassCountdownPr
 
           {/* Quick Actions */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Motion.button
+            <m.button
               className="flex items-center justify-center gap-3 bg-gold-700 text-black px-6 py-3 rounded-xl font-semibold hover:bg-gold-600 transition-colors duration-300"
               whileHover={reducedMotion ? {} : { scale: 1.05 }}
               whileTap={reducedMotion ? {} : { scale: 0.95 }}
             >
               <BellIcon className="h-5 w-5" />
               Set Reminder
-            </Motion.button>
+            </m.button>
             
-            <Motion.button
+            <m.button
               className="flex items-center justify-center gap-3 bg-white/10 border border-slate-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/15 transition-colors duration-300"
               whileHover={reducedMotion ? {} : { scale: 1.05 }}
               whileTap={reducedMotion ? {} : { scale: 0.95 }}
             >
               <MapPinIcon className="h-5 w-5" />
               Get Directions
-            </Motion.button>
+            </m.button>
           </div>
         </div>
       )}

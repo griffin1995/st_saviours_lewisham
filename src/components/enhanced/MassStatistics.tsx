@@ -5,7 +5,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   ChartBarIcon,
@@ -237,7 +237,7 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
 
                 {/* Value */}
                 <div>
-                  <Motion.h4 
+                  <m.h4 
                     className={`${typographyScale.h1} text-white font-bold mb-1`}
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
@@ -245,7 +245,7 @@ export function MassStatistics({ reducedMotion = false }: MassStatisticsProps) {
                     viewport={{ once: true }}
                   >
                     {stat.value}
-                  </Motion.h4>
+                  </m.h4>
                   <p className={`${typographyScale.body} text-gray-200 mb-2`}>
                     {stat.title}
                   </p>

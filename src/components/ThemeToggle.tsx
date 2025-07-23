@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, m } from 'framer-motion';
+import { m, AnimatePresence, m } from 'framer-motion';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -75,7 +75,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <motion.button
+    <m.button
       onClick={toggleTheme}
       className={`
         relative inline-flex items-center justify-center w-12 h-12 rounded-xl
@@ -138,6 +138,6 @@ export default function ThemeToggle() {
           }
         />
       )}
-    </motion.button>
+    </m.button>
   );
 }

@@ -16,11 +16,11 @@ import {
 
 import {
   motion,
+  m,
   LazyMotion,
   domAnimation,
   useScroll,
   useTransform,
-  m,
 } from "framer-motion";
 
 // Professional Typography
@@ -44,7 +44,7 @@ import { NewsletterForm } from "@/components/modern/NewsletterForm";
 import { TestimonialsCarousel } from "@/components/enhanced/TestimonialsCarousel";
 import { EmblaHeroCarousel } from "@/components/enhanced/EmblaHeroCarousel";
 import { CommunityMetrics } from "@/components/enhanced/CommunityMetrics";
-import { PhotoSwipeLightbox } from "@/components/enhanced/PhotoSwipeLightbox";
+// PhotoSwipe import removed - not used in homepage
 
 // Import store and hooks
 import { useChurchStore, useUI, useActions } from "@/stores/churchStore";
@@ -187,12 +187,12 @@ export default function HomePage() {
         <link
           rel="preload"
           as="image"
-          href="/images/pexels-pixabay-208216.jpg"
+          href="/images/outside-church-flowers-foreground.jpg"
         />
         <link
           rel="preload"
           as="image"
-          href="/images/pexels-jibarofoto-2014775.jpg"
+          href="/images/inside-church-aisle.jpg"
         />
       </Head>
 
@@ -204,7 +204,7 @@ export default function HomePage() {
         slides={[
           {
             id: "1",
-            image: "/images/pexels-pixabay-208216.jpg",
+            image: "/images/outside-church-flowers-foreground.jpg",
             title: "Welcome to St Saviour's",
             subtitle: "A Place of Faith, Hope & Community",
             description:
@@ -217,7 +217,7 @@ export default function HomePage() {
           },
           {
             id: "2",
-            image: "/images/pexels-jibarofoto-2014775.jpg",
+            image: "/images/inside-church-aisle.jpg",
             title: "Sunday Mass",
             subtitle: "Worship with Us",
             description:

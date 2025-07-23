@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, m } from 'framer-motion'
+import { m} from 'framer-motion'
 import Link from 'next/link'
 import { Rss, ExternalLink } from 'lucide-react'
 import { Card, CardContent, Heading, Text, Button, Grid, Flex } from '@/components/ui'

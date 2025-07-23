@@ -6,7 +6,7 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply font-sans antialiased;
   }
@@ -16,19 +16,19 @@
   .section-padding {
     @apply px-6 lg:px-8;
   }
-  
+
   .container-width {
     @apply max-w-7xl mx-auto;
   }
-  
+
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors;
   }
-  
+
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors;
   }
-  
+
   /* 
    * Fix for bg-white not working properly
    * 
@@ -43,33 +43,34 @@
   .bg-white-fixed {
     background-color: #ffffff !important;
   }
-  
+
   /* U-shaped card designs */
   .card-u-shape {
     border-radius: 16px 16px 0 0; /* Rounded top corners, straight bottom corners */
     position: relative;
   }
-  
+
   .card-u-shape::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(71, 85, 105, 0.1) 20%, 
-      rgba(71, 85, 105, 0.2) 50%, 
-      rgba(71, 85, 105, 0.1) 80%, 
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(71, 85, 105, 0.1) 20%,
+      rgba(71, 85, 105, 0.2) 50%,
+      rgba(71, 85, 105, 0.1) 80%,
       transparent 100%
     );
   }
-  
+
   .card-u-shape-small {
     border-radius: 12px 12px 0 0; /* Smaller U-shape for nested elements */
   }
-  
+
   .card-u-shape-large {
     border-radius: 20px 20px 0 0; /* Larger U-shape for hero cards */
   }
@@ -79,16 +80,16 @@
     background-color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .icon-theme-dark {
     color: #000000;
   }
-  
+
   .badge-gold-theme {
     background-color: #ffc832;
     color: #000000;
   }
-  
+
   /* 
    * ENTERPRISE SOLUTION: Button Background Fix
    * 
@@ -113,12 +114,12 @@
     background-color: #ffffff;
     color: #0f172a;
   }
-  
+
   button.bg-white:hover,
   .btn-white:hover {
     background-color: #f3f4f6;
   }
-  
+
   /* Custom navbar width - 15% wider than max-w-7xl (1280px + 15% = 1472px) */
   .navbar-container {
     max-width: 1472px;
@@ -138,7 +139,7 @@
       opacity: 1;
     }
   }
-  
+
   /* 
    * IMPORTANT: Component styling guidelines
    * 
@@ -156,34 +157,34 @@
   .news-card-container {
     background-color: #ffffff;
   }
-  
+
   .news-category-badge {
     background-color: transparent;
   }
-  
+
   .welcome-sidebar-card {
     background-color: #ffffff;
   }
-  
+
   .welcome-learn-more-button {
     background-color: #ffffff;
     color: #111827;
   }
-  
+
   .welcome-schedule-button {
     background-color: #1f2937;
     color: #ffffff;
   }
-  
+
   .welcome-schedule-button:hover {
     background-color: #374151;
     color: #ffffff;
   }
-  
+
   /* Events section - removed old overrides, now uses clean component styling */
 
   /* Unique Asymmetrical Curves - Using Working Border-Radius Method */
-  
+
   /* Welcome Section - Classic gentle curves */
   .curve-gentle-traditional {
     border-bottom-left-radius: 40px;
@@ -191,7 +192,7 @@
     margin-bottom: -20px;
     padding-bottom: 3rem;
   }
-  
+
   /* News Section - Sharp left, gentle right */
   .curve-sharp-gentle {
     border-bottom-left-radius: 15px;
@@ -199,7 +200,7 @@
     margin-bottom: -30px;
     padding-bottom: 3.5rem;
   }
-  
+
   /* History Section - Wave-like entry and dramatic exit */
   .curve-wave-entry {
     border-top-left-radius: 70px;
@@ -207,14 +208,14 @@
     margin-top: -35px;
     padding-top: 4rem;
   }
-  
+
   .curve-dramatic-wave {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 100px;
     margin-bottom: -50px;
     padding-bottom: 4.5rem;
   }
-  
+
   /* Events Section - Bold asymmetrical curves */
   .curve-bold-asymmetric {
     border-top-left-radius: 90px;
@@ -222,14 +223,14 @@
     margin-top: -45px;
     padding-top: 4.5rem;
   }
-  
+
   .curve-reverse-bold {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 90px;
     margin-bottom: -45px;
     padding-bottom: 4.5rem;
   }
-  
+
   /* CTA Section - Extreme contrast curves */
   .curve-extreme-entry {
     border-top-left-radius: 120px;
@@ -237,11 +238,27 @@
     margin-top: -60px;
     padding-top: 5.5rem;
   }
-  
+
   .curve-flowing-finale {
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
     margin-bottom: -30px;
     padding-bottom: 4rem;
+  }
+
+  /* OFFICIAL PATTERN: Embla Carousel CSS - From Embla Carousel Official Documentation */
+  /* Reference: https://www.embla-carousel.com/get-started/react/ */
+  /* Pattern: Basic embla setup with proper overflow and display properties */
+  .embla {
+    overflow: hidden;
+  }
+  
+  .embla__container {
+    display: flex;
+  }
+  
+  .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence, m } from 'framer-motion'
+import { m, AnimatePresence, m } from 'framer-motion'
 import {
   CheckCircleIcon,
   ClockIcon,
@@ -338,7 +338,7 @@ export default function BaptismPreparationTracker({
                     {/* Step Header */}
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4 flex-1">
-                        <motion.button
+                        <m.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => toggleStepCompletion(step.id)}
@@ -350,7 +350,7 @@ export default function BaptismPreparationTracker({
                           aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
                         >
                           {isCompleted && <CheckCircleIcon className="h-5 w-5" />}
-                        </motion.button>
+                        </m.button>
                         
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
@@ -380,7 +380,7 @@ export default function BaptismPreparationTracker({
                         </div>
                       </div>
                       
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => toggleStepExpansion(step.id)}
@@ -392,7 +392,7 @@ export default function BaptismPreparationTracker({
                         ) : (
                           <ChevronRightIcon className="h-5 w-5" />
                         )}
-                      </motion.button>
+                      </m.button>
                     </div>
 
                     {/* Expanded Details */}

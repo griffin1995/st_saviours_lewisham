@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 
 interface ProgressIndicatorProps {
   sections: string[]
@@ -35,19 +35,23 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   return (
     <div className={`fixed ${positionClasses[position]} top-1/2 transform -translate-y-1/2 z-40`}>
       <div className="bg-black/20 backdrop-blur-sm rounded-full p-4">
-        {/* Progress Bar */}
-        <div className="relative w-1 h-48 bg-white/20 rounded-full mb-4">
+        {/* Combined Progress Bar and Section Indicators */}
+        <div className="relative">
+          {/* Background line */}
+          <div className="absolute left-1.5 top-1.5 w-1 bg-white/20 rounded-full" 
+               style={{ height: `${(sections.length - 1) * 3.5}rem` }} />
+          
+          {/* Progress line */}
           <m.div
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-gold-400 to-gold-600 rounded-full"
-            style={{ height: `${scrollProgress}%` }}
+            className="absolute left-1.5 top-1.5 w-1 bg-gradient-to-b from-gold-400 to-gold-600 rounded-full"
+            style={{ height: `${activeSection * 3.5}rem` }}
             initial={{ height: 0 }}
-            animate={{ height: `${scrollProgress}%` }}
+            animate={{ height: `${activeSection * 3.5}rem` }}
             transition={{ duration: reducedMotion ? 0.1 : 0.3 }}
           />
-        </div>
 
-        {/* Section Indicators */}
-        <div className="space-y-6">
+          {/* Section Indicators */}
+          <div className="space-y-6 relative z-10">
           {sections.map((section, index) => {
             const isActive = index === activeSection
             const isPassed = index < activeSection
@@ -58,7 +62,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                 className="flex items-center gap-3"
                 whileHover={reducedMotion ? {} : { scale: 1.05 }}
               >
-                <div className="relative">
+                <div className="relative flex items-center">
                   <m.div
                     className={`w-3 h-3 rounded-full border-2 ${
                       isActive
@@ -87,20 +91,25 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                   )}
                 </div>
 
-                {/* Section Label (shows on hover) */}
+                {/* Section Label (always visible when active) */}
                 <m.div
                   className={`text-xs text-white bg-black/60 px-2 py-1 rounded whitespace-nowrap ${
                     position === 'left' ? 'ml-2' : 'mr-2'
                   }`}
                   initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ 
+                    opacity: isActive ? 1 : 0.7, 
+                    scale: isActive ? 1 : 0.9 
+                  }}
                   whileHover={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: reducedMotion ? 0.1 : 0.2 }}
+                  transition={{ duration: reducedMotion ? 0.1 : 0.3 }}
                 >
                   {section}
                 </m.div>
               </m.div>
             )
           })}
+          </div>
         </div>
 
         {/* Scroll Percentage */}

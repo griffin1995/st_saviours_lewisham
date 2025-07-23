@@ -1,52 +1,55 @@
-import React from 'react'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { motion } from 'framer-motion'
-import { 
-  ClockIcon as Clock, 
+import React from "react";
+import { GetStaticProps, GetStaticPaths } from "next";
+import { m} from "framer-motion";
+import {
+  ClockIcon as Clock,
   CalendarDaysIcon as Calendar,
   UserIcon as User,
   TagIcon as Tag,
   ArrowLeftIcon as ArrowLeft,
   ArrowRightIcon as ArrowRight,
   ShareIcon as Share,
-  BookOpenIcon as BookOpen
-} from '@heroicons/react/24/solid'
-import ReactMarkdown from 'react-markdown'
-import Link from 'next/link'
+  BookOpenIcon as BookOpen,
+} from "@heroicons/react/24/solid";
+import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 
 // Components
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
-  Container
-} from '@/components/ui'
-import { prefersReducedMotion } from '@/lib/utils'
+  Container,
+} from "@/components/ui";
+import { prefersReducedMotion } from "@/lib/utils";
 
 // CMS
-import { 
+import {
   KnowledgeHubArticle,
   getArticleBySlug,
   getPublishedArticles,
-  getRelatedArticles
-} from '@/lib/cms-knowledge-hub'
+  getRelatedArticles,
+} from "@/lib/cms-knowledge-hub";
 
 interface ArticlePageProps {
-  article: KnowledgeHubArticle
-  relatedArticles: KnowledgeHubArticle[]
+  article: KnowledgeHubArticle;
+  relatedArticles: KnowledgeHubArticle[];
 }
 
-export default function ArticlePage({ article, relatedArticles }: ArticlePageProps) {
-  const reducedMotion = prefersReducedMotion()
+export default function ArticlePage({
+  article,
+  relatedArticles,
+}: ArticlePageProps) {
+  const reducedMotion = prefersReducedMotion();
 
   if (!article) {
     return (
-      <PageLayout 
+      <PageLayout
         title="Article Not Found"
         description="The requested article could not be found."
         background="slate"
@@ -61,7 +64,10 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                 The article you're looking for doesn't exist or has been moved.
               </Text>
               <Link href="/knowledge-hub">
-                <Button variant="primary" className="bg-white text-slate-900 hover:bg-gray-100">
+                <Button
+                  variant="primary"
+                  className="bg-white text-slate-900 hover:bg-gray-100"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Knowledge Hub
                 </Button>
@@ -70,14 +76,14 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
           </Container>
         </Section>
       </PageLayout>
-    )
+    );
   }
 
   return (
-    <PageLayout 
+    <PageLayout
       title={article.seo.metaTitle}
       description={article.seo.metaDescription}
-      keywords={article.seo.keywords.join(', ')}
+      keywords={article.seo.keywords.join(", ")}
       background="slate"
     >
       {/* Article Hero */}
@@ -119,7 +125,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                       {article.category.title}
                     </div>
                   </div>
-                  
+
                   {/* Tags */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     {article.tags.map((tag, index) => (
@@ -148,22 +154,38 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                     <ReactMarkdown
                       components={{
                         h1: ({ children }) => (
-                          <Heading level="h1" color="white" className="mb-6 mt-8 first:mt-0">
+                          <Heading
+                            level="h1"
+                            color="white"
+                            className="mb-6 mt-8 first:mt-0"
+                          >
                             {children}
                           </Heading>
                         ),
                         h2: ({ children }) => (
-                          <Heading level="h2" color="white" className="mb-4 mt-8">
+                          <Heading
+                            level="h2"
+                            color="white"
+                            className="mb-4 mt-8"
+                          >
                             {children}
                           </Heading>
                         ),
                         h3: ({ children }) => (
-                          <Heading level="h3" color="white" className="mb-3 mt-6">
+                          <Heading
+                            level="h3"
+                            color="white"
+                            className="mb-3 mt-6"
+                          >
                             {children}
                           </Heading>
                         ),
                         p: ({ children }) => (
-                          <Text size="lg" color="gray-100" className="mb-4 leading-relaxed">
+                          <Text
+                            size="lg"
+                            color="gray-100"
+                            className="mb-4 leading-relaxed"
+                          >
                             {children}
                           </Text>
                         ),
@@ -185,11 +207,13 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                           </ol>
                         ),
                         strong: ({ children }) => (
-                          <strong className="text-white font-semibold">{children}</strong>
+                          <strong className="text-white font-semibold">
+                            {children}
+                          </strong>
                         ),
                         em: ({ children }) => (
                           <em className="text-gold-300">{children}</em>
-                        )
+                        ),
                       }}
                     >
                       {article.content}
@@ -212,7 +236,10 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                 </Heading>
                 <div className="space-y-4">
                   {article.quotes.map((quote, index) => (
-                    <Card key={index} className="bg-gold-500/10 border-gold-500/30">
+                    <Card
+                      key={index}
+                      className="bg-gold-500/10 border-gold-500/30"
+                    >
                       <CardContent className="p-6">
                         <Text size="lg" color="white" className="italic mb-3">
                           "{quote.text}"
@@ -220,7 +247,9 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                         <Text size="sm" color="gold" className="font-medium">
                           — {quote.source}
                           {quote.citation && (
-                            <span className="text-gray-300 ml-2">({quote.citation})</span>
+                            <span className="text-gray-300 ml-2">
+                              ({quote.citation})
+                            </span>
                           )}
                         </Text>
                       </CardContent>
@@ -265,13 +294,19 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
               className="flex flex-col sm:flex-row gap-4 justify-between mb-16"
             >
               <Link href="/knowledge-hub">
-                <Button variant="secondary" className="border-white text-white hover:bg-white hover:text-slate-900">
+                <Button
+                  variant="secondary"
+                  className="border-white text-white hover:bg-white hover:text-slate-900"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Knowledge Hub
                 </Button>
               </Link>
-              
-              <Button variant="secondary" className="border-white text-white hover:bg-white hover:text-slate-900">
+
+              <Button
+                variant="secondary"
+                className="border-white text-white hover:bg-white hover:text-slate-900"
+              >
                 <Share className="h-4 w-4 mr-2" />
                 Share Article
               </Button>
@@ -287,7 +322,7 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
             <Heading level="h2" color="white" className="text-center mb-12">
               Related Articles
             </Heading>
-            
+
             <Grid cols={relatedArticles.length === 1 ? 1 : 2} className="gap-8">
               {relatedArticles.map((relatedArticle, index) => (
                 <m.div
@@ -316,7 +351,11 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
                             {relatedArticle.readTime}
                           </div>
                         </div>
-                        <Heading level="h4" color="white" className="mb-2 group-hover:text-gold-300 transition-colors">
+                        <Heading
+                          level="h4"
+                          color="white"
+                          className="mb-2 group-hover:text-gold-300 transition-colors"
+                        >
                           {relatedArticle.title}
                         </Heading>
                         <Text size="sm" color="gray-100" className="mb-4">
@@ -338,39 +377,39 @@ export default function ArticlePage({ article, relatedArticles }: ArticlePagePro
         </Section>
       )}
     </PageLayout>
-  )
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const articles = getPublishedArticles()
-  
+  const articles = getPublishedArticles();
+
   const paths = articles.map((article) => ({
-    params: { slug: article.slug }
-  }))
+    params: { slug: article.slug },
+  }));
 
   return {
     paths,
-    fallback: false // Set to true if you want to generate pages on-demand
-  }
-}
+    fallback: false, // Set to true if you want to generate pages on-demand
+  };
+};
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug as string
-  const article = getArticleBySlug(slug)
-  
+  const slug = params?.slug as string;
+  const article = getArticleBySlug(slug);
+
   if (!article) {
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
 
-  const relatedArticles = getRelatedArticles(article.id)
+  const relatedArticles = getRelatedArticles(article.id);
 
   return {
     props: {
       article,
-      relatedArticles
+      relatedArticles,
     },
-    revalidate: 3600 // Revalidate every hour
-  }
-}
+    revalidate: 3600, // Revalidate every hour
+  };
+};

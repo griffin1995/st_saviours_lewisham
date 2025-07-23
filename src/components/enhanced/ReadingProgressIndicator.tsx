@@ -3,7 +3,7 @@
  * Implements 2025 research recommendations for article reading experience
  */
 import React, { useState, useEffect } from 'react'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 
 interface ReadingProgressIndicatorProps {
   className?: string

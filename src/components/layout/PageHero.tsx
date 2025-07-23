@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Heading, Text } from '@/components/ui'
 import { cn, prefersReducedMotion } from '@/lib/utils'
 import { getPageImage } from '@/lib/cms-images'

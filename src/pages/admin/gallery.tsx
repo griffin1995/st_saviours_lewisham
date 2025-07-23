@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { m} from "framer-motion";
 import {
   ArrowLeft,
   Plus,
@@ -18,8 +18,8 @@ import {
   X,
   Calendar,
   Star,
-  Folder
-} from 'lucide-react';
+  Folder,
+} from "lucide-react";
 
 interface GalleryImage {
   id: string;
@@ -43,26 +43,37 @@ export default function GalleryManagement() {
   const router = useRouter();
   const [albums, setAlbums] = useState<GalleryAlbum[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [filterStatus, setFilterStatus] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
   const [showForm, setShowForm] = useState(false);
   const [editingAlbum, setEditingAlbum] = useState<GalleryAlbum | null>(null);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: 'Liturgical',
-    date: '',
+    title: "",
+    description: "",
+    category: "Liturgical",
+    date: "",
     featured: false,
     published: false,
-    images: [] as GalleryImage[]
+    images: [] as GalleryImage[],
   });
-  const [deleteModal, setDeleteModal] = useState<{ show: boolean; album: GalleryAlbum | null }>({
+  const [deleteModal, setDeleteModal] = useState<{
+    show: boolean;
+    album: GalleryAlbum | null;
+  }>({
     show: false,
-    album: null
+    album: null,
   });
 
-  const categories = ['Liturgical', 'Sacraments', 'Community', 'Events', 'Building', 'Youth', 'Other'];
+  const categories = [
+    "Liturgical",
+    "Sacraments",
+    "Community",
+    "Events",
+    "Building",
+    "Youth",
+    "Other",
+  ];
 
   useEffect(() => {
     checkAuth();
@@ -71,24 +82,24 @@ export default function GalleryManagement() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth');
+      const response = await fetch("/api/admin/auth");
       const data = await response.json();
-      
+
       if (!data.success) {
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     } catch (error) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     }
   };
 
   const loadAlbums = async () => {
     try {
-      const response = await fetch('/api/admin/gallery');
+      const response = await fetch("/api/admin/gallery");
       const data = await response.json();
       setAlbums(data || []);
     } catch (error) {
-      console.error('Error loading albums:', error);
+      console.error("Error loading albums:", error);
     } finally {
       setLoading(false);
     }
@@ -96,18 +107,18 @@ export default function GalleryManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const url = editingAlbum 
+      const url = editingAlbum
         ? `/api/admin/gallery?id=${editingAlbum.id}`
-        : '/api/admin/gallery';
-      
-      const method = editingAlbum ? 'PUT' : 'POST';
-      
+        : "/api/admin/gallery";
+
+      const method = editingAlbum ? "PUT" : "POST";
+
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -118,10 +129,10 @@ export default function GalleryManagement() {
         resetForm();
         loadAlbums();
       } else {
-        console.error('Failed to save album');
+        console.error("Failed to save album");
       }
     } catch (error) {
-      console.error('Error saving album:', error);
+      console.error("Error saving album:", error);
     }
   };
 
@@ -134,7 +145,7 @@ export default function GalleryManagement() {
       date: album.date,
       featured: album.featured,
       published: album.published,
-      images: album.images
+      images: album.images,
     });
     setShowForm(true);
   };
@@ -142,7 +153,7 @@ export default function GalleryManagement() {
   const handleDelete = async (album: GalleryAlbum) => {
     try {
       const response = await fetch(`/api/admin/gallery?id=${album.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
@@ -150,16 +161,16 @@ export default function GalleryManagement() {
         loadAlbums();
       }
     } catch (error) {
-      console.error('Error deleting album:', error);
+      console.error("Error deleting album:", error);
     }
   };
 
   const togglePublished = async (album: GalleryAlbum) => {
     try {
       const response = await fetch(`/api/admin/gallery?id=${album.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...album, published: !album.published }),
       });
@@ -168,16 +179,16 @@ export default function GalleryManagement() {
         loadAlbums();
       }
     } catch (error) {
-      console.error('Error updating album:', error);
+      console.error("Error updating album:", error);
     }
   };
 
   const toggleFeatured = async (album: GalleryAlbum) => {
     try {
       const response = await fetch(`/api/admin/gallery?id=${album.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...album, featured: !album.featured }),
       });
@@ -186,7 +197,7 @@ export default function GalleryManagement() {
         loadAlbums();
       }
     } catch (error) {
-      console.error('Error updating album:', error);
+      console.error("Error updating album:", error);
     }
   };
 
@@ -197,11 +208,11 @@ export default function GalleryManagement() {
         ...formData.images,
         {
           id: `img-${Date.now()}`,
-          url: '',
-          caption: '',
-          alt: ''
-        }
-      ]
+          url: "",
+          caption: "",
+          alt: "",
+        },
+      ],
     });
   };
 
@@ -210,7 +221,11 @@ export default function GalleryManagement() {
     setFormData({ ...formData, images: newImages });
   };
 
-  const updateImage = (index: number, field: keyof GalleryImage, value: string) => {
+  const updateImage = (
+    index: number,
+    field: keyof GalleryImage,
+    value: string
+  ) => {
     const newImages = [...formData.images];
     newImages[index] = { ...newImages[index], [field]: value };
     setFormData({ ...formData, images: newImages });
@@ -218,25 +233,28 @@ export default function GalleryManagement() {
 
   const resetForm = () => {
     setFormData({
-      title: '',
-      description: '',
-      category: 'Liturgical',
-      date: '',
+      title: "",
+      description: "",
+      category: "Liturgical",
+      date: "",
       featured: false,
       published: false,
-      images: []
+      images: [],
     });
   };
 
-  const filteredAlbums = albums.filter(album => {
-    const matchesSearch = album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         album.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = filterCategory === 'All' || album.category === filterCategory;
-    const matchesStatus = filterStatus === 'All' || 
-                         (filterStatus === 'Published' && album.published) ||
-                         (filterStatus === 'Draft' && !album.published) ||
-                         (filterStatus === 'Featured' && album.featured);
-    
+  const filteredAlbums = albums.filter((album) => {
+    const matchesSearch =
+      album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      album.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      filterCategory === "All" || album.category === filterCategory;
+    const matchesStatus =
+      filterStatus === "All" ||
+      (filterStatus === "Published" && album.published) ||
+      (filterStatus === "Draft" && !album.published) ||
+      (filterStatus === "Featured" && album.featured);
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
@@ -262,9 +280,11 @@ export default function GalleryManagement() {
                 <ArrowLeft className="h-5 w-5 mr-1" />
                 Back to Dashboard
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">Gallery Management</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Gallery Management
+              </h1>
             </div>
-            
+
             <button
               onClick={() => {
                 setEditingAlbum(null);
@@ -295,18 +315,20 @@ export default function GalleryManagement() {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
               />
             </div>
-            
+
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
             >
               <option value="All">All Categories</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
-            
+
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
@@ -348,7 +370,7 @@ export default function GalleryManagement() {
                       <ImageIcon className="h-12 w-12 text-gray-400" />
                     </div>
                   )}
-                  
+
                   {album.featured && (
                     <div className="absolute top-2 left-2">
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -362,9 +384,13 @@ export default function GalleryManagement() {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{album.title}</h3>
-                      <p className="text-sm text-gray-600 mb-2 line-clamp-2">{album.description}</p>
-                      
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                        {album.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                        {album.description}
+                      </p>
+
                       <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
                         <div className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
@@ -383,25 +409,25 @@ export default function GalleryManagement() {
                       <Folder className="h-3 w-3 mr-1" />
                       {album.category}
                     </span>
-                    
+
                     <div className="flex space-x-2">
                       <button
                         onClick={() => toggleFeatured(album)}
                         className={`p-1 rounded transition-colors ${
                           album.featured
-                            ? 'text-yellow-600 hover:text-yellow-700'
-                            : 'text-gray-400 hover:text-yellow-600'
+                            ? "text-yellow-600 hover:text-yellow-700"
+                            : "text-gray-400 hover:text-yellow-600"
                         }`}
                       >
                         <Star className="h-4 w-4" />
                       </button>
-                      
+
                       <button
                         onClick={() => togglePublished(album)}
                         className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium transition-colors ${
                           album.published
-                            ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                            : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
+                            ? "bg-green-100 text-green-800 hover:bg-green-200"
+                            : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
                         }`}
                       >
                         {album.published ? (
@@ -447,7 +473,7 @@ export default function GalleryManagement() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  {editingAlbum ? 'Edit Album' : 'Add New Album'}
+                  {editingAlbum ? "Edit Album" : "Add New Album"}
                 </h3>
                 <button
                   onClick={() => setShowForm(false)}
@@ -467,7 +493,9 @@ export default function GalleryManagement() {
                       type="text"
                       required
                       value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -480,7 +508,12 @@ export default function GalleryManagement() {
                       required
                       rows={3}
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -491,11 +524,15 @@ export default function GalleryManagement() {
                     </label>
                     <select
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, category: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     >
-                      {categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
+                      {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -508,7 +545,9 @@ export default function GalleryManagement() {
                       type="date"
                       required
                       value={formData.date}
-                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, date: e.target.value })
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                     />
                   </div>
@@ -519,20 +558,34 @@ export default function GalleryManagement() {
                         <input
                           type="checkbox"
                           checked={formData.featured}
-                          onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              featured: e.target.checked,
+                            })
+                          }
                           className="rounded border-gray-300 text-gold-600 focus:ring-gold-500"
                         />
-                        <span className="ml-2 text-sm text-gray-700">Featured Album</span>
+                        <span className="ml-2 text-sm text-gray-700">
+                          Featured Album
+                        </span>
                       </label>
 
                       <label className="flex items-center">
                         <input
                           type="checkbox"
                           checked={formData.published}
-                          onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              published: e.target.checked,
+                            })
+                          }
                           className="rounded border-gray-300 text-gold-600 focus:ring-gold-500"
                         />
-                        <span className="ml-2 text-sm text-gray-700">Publish Immediately</span>
+                        <span className="ml-2 text-sm text-gray-700">
+                          Publish Immediately
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -541,7 +594,9 @@ export default function GalleryManagement() {
                 {/* Images Section */}
                 <div className="border-t border-gray-200 pt-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-md font-medium text-gray-900">Images</h4>
+                    <h4 className="text-md font-medium text-gray-900">
+                      Images
+                    </h4>
                     <button
                       type="button"
                       onClick={addImage}
@@ -554,7 +609,10 @@ export default function GalleryManagement() {
 
                   <div className="space-y-4">
                     {formData.images.map((image, index) => (
-                      <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border border-gray-200 rounded-lg">
+                      <div
+                        key={index}
+                        className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border border-gray-200 rounded-lg"
+                      >
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Image URL
@@ -563,7 +621,9 @@ export default function GalleryManagement() {
                             type="url"
                             required
                             value={image.url}
-                            onChange={(e) => updateImage(index, 'url', e.target.value)}
+                            onChange={(e) =>
+                              updateImage(index, "url", e.target.value)
+                            }
                             placeholder="/images/gallery/..."
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           />
@@ -576,7 +636,9 @@ export default function GalleryManagement() {
                           <input
                             type="text"
                             value={image.caption}
-                            onChange={(e) => updateImage(index, 'caption', e.target.value)}
+                            onChange={(e) =>
+                              updateImage(index, "caption", e.target.value)
+                            }
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           />
                         </div>
@@ -589,7 +651,9 @@ export default function GalleryManagement() {
                             type="text"
                             required
                             value={image.alt}
-                            onChange={(e) => updateImage(index, 'alt', e.target.value)}
+                            onChange={(e) =>
+                              updateImage(index, "alt", e.target.value)
+                            }
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
                           />
                         </div>
@@ -611,7 +675,9 @@ export default function GalleryManagement() {
                       <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
                         <ImageIcon className="h-8 w-8 text-gray-300 mx-auto mb-2" />
                         <p>No images added yet</p>
-                        <p className="text-sm">Click "Add Image" to start building your album</p>
+                        <p className="text-sm">
+                          Click "Add Image" to start building your album
+                        </p>
                       </div>
                     )}
                   </div>
@@ -630,7 +696,7 @@ export default function GalleryManagement() {
                     className="inline-flex items-center px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700 transition-colors"
                   >
                     <Save className="h-4 w-4 mr-2" />
-                    {editingAlbum ? 'Update Album' : 'Create Album'}
+                    {editingAlbum ? "Update Album" : "Create Album"}
                   </button>
                 </div>
               </form>
@@ -649,14 +715,17 @@ export default function GalleryManagement() {
                   <AlertCircle className="h-6 w-6 text-red-600" />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-lg font-medium text-gray-900">Delete Album</h3>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Delete Album
+                  </h3>
                 </div>
               </div>
-              
+
               <p className="text-sm text-gray-500 mb-6">
-                Are you sure you want to delete "{deleteModal.album.title}"? This action cannot be undone.
+                Are you sure you want to delete "{deleteModal.album.title}"?
+                This action cannot be undone.
               </p>
-              
+
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={() => setDeleteModal({ show: false, album: null })}

@@ -50,7 +50,7 @@ const defaultTestimonials: Testimonial[] = [
     id: '4',
     name: 'Robert O\'Connor',
     role: 'Parish Council Member',
-    content: 'The leadership and vision at St Saviour\'s creates an environment where faith can flourish. I\'m proud to be part of this vibrant Catholic community.',
+    content: 'The leadership and vision at St Saviour\'s creates an environment where faith can flourish. I\'motion proud to be part of this vibrant Catholic community.',
     rating: 5,
     date: '2024-01-28'
   },

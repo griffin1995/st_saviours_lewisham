@@ -3,12 +3,11 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { SSRProvider } from '@react-aria/ssr';
 
 // Providers
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { QueryProvider } from '@/providers/QueryProvider';
-import { MotionProvider } from '@/lib/motion';
+import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
 
 // Typography
 import { fontClasses } from '@/lib/fonts';
@@ -173,25 +172,23 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       
       {/* Provider Stack */}
-      <SSRProvider>
-        <QueryProvider>
-          <ThemeProvider>
-            <MotionProvider>
-              <div className={fontClasses.all}>
-                <Component {...pageProps} />
-                
-                {/* Performance Monitoring */}
-                {enablePerformanceMonitoring && (
-                  <>
-                    <Analytics />
-                    <SpeedInsights />
-                  </>
-                )}
-              </div>
-            </MotionProvider>
-          </ThemeProvider>
-        </QueryProvider>
-      </SSRProvider>
+      <QueryProvider>
+        <ThemeProvider>
+          <LazyMotionProvider>
+            <div className={fontClasses.all}>
+              <Component {...pageProps} />
+              
+              {/* Performance Monitoring */}
+              {enablePerformanceMonitoring && (
+                <>
+                  <Analytics />
+                  <SpeedInsights />
+                </>
+              )}
+            </div>
+          </LazyMotionProvider>
+        </ThemeProvider>
+      </QueryProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -158,7 +158,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
 
   return (
     <AnimatePresence mode="wait">
-      <motion.form
+      <m.form
         variants={formVariants}
         initial="hidden"
         animate="visible"
@@ -202,7 +202,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
             </div>
             <AnimatePresence>
               {errors.email && (
-                <motion.p
+                <m.p
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
@@ -210,7 +210,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
                 >
                   <ExclamationTriangleIcon className="h-4 w-4" />
                   {errors.email.message}
-                </motion.p>
+                </m.p>
               )}
             </AnimatePresence>
           </div>
@@ -229,14 +229,14 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
             />
             <AnimatePresence>
               {errors.firstName && (
-                <motion.p
+                <m.p
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   className="text-red-600 text-sm"
                 >
                   {errors.firstName.message}
-                </motion.p>
+                </m.p>
               )}
             </AnimatePresence>
           </div>
@@ -275,14 +275,14 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
             </div>
             <AnimatePresence>
               {errors.interests && (
-                <motion.p
+                <m.p
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   className="text-red-600 text-sm"
                 >
                   {errors.interests.message}
-                </motion.p>
+                </m.p>
               )}
             </AnimatePresence>
           </div>
@@ -331,14 +331,14 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
           </label>
           <AnimatePresence>
             {errors.consent && (
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 className="text-red-600 text-sm"
               >
                 {errors.consent.message}
-              </motion.p>
+              </m.p>
             )}
           </AnimatePresence>
         </div>
@@ -379,7 +379,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
             </m.div>
           )}
         </AnimatePresence>
-      </motion.form>
+      </m.form>
     </AnimatePresence>
   )
 }

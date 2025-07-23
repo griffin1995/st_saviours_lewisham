@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, m } from 'framer-motion'
+import { m} from 'framer-motion'
 import { 
   Phone, 
   Mail, 

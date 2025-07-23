@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, m } from "framer-motion";
 import { PageLayout } from "@/components/layout";
 import { Church, Heart, Users, BookOpen, Calendar, MapPin, Phone, Mail, Cross, Star, Award, Clock } from "lucide-react";
 
@@ -350,7 +350,7 @@ export default function AboutUs() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
+              <m.a
                 href="/contact-us"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
@@ -358,9 +358,9 @@ export default function AboutUs() {
               >
                 <Mail className="h-5 w-5 mr-2" />
                 Get in Touch
-              </motion.a>
+              </m.a>
               
-              <motion.a
+              <m.a
                 href="/mass"
                 whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
@@ -368,7 +368,7 @@ export default function AboutUs() {
               >
                 <Clock className="h-5 w-5 mr-2" />
                 Mass Times
-              </motion.a>
+              </m.a>
             </div>
           </m.div>
         </div>

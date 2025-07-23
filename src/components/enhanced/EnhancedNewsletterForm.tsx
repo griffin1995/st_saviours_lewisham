@@ -4,7 +4,7 @@
  */
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   EnvelopeIcon,

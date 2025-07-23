@@ -241,25 +241,29 @@ export const LiveStreamingDashboard: React.FC<LiveStreamingDashboardProps> = ({
           </div>
         </m.div>
 
-        {/* Video Placeholder */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          {isLive ? (
-            <div className="text-center text-white">
-              <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <PlayIcon className="h-12 w-12" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{streamTitle}</h3>
-              <p className="text-gray-300">{streamDescription}</p>
-            </div>
+        {/* Live Stream Embed */}
+        <div className="absolute inset-0">
+          {isLive || streamUrl ? (
+            <iframe
+              src={streamUrl || "https://mcn.live/Camera/st-saviour%E2%80%99s-church-london"}
+              className="w-full h-full"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; encrypted-media; camera; microphone"
+              title="St Saviour's Church Live Stream"
+              style={{ border: 'none' }}
+            />
           ) : (
-            <div className="text-center text-white">
-              <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <TvIcon className="h-12 w-12" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <TvIcon className="h-12 w-12" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Stream Offline</h3>
+                {nextStreamTime && (
+                  <p className="text-gray-300">Next stream: {nextStreamTime}</p>
+                )}
               </div>
-              <h3 className="text-xl font-semibold mb-2">Stream Offline</h3>
-              {nextStreamTime && (
-                <p className="text-gray-300">Next stream: {nextStreamTime}</p>
-              )}
             </div>
           )}
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, m } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Heart, Send, Lock, Check, User, MessageCircle, Calendar } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -239,7 +239,7 @@ export default function PrayerRequestSection() {
                     </p>
                   </m.div>
                 ) : (
-                  <motion.form
+                  <m.form
                     onSubmit={handleSubmit}
                     className="space-y-6"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0 }}
@@ -398,7 +398,7 @@ export default function PrayerRequestSection() {
                     </div>
 
                     {/* Submit Button */}
-                    <motion.button
+                    <m.button
                       type="submit"
                       disabled={isSubmitting || !formData.agreeToTerms}
                       className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
@@ -424,8 +424,8 @@ export default function PrayerRequestSection() {
                           <span>Submit Prayer Request</span>
                         </div>
                       )}
-                    </motion.button>
-                  </motion.form>
+                    </m.button>
+                  </m.form>
                 )}
               </AnimatePresence>
             </div>

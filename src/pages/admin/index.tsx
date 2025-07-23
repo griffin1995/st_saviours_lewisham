@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { motion, m } from "framer-motion";
 import {
   DocumentTextIcon as FileText,
   CalendarDaysIcon as Calendar,
@@ -14,11 +14,11 @@ import {
   ChartBarIcon as BarChart3,
   PlusIcon as Plus,
   PencilIcon as Edit,
-  EyeIcon as Eye
-} from '@heroicons/react/24/solid';
+  EyeIcon as Eye,
+} from "@heroicons/react/24/solid";
 
 // Modern imports with Zustand integration
-import { useUI, useActions } from '@/stores/churchStore';
+import { useUI, useActions } from "@/stores/churchStore";
 
 interface DashboardStats {
   totalNews: number;
@@ -37,7 +37,7 @@ export default function AdminDashboard() {
     totalNews: 0,
     totalEvents: 0,
     publishedNews: 0,
-    upcomingEvents: 0
+    upcomingEvents: 0,
   });
 
   // Enhanced animation variants
@@ -47,9 +47,9 @@ export default function AdminDashboard() {
       opacity: 1,
       transition: {
         duration: ui.reducedMotion ? 0.2 : 0.8,
-        staggerChildren: ui.reducedMotion ? 0 : 0.1
-      }
-    }
+        staggerChildren: ui.reducedMotion ? 0 : 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -57,8 +57,8 @@ export default function AdminDashboard() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
-    }
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 },
+    },
   };
 
   const scaleVariants = {
@@ -66,8 +66,8 @@ export default function AdminDashboard() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
-    }
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 },
+    },
   };
 
   useEffect(() => {
@@ -77,16 +77,16 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth');
+      const response = await fetch("/api/admin/auth");
       const data = await response.json();
-      
+
       if (data.success) {
         setUser(data.user);
       } else {
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     } catch (error) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     } finally {
       setLoading(false);
     }
@@ -95,36 +95,39 @@ export default function AdminDashboard() {
   const loadStats = async () => {
     try {
       // Load news stats
-      const newsResponse = await fetch('/api/admin/news');
+      const newsResponse = await fetch("/api/admin/news");
       const newsData = await newsResponse.json();
-      
+
       // Load events stats
-      const eventsResponse = await fetch('/api/admin/events');
+      const eventsResponse = await fetch("/api/admin/events");
       const eventsData = await eventsResponse.json();
-      
+
       const now = new Date();
-      
+
       setStats({
         totalNews: newsData.length,
         totalEvents: eventsData.length,
-        publishedNews: newsData.filter((article: any) => article.published).length,
-        upcomingEvents: eventsData.filter((event: any) => new Date(event.date) >= now).length
+        publishedNews: newsData.filter((article: any) => article.published)
+          .length,
+        upcomingEvents: eventsData.filter(
+          (event: any) => new Date(event.date) >= now
+        ).length,
       });
     } catch (error) {
-      console.error('Error loading stats:', error);
+      console.error("Error loading stats:", error);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'logout' })
+      await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "logout" }),
       });
-      router.push('/admin/login');
+      router.push("/admin/login");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -138,100 +141,100 @@ export default function AdminDashboard() {
 
   const menuItems = [
     {
-      title: 'News Articles',
-      description: 'Manage parish news and announcements',
-      href: '/admin/news',
+      title: "News Articles",
+      description: "Manage parish news and announcements",
+      href: "/admin/news",
       icon: FileText,
-      color: 'bg-blue-500',
+      color: "bg-blue-500",
       actions: [
-        { label: 'View All', href: '/admin/news', icon: Eye },
-        { label: 'Add New', href: '/admin/news/new', icon: Plus }
-      ]
+        { label: "View All", href: "/admin/news", icon: Eye },
+        { label: "Add New", href: "/admin/news/new", icon: Plus },
+      ],
     },
     {
-      title: 'Events',
-      description: 'Manage parish events and activities',
-      href: '/admin/events',
+      title: "Events",
+      description: "Manage parish events and activities",
+      href: "/admin/events",
       icon: Calendar,
-      color: 'bg-green-500',
+      color: "bg-green-500",
       actions: [
-        { label: 'View All', href: '/admin/events', icon: Eye },
-        { label: 'Add New', href: '/admin/events/new', icon: Plus }
-      ]
+        { label: "View All", href: "/admin/events", icon: Eye },
+        { label: "Add New", href: "/admin/events/new", icon: Plus },
+      ],
     },
     {
-      title: 'Mass Times',
-      description: 'Update Mass schedules and service times',
-      href: '/admin/mass-times',
+      title: "Mass Times",
+      description: "Update Mass schedules and service times",
+      href: "/admin/mass-times",
       icon: Clock,
-      color: 'bg-purple-500',
+      color: "bg-purple-500",
       actions: [
-        { label: 'Edit Schedule', href: '/admin/mass-times', icon: Edit }
-      ]
+        { label: "Edit Schedule", href: "/admin/mass-times", icon: Edit },
+      ],
     },
     {
-      title: 'Parish Groups',
-      description: 'Manage community groups and ministries',
-      href: '/admin/groups',
+      title: "Parish Groups",
+      description: "Manage community groups and ministries",
+      href: "/admin/groups",
       icon: Users,
-      color: 'bg-orange-500',
+      color: "bg-orange-500",
       actions: [
-        { label: 'View All', href: '/admin/groups', icon: Eye },
-        { label: 'Add New', href: '/admin/groups/new', icon: Plus }
-      ]
+        { label: "View All", href: "/admin/groups", icon: Eye },
+        { label: "Add New", href: "/admin/groups/new", icon: Plus },
+      ],
     },
     {
-      title: 'Gallery',
-      description: 'Manage photo gallery and images',
-      href: '/admin/gallery',
+      title: "Gallery",
+      description: "Manage photo gallery and images",
+      href: "/admin/gallery",
       icon: Camera,
-      color: 'bg-pink-500',
+      color: "bg-pink-500",
       actions: [
-        { label: 'View All', href: '/admin/gallery', icon: Eye },
-        { label: 'Upload New', href: '/admin/gallery/upload', icon: Plus }
-      ]
+        { label: "View All", href: "/admin/gallery", icon: Eye },
+        { label: "Upload New", href: "/admin/gallery/upload", icon: Plus },
+      ],
     },
     {
-      title: 'Website Settings',
-      description: 'Configure site settings and information',
-      href: '/admin/settings',
+      title: "Website Settings",
+      description: "Configure site settings and information",
+      href: "/admin/settings",
       icon: Settings,
-      color: 'bg-gray-500',
+      color: "bg-gray-500",
       actions: [
-        { label: 'Edit Settings', href: '/admin/settings', icon: Settings }
-      ]
-    }
+        { label: "Edit Settings", href: "/admin/settings", icon: Settings },
+      ],
+    },
   ];
 
   const statCards = [
     {
-      title: 'Total News Articles',
+      title: "Total News Articles",
       value: stats.totalNews,
       subtitle: `${stats.publishedNews} published`,
       icon: FileText,
-      color: 'bg-blue-500'
+      color: "bg-blue-500",
     },
     {
-      title: 'Total Events',
+      title: "Total Events",
       value: stats.totalEvents,
       subtitle: `${stats.upcomingEvents} upcoming`,
       icon: Calendar,
-      color: 'bg-green-500'
+      color: "bg-green-500",
     },
     {
-      title: 'Published Content',
+      title: "Published Content",
       value: stats.publishedNews,
-      subtitle: 'Live articles',
+      subtitle: "Live articles",
       icon: Eye,
-      color: 'bg-purple-500'
+      color: "bg-purple-500",
     },
     {
-      title: 'Upcoming Events',
+      title: "Upcoming Events",
       value: stats.upcomingEvents,
-      subtitle: 'This month',
+      subtitle: "This month",
       icon: BarChart3,
-      color: 'bg-orange-500'
-    }
+      color: "bg-orange-500",
+    },
   ];
 
   return (
@@ -245,8 +248,12 @@ export default function AdminDashboard() {
               <div className="flex items-center">
                 <Shield className="h-8 w-8 text-gold-600 mr-3" />
                 <div>
-                  <h1 className="text-xl font-semibold text-gray-900">Admin Portal</h1>
-                  <p className="text-sm text-gray-500">St Saviour's Catholic Church</p>
+                  <h1 className="text-xl font-semibold text-gray-900">
+                    Admin Portal
+                  </h1>
+                  <p className="text-sm text-gray-500">
+                    St Saviour's Catholic Church
+                  </p>
                 </div>
               </div>
             </div>
@@ -301,7 +308,7 @@ export default function AdminDashboard() {
               whileHover={ui.reducedMotion ? {} : { y: -4, scale: 1.02 }}
             >
               <div className="flex items-center">
-                <m.div 
+                <m.div
                   className={`${stat.color} p-3 rounded-lg`}
                   whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
@@ -309,9 +316,15 @@ export default function AdminDashboard() {
                   <stat.icon className="h-6 w-6 text-white" />
                 </m.div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">{stat.title}</p>
-                  <p className="text-2xl font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{stat.value}</p>
-                  <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">{stat.subtitle}</p>
+                  <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">
+                    {stat.title}
+                  </p>
+                  <p className="text-2xl font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">
+                    {stat.subtitle}
+                  </p>
                 </div>
               </div>
             </m.div>
@@ -332,19 +345,25 @@ export default function AdminDashboard() {
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <m.div 
+                  <m.div
                     className={`${item.color} p-3 rounded-lg`}
-                    whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                    whileHover={
+                      ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }
+                    }
                     transition={{ duration: 0.3 }}
                   >
                     <item.icon className="h-6 w-6 text-white" />
                   </m.div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{item.title}</h3>
-                    <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">{item.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {item.actions.map((action, actionIndex) => (
                     <m.div
@@ -368,18 +387,18 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <m.div 
+        <m.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300"
         >
-          <motion.h3 
+          <m.h3
             variants={itemVariants}
             className="text-lg font-semibold text-gray-900 mb-4"
           >
             Quick Actions
-          </motion.h3>
+          </m.h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <m.div
               variants={itemVariants}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { EnvelopeIcon, UserIcon } from '@heroicons/react/24/outline';
 import { newsletterSchema, type NewsletterFormData } from '@/lib/validations/forms';
@@ -193,7 +193,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               </p>
             </m.div>
           ) : (
-            <motion.form
+            <m.form
               key="form"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -300,7 +300,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               >
                 {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
               </Button>
-            </motion.form>
+            </m.form>
           )}
         </AnimatePresence>
       </div>

@@ -5,7 +5,7 @@
 import React, { useState } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   EnvelopeIcon,
@@ -178,7 +178,7 @@ export function InteractiveStaffDirectory({ reducedMotion = false }: Interactive
           { key: 'clergy', label: 'Clergy', icon: BookOpenIcon },
           { key: 'staff', label: 'Parish Staff', icon: HeartIcon }
         ].map((filter) => (
-          <Motion.button
+          <m.button
             key={filter.key}
             onClick={() => setFilterRole(filter.key)}
             className={`
@@ -193,7 +193,7 @@ export function InteractiveStaffDirectory({ reducedMotion = false }: Interactive
           >
             <filter.icon className="h-5 w-5" />
             {filter.label}
-          </Motion.button>
+          </m.button>
         ))}
       </div>
 

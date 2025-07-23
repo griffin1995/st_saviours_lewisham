@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, m } from 'framer-motion'
+import { m, AnimatePresence, m } from 'framer-motion'
 import Plyr from 'plyr-react'
 import 'plyr/dist/plyr.css'
 import {
@@ -228,7 +228,7 @@ export default function AdvancedAudioPlayer({
                     <Text size="sm">{episode.duration}</Text>
                   </div>
                   <div className="flex items-center gap-2">
-                    <motion.button
+                    <m.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setIsLiked(!isLiked)}
@@ -237,8 +237,8 @@ export default function AdvancedAudioPlayer({
                       }`}
                     >
                       <HeartIcon className="h-4 w-4" />
-                    </motion.button>
-                    <motion.button
+                    </m.button>
+                    <m.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setIsBookmarked(!isBookmarked)}
@@ -247,14 +247,14 @@ export default function AdvancedAudioPlayer({
                       }`}
                     >
                       <BookmarkIcon className="h-4 w-4" />
-                    </motion.button>
-                    <motion.button
+                    </m.button>
+                    <m.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       className="text-gray-400 hover:text-blue-400 transition-colors"
                     >
                       <ShareIcon className="h-4 w-4" />
-                    </motion.button>
+                    </m.button>
                   </div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function AdvancedAudioPlayer({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 {/* Skip Backward */}
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => handleSkip(-15)}
@@ -309,10 +309,10 @@ export default function AdvancedAudioPlayer({
                   aria-label="Skip backward 15 seconds"
                 >
                   <BackwardIcon className="h-6 w-6" />
-                </motion.button>
+                </m.button>
 
                 {/* Play/Pause */}
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handlePlayPause}
@@ -324,10 +324,10 @@ export default function AdvancedAudioPlayer({
                   ) : (
                     <PlayIcon className="h-6 w-6 ml-0.5" />
                   )}
-                </motion.button>
+                </m.button>
 
                 {/* Skip Forward */}
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => handleSkip(30)}
@@ -335,7 +335,7 @@ export default function AdvancedAudioPlayer({
                   aria-label="Skip forward 30 seconds"
                 >
                   <ForwardIcon className="h-6 w-6" />
-                </motion.button>
+                </m.button>
               </div>
 
               {/* Time Display */}
@@ -347,7 +347,7 @@ export default function AdvancedAudioPlayer({
 
               {/* Volume Control */}
               <div className="flex items-center gap-2">
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleMuteToggle}
@@ -359,7 +359,7 @@ export default function AdvancedAudioPlayer({
                   ) : (
                     <SpeakerWaveIcon className="h-5 w-5" />
                   )}
-                </motion.button>
+                </m.button>
                 <input
                   type="range"
                   min="0"
@@ -413,7 +413,7 @@ export default function AdvancedAudioPlayer({
                 </select>
               </div>
               
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowWaveform(!showWaveform)}
@@ -421,7 +421,7 @@ export default function AdvancedAudioPlayer({
               >
                 <ChatBubbleBottomCenterTextIcon className="h-4 w-4" />
                 <span className="ml-1 text-xs">Waveform</span>
-              </motion.button>
+              </m.button>
             </div>
           </div>
         </CardContent>

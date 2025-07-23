@@ -7,7 +7,15 @@ import { massTimings, confessionTimes, adorationTimes } from "@/lib/data";
 
 export default function MassTimes() {
   const today = new Date();
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const currentDay = dayNames[today.getDay()];
 
   return (
@@ -33,12 +41,21 @@ export default function MassTimes() {
             Today's Services - {currentDay}
           </h2>
           <div className="max-w-2xl mx-auto">
-            {massTimings[currentDay.toLowerCase() as keyof typeof massTimings] ? (
+            {massTimings[
+              currentDay.toLowerCase() as keyof typeof massTimings
+            ] ? (
               <div className="space-y-3">
-                {massTimings[currentDay.toLowerCase() as keyof typeof massTimings].map((service, index) => (
-                  <div key={index} className="flex items-center justify-center space-x-4 text-white">
+                {massTimings[
+                  currentDay.toLowerCase() as keyof typeof massTimings
+                ].map((service, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center space-x-4 text-white"
+                  >
                     <Clock className="h-5 w-5 text-gold-400" />
-                    <span className="text-lg font-semibold">{service.time}</span>
+                    <span className="text-lg font-semibold">
+                      {service.time}
+                    </span>
                     <span className="text-gray-300">-</span>
                     <span className="text-lg">{service.type}</span>
                   </div>
@@ -59,45 +76,59 @@ export default function MassTimes() {
               Weekly Mass Schedule
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Regular Mass times throughout the week. Please arrive 10 minutes early.
+              Regular Mass times throughout the week. Please arrive 10 minutes
+              early.
             </p>
           </div>
 
           <div className="grid gap-6 max-w-4xl mx-auto">
             {Object.entries(massTimings).map(([day, services]) => (
-              <div 
-                key={day} 
+              <div
+                key={day}
                 className={`border rounded-lg p-6 ${
-                  day.toLowerCase() === currentDay.toLowerCase() 
-                    ? 'border-gold-500 bg-gold-50' 
-                    : 'border-gray-200 bg-white'
+                  day.toLowerCase() === currentDay.toLowerCase()
+                    ? "border-gold-500 bg-gold-50"
+                    : "border-gray-200 bg-white"
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className={`text-xl font-semibold mb-3 sm:mb-0 ${
-                    day.toLowerCase() === currentDay.toLowerCase() 
-                      ? 'text-gold-700' 
-                      : 'text-gray-900'
-                  }`}>
+                  <h3
+                    className={`text-xl font-semibold mb-3 sm:mb-0 ${
+                      day.toLowerCase() === currentDay.toLowerCase()
+                        ? "text-gold-700"
+                        : "text-gray-900"
+                    }`}
+                  >
                     {day.charAt(0).toUpperCase() + day.slice(1)}
                     {day.toLowerCase() === currentDay.toLowerCase() && (
-                      <span className="ml-2 text-sm font-normal text-gold-600">(Today)</span>
+                      <span className="ml-2 text-sm font-normal text-gold-600">
+                        (Today)
+                      </span>
                     )}
                   </h3>
                   <div className="space-y-2">
                     {services && services.length > 0 ? (
                       services.map((service, index) => (
-                        <div key={index} className="flex items-center space-x-3">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3"
+                        >
                           <Clock className="h-4 w-4 text-gray-500" />
-                          <span className="font-semibold text-gray-900">{service.time}</span>
+                          <span className="font-semibold text-gray-900">
+                            {service.time}
+                          </span>
                           <span className="text-gray-600">{service.type}</span>
                           {service.description && (
-                            <span className="text-sm text-gray-500">({service.description})</span>
+                            <span className="text-sm text-gray-500">
+                              ({service.description})
+                            </span>
                           )}
                         </div>
                       ))
                     ) : (
-                      <span className="text-gray-500 italic">No scheduled Mass</span>
+                      <span className="text-gray-500 italic">
+                        No scheduled Mass
+                      </span>
                     )}
                   </div>
                 </div>
@@ -120,19 +151,23 @@ export default function MassTimes() {
               {confessionTimes.map((confession, index) => (
                 <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-gray-900">{confession.day}</span>
+                    <span className="font-semibold text-gray-900">
+                      {confession.day}
+                    </span>
                     <span className="text-gray-600">{confession.time}</span>
                   </div>
                   {confession.note && (
-                    <p className="text-sm text-gray-500 mt-2">{confession.note}</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      {confession.note}
+                    </p>
                   )}
                 </div>
               ))}
             </div>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <p className="text-blue-800 text-sm">
-                <strong>Note:</strong> Confession is also available by appointment. 
-                Please contact the parish office to arrange.
+                <strong>Note:</strong> Confession is also available by
+                appointment. Please contact the parish office to arrange.
               </p>
             </div>
           </div>
@@ -147,11 +182,15 @@ export default function MassTimes() {
               {adorationTimes.map((adoration, index) => (
                 <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-gray-900">{adoration.day}</span>
+                    <span className="font-semibold text-gray-900">
+                      {adoration.day}
+                    </span>
                     <span className="text-gray-600">{adoration.time}</span>
                   </div>
                   {adoration.description && (
-                    <p className="text-sm text-gray-600 mt-2">{adoration.description}</p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      {adoration.description}
+                    </p>
                   )}
                 </div>
               ))}
@@ -203,14 +242,18 @@ export default function MassTimes() {
                   <MapPin className="h-5 w-5 text-gold-400" />
                   <div>
                     <p className="font-semibold">Address</p>
-                    <p className="text-gray-300">Lewisham High Street, London SE13 6EE</p>
+                    <p className="text-gray-300">
+                      Lewisham High Street, London SE13 6EE
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Calendar className="h-5 w-5 text-gold-400" />
                   <div>
                     <p className="font-semibold">Office Hours</p>
-                    <p className="text-gray-300">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                    <p className="text-gray-300">
+                      Monday - Friday: 9:00 AM - 5:00 PM
+                    </p>
                   </div>
                 </div>
               </div>

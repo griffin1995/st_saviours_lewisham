@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
-import { Lock, User, Eye, EyeOff, Shield } from 'lucide-react';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { motion, m } from "framer-motion";
+import { Lock, User, Eye, EyeOff, Shield } from "lucide-react";
 
 export default function AdminLogin() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const response = await fetch('/api/admin/auth', {
-        method: 'POST',
+      const response = await fetch("/api/admin/auth", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: 'login',
+          action: "login",
           username: formData.username,
           password: formData.password,
         }),
@@ -34,12 +34,12 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (data.success) {
-        router.push('/admin');
+        router.push("/admin");
       } else {
-        setError(data.message || 'Login failed');
+        setError(data.message || "Login failed");
       }
     } catch (error) {
-      setError('Connection error. Please try again.');
+      setError("Connection error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -48,9 +48,9 @@ export default function AdminLogin() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-    if (error) setError('');
+    if (error) setError("");
   };
 
   return (
@@ -69,9 +69,7 @@ export default function AdminLogin() {
           <h1 className="text-3xl font-serif font-light text-white mb-2">
             Admin Portal
           </h1>
-          <p className="text-gray-300">
-            St Saviour's Catholic Church
-          </p>
+          <p className="text-gray-300">St Saviour's Catholic Church</p>
         </div>
 
         {/* Login Form */}
@@ -93,7 +91,10 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username Field */}
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Username
               </label>
               <div className="relative">
@@ -115,7 +116,10 @@ export default function AdminLogin() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -123,7 +127,7 @@ export default function AdminLogin() {
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
@@ -158,7 +162,7 @@ export default function AdminLogin() {
                   Signing In...
                 </div>
               ) : (
-                'Sign In'
+                "Sign In"
               )}
             </button>
           </form>
@@ -166,11 +170,12 @@ export default function AdminLogin() {
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              This is a secure admin area. Only authorized personnel should access this page.
+              This is a secure admin area. Only authorized personnel should
+              access this page.
             </p>
             <div className="mt-4 text-center">
               <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push("/")}
                 className="text-sm text-gold-600 hover:text-gold-700 font-medium"
               >
                 ← Back to Website

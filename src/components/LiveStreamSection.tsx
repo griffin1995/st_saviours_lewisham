@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Play, Users, Calendar, Clock, Radio, Video } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -224,7 +224,7 @@ export default function LiveStreamSection() {
                 resolvedTheme === 'dark' ? 'bg-charcoal-900' : 'bg-charcoal-100'
               }`}>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.button
+                  <m.button
                     className={`group flex items-center justify-center w-20 h-20 rounded-full shadow-2xl transition-all duration-300 ${
                       resolvedTheme === 'dark'
                         ? 'bg-cream-50 hover:bg-cream-100 text-charcoal-800'
@@ -234,7 +234,7 @@ export default function LiveStreamSection() {
                     whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                   >
                     <Play className="h-8 w-8 ml-1" />
-                  </motion.button>
+                  </m.button>
                 </div>
                 
                 {/* Video overlay info */}
@@ -378,7 +378,7 @@ export default function LiveStreamSection() {
           }
           viewport={{ once: true }}
         >
-          <motion.button
+          <m.button
             className={`inline-flex items-center px-8 py-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${
               resolvedTheme === 'dark'
                 ? 'bg-gradient-to-r from-gold-600 to-gold-500 text-charcoal-900 hover:from-gold-500 hover:to-gold-400'
@@ -389,7 +389,7 @@ export default function LiveStreamSection() {
           >
             <Video className="h-5 w-5 mr-3" />
             Visit Our YouTube Channel
-          </motion.button>
+          </m.button>
         </m.div>
       </div>
     </section>

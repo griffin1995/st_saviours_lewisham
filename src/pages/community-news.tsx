@@ -1,50 +1,53 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { 
-  NewspaperIcon as Newspaper, 
-  UsersIcon as Users, 
-  HeartIcon as Heart, 
+import React from "react";
+import { m} from "framer-motion";
+import Link from "next/link";
+import {
+  NewspaperIcon as Newspaper,
+  UsersIcon as Users,
+  HeartIcon as Heart,
   CalendarDaysIcon as Calendar,
   ClockIcon as Clock,
   ArrowRightIcon as ArrowRight,
-  TagIcon as Tag
-} from '@heroicons/react/24/solid'
+  TagIcon as Tag,
+} from "@heroicons/react/24/solid";
 
 // New modern component system
-import { PageLayout, PageHero } from '@/components/layout'
-import { 
-  Button, 
-  Card, 
+import { PageLayout, PageHero } from "@/components/layout";
+import {
+  Button,
+  Card,
   CardContent,
-  Heading, 
-  Text, 
+  Heading,
+  Text,
   Section,
   Grid,
   Flex,
-  Container
-} from '@/components/ui'
-import { prefersReducedMotion } from '@/lib/utils'
-import { communityNewsArticles } from '@/lib/data'
+  Container,
+} from "@/components/ui";
+import { prefersReducedMotion } from "@/lib/utils";
+import { communityNewsArticles } from "@/lib/data";
 
 export default function CommunityNews() {
-  const reducedMotion = prefersReducedMotion()
+  const reducedMotion = prefersReducedMotion();
 
   // Categories for filtering
   const categories = [
     { name: "All", value: "all", icon: Newspaper },
     { name: "Community Groups", value: "Community Groups", icon: Users },
     { name: "Parish Events", value: "Parish Events", icon: Heart },
-  ]
+  ];
 
-  const [selectedCategory, setSelectedCategory] = React.useState("all")
+  const [selectedCategory, setSelectedCategory] = React.useState("all");
 
-  const filteredArticles = selectedCategory === "all" 
-    ? communityNewsArticles 
-    : communityNewsArticles.filter(article => article.category === selectedCategory)
+  const filteredArticles =
+    selectedCategory === "all"
+      ? communityNewsArticles
+      : communityNewsArticles.filter(
+          (article) => article.category === selectedCategory
+        );
 
   return (
-    <PageLayout 
+    <PageLayout
       title="Community News"
       description="Stay connected with the latest news and inspiring stories from our vibrant parish community at St Saviour's Catholic Church, Lewisham."
       keywords="parish news, community stories, St Bakhita Group, Pope John Paul II relics, Catholic community, Lewisham"
@@ -65,9 +68,10 @@ export default function CommunityNews() {
               Stories from Our Parish Family
             </Heading>
             <Text size="lg" color="gray-100" className="mb-8">
-              Discover the inspiring stories, community groups, and special events that make St Saviour's 
-              a vibrant place of faith and fellowship. From new ministries to sacred celebrations, 
-              our community continues to grow in faith and service.
+              Discover the inspiring stories, community groups, and special
+              events that make St Saviour's a vibrant place of faith and
+              fellowship. From new ministries to sacred celebrations, our
+              community continues to grow in faith and service.
             </Text>
           </div>
         </Container>
@@ -83,8 +87,8 @@ export default function CommunityNews() {
                 onClick={() => setSelectedCategory(category.value)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
                   selectedCategory === category.value
-                    ? 'bg-gold-500 text-black shadow-lg'
-                    : 'bg-white/10 text-white hover:bg-white/20 hover:scale-105'
+                    ? "bg-gold-500 text-black shadow-lg"
+                    : "bg-white/10 text-white hover:bg-white/20 hover:scale-105"
                 }`}
               >
                 <category.icon className="h-4 w-4" />
@@ -107,8 +111,12 @@ export default function CommunityNews() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Card className="bg-white/10 backdrop-blur-sm border-slate-600 hover:border-white overflow-hidden">
-                  <div className={`grid ${index % 2 === 0 ? 'md:grid-cols-2' : 'md:grid-cols-2'} gap-8 p-8`}>
-                    <div className={`${index % 2 === 0 ? 'order-1' : 'order-1 md:order-2'}`}>
+                  <div
+                    className={`grid ${index % 2 === 0 ? "md:grid-cols-2" : "md:grid-cols-2"} gap-8 p-8`}
+                  >
+                    <div
+                      className={`${index % 2 === 0 ? "order-1" : "order-1 md:order-2"}`}
+                    >
                       <div className="flex items-center gap-4 mb-4">
                         <span className="px-3 py-1 bg-gold-500/20 text-gold-300 rounded-full text-sm font-medium">
                           {article.category}
@@ -129,15 +137,26 @@ export default function CommunityNews() {
                           <Calendar className="h-4 w-4 mr-2" />
                           Published: {article.publishedDate}
                         </div>
-                        <Link href={article.id === 1 ? "/community-news/st-bakhita-group" : `/community-news/${article.id}`}>
-                          <Button variant="primary" className="bg-white text-slate-900 hover:bg-gray-100">
+                        <Link
+                          href={
+                            article.id === 1
+                              ? "/community-news/st-bakhita-group"
+                              : `/community-news/${article.id}`
+                          }
+                        >
+                          <Button
+                            variant="primary"
+                            className="bg-white text-slate-900 hover:bg-gray-100"
+                          >
                             Read Full Story
                             <ArrowRight className="h-4 w-4 ml-2" />
                           </Button>
                         </Link>
                       </div>
                     </div>
-                    <div className={`${index % 2 === 0 ? 'order-2' : 'order-2 md:order-1'}`}>
+                    <div
+                      className={`${index % 2 === 0 ? "order-2" : "order-2 md:order-1"}`}
+                    >
                       <div className="relative h-64 md:h-full min-h-[300px] rounded-lg overflow-hidden">
                         <img
                           src={article.image}
@@ -169,7 +188,7 @@ export default function CommunityNews() {
             <Heading level="h2" color="white" className="text-center mb-12">
               Stay Connected
             </Heading>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="bg-white/10 backdrop-blur-sm border-slate-600 hover:border-white">
                 <CardContent className="p-8 text-center">
@@ -180,9 +199,13 @@ export default function CommunityNews() {
                     Weekly Newsletter
                   </Heading>
                   <Text size="base" color="gray-100" className="mb-6">
-                    Get the latest parish news, upcoming events, and spiritual reflections delivered to your inbox.
+                    Get the latest parish news, upcoming events, and spiritual
+                    reflections delivered to your inbox.
                   </Text>
-                  <Button variant="primary" className="bg-white text-slate-900 hover:bg-gray-100">
+                  <Button
+                    variant="primary"
+                    className="bg-white text-slate-900 hover:bg-gray-100"
+                  >
                     Subscribe Now
                   </Button>
                 </CardContent>
@@ -197,9 +220,13 @@ export default function CommunityNews() {
                     Join a Group
                   </Heading>
                   <Text size="base" color="gray-100" className="mb-6">
-                    Connect with fellow parishioners through our various community groups and ministries.
+                    Connect with fellow parishioners through our various
+                    community groups and ministries.
                   </Text>
-                  <Button variant="secondary" className="border-white text-white hover:bg-white hover:text-slate-900">
+                  <Button
+                    variant="secondary"
+                    className="border-white text-white hover:bg-white hover:text-slate-900"
+                  >
                     View All Groups
                   </Button>
                 </CardContent>
@@ -217,15 +244,20 @@ export default function CommunityNews() {
               Share Your Story
             </Heading>
             <Text size="lg" color="gray-100" className="mb-8">
-              Do you have a story to share about your faith journey or community involvement? 
-              We'd love to hear from you and potentially feature your story in our community news.
+              Do you have a story to share about your faith journey or community
+              involvement? We'd love to hear from you and potentially feature
+              your story in our community news.
             </Text>
-            <Button variant="primary" size="lg" className="bg-white text-slate-900 hover:bg-gray-100">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-white text-slate-900 hover:bg-gray-100"
+            >
               Contact Us
             </Button>
           </div>
         </Container>
       </Section>
     </PageLayout>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { motion, m } from "framer-motion";
 import {
   ArrowLeft,
   Plus,
@@ -14,20 +14,23 @@ import {
   Clock,
   User,
   AlertCircle,
-  CheckCircle
-} from 'lucide-react';
-import { NewsArticle } from '@/lib/cms-data';
+  CheckCircle,
+} from "lucide-react";
+import { NewsArticle } from "@/lib/cms-data";
 
 export default function NewsManagement() {
   const router = useRouter();
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [filterStatus, setFilterStatus] = useState('All');
-  const [deleteModal, setDeleteModal] = useState<{ show: boolean; article: NewsArticle | null }>({
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [deleteModal, setDeleteModal] = useState<{
+    show: boolean;
+    article: NewsArticle | null;
+  }>({
     show: false,
-    article: null
+    article: null,
   });
 
   useEffect(() => {
@@ -37,24 +40,24 @@ export default function NewsManagement() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('/api/admin/auth');
+      const response = await fetch("/api/admin/auth");
       const data = await response.json();
-      
+
       if (!data.success) {
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     } catch (error) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     }
   };
 
   const loadArticles = async () => {
     try {
-      const response = await fetch('/api/admin/news');
+      const response = await fetch("/api/admin/news");
       const data = await response.json();
       setArticles(data);
     } catch (error) {
-      console.error('Error loading articles:', error);
+      console.error("Error loading articles:", error);
     } finally {
       setLoading(false);
     }
@@ -63,51 +66,59 @@ export default function NewsManagement() {
   const handleDelete = async (article: NewsArticle) => {
     try {
       const response = await fetch(`/api/admin/news?id=${article.id}`, {
-        method: 'DELETE'
+        method: "DELETE",
       });
 
       if (response.ok) {
-        setArticles(articles.filter(a => a.id !== article.id));
+        setArticles(articles.filter((a) => a.id !== article.id));
         setDeleteModal({ show: false, article: null });
       } else {
-        alert('Failed to delete article');
+        alert("Failed to delete article");
       }
     } catch (error) {
-      console.error('Error deleting article:', error);
-      alert('Error deleting article');
+      console.error("Error deleting article:", error);
+      alert("Error deleting article");
     }
   };
 
   const togglePublished = async (article: NewsArticle) => {
     try {
       const response = await fetch(`/api/admin/news?id=${article.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...article,
-          published: !article.published
-        })
+          published: !article.published,
+        }),
       });
 
       if (response.ok) {
         const updatedArticle = await response.json();
-        setArticles(articles.map(a => a.id === article.id ? updatedArticle : a));
+        setArticles(
+          articles.map((a) => (a.id === article.id ? updatedArticle : a))
+        );
       }
     } catch (error) {
-      console.error('Error updating article:', error);
+      console.error("Error updating article:", error);
     }
   };
 
-  const categories = ['All', ...Array.from(new Set(articles.map(article => article.category)))];
-  
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = filterCategory === 'All' || article.category === filterCategory;
-    const matchesStatus = filterStatus === 'All' || 
-                         (filterStatus === 'Published' && article.published) ||
-                         (filterStatus === 'Draft' && !article.published);
-    
+  const categories = [
+    "All",
+    ...Array.from(new Set(articles.map((article) => article.category))),
+  ];
+
+  const filteredArticles = articles.filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      filterCategory === "All" || article.category === filterCategory;
+    const matchesStatus =
+      filterStatus === "All" ||
+      (filterStatus === "Published" && article.published) ||
+      (filterStatus === "Draft" && !article.published);
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
@@ -133,7 +144,9 @@ export default function NewsManagement() {
                 <ArrowLeft className="h-5 w-5 mr-1" />
                 Back to Dashboard
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">News Management</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                News Management
+              </h1>
             </div>
             <Link
               href="/admin/news/new"
@@ -172,8 +185,10 @@ export default function NewsManagement() {
                 onChange={(e) => setFilterCategory(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500"
               >
-                {categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
                 ))}
               </select>
             </div>
@@ -204,7 +219,9 @@ export default function NewsManagement() {
           {filteredArticles.length === 0 ? (
             <div className="text-center py-12">
               <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">No articles found matching your criteria.</p>
+              <p className="text-gray-600">
+                No articles found matching your criteria.
+              </p>
               <Link
                 href="/admin/news/new"
                 className="inline-flex items-center mt-4 px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700 transition-colors"
@@ -230,23 +247,25 @@ export default function NewsManagement() {
                           {article.title}
                         </h3>
                         <div className="flex items-center gap-2">
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                            article.published 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-yellow-100 text-yellow-800'
-                          }`}>
-                            {article.published ? 'Published' : 'Draft'}
+                          <span
+                            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                              article.published
+                                ? "bg-green-100 text-green-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }`}
+                          >
+                            {article.published ? "Published" : "Draft"}
                           </span>
                           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
                             {article.category}
                           </span>
                         </div>
                       </div>
-                      
+
                       <p className="text-gray-600 mb-3 line-clamp-2">
                         {article.excerpt}
                       </p>
-                      
+
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
@@ -269,14 +288,14 @@ export default function NewsManagement() {
                         onClick={() => togglePublished(article)}
                         className={`p-2 rounded-lg transition-colors ${
                           article.published
-                            ? 'text-green-600 hover:bg-green-50'
-                            : 'text-yellow-600 hover:bg-yellow-50'
+                            ? "text-green-600 hover:bg-green-50"
+                            : "text-yellow-600 hover:bg-yellow-50"
                         }`}
-                        title={article.published ? 'Unpublish' : 'Publish'}
+                        title={article.published ? "Unpublish" : "Publish"}
                       >
                         <CheckCircle className="h-5 w-5" />
                       </button>
-                      
+
                       <Link
                         href={`/news/${article.slug}`}
                         target="_blank"
@@ -285,7 +304,7 @@ export default function NewsManagement() {
                       >
                         <Eye className="h-5 w-5" />
                       </Link>
-                      
+
                       <Link
                         href={`/admin/news/edit/${article.id}`}
                         className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
@@ -293,7 +312,7 @@ export default function NewsManagement() {
                       >
                         <Edit className="h-5 w-5" />
                       </Link>
-                      
+
                       <button
                         onClick={() => setDeleteModal({ show: true, article })}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -323,15 +342,20 @@ export default function NewsManagement() {
                 <AlertCircle className="h-6 w-6 text-red-600" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Article</h3>
-                <p className="text-sm text-gray-600">This action cannot be undone</p>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Delete Article
+                </h3>
+                <p className="text-sm text-gray-600">
+                  This action cannot be undone
+                </p>
               </div>
             </div>
-            
+
             <p className="text-gray-700 mb-6">
-              Are you sure you want to delete "<strong>{deleteModal.article.title}</strong>"?
+              Are you sure you want to delete "
+              <strong>{deleteModal.article.title}</strong>"?
             </p>
-            
+
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteModal({ show: false, article: null })}

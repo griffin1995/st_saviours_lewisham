@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 // Define PhotoSwipe interfaces to avoid TypeScript errors
 interface PhotoSwipeItem {
@@ -272,7 +272,7 @@ export const PhotoSwipeLightbox: React.FC<PhotoSwipeLightboxProps> = ({
               </svg>
             </button>
             
-            <motion.img
+            <m.img
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               src={fallbackModal.currentImage.src}

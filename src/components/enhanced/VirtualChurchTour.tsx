@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 import {
@@ -320,7 +320,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
               {/* Playback Controls */}
               <div className="flex items-center justify-between bg-slate-800/50 rounded-lg p-4">
                 <div className="flex items-center gap-3">
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={togglePlayPause}
@@ -331,7 +331,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                     ) : (
                       <PlayIcon className="h-5 w-5 ml-0.5" />
                     )}
-                  </motion.button>
+                  </m.button>
                   
                   <button
                     onClick={() => setAudioEnabled(!audioEnabled)}
@@ -386,22 +386,22 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
                     )}
 
                     <div className="flex gap-3">
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.05 }}
                         onClick={() => setShowReflection(!showReflection)}
                         className="flex items-center gap-2 px-4 py-2 bg-purple-500/20 text-purple-300 rounded-lg hover:bg-purple-500/30 transition-colors"
                       >
                         <BookOpenIcon className="h-4 w-4" />
                         <Text size="sm">Spiritual Reflection</Text>
-                      </motion.button>
+                      </m.button>
                       
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center gap-2 px-4 py-2 bg-gold-500/20 text-gold-300 rounded-lg hover:bg-gold-500/30 transition-colors"
                       >
                         <StarIcon className="h-4 w-4" />
                         <Text size="sm">Bookmark</Text>
-                      </motion.button>
+                      </m.button>
                     </div>
 
                     <AnimatePresence>
@@ -430,7 +430,7 @@ export default function VirtualChurchTour({ className = '' }: VirtualChurchTourP
               {/* Navigation Dots */}
               <div className="flex justify-center gap-2">
                 {tourStops.map((_, index) => (
-                  <motion.button
+                  <m.button
                     key={index}
                     whileHover={{ scale: 1.2 }}
                     onClick={() => goToStop(index)}

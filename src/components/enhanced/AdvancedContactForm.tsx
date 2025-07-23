@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSpring, animated, useTrail } from '@react-spring/web'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { 
   UserIcon, 
   EnvelopeIcon, 

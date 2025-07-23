@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, m } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Clock, MapPin, Calendar, Bell, Users, Languages, Heart } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -319,7 +319,7 @@ export default function EnhancedMassTimesSection() {
         >
           <div className="flex flex-wrap justify-center gap-2">
             {weeklySchedule.map((day, index) => (
-              <motion.button
+              <m.button
                 key={day.day}
                 onClick={() => setSelectedDay(index)}
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
@@ -338,7 +338,7 @@ export default function EnhancedMassTimesSection() {
                   <div className="font-medium">{day.day}</div>
                   <div className="text-xs opacity-80">{day.date.split('-').slice(1).join('/')}</div>
                 </div>
-              </motion.button>
+              </m.button>
             ))}
           </div>
         </m.div>

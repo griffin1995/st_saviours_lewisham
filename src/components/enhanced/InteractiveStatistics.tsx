@@ -15,7 +15,7 @@ import {
   Legend 
 } from 'chart.js'
 import { Bar, Doughnut } from 'react-chartjs-2'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 
 // Register Chart.js components

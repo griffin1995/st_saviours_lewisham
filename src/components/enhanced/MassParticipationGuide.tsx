@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated, config } from '@react-spring/web'
 import { useInView } from 'react-intersection-observer'
-import { Motion } from '@/lib/motion'
+import { m } from 'framer-motion'
 import { typographyScale } from '@/lib/fonts'
 import { 
   PlayIcon,
@@ -201,7 +201,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
 
         <div className="flex space-x-2">
           {guideSteps.map((step, index) => (
-            <Motion.button
+            <m.button
               key={step.id}
               onClick={() => setActiveStep(index)}
               className={`
@@ -218,7 +218,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
             >
               <step.icon className="h-5 w-5 mx-auto mb-1" />
               <span className="text-xs font-medium block">{step.id}</span>
-            </Motion.button>
+            </m.button>
           ))}
         </div>
       </div>
@@ -269,7 +269,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
 
       {/* Navigation Controls */}
       <div className="flex items-center justify-between">
-        <Motion.button
+        <m.button
           onClick={goToPreviousStep}
           disabled={activeStep === 0}
           className="flex items-center gap-2 px-6 py-3 bg-white/10 border border-slate-600 rounded-xl text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
@@ -278,7 +278,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
         >
           <ChevronLeftIcon className="h-5 w-5" />
           <span className={typographyScale.body}>Previous</span>
-        </Motion.button>
+        </m.button>
 
         <div className="text-center">
           <p className={`${typographyScale.caption} text-gray-300`}>
@@ -286,7 +286,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
           </p>
         </div>
 
-        <Motion.button
+        <m.button
           onClick={goToNextStep}
           disabled={activeStep === guideSteps.length - 1}
           className="flex items-center gap-2 px-6 py-3 bg-gold-700 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:bg-gold-600"
@@ -297,7 +297,7 @@ export function MassParticipationGuide({ reducedMotion = false }: MassParticipat
             {activeStep === guideSteps.length - 1 ? 'Complete' : 'Next'}
           </span>
           <ChevronRightIcon className="h-5 w-5" />
-        </Motion.button>
+        </m.button>
       </div>
 
       {/* Quick Reference Card */}

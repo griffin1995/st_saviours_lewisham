@@ -1,75 +1,92 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, m } from "framer-motion";
 import { PageLayout } from "@/components/layout";
 import { PageHero } from "@/components/layout";
 import ContentSection from "@/components/ContentSection";
-import { 
-  GraduationCap, 
-  Heart, 
-  Users, 
-  BookOpen, 
-  Star, 
-  Phone, 
-  Mail, 
+import {
+  GraduationCap,
+  Heart,
+  Users,
+  BookOpen,
+  Star,
+  Phone,
+  Mail,
   MapPin,
   Calendar,
   Clock,
   Award,
   Target,
-  Lightbulb
+  Lightbulb,
 } from "lucide-react";
 
 const schoolStats = [
   { label: "Current Pupils", value: "420", icon: Users },
   { label: "Teaching Staff", value: "28", icon: GraduationCap },
   { label: "Ofsted Rating", value: "Good", icon: Award },
-  { label: "Founded", value: "1872", icon: Star }
+  { label: "Founded", value: "1872", icon: Star },
 ];
 
 const keyStages = [
   {
     stage: "Early Years Foundation Stage",
     ages: "3-5 years",
-    description: "Nurturing young minds through play-based learning in our caring environment.",
-    highlights: ["Qualified Early Years teachers", "Outdoor learning areas", "Daily prayers and Catholic values"]
+    description:
+      "Nurturing young minds through play-based learning in our caring environment.",
+    highlights: [
+      "Qualified Early Years teachers",
+      "Outdoor learning areas",
+      "Daily prayers and Catholic values",
+    ],
   },
   {
     stage: "Key Stage 1",
     ages: "5-7 years (Years 1-2)",
-    description: "Building fundamental skills in literacy, numeracy, and faith formation.",
-    highlights: ["Phonics programme", "First Holy Communion preparation", "Small class sizes"]
+    description:
+      "Building fundamental skills in literacy, numeracy, and faith formation.",
+    highlights: [
+      "Phonics programme",
+      "First Holy Communion preparation",
+      "Small class sizes",
+    ],
   },
   {
     stage: "Key Stage 2",
     ages: "7-11 years (Years 3-6)",
-    description: "Developing confident, capable young Catholics ready for secondary education.",
-    highlights: ["SATs preparation", "Leadership opportunities", "Confirmation preparation"]
-  }
+    description:
+      "Developing confident, capable young Catholics ready for secondary education.",
+    highlights: [
+      "SATs preparation",
+      "Leadership opportunities",
+      "Confirmation preparation",
+    ],
+  },
 ];
 
 const values = [
   {
     icon: Heart,
     title: "Love & Compassion",
-    description: "Following Christ's example of love and care for others"
+    description: "Following Christ's example of love and care for others",
   },
   {
     icon: Target,
     title: "Excellence",
-    description: "Striving for the best in all areas of learning and development"
+    description:
+      "Striving for the best in all areas of learning and development",
   },
   {
     icon: Users,
     title: "Community",
-    description: "Building strong relationships within our school and parish family"
+    description:
+      "Building strong relationships within our school and parish family",
   },
   {
     icon: Lightbulb,
     title: "Growth",
-    description: "Encouraging every child to reach their full potential"
-  }
+    description: "Encouraging every child to reach their full potential",
+  },
 ];
 
 export default function StSavioursPrimarySchool() {
@@ -97,14 +114,16 @@ export default function StSavioursPrimarySchool() {
               Welcome to Our School Family
             </h2>
             <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-              At St Saviour's Catholic Primary School, we provide an outstanding Catholic education 
-              where every child is valued, nurtured, and inspired to achieve their full potential. 
-              Our school community is built on the foundation of Gospel values, creating an environment 
+              At St Saviour's Catholic Primary School, we provide an outstanding
+              Catholic education where every child is valued, nurtured, and
+              inspired to achieve their full potential. Our school community is
+              built on the foundation of Gospel values, creating an environment
               where faith, learning, and friendship flourish together.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              We are proud to serve the diverse community of Lewisham, welcoming families from all 
-              backgrounds who share our commitment to Catholic education and values-based learning.
+              We are proud to serve the diverse community of Lewisham, welcoming
+              families from all backgrounds who share our commitment to Catholic
+              education and values-based learning.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
@@ -158,7 +177,9 @@ export default function StSavioursPrimarySchool() {
               <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-100 rounded-full mb-4">
                 <stat.icon className="h-6 w-6 text-gold-600" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">
+                {stat.value}
+              </div>
               <div className="text-sm text-gray-600">{stat.label}</div>
             </m.div>
           ))}
@@ -188,8 +209,12 @@ export default function StSavioursPrimarySchool() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-100 rounded-full mb-6">
                 <value.icon className="h-8 w-8 text-gold-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                {value.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {value.description}
+              </p>
             </m.div>
           ))}
         </div>
@@ -219,10 +244,14 @@ export default function StSavioursPrimarySchool() {
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-100 rounded-full mb-4">
                   <BookOpen className="h-6 w-6 text-gold-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{stage.stage}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {stage.stage}
+                </h3>
                 <p className="text-gold-600 font-medium">{stage.ages}</p>
               </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">{stage.description}</p>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                {stage.description}
+              </p>
               <ul className="space-y-2">
                 {stage.highlights.map((highlight, idx) => (
                   <li key={idx} className="flex items-start">
@@ -253,29 +282,40 @@ export default function StSavioursPrimarySchool() {
               Enriching School Life
             </h2>
             <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-              Beyond the classroom, we offer a rich variety of activities and opportunities 
-              that help our pupils develop their talents, build confidence, and grow in faith.
+              Beyond the classroom, we offer a rich variety of activities and
+              opportunities that help our pupils develop their talents, build
+              confidence, and grow in faith.
             </p>
             <div className="space-y-4">
               <div className="flex items-start">
                 <Award className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Extra-Curricular Activities</h4>
-                  <p className="text-gray-600">Sports clubs, music lessons, art workshops, and more</p>
+                  <h4 className="font-semibold text-gray-900">
+                    Extra-Curricular Activities
+                  </h4>
+                  <p className="text-gray-600">
+                    Sports clubs, music lessons, art workshops, and more
+                  </p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Heart className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-gray-900">Pastoral Care</h4>
-                  <p className="text-gray-600">Dedicated support for every child's wellbeing</p>
+                  <p className="text-gray-600">
+                    Dedicated support for every child's wellbeing
+                  </p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Users className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Community Links</h4>
-                  <p className="text-gray-600">Strong connections with our parish and local community</p>
+                  <h4 className="font-semibold text-gray-900">
+                    Community Links
+                  </h4>
+                  <p className="text-gray-600">
+                    Strong connections with our parish and local community
+                  </p>
                 </div>
               </div>
             </div>
@@ -290,18 +330,23 @@ export default function StSavioursPrimarySchool() {
             Admissions Information
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We welcome applications from families who share our Catholic values and commitment to education
+            We welcome applications from families who share our Catholic values
+            and commitment to education
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Key Dates 2025/2026</h3>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              Key Dates 2025/2026
+            </h3>
             <div className="space-y-4">
               <div className="flex items-center p-4 bg-gray-50 rounded-lg">
                 <Calendar className="h-5 w-5 text-gold-600 mr-3" />
                 <div>
-                  <div className="font-semibold text-gray-900">Application Deadline</div>
+                  <div className="font-semibold text-gray-900">
+                    Application Deadline
+                  </div>
                   <div className="text-gray-600">15th January 2025</div>
                 </div>
               </div>
@@ -323,19 +368,28 @@ export default function StSavioursPrimarySchool() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Admission Criteria</h3>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              Admission Criteria
+            </h3>
             <div className="space-y-3">
               <div className="flex items-start">
                 <Star className="h-4 w-4 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Catholic children who are looked after or previously looked after</span>
+                <span className="text-gray-700">
+                  Catholic children who are looked after or previously looked
+                  after
+                </span>
               </div>
               <div className="flex items-start">
                 <Star className="h-4 w-4 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Catholic children with a sibling at the school</span>
+                <span className="text-gray-700">
+                  Catholic children with a sibling at the school
+                </span>
               </div>
               <div className="flex items-start">
                 <Star className="h-4 w-4 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Catholic children living in the parish</span>
+                <span className="text-gray-700">
+                  Catholic children living in the parish
+                </span>
               </div>
               <div className="flex items-start">
                 <Star className="h-4 w-4 text-gold-600 mt-1 mr-3 flex-shrink-0" />
@@ -343,7 +397,9 @@ export default function StSavioursPrimarySchool() {
               </div>
               <div className="flex items-start">
                 <Star className="h-4 w-4 text-gold-600 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Children of other Christian denominations</span>
+                <span className="text-gray-700">
+                  Children of other Christian denominations
+                </span>
               </div>
             </div>
             <p className="text-sm text-gray-600 mt-4">
@@ -360,21 +416,26 @@ export default function StSavioursPrimarySchool() {
             Visit Our School
           </h2>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            We warmly welcome prospective families to visit and experience our school community
+            We warmly welcome prospective families to visit and experience our
+            school community
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="bg-white rounded-2xl p-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">School Office</h3>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              School Office
+            </h3>
             <div className="space-y-4">
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
                   <div className="font-semibold text-gray-900">Address</div>
                   <div className="text-gray-600">
-                    St Saviour's Catholic Primary School<br />
-                    123 School Lane<br />
+                    St Saviour's Catholic Primary School
+                    <br />
+                    123 School Lane
+                    <br />
                     Lewisham, London SE13 7XX
                   </div>
                 </div>
@@ -390,30 +451,42 @@ export default function StSavioursPrimarySchool() {
                 <Mail className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">office@stsaviours-school.lewisham.sch.uk</div>
+                  <div className="text-gray-600">
+                    office@stsaviours-school.lewisham.sch.uk
+                  </div>
                 </div>
               </div>
               <div className="flex items-start">
                 <Clock className="h-5 w-5 text-gold-600 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <div className="font-semibold text-gray-900">Office Hours</div>
-                  <div className="text-gray-600">8:30 AM - 4:30 PM (Term Time)</div>
+                  <div className="font-semibold text-gray-900">
+                    Office Hours
+                  </div>
+                  <div className="text-gray-600">
+                    8:30 AM - 4:30 PM (Term Time)
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">School Tours</h3>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              School Tours
+            </h3>
             <p className="text-gray-600 mb-6">
-              We offer regular school tours for prospective families. These provide an opportunity 
-              to see our facilities, meet our staff, and experience the warm, welcoming atmosphere 
-              of our school community.
+              We offer regular school tours for prospective families. These
+              provide an opportunity to see our facilities, meet our staff, and
+              experience the warm, welcoming atmosphere of our school community.
             </p>
             <div className="space-y-4">
               <div className="p-4 bg-gold-50 rounded-lg">
-                <div className="font-semibold text-gray-900">Next Open Morning</div>
-                <div className="text-gray-600">Saturday 15th March 2025, 10:00 AM</div>
+                <div className="font-semibold text-gray-900">
+                  Next Open Morning
+                </div>
+                <div className="text-gray-600">
+                  Saturday 15th March 2025, 10:00 AM
+                </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link

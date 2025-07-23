@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useSpring, animated } from '@react-spring/web'
 import {
   BeakerIcon,
@@ -330,7 +330,7 @@ export default function SacramentalPreparationGuide({
                 const isActive = activeCategory === category.id
                 
                 return (
-                  <motion.button
+                  <m.button
                     key={category.id}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -343,7 +343,7 @@ export default function SacramentalPreparationGuide({
                   >
                     <Icon className={`h-4 w-4 ${isActive ? 'text-slate-900' : category.color}`} />
                     <span className="text-sm">{category.label}</span>
-                  </motion.button>
+                  </m.button>
                 )
               })}
             </div>
@@ -375,7 +375,7 @@ export default function SacramentalPreparationGuide({
                     {/* Step Header */}
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4 flex-1">
-                        <motion.button
+                        <m.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => toggleStepCompletion(step.id)}
@@ -387,7 +387,7 @@ export default function SacramentalPreparationGuide({
                           aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
                         >
                           {isCompleted && <CheckCircleIcon className="h-5 w-5" />}
-                        </motion.button>
+                        </m.button>
                         
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
@@ -417,7 +417,7 @@ export default function SacramentalPreparationGuide({
                         </div>
                       </div>
                       
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => setExpandedStep(isExpanded ? null : step.id)}
@@ -430,7 +430,7 @@ export default function SacramentalPreparationGuide({
                         >
                           <ChevronRightIcon className="h-5 w-5" />
                         </m.div>
-                      </motion.button>
+                      </m.button>
                     </div>
 
                     {/* Expanded Details */}
