@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
+<<<<<<< Updated upstream
 import { m } from "framer-motion";
+=======
+import { motion } from "framer-motion";
+>>>>>>> Stashed changes
 import { Calendar, ArrowRight } from "lucide-react";
 
 // Modern imports
@@ -16,7 +20,11 @@ export default function EventsSection() {
   const { data: events, isLoading, error } = useEventsQuery();
 
   // Use fetched data or fallback to static data
+<<<<<<< Updated upstream
   const displayEvents = (Array.isArray(events) ? events.slice(0, 3) : null) || upcomingEvents.slice(0, 3);
+=======
+  const displayEvents = events?.slice(0, 3) || upcomingEvents.slice(0, 3);
+>>>>>>> Stashed changes
 
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
@@ -56,7 +64,11 @@ export default function EventsSection() {
             </h2>
           </m.div>
 
+<<<<<<< Updated upstream
           <m.div
+=======
+          <motion.div
+>>>>>>> Stashed changes
             initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, x: 30 }}
             whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             transition={ui.reducedMotion 
@@ -88,7 +100,11 @@ export default function EventsSection() {
 
         {/* Error State */}
         {error && !isLoading && (
+<<<<<<< Updated upstream
           <m.div
+=======
+          <motion.div
+>>>>>>> Stashed changes
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-12"
@@ -96,13 +112,21 @@ export default function EventsSection() {
             <div className="text-white/60 mb-4">
               Unable to load latest events. Showing upcoming events:
             </div>
+<<<<<<< Updated upstream
           </m.div>
+=======
+          </motion.div>
+>>>>>>> Stashed changes
         )}
 
         {/* Events Grid */}
         {!isLoading && (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+<<<<<<< Updated upstream
             {displayEvents.map((event: any, index: number) => {
+=======
+            {displayEvents.map((event, index) => {
+>>>>>>> Stashed changes
               // Transform data to match EventCard interface
               const eventData = {
                 id: (event as any).id || `event-${index}`,
@@ -122,7 +146,11 @@ export default function EventsSection() {
               };
 
               return (
+<<<<<<< Updated upstream
                 <m.div
+=======
+                <motion.div
+>>>>>>> Stashed changes
                   key={(event as any).id || `event-${index}`}
                   initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
                   whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
@@ -143,14 +171,22 @@ export default function EventsSection() {
                     }}
                     className="h-full"
                   />
+<<<<<<< Updated upstream
                 </m.div>
+=======
+                </motion.div>
+>>>>>>> Stashed changes
               );
             })}
           </div>
         )}
 
         {/* Call to Action */}
+<<<<<<< Updated upstream
         <m.div
+=======
+        <motion.div
+>>>>>>> Stashed changes
           initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
           whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={ui.reducedMotion 
@@ -184,7 +220,11 @@ export default function EventsSection() {
               </Link>
             </div>
           </div>
+<<<<<<< Updated upstream
         </m.div>
+=======
+        </motion.div>
+>>>>>>> Stashed changes
       </div>
     </section>
   );

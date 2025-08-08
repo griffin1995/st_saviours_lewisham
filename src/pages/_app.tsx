@@ -3,10 +3,15 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+<<<<<<< Updated upstream
+=======
+import { SSRProvider } from '@react-aria/ssr';
+>>>>>>> Stashed changes
 
 // Providers
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { QueryProvider } from '@/providers/QueryProvider';
+<<<<<<< Updated upstream
 import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
 import { ErrorBoundary } from '@/components/shared/error';
 import { PageErrorFallback } from '@/components/shared/error';
@@ -14,6 +19,8 @@ import { createErrorReporter } from '@/lib/error-reporting';
 
 // Typography
 import { fontClasses } from '@/lib/fonts';
+=======
+>>>>>>> Stashed changes
 
 // Stores
 import { useChurchStore } from '@/stores/churchStore';
@@ -175,6 +182,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       
       {/* Provider Stack */}
+<<<<<<< Updated upstream
       <ErrorBoundary
         fallback={<PageErrorFallback context="application" />}
         onError={createErrorReporter('app-level')}
@@ -197,6 +205,23 @@ export default function App({ Component, pageProps }: AppProps) {
           </ThemeProvider>
         </QueryProvider>
       </ErrorBoundary>
+=======
+      <SSRProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <Component {...pageProps} />
+            
+            {/* Performance Monitoring */}
+            {enablePerformanceMonitoring && (
+              <>
+                <Analytics />
+                <SpeedInsights />
+              </>
+            )}
+          </ThemeProvider>
+        </QueryProvider>
+      </SSRProvider>
+>>>>>>> Stashed changes
     </>
   );
 }

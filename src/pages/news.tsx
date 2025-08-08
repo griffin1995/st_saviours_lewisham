@@ -61,6 +61,7 @@ import {
   Section,
   Grid,
   Flex,
+<<<<<<< Updated upstream
   Container,
 } from "@/components/ui";
 import { NewsCard, NewsList } from "@/components/church";
@@ -115,6 +116,51 @@ export default function News() {
       message: "Welcome to Parish News - stay connected with our community",
       dismissible: true,
     });
+=======
+  Container
+} from '@/components/ui'
+import { NewsCard, NewsList } from '@/components/church'
+import { useUI, useActions } from '@/stores/churchStore'
+import { newsArticles } from '@/lib/data'
+
+export default function News() {
+  const ui = useUI()
+  const actions = useActions()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  // Enhanced animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: ui.reducedMotion ? 0.2 : 0.8,
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+  }
+
+  const scaleVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+  }
+
+  const categories = ['All', 'Parish Life', 'Community', 'Liturgical Season', 'Events', 'Announcement']
+>>>>>>> Stashed changes
 
     // Load bookmarked articles from localStorage
     const savedBookmarks = localStorage.getItem("parish-news-bookmarks");
@@ -503,6 +549,7 @@ export default function News() {
       {/* Scripture Inspiration Section */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
+<<<<<<< Updated upstream
           <ScrollRevealSection>
             <div className="text-center mb-12">
               <h2 className={`${typographyScale.h2} text-white mb-6`}>
@@ -523,6 +570,65 @@ export default function News() {
               />
             </div>
           </ScrollRevealSection>
+=======
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-8"
+          >
+            <Heading level="h2" align="center" className="mb-6 text-white">
+              Find What Interests You
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-300">
+              Search through our parish news and filter by category
+            </Text>
+          </motion.div>
+
+          <motion.div
+            variants={scaleVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-slate-600">
+              <CardContent>
+                <Flex direction="col" gap="md" className="lg:flex-row lg:items-center lg:justify-between">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search news articles..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 border border-slate-500 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white/20 backdrop-blur-sm text-white placeholder-gray-300"
+                    />
+                  </div>
+                  
+                  <Flex align="center" gap="md">
+                    <Filter className="h-5 w-5 text-gray-300" />
+                    <select
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      className="px-4 py-3 border border-slate-500 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white/20 backdrop-blur-sm text-white"
+                    >
+                      {categories.map(category => (
+                        <option key={category} value={category}>{category}</option>
+                      ))}
+                    </select>
+                  </Flex>
+                </Flex>
+
+                <div className="mt-4 text-center">
+                  <Text className="text-gray-300">
+                    Showing {filteredArticles.length} of {newsArticles.length} articles
+                  </Text>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+>>>>>>> Stashed changes
         </Container>
       </Section>
 
@@ -803,6 +909,7 @@ export default function News() {
       {statsInView && sortedArticles.length > 0 && (
         <Section spacing="lg" background="slate">
           <Container size="lg">
+<<<<<<< Updated upstream
             <ScrollRevealSection>
               <div className="text-center mb-12">
                 <h2 className={`${typographyScale.h2} text-white mb-6`}>
@@ -916,6 +1023,37 @@ export default function News() {
                 </CardContent>
               </Card>
             </ScrollRevealSection>
+=======
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center mb-12"
+            >
+              <Heading level="h2" align="center" className="mb-6 text-white">
+                Featured Article
+              </Heading>
+              <Text size="xl" align="center" className="text-gray-300">
+                Our latest parish news and updates
+              </Text>
+            </motion.div>
+
+            <motion.div
+              variants={scaleVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
+              <NewsCard
+                {...filteredArticles[0]}
+                variant="horizontal"
+                featured={true}
+                slug={String(filteredArticles[0].id)}
+                className="max-w-none"
+              />
+            </motion.div>
+>>>>>>> Stashed changes
           </Container>
         </Section>
       )}
@@ -1010,6 +1148,7 @@ export default function News() {
       {/* Articles Grid with Enhanced Features */}
       <Section spacing="lg" background="slate">
         <Container size="lg">
+<<<<<<< Updated upstream
           <ScrollRevealSection>
             <div className="text-center mb-12">
               <h2 className={`${typographyScale.h2} text-white mb-6`}>
@@ -1054,6 +1193,117 @@ export default function News() {
                       </m.button>
                     ))}
                   </div>
+=======
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6 text-white">
+              Recent Articles
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-300">
+              Stay informed with our parish community updates
+            </Text>
+          </motion.div>
+
+          {filteredArticles.length > 1 ? (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
+              <NewsList 
+                articles={filteredArticles.slice(1).map(article => ({
+                  ...article,
+                  slug: String(article.id)
+                }))}
+                variant="default"
+              />
+            </motion.div>
+          ) : filteredArticles.length === 0 && (
+            <motion.div
+              variants={scaleVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
+              <Card variant="default" padding="lg" className="text-center bg-white/10 backdrop-blur-sm border border-slate-600">
+                <CardContent>
+                  <div className="py-12">
+                    <Search className="h-16 w-16 text-gray-400 mx-auto mb-6" />
+                    <Heading level="h3" align="center" className="mb-4 text-white">
+                      No articles found
+                    </Heading>
+                    <Text align="center" className="mb-6 text-gray-300">
+                      Try adjusting your search terms or filter selection.
+                    </Text>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        setSearchTerm('')
+                        setSelectedCategory('All')
+                      }}
+                      className="border-white text-white hover:bg-white hover:text-slate-900"
+                    >
+                      Clear Filters
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </Container>
+      </Section>
+
+      {/* Newsletter Signup */}
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <motion.div
+            variants={scaleVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <Card variant="default" padding="lg" className="bg-white/10 backdrop-blur-sm border border-slate-600 text-white">
+              <CardContent>
+                <div className="text-center space-y-8">
+                  <div>
+                    <Heading level="h2" align="center" className="text-white mb-6">
+                      Stay Updated
+                    </Heading>
+                    <Text size="xl" align="center" className="text-gray-300 max-w-2xl mx-auto">
+                      Subscribe to our weekly newsletter to receive the latest parish news, 
+                      events, and spiritual reflections directly to your inbox.
+                    </Text>
+                  </div>
+                  
+                  <motion.div
+                    variants={itemVariants}
+                    className="pt-4"
+                  >
+                    <Flex justify="center" gap="md">
+                      <motion.div
+                        whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                        whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                      >
+                        <Link href="/weekly-newsletter">
+                          <Button 
+                            variant="primary" 
+                            size="lg"
+                            rightIcon={<ArrowRight className="h-5 w-5" />}
+                            className="bg-white text-slate-900 hover:bg-gray-100 shadow-xl"
+                          >
+                            Subscribe to Newsletter
+                          </Button>
+                        </Link>
+                      </motion.div>
+                    </Flex>
+                  </motion.div>
+>>>>>>> Stashed changes
                 </div>
 
                 {/* Articles Display */}

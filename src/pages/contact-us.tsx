@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import {
@@ -14,6 +15,15 @@ import {
   PlayIcon,
   BuildingOfficeIcon,
 } from "@heroicons/react/24/solid";
+=======
+import React from 'react'
+import { motion } from 'framer-motion'
+import { 
+  PhoneIcon as Phone, 
+  EnvelopeIcon as Mail, 
+  MapPinIcon as MapPin 
+} from '@heroicons/react/24/solid'
+>>>>>>> Stashed changes
 
 // Enhanced 2025 Components
 import { m } from "framer-motion";
@@ -47,6 +57,7 @@ import {
   Section,
   Grid,
   Flex,
+<<<<<<< Updated upstream
   Container,
 } from "@/components/ui";
 import {
@@ -61,6 +72,46 @@ export default function ContactUs() {
   const actions = useActions();
   const mapRef = useRef<HTMLDivElement>(null);
   const streetViewRef = useRef<HTMLDivElement>(null);
+=======
+  Container
+} from '@/components/ui'
+import { ContactForm, ContactInfo, type ContactFormData } from '@/components/church'
+import { useUI, useActions } from '@/stores/churchStore'
+
+export default function ContactUs() {
+  const ui = useUI()
+  const actions = useActions()
+
+  // Enhanced animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: ui.reducedMotion ? 0.2 : 0.8,
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+  }
+
+  const scaleVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+  }
+>>>>>>> Stashed changes
 
   // Enhanced page initialization
   useEffect(() => {
@@ -411,6 +462,7 @@ export default function ContactUs() {
         }
       />
 
+<<<<<<< Updated upstream
       {/* Enhanced Quick Contact with Scripture */}
       <Section spacing="md" background="slate">
         <Container>
@@ -435,6 +487,52 @@ export default function ContactUs() {
               </h2>
               <p
                 className={`${typographyScale.bodyLarge} text-gray-100 max-w-3xl mx-auto`}
+=======
+      {/* Quick Contact Info */}
+      <Section spacing="md" background="white">
+        <Container size="lg">
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Get In Touch Today
+            </Heading>
+            <Text size="xl" align="center" color="muted">
+              Multiple ways to reach our parish community
+            </Text>
+          </motion.div>
+
+          <ContactInfo 
+            primaryContacts={quickContactMethods}
+            layout="grid"
+          />
+        </Container>
+      </Section>
+
+      {/* Contact Form & Detailed Info */}
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <Grid cols={2} gap="xl" className="lg:grid-cols-2">
+            {/* Contact Form */}
+            <ContactForm 
+              title="Send Us a Message"
+              description="Fill out the form below and we'll get back to you as soon as possible."
+              onSubmit={handleFormSubmit}
+              successMessage="Thank you for your message. We'll get back to you soon!"
+            />
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <motion.div
+                variants={scaleVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+>>>>>>> Stashed changes
               >
                 From everyday questions to urgent pastoral needs, we're here to
                 serve our community with multiple contact options and dedicated
@@ -535,6 +633,7 @@ export default function ContactUs() {
       {/* Enhanced Contact Form Section */}
       <Section spacing="lg" background="white">
         <Container size="lg">
+<<<<<<< Updated upstream
           <ScrollRevealSection>
             <m.div
               className="text-center mb-16"
@@ -571,6 +670,52 @@ export default function ContactUs() {
               />
             </div>
           </ScrollRevealSection>
+=======
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" align="center" className="mb-6">
+              Find Us
+            </Heading>
+            <Text size="xl" align="center" color="muted">
+              Located in the heart of Lewisham
+            </Text>
+          </motion.div>
+
+          <motion.div
+            variants={scaleVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <Card variant="default" padding="none" className="overflow-hidden">
+              <div className="aspect-video bg-gray-200 flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <MapPin className="h-12 w-12 text-gold-600 mx-auto" />
+                  <div>
+                    <Text weight="medium" className="text-gray-700">
+                      Interactive Map Coming Soon
+                    </Text>
+                    <Text size="sm" color="muted">
+                      St Saviour's Catholic Church, Lewisham High Street, SE13 6EE
+                    </Text>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    leftIcon={<MapPin className="h-4 w-4" />}
+                  >
+                    Get Directions
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+>>>>>>> Stashed changes
         </Container>
       </Section>
 
@@ -812,6 +957,7 @@ export default function ContactUs() {
       {/* Enhanced Call to Action with Multi-language Support */}
       <Section spacing="lg" background="white">
         <Container size="md">
+<<<<<<< Updated upstream
           <ScrollRevealSection>
             <m.div
               initial={{ opacity: 0, y: 30 }}
@@ -970,6 +1116,54 @@ export default function ContactUs() {
               </div>
             </m.div>
           </ScrollRevealSection>
+=======
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center space-y-8"
+          >
+            <Heading level="h2" align="center">
+              We're Here to Help
+            </Heading>
+            <Text size="xl" align="center" color="muted" className="max-w-3xl mx-auto">
+              Whether you're a longtime parishioner or considering joining our community, 
+              we're here to support you on your spiritual journey.
+            </Text>
+            
+            <motion.div variants={itemVariants} className="pt-4">
+              <Flex justify="center" gap="md" className="flex-col sm:flex-row">
+                <motion.div
+                  whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                  whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                >
+                  <Button 
+                    variant="primary" 
+                    size="lg" 
+                    leftIcon={<Phone className="h-5 w-5" />}
+                    className="bg-white text-slate-900 hover:bg-gray-100 shadow-xl"
+                  >
+                    Call Us Today
+                  </Button>
+                </motion.div>
+                <motion.div
+                  whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                  whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                >
+                  <Button 
+                    variant="secondary" 
+                    size="lg" 
+                    leftIcon={<MapPin className="h-5 w-5" />}
+                    className="border-slate-300 text-slate-900 hover:bg-slate-50 hover:border-slate-400"
+                  >
+                    Visit Our Church
+                  </Button>
+                </motion.div>
+              </Flex>
+            </motion.div>
+          </motion.div>
+>>>>>>> Stashed changes
         </Container>
       </Section>
     </PageLayout>

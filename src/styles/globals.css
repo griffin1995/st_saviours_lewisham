@@ -43,20 +43,31 @@
   .bg-white-fixed {
     background-color: #ffffff !important;
   }
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
   /* U-shaped card designs */
   .card-u-shape {
     border-radius: 16px 16px 0 0; /* Rounded top corners, straight bottom corners */
     position: relative;
   }
+<<<<<<< Updated upstream
 
   .card-u-shape::after {
     content: "";
+=======
+  
+  .card-u-shape::after {
+    content: '';
+>>>>>>> Stashed changes
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 2px;
+<<<<<<< Updated upstream
     background: linear-gradient(
       90deg,
       transparent 0%,
@@ -71,6 +82,21 @@
     border-radius: 12px 12px 0 0; /* Smaller U-shape for nested elements */
   }
 
+=======
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(71, 85, 105, 0.1) 20%, 
+      rgba(71, 85, 105, 0.2) 50%, 
+      rgba(71, 85, 105, 0.1) 80%, 
+      transparent 100%
+    );
+  }
+  
+  .card-u-shape-small {
+    border-radius: 12px 12px 0 0; /* Smaller U-shape for nested elements */
+  }
+  
+>>>>>>> Stashed changes
   .card-u-shape-large {
     border-radius: 20px 20px 0 0; /* Larger U-shape for hero cards */
   }

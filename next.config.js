@@ -1,3 +1,7 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -17,6 +21,11 @@ const nextConfig = {
   },
   // Performance optimizations
   compress: true,
+  poweredByHeader: false,
+  // Modern build optimizations (swcMinify is default in Next.js 15)
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@heroicons/react'],
+  },
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

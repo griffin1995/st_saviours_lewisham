@@ -50,20 +50,41 @@ import { CommunityMetrics } from "@/components/enhanced/CommunityMetrics";
 import { useChurchStore, useUI, useActions } from "@/stores/churchStore";
 import { useEventsQuery } from "@/hooks/useData";
 
+// Import modern components
+import { NewsletterForm } from "@/components/modern/NewsletterForm";
+
+// Import store and hooks
+import { useChurchStore, useUI, useActions } from "@/stores/churchStore";
+import { useEventsQuery } from "@/hooks/useData";
+
 export default function HomePage() {
   // Zustand store state
+<<<<<<< Updated upstream
   const navigation = useChurchStore((state: any) => state.navigation);
   const ui = useUI();
   const actions = useActions();
 
+=======
+  const navigation = useChurchStore(state => state.navigation);
+  const ui = useUI();
+  const actions = useActions();
+  
+>>>>>>> Stashed changes
   // Local state (keeping some for component-specific needs)
   const [imagesLoaded, setImagesLoaded] = useState(new Set<string>());
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+<<<<<<< Updated upstream
 
   // Data fetching
   const { data: events, isLoading: eventsLoading } = useEventsQuery();
 
+=======
+  
+  // Data fetching
+  const { data: events, isLoading: eventsLoading } = useEventsQuery();
+  
+>>>>>>> Stashed changes
   // Scroll timeout ref for cleanup
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
 
@@ -111,7 +132,13 @@ export default function HomePage() {
   return (
     <>
       {/* Navigation - MUST BE FIRST */}
+<<<<<<< Updated upstream
       <Navigation setSearchOpen={setSearchOpen} />
+=======
+      <Navigation
+        setSearchOpen={setSearchOpen}
+      />
+>>>>>>> Stashed changes
 
       {/* Additional overlay for homepage styling (if needed) */}
       {/* Note: Navigation component now handles its own backdrop overlay */}
@@ -120,11 +147,17 @@ export default function HomePage() {
       <m.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-navy-900 via-gold-700 to-navy-900 z-[9998] origin-left"
         style={{
+<<<<<<< Updated upstream
           scaleX:
             typeof window !== "undefined"
               ? navigation.scrollPosition /
                 (document.documentElement.scrollHeight - window.innerHeight)
               : 0,
+=======
+          scaleX: typeof window !== 'undefined' 
+            ? navigation.scrollPosition / (document.documentElement.scrollHeight - window.innerHeight)
+            : 0
+>>>>>>> Stashed changes
         }}
         transition={{ duration: 0.1 }}
       />
@@ -196,6 +229,7 @@ export default function HomePage() {
         />
       </Head>
 
+<<<<<<< Updated upstream
       {/* Enhanced Hero Section with Embla Carousel */}
       <EmblaHeroCarousel
         autoPlay={true}
@@ -246,6 +280,15 @@ export default function HomePage() {
           // Optional: Track slide changes for analytics
           console.log("Slide changed to:", index);
         }}
+=======
+      {/* Hero Section */}
+      <HeroSection
+        scrollToSection={scrollToSection}
+        scrollY={navigation.scrollPosition}
+        navbarHovered={false}
+        dropdownOpen={navigation.activeDropdown}
+        mobileMenuOpen={navigation.isOpen}
+>>>>>>> Stashed changes
       />
 
       {/* Enhanced Welcome Section with Scroll-Triggered Animation */}
@@ -297,7 +340,11 @@ export default function HomePage() {
           isLoading={ui.isLoading}
           imagesLoaded={imagesLoaded}
           handleImageLoad={handleImageLoad}
+<<<<<<< Updated upstream
           isMobile={false}
+=======
+          isMobile={false} // Will be handled by CSS responsive design
+>>>>>>> Stashed changes
         />
       </ScrollRevealSection>
 
@@ -311,6 +358,7 @@ export default function HomePage() {
         <EventsSection />
       </ScrollRevealSection>
 
+<<<<<<< Updated upstream
       {/* Community Metrics Dashboard */}
       <ScrollRevealSection className="py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -330,10 +378,20 @@ export default function HomePage() {
             whileInView={
               ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
             }
+=======
+      {/* Newsletter Section - Full Width Form */}
+      <div className="relative z-55 py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header Section */}
+          <motion.div
+            initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+            whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+>>>>>>> Stashed changes
             transition={{ duration: ui.reducedMotion ? 0.2 : 0.8, delay: 0.2 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
+<<<<<<< Updated upstream
             <h2 className={`${typographyScale.h1} text-white mb-6 relative`}>
               Stay Connected with Our Community
               {/* Gold accent underline */}
@@ -376,23 +434,67 @@ export default function HomePage() {
             whileInView={
               ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
             }
+=======
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              Stay Connected with Our Community
+            </h2>
+            <p className="text-gray-300 text-xl leading-relaxed mb-8 max-w-4xl mx-auto">
+              Join our newsletter to receive weekly updates about parish life, spiritual reflections, 
+              upcoming events, and important announcements from St Saviour's Catholic Church.
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 text-gray-400">
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-500 rounded-full"></span>
+                <span className="text-lg">Weekly updates</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-500 rounded-full"></span>
+                <span className="text-lg">Event announcements</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="w-3 h-3 bg-gold-500 rounded-full"></span>
+                <span className="text-lg">Spiritual reflections</span>
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Full Width Form Container */}
+          <motion.div
+            initial={ui.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
+            whileInView={ui.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+>>>>>>> Stashed changes
             transition={{ duration: ui.reducedMotion ? 0.2 : 0.8, delay: 0.4 }}
             viewport={{ once: true }}
             className="w-full"
           >
+<<<<<<< Updated upstream
             <div className="shadow-2xl bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 lg:p-12 hover:bg-white/15 transition-all duration-300">
               <NewsletterForm
                 variant="default"
+=======
+            <div className="shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 lg:p-12">
+              <NewsletterForm 
+                variant="default" 
+>>>>>>> Stashed changes
                 showInterests={true}
                 className="w-full max-w-none"
               />
             </div>
+<<<<<<< Updated upstream
           </m.div>
         </div>
       </ScrollRevealSection>
 
       {/* Enhanced CTA Section */}
       <ScrollRevealSection>
+=======
+          </motion.div>
+        </div>
+      </div>
+
+      {/* CTA Section with subtle overlap */}
+      <div className="relative z-60">
+>>>>>>> Stashed changes
         <CTASection />
       </ScrollRevealSection>
 

@@ -14,11 +14,19 @@ import {
   ChartBarIcon as BarChart3,
   PlusIcon as Plus,
   PencilIcon as Edit,
+<<<<<<< Updated upstream
   EyeIcon as Eye,
 } from "@heroicons/react/24/solid";
 
 // Modern imports with Zustand integration
 import { useUI, useActions } from "@/stores/churchStore";
+=======
+  EyeIcon as Eye
+} from '@heroicons/react/24/solid';
+
+// Modern imports with Zustand integration
+import { useUI, useActions } from '@/stores/churchStore';
+>>>>>>> Stashed changes
 
 interface DashboardStats {
   totalNews: number;
@@ -47,9 +55,15 @@ export default function AdminDashboard() {
       opacity: 1,
       transition: {
         duration: ui.reducedMotion ? 0.2 : 0.8,
+<<<<<<< Updated upstream
         staggerChildren: ui.reducedMotion ? 0 : 0.1,
       },
     },
+=======
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+>>>>>>> Stashed changes
   };
 
   const itemVariants = {
@@ -57,8 +71,13 @@ export default function AdminDashboard() {
     visible: {
       opacity: 1,
       y: 0,
+<<<<<<< Updated upstream
       transition: { duration: ui.reducedMotion ? 0.2 : 0.6 },
     },
+=======
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+>>>>>>> Stashed changes
   };
 
   const scaleVariants = {
@@ -66,8 +85,13 @@ export default function AdminDashboard() {
     visible: {
       opacity: 1,
       scale: 1,
+<<<<<<< Updated upstream
       transition: { duration: ui.reducedMotion ? 0.2 : 0.5 },
     },
+=======
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+>>>>>>> Stashed changes
   };
 
   useEffect(() => {
@@ -308,12 +332,17 @@ export default function AdminDashboard() {
               whileHover={ui.reducedMotion ? {} : { y: -4, scale: 1.02 }}
             >
               <div className="flex items-center">
+<<<<<<< Updated upstream
                 <m.div
+=======
+                <motion.div 
+>>>>>>> Stashed changes
                   className={`${stat.color} p-3 rounded-lg`}
                   whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
                 >
                   <stat.icon className="h-6 w-6 text-white" />
+<<<<<<< Updated upstream
                 </m.div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">
@@ -325,6 +354,13 @@ export default function AdminDashboard() {
                   <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">
                     {stat.subtitle}
                   </p>
+=======
+                </motion.div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600 group-hover:text-gray-700 transition-colors">{stat.title}</p>
+                  <p className="text-2xl font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{stat.value}</p>
+                  <p className="text-xs text-gray-500 group-hover:text-gray-600 transition-colors">{stat.subtitle}</p>
+>>>>>>> Stashed changes
                 </div>
               </div>
             </m.div>
@@ -345,6 +381,7 @@ export default function AdminDashboard() {
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
+<<<<<<< Updated upstream
                   <m.div
                     className={`${item.color} p-3 rounded-lg`}
                     whileHover={
@@ -361,12 +398,28 @@ export default function AdminDashboard() {
                     <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">
                       {item.description}
                     </p>
+=======
+                  <motion.div 
+                    className={`${item.color} p-3 rounded-lg`}
+                    whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <item.icon className="h-6 w-6 text-white" />
+                  </motion.div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-slate-900 transition-colors">{item.title}</h3>
+                    <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">{item.description}</p>
+>>>>>>> Stashed changes
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   {item.actions.map((action, actionIndex) => (
+<<<<<<< Updated upstream
                     <m.div
+=======
+                    <motion.div
+>>>>>>> Stashed changes
                       key={actionIndex}
                       whileHover={ui.reducedMotion ? {} : { scale: 1.05 }}
                       whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -378,7 +431,11 @@ export default function AdminDashboard() {
                         <action.icon className="h-4 w-4 mr-1" />
                         {action.label}
                       </Link>
+<<<<<<< Updated upstream
                     </m.div>
+=======
+                    </motion.div>
+>>>>>>> Stashed changes
                   ))}
                 </div>
               </div>
@@ -387,20 +444,34 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
+<<<<<<< Updated upstream
         <m.div
+=======
+        <motion.div 
+>>>>>>> Stashed changes
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300"
         >
+<<<<<<< Updated upstream
           <m.h3
+=======
+          <motion.h3 
+>>>>>>> Stashed changes
             variants={itemVariants}
             className="text-lg font-semibold text-gray-900 mb-4"
           >
             Quick Actions
+<<<<<<< Updated upstream
           </m.h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <m.div
+=======
+          </motion.h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <motion.div
+>>>>>>> Stashed changes
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -412,8 +483,13 @@ export default function AdminDashboard() {
                 <Plus className="h-5 w-5 mr-2" />
                 Add News Article
               </Link>
+<<<<<<< Updated upstream
             </m.div>
             <m.div
+=======
+            </motion.div>
+            <motion.div
+>>>>>>> Stashed changes
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -425,8 +501,13 @@ export default function AdminDashboard() {
                 <Plus className="h-5 w-5 mr-2" />
                 Add Event
               </Link>
+<<<<<<< Updated upstream
             </m.div>
             <m.div
+=======
+            </motion.div>
+            <motion.div
+>>>>>>> Stashed changes
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -438,8 +519,13 @@ export default function AdminDashboard() {
                 <Edit className="h-5 w-5 mr-2" />
                 Update Mass Times
               </Link>
+<<<<<<< Updated upstream
             </m.div>
             <m.div
+=======
+            </motion.div>
+            <motion.div
+>>>>>>> Stashed changes
               variants={itemVariants}
               whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
@@ -451,9 +537,15 @@ export default function AdminDashboard() {
                 <Settings className="h-5 w-5 mr-2" />
                 Site Settings
               </Link>
+<<<<<<< Updated upstream
             </m.div>
           </div>
         </m.div>
+=======
+            </motion.div>
+          </div>
+        </motion.div>
+>>>>>>> Stashed changes
       </main>
     </div>
   );

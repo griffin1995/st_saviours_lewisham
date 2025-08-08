@@ -43,6 +43,7 @@ import {
   Section,
   Grid,
   Flex,
+<<<<<<< Updated upstream
   Container,
 } from "@/components/ui";
 import { ServiceTimes, TodaysServices } from "@/components/church";
@@ -128,6 +129,17 @@ export default function MassTimes() {
 
     initMap();
   }, []);
+=======
+  Container
+} from '@/components/ui'
+import { ServiceTimes, TodaysServices } from '@/components/church'
+import { useUI, useActions } from '@/stores/churchStore'
+import { massTimings, confessionTimes, adorationTimes } from '@/lib/data'
+
+export default function MassTimes() {
+  const ui = useUI()
+  const actions = useActions()
+>>>>>>> Stashed changes
 
   // Enhanced animation variants
   const containerVariants = {
@@ -136,28 +148,47 @@ export default function MassTimes() {
       opacity: 1,
       transition: {
         duration: ui.reducedMotion ? 0.2 : 0.8,
+<<<<<<< Updated upstream
         staggerChildren: ui.reducedMotion ? 0 : 0.1,
       },
     },
   };
+=======
+        staggerChildren: ui.reducedMotion ? 0 : 0.1
+      }
+    }
+  }
+>>>>>>> Stashed changes
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
+<<<<<<< Updated upstream
       transition: { duration: ui.reducedMotion ? 0.2 : 0.6 },
     },
   };
+=======
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.6 }
+    }
+  }
+>>>>>>> Stashed changes
 
   const scaleVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
+<<<<<<< Updated upstream
       transition: { duration: ui.reducedMotion ? 0.2 : 0.5 },
     },
   };
+=======
+      transition: { duration: ui.reducedMotion ? 0.2 : 0.5 }
+    }
+  }
+>>>>>>> Stashed changes
 
   // Transform data for ServiceTimes component
   const serviceTimesData = [
@@ -284,6 +315,7 @@ export default function MassTimes() {
 
       {/* Live Mass Countdown */}
       <Section spacing="md" background="slate">
+<<<<<<< Updated upstream
         <Container>
           <ScrollRevealSection>
             <m.div
@@ -311,6 +343,23 @@ export default function MassTimes() {
                 live countdown to the next celebration.
               </p>
             </m.div>
+=======
+        <Container size="md">
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <Heading level="h2" color="white" align="center" className="mb-6">
+              Today's Services
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-100">
+              Join us for worship today
+            </Text>
+          </motion.div>
+>>>>>>> Stashed changes
 
             <LiveMassCountdown reducedMotion={ui.reducedMotion} />
           </ScrollRevealSection>
@@ -319,6 +368,7 @@ export default function MassTimes() {
 
       {/* Interactive Mass Calendar */}
       <Section spacing="lg" background="slate">
+<<<<<<< Updated upstream
         <Container>
           <ScrollRevealSection variant="reverent">
             <m.div
@@ -346,6 +396,23 @@ export default function MassTimes() {
                 throughout the month.
               </p>
             </m.div>
+=======
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-16"
+        >
+          <Heading level="h2" color="white" align="center" className="mb-6">
+            Weekly Mass Schedule
+          </Heading>
+          <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
+            Our regular weekly Mass times. Please note that times may vary during 
+            special liturgical seasons and holidays.
+          </Text>
+        </motion.div>
+>>>>>>> Stashed changes
 
             <InteractiveMassCalendar reducedMotion={ui.reducedMotion} />
           </ScrollRevealSection>
@@ -354,6 +421,7 @@ export default function MassTimes() {
 
       {/* Enhanced Weekly Mass Schedule with Scripture */}
       <Section spacing="lg" background="slate">
+<<<<<<< Updated upstream
         <Container>
           <ScrollRevealSection>
             <m.div
@@ -381,6 +449,52 @@ export default function MassTimes() {
                 seasons and holidays.
               </p>
             </m.div>
+=======
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-16"
+        >
+          <Heading level="h2" color="white" align="center" className="mb-6">
+            Additional Services
+          </Heading>
+          <Text size="xl" align="center" className="text-gray-100">
+            Other spiritual services available at our parish
+          </Text>
+        </motion.div>
+
+        <Grid cols={2} gap="lg">
+          {additionalServices.map((service, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: ui.reducedMotion ? 0 : index * 0.1 }}
+              className="group"
+            >
+              <Card variant="default" padding="lg" className="h-full border border-slate-600 hover:border-white transition-all duration-300 bg-white/10 backdrop-blur-sm">
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <motion.div 
+                        className="w-20 h-20 icon-container-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
+                        whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <service.icon className="h-10 w-10 text-black" />
+                      </motion.div>
+                      <Heading level="h3" color="white" align="center" className="text-2xl font-bold mb-2">
+                        {service.title}
+                      </Heading>
+                      <Text color="white" align="center" className="mb-6">
+                        {service.description}
+                      </Text>
+                    </div>
+>>>>>>> Stashed changes
 
             {/* Scripture Card about the Eucharist */}
             <div className="mb-16">
@@ -513,6 +627,7 @@ export default function MassTimes() {
                             )}
                           </div>
                         </div>
+<<<<<<< Updated upstream
                       </CardContent>
                     </Card>
                   </m.div>
@@ -520,6 +635,81 @@ export default function MassTimes() {
               </Grid>
             </PhotoSwipeLightbox>
           </ScrollRevealSection>
+=======
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </Grid>
+      </Section>
+
+      {/* Important Information */}
+      <Section spacing="lg" background="slate">
+        <Container size="md">
+          <motion.div
+            variants={scaleVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <Card variant="outlined" padding="lg" className="border border-slate-600 bg-white/10 backdrop-blur-sm">
+              <CardContent>
+                <div className="text-center space-y-6">
+                  <motion.div 
+                    className="w-16 h-16 icon-container-white rounded-full flex items-center justify-center mx-auto shadow-lg"
+                    whileHover={ui.reducedMotion ? {} : { scale: 1.1, rotate: 10 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Info className="h-8 w-8 text-black" />
+                  </motion.div>
+
+                  <Heading level="h3" color="white" align="center" className="text-2xl font-bold">
+                    Important Information
+                  </Heading>
+
+                  <div className="space-y-4 max-w-2xl mx-auto">
+                    <Text align="center" color="white">
+                      <strong>Special Occasions:</strong> Mass times may vary during Christmas, Easter, 
+                      and other special liturgical seasons. Please check our weekly newsletter or 
+                      contact the parish office for holiday schedules.
+                    </Text>
+                    
+                    <Text align="center" color="white">
+                      <strong>First Time Visitors:</strong> We warmly welcome all visitors to our services. 
+                      If you have any questions or need assistance, please don't hesitate to speak 
+                      with our welcoming team.
+                    </Text>
+                    
+                    <Text align="center" color="white">
+                      <strong>Accessibility:</strong> Our church is wheelchair accessible with designated 
+                      seating areas. Hearing loops are available for those with hearing aids.
+                    </Text>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-600">
+                    <Flex justify="center" gap="md" wrap>
+                      <Flex align="center" gap="sm">
+                        <Phone className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">020 8852 7411</Text>
+                      </Flex>
+                      <Flex align="center" gap="sm">
+                        <Mail className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">parish@saintsaviours.org.uk</Text>
+                      </Flex>
+                      <Flex align="center" gap="sm">
+                        <MapPin className="h-4 w-4 text-white" />
+                        <Text weight="medium" color="white">Brockley Rise, SE23 1NG</Text>
+                      </Flex>
+                    </Flex>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+>>>>>>> Stashed changes
         </Container>
       </Section>
 
@@ -723,6 +913,7 @@ export default function MassTimes() {
       {/* Enhanced Call to Action with Live Features */}
       <Section spacing="lg" background="slate">
         <Container size="md">
+<<<<<<< Updated upstream
           <ScrollRevealSection>
             <m.div
               initial={{ opacity: 0, y: 30 }}
@@ -842,6 +1033,54 @@ export default function MassTimes() {
               </div>
             </m.div>
           </ScrollRevealSection>
+=======
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center space-y-8"
+          >
+            <Heading level="h2" color="white" align="center">
+              Join Us for Worship
+            </Heading>
+            <Text size="xl" align="center" className="text-gray-100 max-w-3xl mx-auto">
+              Whether you're a regular parishioner or visiting for the first time, 
+              we invite you to join our community in worship and fellowship.
+            </Text>
+            
+            <motion.div variants={itemVariants} className="pt-4">
+              <Flex justify="center" gap="md" className="flex-col sm:flex-row">
+                <motion.div
+                  whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                  whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                >
+                  <Button 
+                    variant="primary" 
+                    size="lg" 
+                    leftIcon={<MapPin className="h-5 w-5" />}
+                    className="bg-white text-slate-900 hover:bg-gray-100 shadow-xl"
+                  >
+                    Get Directions
+                  </Button>
+                </motion.div>
+                <motion.div
+                  whileHover={ui.reducedMotion ? {} : { scale: 1.05, y: -2 }}
+                  whileTap={ui.reducedMotion ? {} : { scale: 0.95 }}
+                >
+                  <Button 
+                    variant="secondary" 
+                    size="lg" 
+                    leftIcon={<Phone className="h-5 w-5" />}
+                    className="border-white/30 text-white hover:bg-white/10 hover:border-white"
+                  >
+                    Contact Us
+                  </Button>
+                </motion.div>
+              </Flex>
+            </motion.div>
+          </motion.div>
+>>>>>>> Stashed changes
         </Container>
       </Section>
     </PageLayout>
