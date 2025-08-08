@@ -8,6 +8,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
+import { ErrorBoundary } from '@/components/shared/error';
+import { PageErrorFallback } from '@/components/shared/error';
+import { createErrorReporter } from '@/lib/error-reporting';
 
 // Typography
 import { fontClasses } from '@/lib/fonts';
@@ -172,23 +175,28 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       
       {/* Provider Stack */}
-      <QueryProvider>
-        <ThemeProvider>
-          <LazyMotionProvider>
-            <div className={fontClasses.all}>
-              <Component {...pageProps} />
-              
-              {/* Performance Monitoring */}
-              {enablePerformanceMonitoring && (
-                <>
-                  <Analytics />
-                  <SpeedInsights />
-                </>
-              )}
-            </div>
-          </LazyMotionProvider>
-        </ThemeProvider>
-      </QueryProvider>
+      <ErrorBoundary
+        fallback={<PageErrorFallback context="application" />}
+        onError={createErrorReporter('app-level')}
+      >
+        <QueryProvider>
+          <ThemeProvider>
+            <LazyMotionProvider>
+              <div className={fontClasses.all}>
+                <Component {...pageProps} />
+                
+                {/* Performance Monitoring */}
+                {enablePerformanceMonitoring && (
+                  <>
+                    <Analytics />
+                    <SpeedInsights />
+                  </>
+                )}
+              </div>
+            </LazyMotionProvider>
+          </ThemeProvider>
+        </QueryProvider>
+      </ErrorBoundary>
     </>
   );
 }

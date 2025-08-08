@@ -52,12 +52,8 @@ import {
 import { prefersReducedMotion } from "@/lib/utils";
 
 // Enhanced Components
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { PolicyPageScriptureSection } from '@/components/shared/content';
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { PolicyPageSocialSystem } from '@/components/shared/social';
 
 // Enhanced Components for Accessibility Statement
 interface AccessibilityTest {
@@ -926,10 +922,11 @@ export default function AccessibilityStatement() {
         {/* Social Sharing */}
         <Section spacing="lg" background="slate">
           <Container size="lg">
-            <SocialSharingSystem
-              articleId="accessibility-statement"
+            <PolicyPageSocialSystem
+              pageContext="accessibility-statement"
               title="Accessibility Statement - St Saviour's Catholic Church"
               url="https://stsaviourlewisham.org.uk/accessibility-statement"
+              reducedMotion={reducedMotion}
             />
           </Container>
         </Section>

@@ -48,17 +48,8 @@ import {
   LiveStreamingDashboard,
   StreamingAnalytics,
 } from "@/components/enhanced";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-// import { InteractiveStreamingSchedule } from '@/components/enhanced/InteractiveStreamingSchedule'
-// import { VirtualCommunionIntegration } from '@/components/enhanced/VirtualCommunionIntegration'
-// import { LiveChatSystem } from '@/components/enhanced/LiveChatSystem'
-// import { PrayerIntentionSubmission } from '@/components/enhanced/PrayerIntentionSubmission'
-// import { StreamingQualityControls } from '@/components/enhanced/StreamingQualityControls'
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MediaPageSocialSystem } from '@/components/shared/social';
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -766,10 +757,11 @@ export default function Streaming() {
       </Section>
 
       {/* Social Sharing Modal */}
-      <SocialSharingSystem
-        articleId="live-stream"
+      <MediaPageSocialSystem
+        pageContext="streaming"
         title="Live Streaming at St Saviour's"
         url="https://stsaviourlewisham.org.uk/streaming"
+        reducedMotion={ui.reducedMotion}
       />
 
       {/* Performance Monitor */}

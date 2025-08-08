@@ -32,23 +32,13 @@ import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { InteractiveStatistics } from "@/components/enhanced/InteractiveStatistics";
 import { EnhancedTimeline } from "@/components/enhanced/EnhancedTimeline";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
 import { LeadershipCarousel } from "@/components/enhanced/LeadershipCarousel";
-// PhotoSwipe consolidated into shared component
-// import {
-//   PhotoSwipeLightbox,
-//   EnhancedImage,
-// } from "@/components/enhanced/PhotoSwipeLightbox";
 import { MainPagePhotoSwipe, type SharedGalleryImage } from '@/components/shared/gallery';
-// New Magic UI & Enhanced Components
 import { AnimatedTestimonials } from "@/components/enhanced/AnimatedTestimonials";
 import { LiveOfficeHours } from "@/components/enhanced/LiveOfficeHours";
 import { PrayerRequestWidget } from "@/components/enhanced/PrayerRequestWidget";
-// import { VirtualTourButton } from '@/components/enhanced/VirtualTourButton'
 import { ParticleBackground } from "@/components/enhanced/ParticleBackground";
-// import { EnhancedTooltip } from '@/components/enhanced/EnhancedTooltip'
 import { ProgressIndicator } from "@/components/enhanced/ProgressIndicator";
 import { FloatingActionButton } from "@/components/enhanced/FloatingActionButton";
 
@@ -152,10 +142,10 @@ export default function AboutUs() {
       };
     }, [sectionIds]);
 
-    return activeSection;
+    return [activeSection, setActiveSection] as const;
   }
 
-  const activeSection = useActiveSection([
+  const [activeSection, setActiveSection] = useActiveSection([
     'welcome',
     'statistics', 
     'mission',
@@ -192,7 +182,7 @@ export default function AboutUs() {
     setTimeout(() => {
       actions.addNotification({
         type: "success",
-        message: "🏛️ Welcome to our parish story",
+        message: "Welcome to our parish story",
         dismissible: true,
       });
     }, 1000);

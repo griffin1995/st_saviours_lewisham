@@ -363,7 +363,7 @@ export const EnhancedStaffDirectory: React.FC<EnhancedStaffDirectoryProps> = ({
                         <h4 className="text-sm font-semibold text-white mb-2">Contact Information:</h4>
                         <div className="space-y-1 text-sm text-gray-300">
                           <p>📧 {staff.email}</p>
-                          {staff.phone && <p>📞 {staff.phone}</p>}
+                          {staff.phone && <p>Phone: {staff.phone}</p>}
                           <p>🕒 {staff.availability}</p>
                         </div>
                       </div>

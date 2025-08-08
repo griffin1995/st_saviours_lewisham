@@ -45,17 +45,8 @@ import {
   EnhancedGroupCard,
   AnimatedWeeklySchedule,
 } from "@/components/enhanced";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-// import { InteractiveMemberDirectory } from '@/components/enhanced/InteractiveMemberDirectory'
-// import { VirtualGroupMeeting } from '@/components/enhanced/VirtualGroupMeeting'
-// import { GroupRegistrationSystem } from '@/components/enhanced/GroupRegistrationSystem'
-// import { GroupTestimonialsCarousel } from '@/components/enhanced/GroupTestimonialsCarousel'
-// import { PrayerRequestIntegration } from '@/components/enhanced/PrayerRequestIntegration'
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MainPageSocialSystem } from '@/components/shared/social';
 import { motion, m } from "framer-motion";
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
@@ -995,10 +986,11 @@ export default function ParishGroups() {
       </Section>
 
       {/* Social Sharing Modal */}
-      <SocialSharingSystem
-        articleId="parish-groups"
+      <MainPageSocialSystem
+        pageContext="parish-groups"
         title="Parish Groups at St Saviour's"
         url="https://stsaviourlewisham.org.uk/parish-groups"
+        reducedMotion={ui.reducedMotion}
       />
 
       {/* Performance Monitor */}

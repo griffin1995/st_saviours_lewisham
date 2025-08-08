@@ -14,7 +14,7 @@ import {
   InformationCircleIcon,
   AdjustmentsHorizontalIcon,
   DocumentTextIcon,
-  KeyboardIcon,
+  CommandLineIcon,
   ComputerDesktopIcon,
   DevicePhoneMobileIcon
 } from '@heroicons/react/24/solid'
@@ -288,7 +288,7 @@ export const AccessibilityEnhancer: React.FC<AccessibilityEnhancerProps> = ({
       case 'visual':
         return <EyeIcon className="h-4 w-4" />
       case 'motor':
-        return <KeyboardIcon className="h-4 w-4" />
+        return <CommandLineIcon className="h-4 w-4" />
       case 'cognitive':
         return <DocumentTextIcon className="h-4 w-4" />
       case 'hearing':
@@ -349,7 +349,7 @@ export const AccessibilityEnhancer: React.FC<AccessibilityEnhancerProps> = ({
               className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
               aria-label="Show keyboard shortcuts"
             >
-              <KeyboardIcon className="h-5 w-5 text-gray-600" />
+              <CommandLineIcon className="h-5 w-5 text-gray-600" />
             </button>
             <button
               onClick={() => setShowSettings(!showSettings)}
@@ -467,7 +467,7 @@ export const AccessibilityEnhancer: React.FC<AccessibilityEnhancerProps> = ({
               {/* Motor Settings */}
               <div className="space-y-4">
                 <h5 className="font-medium text-slate-900 flex items-center gap-2">
-                  <KeyboardIcon className="h-4 w-4" />
+                  <CommandLineIcon className="h-4 w-4" />
                   Motor & Navigation
                 </h5>
 

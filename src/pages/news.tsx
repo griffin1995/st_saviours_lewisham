@@ -38,20 +38,17 @@ import { Bar } from "react-chartjs-2";
 import { motion, m } from "framer-motion";
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
-import {
-  PhotoSwipeLightbox,
-  EnhancedImage,
-} from "@/components/enhanced/PhotoSwipeLightbox";
+// CMS DATA SOURCE: Lazy-loaded enhanced components following React official pattern
+import { lazy, Suspense } from "react";
+import { ComponentLoading } from "@/components/lazy";
+const PhotoSwipeLightbox = lazy(() => import("@/components/enhanced/PhotoSwipeLightbox").then(module => ({ default: module.PhotoSwipeLightbox })));
+const EnhancedImage = lazy(() => import("@/components/enhanced/PhotoSwipeLightbox").then(module => ({ default: module.EnhancedImage })));
+const EnhancedNewsletterForm = lazy(() => import("@/components/enhanced/EnhancedNewsletterForm").then(module => ({ default: module.EnhancedNewsletterForm })));
+const AdvancedSearchSystem = lazy(() => import("@/components/enhanced/AdvancedSearchSystem").then(module => ({ default: module.AdvancedSearchSystem })));
+const ArticleBookmarkSystem = lazy(() => import("@/components/enhanced/ArticleBookmarkSystem").then(module => ({ default: module.ArticleBookmarkSystem })));
 // ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-import { EnhancedNewsletterForm } from "@/components/enhanced/EnhancedNewsletterForm";
-import { AdvancedSearchSystem } from "@/components/enhanced/AdvancedSearchSystem";
-import { ArticleBookmarkSystem } from "@/components/enhanced/ArticleBookmarkSystem";
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { ReadingProgressIndicator } from '@/components/enhanced/ReadingProgressIndicator'
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MainPageSocialSystem } from '@/components/shared/social';
 
 // Modern imports with Zustand integration
 import { PageLayout, PageHero } from "@/components/layout";
@@ -1080,16 +1077,18 @@ export default function News() {
                           <CardContent className="p-6">
                             {/* Article Image */}
                             <div className="relative mb-4 overflow-hidden rounded-xl">
-                              <EnhancedImage
-                                src={
-                                  article.image ||
-                                  "/images/placeholder-article.jpg"
-                                }
+                              <Suspense fallback={<ComponentLoading />}>
+                                <EnhancedImage
+                                  src={
+                                    article.image ||
+                                    "/images/placeholder-article.jpg"
+                                  }
                                 alt={article.title}
                                 width={400}
                                 height={200}
                                 className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
+                                />
+                              </Suspense>
                               <div className="absolute top-3 right-3 flex items-center gap-2">
                                 <m.button
                                   whileHover={{ scale: 1.1 }}
@@ -1225,16 +1224,18 @@ export default function News() {
                           <CardContent className="p-6">
                             <div className="flex items-start gap-6">
                               <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-xl">
-                                <EnhancedImage
-                                  src={
-                                    article.image ||
-                                    "/images/placeholder-article.jpg"
-                                  }
-                                  alt={article.title}
-                                  width={96}
-                                  height={96}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                                <Suspense fallback={<ComponentLoading />}>
+                                  <EnhancedImage
+                                    src={
+                                      article.image ||
+                                      "/images/placeholder-article.jpg"
+                                    }
+                                    alt={article.title}
+                                    width={96}
+                                    height={96}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  />
+                                </Suspense>
                               </div>
 
                               <div className="flex-1 space-y-2">
@@ -1350,16 +1351,18 @@ export default function News() {
                             <CardContent className="p-6">
                               <div className="flex items-start gap-6">
                                 <div className="relative w-20 h-20 flex-shrink-0 overflow-hidden rounded-xl">
-                                  <EnhancedImage
-                                    src={
-                                      article.image ||
-                                      "/images/placeholder-article.jpg"
-                                    }
-                                    alt={article.title}
-                                    width={80}
-                                    height={80}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  />
+                                  <Suspense fallback={<ComponentLoading />}>
+                                    <EnhancedImage
+                                      src={
+                                        article.image ||
+                                        "/images/placeholder-article.jpg"
+                                      }
+                                      alt={article.title}
+                                      width={80}
+                                      height={80}
+                                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    />
+                                  </Suspense>
                                 </div>
 
                                 <div className="flex-1 space-y-2">
@@ -1528,11 +1531,13 @@ export default function News() {
                         </p>
                       </div>
 
-                      <EnhancedNewsletterForm
-                        onSubmit={handleNewsletterSubmit}
-                        reducedMotion={ui.reducedMotion}
-                        className="space-y-4"
-                      />
+                      <Suspense fallback={<ComponentLoading />}>
+                        <EnhancedNewsletterForm
+                          onSubmit={handleNewsletterSubmit}
+                          reducedMotion={ui.reducedMotion}
+                          className="space-y-4"
+                        />
+                      </Suspense>
 
                       <div className="flex items-center gap-4 pt-4 border-t border-slate-600">
                         <div className="flex items-center gap-2">

@@ -45,12 +45,8 @@ import {
 import { prefersReducedMotion } from "@/lib/utils";
 
 // Enhanced Components
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { PolicyPageScriptureSection } from '@/components/shared/content';
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { PolicyPageSocialSystem } from '@/components/shared/social';
 
 const cookieTypes = [
   {
@@ -1409,7 +1405,7 @@ export default function CookiePolicy() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                        📞 020 8852 7411
+                        Phone: 020 8852 7411
                       </Text>
                     </m.a>
                     <m.a
@@ -1418,7 +1414,7 @@ export default function CookiePolicy() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                        ✉️ info@stsaviourslewisham.org.uk
+                        Email: info@stsaviourslewisham.org.uk
                       </Text>
                     </m.a>
                   </Flex>
@@ -1440,13 +1436,13 @@ export default function CookiePolicy() {
                   Manage Cookie Settings
                 </Button>
 
-                <SocialSharingSystem
-                  articleId="cookie-policy-page"
+                <PolicyPageSocialSystem
+                  pageContext="cookie-policy"
                   url={
                     typeof window !== "undefined" ? window.location.href : ""
                   }
                   title="Cookie Policy - St Saviour's"
-                  onShare={(platform) => console.log(`Shared on ${platform}`)}
+                  reducedMotion={reducedMotion}
                 />
               </div>
             </div>

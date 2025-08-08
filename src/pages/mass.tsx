@@ -26,7 +26,6 @@ import { MassParticipationGuide } from "@/components/enhanced/MassParticipationG
 import { LiveMassCountdown } from "@/components/enhanced/LiveMassCountdown";
 import { MassStatistics } from "@/components/enhanced/MassStatistics";
 // ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
 import {
   PhotoSwipeLightbox,

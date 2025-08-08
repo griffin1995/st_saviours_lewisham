@@ -131,7 +131,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
         cls: Math.random() * 0.1, // 0-0.1
         fcp: fcp || Math.random() * 1500 + 500,
         ttfb: navigation?.responseStart - navigation?.requestStart || Math.random() * 200 + 100,
-        loadTime: navigation?.loadEventEnd - navigation?.navigationStart || Math.random() * 3000 + 1000,
+        loadTime: navigation?.loadEventEnd - navigation?.startTime || Math.random() * 3000 + 1000,
         renderTime: Math.random() * 100 + 50,
         interactionTime: Math.random() * 50 + 20,
         jsSize,

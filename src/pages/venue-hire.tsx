@@ -45,18 +45,13 @@ import {
   type Venue,
   type VenueEnquiryData,
 } from "@/components/church";
-import { EnhancedVenueCard, AnimatedTestimonials } from "@/components/enhanced";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
+// CMS DATA SOURCE: Lazy-loaded enhanced components following React official pattern
+import { lazy, Suspense } from "react";
+import { ComponentLoading } from "@/components/lazy";
+const EnhancedVenueCard = lazy(() => import("@/components/enhanced/EnhancedVenueCard").then(module => ({ default: module.EnhancedVenueCard })));
+const AnimatedTestimonials = lazy(() => import("@/components/enhanced/AnimatedTestimonials").then(module => ({ default: module.AnimatedTestimonials })));
 import { MainPageScriptureSection } from '@/components/shared/content';
-// import { InteractiveBookingCalendar } from '@/components/enhanced/InteractiveBookingCalendar'
-// import { VirtualVenueTour } from '@/components/enhanced/VirtualVenueTour'
-// import { RealTimeAvailabilityChecker } from '@/components/enhanced/RealTimeAvailabilityChecker'
-// import { VenueComparisonTool } from '@/components/enhanced/VenueComparisonTool'
-// import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MainPageSocialSystem } from '@/components/shared/social';
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -784,14 +779,15 @@ export default function VenueHire() {
 
           <div className="space-y-12">
             {venues.map((venue, index) => (
-              <EnhancedVenueCard
-                key={venue.id}
-                venue={venue}
-                imagePosition={index % 2 === 1 ? "right" : "left"}
+              <Suspense key={venue.id} fallback={<ComponentLoading />}>
+                <EnhancedVenueCard
+                  venue={venue}
+                  imagePosition={index % 2 === 1 ? "right" : "left"}
                 onBookClick={handleVenueBooking}
                 reducedMotion={reducedMotion}
                 featured={index === 0} // Make first venue featured
-              />
+                />
+              </Suspense>
             ))}
           </div>
         </Container>
@@ -971,7 +967,9 @@ export default function VenueHire() {
       {/* Testimonials Section */}
       <Section spacing="lg" background="white">
         <Container size="lg">
-          <AnimatedTestimonials reducedMotion={reducedMotion} />
+          <Suspense fallback={<ComponentLoading />}>
+            <AnimatedTestimonials reducedMotion={reducedMotion} />
+          </Suspense>
         </Container>
       </Section>
 
@@ -1098,14 +1096,11 @@ export default function VenueHire() {
 
       {/* Social Sharing Modal */}
       {isShareModalOpen && (
-        <SocialSharingSystem
-          articleId="venue-share"
+        <MainPageSocialSystem
+          pageContext="venue-hire"
           url={typeof window !== "undefined" ? window.location.href : ""}
           title="St Saviour's Venue Hire"
-          onShare={(platform) => {
-            console.log(`Shared on ${platform}`);
-            setIsShareModalOpen(false);
-          }}
+          reducedMotion={ui.reducedMotion}
         />
       )}
 

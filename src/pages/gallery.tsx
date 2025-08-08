@@ -49,16 +49,8 @@ import {
 //   EnhancedPhotoSwipeLightbox,
 // } from "@/components/enhanced";
 import { GalleryPagePhotoSwipe, type SharedGalleryImage } from '@/components/shared/gallery';
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { GalleryAnalyticsDashboard } from '@/components/enhanced/GalleryAnalyticsDashboard'
-// import { VirtualTourIntegration } from '@/components/enhanced/VirtualTourIntegration'
-// import { LivePhotoUpload } from '@/components/enhanced/LivePhotoUpload'
-// import { PrayerfulReflectionCard } from '@/components/enhanced/PrayerfulReflectionCard'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
+import { MediaPageSocialSystem } from '@/components/shared/social';
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -910,10 +902,11 @@ export default function Gallery() {
       {/* Enhanced PhotoSwipe Lightbox - CONSOLIDATED INTO GALLERY COMPONENT */}
 
       {/* Social Sharing Modal */}
-      <SocialSharingSystem
-        articleId="gallery-image"
+      <MediaPageSocialSystem
+        pageContext="gallery"
         title="St Saviour's Gallery"
         url="https://stsaviourlewisham.org.uk/gallery"
+        reducedMotion={ui.reducedMotion}
       />
 
       {/* Performance Monitor */}

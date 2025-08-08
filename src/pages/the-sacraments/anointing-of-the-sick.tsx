@@ -52,9 +52,8 @@ import { getContactPhone, getContactEmail } from '@/lib/cms-content'
 
 // Enhanced Components
 // ScriptureCard consolidated into shared component
-// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
 import { SacramentalScriptureSection } from '@/components/shared/content'
-import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { SacramentalSocialSystem } from '@/components/shared/social'
 import SacramentalAnalytics from '@/components/enhanced/SacramentalAnalytics'
 
 // Enhanced Components for Anointing of the Sick
@@ -795,7 +794,7 @@ export default function AnointingOfTheSick() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                        📞 020 8852 7411
+                        Phone: 020 8852 7411
                       </Text>
                     </m.a>
                     <m.a 
@@ -804,7 +803,7 @@ export default function AnointingOfTheSick() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                        ✉️ info@stsaviourslewisham.org.uk
+                        Email: info@stsaviourslewisham.org.uk
                       </Text>
                     </m.a>
                   </Flex>
@@ -823,11 +822,11 @@ export default function AnointingOfTheSick() {
                   </Button>
                 </Link>
                 
-                <SocialSharingSystem
-                  articleId="anointing-page"
+                <SacramentalSocialSystem
+                  pageContext="anointing-of-the-sick"
                   url={typeof window !== 'undefined' ? window.location.href : ''}
                   title="Anointing of the Sick at St Saviour's"
-                  onShare={(platform) => console.log(`Shared on ${platform}`)}
+                  reducedMotion={reducedMotion}
                 />
               </div>
             </div>

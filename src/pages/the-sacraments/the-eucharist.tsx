@@ -57,15 +57,9 @@ import {
   Flex
 } from '@/components/ui'
 import { SacramentInfo } from '@/components/church'
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from '@/components/enhanced/ScriptureCard'
 import { SacramentalScriptureSection } from '@/components/shared/content'
-import { SocialSharingSystem } from '@/components/enhanced/SocialSharingSystem'
+import { SacramentalSocialSystem } from '@/components/shared/social'
 import { ProgressIndicator } from '@/components/enhanced/ProgressIndicator'
-// import { SacramentalAnalytics } from '@/components/enhanced/SacramentalAnalytics'
-// import { SacramentalPreparationGuide } from '@/components/enhanced/SacramentalPreparationGuide'
-// import { FirstCommunionTracker } from '@/components/enhanced/FirstCommunionTracker'
-// import { MassPartsExplainer } from '@/components/enhanced/MassPartsExplainer'
 import { prefersReducedMotion } from '@/lib/utils'
 // CMS DATA SOURCE: Import sacrament image functions
 import { getSacramentImage } from '@/lib/cms-images'
@@ -613,10 +607,11 @@ export default function TheEucharist() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <SocialSharingSystem 
-              articleId="eucharist-sacrament"
+            <SacramentalSocialSystem 
+              pageContext="eucharist"
               title="The Eucharist - Source and Summit of Christian Life | St Saviour's Catholic Church"
               url="https://stsaviourlewisham.org.uk/the-sacraments/the-eucharist"
+              reducedMotion={reducedMotion}
             />
           </m.div>
         </Container>
@@ -657,12 +652,12 @@ export default function TheEucharist() {
                 <Flex justify="center" gap="lg" wrap>
                   <a href="tel:020 8852 7411">
                     <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                      📞 020 8852 7411
+                      Phone: 020 8852 7411
                     </Text>
                   </a>
                   <a href="mailto:info@stsaviourslewisham.org.uk">
                     <Text className="text-white hover:text-gray-200 font-medium transition-colors">
-                      ✉️ info@stsaviourslewisham.org.uk
+                      Email: info@stsaviourslewisham.org.uk
                     </Text>
                   </a>
                 </Flex>

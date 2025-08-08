@@ -197,7 +197,7 @@ function ContextDemo() {
 }
 
 // CMS DATA SOURCE: Main demo component - simple React docs pattern
-export function ChurchDataDemo() {
+export default function ChurchDataDemo() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -232,3 +232,5 @@ export function ChurchDataDemo() {
     </div>
   );
 }
+
+export { ChurchDataDemo };

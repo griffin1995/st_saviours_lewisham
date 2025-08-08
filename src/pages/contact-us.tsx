@@ -29,7 +29,6 @@ import { EmergencyContactSystem } from "@/components/enhanced/EmergencyContactSy
 // } from "@/components/enhanced/PhotoSwipeLightbox";
 import { MainPagePhotoSwipe, type SharedGalleryImage } from '@/components/shared/gallery';
 // ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
 
 // Modern imports with Zustand integration

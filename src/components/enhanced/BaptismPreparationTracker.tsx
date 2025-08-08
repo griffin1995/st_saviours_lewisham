@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { m, AnimatePresence, m } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   CheckCircleIcon,
   ClockIcon,

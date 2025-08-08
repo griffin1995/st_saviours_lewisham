@@ -358,14 +358,14 @@ export default function SacramentInfo({
                   {contactInfo.phone && (
                     <a href={`tel:${contactInfo.phone}`}>
                       <Text className="text-gold-400 hover:text-gold-300 font-medium">
-                        📞 {contactInfo.phone}
+                        Phone: {contactInfo.phone}
                       </Text>
                     </a>
                   )}
                   {contactInfo.email && (
                     <a href={`mailto:${contactInfo.email}`}>
                       <Text className="text-gold-400 hover:text-gold-300 font-medium">
-                        ✉️ {contactInfo.email}
+                        Email: {contactInfo.email}
                       </Text>
                     </a>
                   )}

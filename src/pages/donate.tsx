@@ -49,17 +49,8 @@ import {
   DonationStats,
   type DonationFormData,
 } from "@/components/church";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-// import { EnhancedDonationTracker } from '@/components/enhanced/EnhancedDonationTracker'
-// import { PaymentIntegrationPreview } from '@/components/enhanced/PaymentIntegrationPreview'
-// import { DonationImpactCalculator } from '@/components/enhanced/DonationImpactCalculator'
-// import { RecurringDonationManager } from '@/components/enhanced/RecurringDonationManager'
-// import { DonationTestimonials } from '@/components/enhanced/DonationTestimonials'
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MainPageSocialSystem } from '@/components/shared/social';
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -1033,13 +1024,10 @@ export default function Donate() {
       </Section>
 
       {/* Social Sharing Modal */}
-      <SocialSharingSystem
-        articleId="donations"
+      <MainPageSocialSystem
+        pageContext="donate"
         title="Support St Saviour's Catholic Church - Donate"
         url="https://stsaviourlewisham.org.uk/donate"
-        onShare={(platform) =>
-          console.log(`Shared donation page on ${platform}`)
-        }
         reducedMotion={ui.reducedMotion}
       />
 

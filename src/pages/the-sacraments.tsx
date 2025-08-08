@@ -40,17 +40,8 @@ import {
   Flex,
 } from "@/components/ui";
 import { SacramentCard, type Sacrament } from "@/components/church";
-// ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-// import { InteractiveSacramentalJourney } from '@/components/enhanced/InteractiveSacramentalJourney'
-// import { SacramentalPreparationTracker } from '@/components/enhanced/SacramentalPreparationTracker'
-// import { SacramentalCalendarIntegration } from '@/components/enhanced/SacramentalCalendarIntegration'
-// import { SpiritualGrowthTracker } from '@/components/enhanced/SpiritualGrowthTracker'
-// import { SacramentalResourcesLibrary } from '@/components/enhanced/SacramentalResourcesLibrary'
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-// import { PerformanceMonitor } from '@/components/enhanced/PerformanceMonitor'
-// import { AccessibilityEnhancer } from '@/components/enhanced/AccessibilityEnhancer'
+import { MainPageSocialSystem } from '@/components/shared/social';
 import { typographyScale } from "@/lib/fonts";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -887,10 +878,11 @@ export default function TheSacraments() {
         </Section>
 
         {/* Social Sharing Modal */}
-        <SocialSharingSystem
-          articleId="the-sacraments"
+        <MainPageSocialSystem
+          pageContext="the-sacraments"
           title="The Seven Sacraments at St Saviour's"
           url="https://stsaviourlewisham.org.uk/the-sacraments"
+          reducedMotion={ui.reducedMotion}
         />
       </>
     </PageLayout>

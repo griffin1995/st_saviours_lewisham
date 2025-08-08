@@ -39,9 +39,8 @@ import {
   type PodcastEpisode,
 } from "@/components/church";
 // ScriptureCard consolidated into shared component
-// import { ScriptureCard } from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
+import { MediaPageSocialSystem } from '@/components/shared/social';
 import { ProgressIndicator } from "@/components/enhanced/ProgressIndicator";
 import { prefersReducedMotion } from "@/lib/utils";
 
@@ -718,10 +717,11 @@ export default function Podcasts() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <SocialSharingSystem
-                  articleId="podcasts"
+                <MediaPageSocialSystem
+                  pageContext="podcasts"
                   title="St Saviour's Podcasts - Faith On-the-Go"
                   url="https://stsaviourlewisham.org.uk/podcasts"
+                  reducedMotion={reducedMotion}
                 />
               </m.div>
             </div>

@@ -38,14 +38,17 @@ import {
   Container,
 } from "@/components/ui";
 import { LocationCard, MapEmbed, BusRoutesGrid } from "@/components/church";
-import LocationAnalytics from "@/components/enhanced/LocationAnalytics";
-import VirtualChurchTour from "@/components/enhanced/VirtualChurchTour";
-import { LiveOfficeHours } from "@/components/enhanced/LiveOfficeHours";
+import { lazy, Suspense } from "react";
+import { ComponentLoading } from "@/components/lazy";
 // ScriptureCard consolidated into shared component
-// import ScriptureCard from "@/components/enhanced/ScriptureCard";
 import { MainPageScriptureSection } from '@/components/shared/content';
-import { SocialSharingSystem } from "@/components/enhanced/SocialSharingSystem";
-import { ProgressIndicator } from "@/components/enhanced/ProgressIndicator";
+import { MainPageSocialSystem } from '@/components/shared/social';
+
+// CMS DATA SOURCE: Lazy-loaded enhanced components following React official pattern
+const LocationAnalytics = lazy(() => import("@/components/enhanced/LocationAnalytics"));
+const VirtualChurchTour = lazy(() => import("@/components/enhanced/VirtualChurchTour"));
+const LiveOfficeHours = lazy(() => import("@/components/enhanced/LiveOfficeHours").then(module => ({ default: module.LiveOfficeHours })));
+const ProgressIndicator = lazy(() => import("@/components/enhanced/ProgressIndicator").then(module => ({ default: module.ProgressIndicator })));
 import { prefersReducedMotion } from "@/lib/utils";
 
 export default function FindUs() {
@@ -482,8 +485,11 @@ export default function FindUs() {
                 />
               </div>
               <div className="space-y-6">
-                <LocationAnalytics />
-                <LiveOfficeHours
+                <Suspense fallback={<ComponentLoading />}>
+                  <LocationAnalytics />
+                </Suspense>
+                <Suspense fallback={<ComponentLoading />}>
+                  <LiveOfficeHours
                   schedule={{
                     Monday: { open: "09:00", close: "17:00" },
                     Tuesday: { open: "09:00", close: "17:00" },
@@ -493,7 +499,8 @@ export default function FindUs() {
                     Saturday: { open: "09:00", close: "12:00" },
                     Sunday: { open: "08:00", close: "12:00" },
                   }}
-                />
+                  />
+                </Suspense>
               </div>
             </div>
           </Container>
@@ -791,7 +798,9 @@ export default function FindUs() {
         {/* Virtual Church Tour */}
         <Section spacing="lg" background="slate">
           <Container size="lg">
-            <VirtualChurchTour />
+            <Suspense fallback={<ComponentLoading />}>
+              <VirtualChurchTour />
+            </Suspense>
           </Container>
         </Section>
 
@@ -850,10 +859,11 @@ export default function FindUs() {
               </Flex>
 
               <div className="pt-8">
-                <SocialSharingSystem
-                  articleId="find-us"
+                <MainPageSocialSystem
+                  pageContext="find-us"
                   title="Find St Saviour's Catholic Church Lewisham"
                   url="https://stsaviourlewisham.org.uk/find-us"
+                  reducedMotion={reducedMotion}
                 />
               </div>
             </m.div>
@@ -861,10 +871,12 @@ export default function FindUs() {
         </Section>
 
         {/* Progress Indicator */}
-        <ProgressIndicator
-          sections={["Location", "Transport", "Accessibility", "Contact"]}
-          activeSection={activeSection}
-        />
+        <Suspense fallback={<div className="h-4 bg-slate-600 rounded w-full animate-pulse"></div>}>
+          <ProgressIndicator
+            sections={["Location", "Transport", "Accessibility", "Contact"]}
+            activeSection={activeSection}
+          />
+        </Suspense>
       </main>
     </PageLayout>
   );
